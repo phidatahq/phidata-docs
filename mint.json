@@ -1,11 +1,11 @@
 {
   "$schema": "https://mintlify.com/schema.json",
-  "name": "Starter Kit",
+  "name": "Phidata",
   "logo": {
     "dark": "/logo/dark.svg",
     "light": "/logo/light.svg"
   },
-  "favicon": "/favicon.svg",
+  "favicon": "/favicon.png",
   "colors": {
     "primary": "#0D9373",
     "light": "#07C983",
@@ -17,62 +17,141 @@
   },
   "topbarLinks": [
     {
-      "name": "Support",
-      "url": "mailto:hi@mintlify.com"
+      "name": "Sign in",
+      "url": "https://phidata.app/login"
     }
   ],
   "topbarCtaButton": {
-    "name": "Dashboard",
-    "url": "https://dashboard.mintlify.com"
+    "name": "Get Started",
+    "url": "https://phidata.app/login"
   },
-  "tabs": [
-    {
-      "name": "API Reference",
-      "url": "api-reference"
-    }
-  ],
   "anchors": [
     {
-      "name": "Documentation",
-      "icon": "book-open-cover",
-      "url": "https://mintlify.com/docs"
+      "name": "Reference",
+      "icon": "code",
+      "url": "api-reference"
     },
     {
-      "name": "Community",
-      "icon": "slack",
-      "url": "https://mintlify.com/community"
+      "name": "Support",
+      "icon": "discord",
+      "url": "https://discord.com/invite/4MtYHHrgA8"
     },
     {
-      "name": "Blog",
-      "icon": "newspaper",
-      "url": "https://mintlify.com/blog"
+      "name": "GitHub",
+      "icon": "github",
+      "url": "https://github.com/phidatahq/phidata"
     }
   ],
   "navigation": [
     {
-      "group": "Get Started",
-      "pages": ["introduction", "quickstart", "development"]
-    },
-    {
-      "group": "Essentials",
-      "pages": ["essentials/markdown", "essentials/code", "essentials/images", "essentials/settings", "essentials/navigation"]
-    },
-    {
-      "group": "API Documentation",
-      "pages": ["api-reference/introduction"]
-    },
-    {
-      "group": "Endpoint Examples",
+      "group": "Documentation",
       "pages": [
-        "api-reference/endpoint/get",
-        "api-reference/endpoint/create",
-        "api-reference/endpoint/delete"
+          "introduction",
+          "basics",
+          {
+            "group": "Examples",
+            "pages": [
+                "examples/rag-llm-app",
+                "examples/auto-llm-app",
+                "examples/multimodal-llm-app",
+                "examples/junior-de",
+                "examples/snowflake-llm"
+            ]
+          },
+          {
+            "group": "Building Blocks",
+            "pages": [
+                "blocks/introduction",
+                "blocks/conversations",
+                "blocks/assistants",
+                "blocks/tasks",
+                "blocks/knowledge-base",
+                "blocks/storage",
+                "blocks/memory",
+                "blocks/agents",
+                "blocks/llms",
+                "blocks/apps",
+                "blocks/resources",
+                "blocks/workspaces"
+            ]
+          },
+          {
+            "group": "Cookbooks",
+            "pages": [
+                "recipe/conversations",
+                "recipe/tasks"
+            ]
+          }
+      ]
+    },
+    {
+      "group": "Learn",
+      "pages": [
+        {
+          "group": "Day 2",
+          "pages": [
+              "day-2-operations",
+              "day-2/git-repo",
+              "day-2/new-users",
+              "day-2/dev-app",
+              "day-2/production-app",
+              "day-2/python-libraries",
+              "day-2/secrets",
+              "day-2/env-vars",
+              "day-2/database-tables",
+              "day-2/format-and-validate",
+              "day-2/ci-cd",
+              "day-2/domain-https",
+              "day-2/ssh-access"
+          ]
+        },
+        {
+          "group": "Running locally",
+          "pages": [
+              "local/install",
+              "local/docker",
+              "local/create-resources",
+              "local/update-resources",
+              "local/delete-resources",
+              "local/managing-secrets",
+              "local/managing-env-vars"
+          ]
+        },
+        {
+          "group": "Running on AWS",
+          "pages": [
+              "aws/authenticate",
+              "aws/create-resources",
+              "aws/update-resources",
+              "aws/delete-resources",
+              "aws/ecs",
+              "aws/eks",
+              "aws/rds",
+              "aws/tools"
+          ]
+        }
+      ]
+    },
+    {
+      "group": "Resources",
+      "pages": [
+        {
+          "group": "Templates",
+          "pages": [
+              "templates/llm-app",
+              "templates/llm-api",
+              "templates/streamlit-app",
+              "templates/django-app"
+          ]
+        }
       ]
     }
   ],
   "footerSocials": {
-    "twitter": "https://twitter.com/mintlify",
+    "twitter": "https://twitter.com/phidatahq",
     "github": "https://github.com/mintlify",
-    "linkedin": "https://www.linkedin.com/company/mintsearch"
+    "discord": "https://discord.com/invite/4MtYHHrgA8",
+    "linkedin": "https://www.linkedin.com/company/phidatahq/",
+    "website": "https://phidata.com"
   }
 }

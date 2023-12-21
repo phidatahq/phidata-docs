@@ -1,0 +1,539 @@
+---
+title: Build an Autonomous LLM App
+---
+
+## What is Autonomous mode?
+
+Autonomous mode is when the LLM has access to a set of functions and it can run those functions to achieve tasks. Here's an example:
+
+- With RAG, a user asks the LLM a question and we always add information to the prompt, regardless of whether it is helpful. This not only confuses the LLM and leads to quality issues, it uses extra tokens and increases latency and cost.
+- With Autonomous mode, the LLM decides **if** it needs to access the knowledge base and what search parameters it needs to query the knowledge base.
+- We can also provide functions to:
+  - Get chat history when needed (further saving tokens).
+  - Add content to the knowledge base (increasing its knowledge).
+  - Complete tasks like send emails, create PRs, query data (baby steps towards AGI).
+
+Let's build an Autonomous LLM App powered by GPT-4. We'll use PgVector for Knowledge Base and Storage and serve the app using Streamlit and FastApi.
+
+By the end of this guide you'll be ready to build your own Autonomous LLM product.
+
+<Note>
+
+Install [docker desktop](https://docs.docker.com/desktop/install/mac-install/) to run this app locally.
+
+</Note>
+
+## Setup
+
+Open the `Terminal` and create an `ai` directory with a python virtual environment.
+
+<CodeGroup>
+
+```bash Mac
+mkdir ai && cd ai
+
+python3 -m venv aienv
+source aienv/bin/activate
+```
+
+```bash Windows
+mkdir ai; cd ai
+
+python3 -m venv aienv
+aienv/scripts/activate
+```
+
+</CodeGroup>
+
+Install `phidata`
+
+<CodeGroup>
+
+```bash Mac
+pip install -U phidata
+```
+
+```bash Windows
+pip install -U phidata
+```
+
+</CodeGroup>
+
+<Note>
+
+If you encounter errors, update pip using `python -m pip install --upgrade pip`
+
+</Note>
+
+## Create your codebase
+
+Create your codebase using the `llm-app` template pre-configured with [FastApi](https://fastapi.tiangolo.com/), [Streamlit](https://streamlit.io/) and [PgVector](https://github.com/pgvector/pgvector). We'll use this codebase as the starting point for our RAG LLM App.
+
+<CodeGroup>
+
+```bash Mac
+phi ws create -t llm-app -n llm-app
+```
+
+```bash Windows
+phi ws create -t llm-app -n llm-app
+```
+
+</CodeGroup>
+
+<Note>
+
+If you already have an `llm-app` created, use that instead.
+
+</Note>
+
+<ImageContainer src="/gifs/create_llm_app.gif" alt="Creat LLM App" />
+
+This will create a folder named `llm-app` with the following structure:
+
+```bash llm-app
+llm-app                     # root directory for your Autonomous llm-app
+├── api                     # directory for FastApi routes
+├── app                     # directory for Streamlit apps
+├── db                      # directory for database components
+├── llm                     # directory for LLM components
+    ├── conversations       # LLM conversations
+    ├── knowledge_base.py   # LLM knowledge base
+    └── storage.py          # LLM storage
+├── notebooks               # directory for Jupyter notebooks
+├── Dockerfile              # Dockerfile for the application
+├── pyproject.toml          # python project definition
+├── requirements.txt        # python dependencies managed by pyproject.toml
+├── scripts                 # directory for helper scripts
+├── tests                   # directory for unit tests
+├── utils                   # directory for shared utilities
+└── workspace               # phidata workspace directory
+    ├── dev_resources.py    # dev resources running locally
+    ├── prd_resources.py    # production resources running on AWS
+    ├── jupyter             # jupyter notebook resources
+    ├── secrets             # directory for storing secrets
+    └── settings.py         # phidata workspace settings
+```
+
+### Optional: Set OpenAI Api Key
+
+To use your own `OPENAI_API_KEY`, set the `OPENAI_API_KEY` environment variable. You can get one [from OpenAI here](https://platform.openai.com/account/api-keys). Otherwise `phi` provides ready to use access to OpenAI models.
+
+<CodeGroup>
+
+```bash Mac
+export OPENAI_API_KEY=sk-***
+```
+
+```bash Windows
+setx OPENAI_API_KEY sk-***
+```
+
+</CodeGroup>
+
+## Serve your App using Streamlit
+
+[Streamlit](https://streamlit.io/) allows us to build
+micro front-ends for our LLM App and is extremely useful for building basic applications
+in pure python. Start the `app` group using:
+
+<CodeGroup>
+
+```bash Terminal
+phi ws up --group app
+```
+
+```bash Shorthand
+phi ws up dev:docker:app
+```
+
+</CodeGroup>
+
+<ImageContainer src="/gifs/phi_ws_up_app.gif" alt="Run LLM App" />
+
+**Press Enter** to confirm and give a few minutes for the image to download (only the first time). Verify container status and view logs on the docker dashboard.
+
+### Chat with PDFs
+
+- Open [localhost:8501](http://localhost:8501) to view streamlit apps that you can customize and make your own.
+- Click on **Chat with PDFs** in the sidebar
+- Enter a username and wait for the knowledge base to load.
+- Choose the `Autonomous` Conversation type.
+- Ask "How do I make chicken curry?"
+- Notice how the LLM first searches the knowledge base. It also uses the appropriate search query, which is very useful when the user sends a long 3-4 sentence message and the usual RAG approach fails to retrieve the correct information.
+- Upload PDFs and ask questions
+
+<ImageContainer
+  src="/images/auto-llm-app-chat-with-pdf-local.png"
+  alt="Streamlit App - chat with pdf"
+/>
+
+## Add your data
+
+The LLM uses the `pdf_knowledge_base` in the `llm/knowledge_base.py` file to search for information.
+
+**Make this app your own** by creating a `data/pdfs` folder with your PDFs. Then click on the `Update Knowledge Base` button to load the knowledge base.
+
+```python llm/knowledge_base.py
+url_pdf_knowledge_base = PDFUrlKnowledgeBase(
+  ...
+)
+
+local_pdf_knowledge_base = PDFKnowledgeBase(
+    path="data/pdfs",
+    ...
+)
+
+pdf_knowledge_base = CombinedKnowledgeBase(
+    sources=[
+        url_pdf_knowledge_base,
+        local_pdf_knowledge_base,
+    ],
+    num_documents=2, # 2 references are added to the prompt.
+    ...
+)
+```
+
+## How this App works
+
+The streamlit apps are defined in the `app` folder and the `Conversations` powering these apps are defined in the `llm/conversations` folder. Checkout the `llm/conversations/pdf_auto.py` file:
+
+- The `function_calls` flag gives the LLM the ability to call functions.
+- The `show_function_calls` prints which functions the LLM is running.
+
+```python llm/conversations/pdf_rag.py
+...
+def get_pdf_auto_conversation(
+    user_name: Optional[str] = None,
+    conversation_id: Optional[str] = None,
+    debug_mode: bool = False,
+) -> Conversation:
+    """Get an autonomous conversation with the PDF knowledge base"""
+
+    return Conversation(
+        ...
+        function_calls=True,
+        show_function_calls=True,
+        ...
+    )
+```
+
+## Add your own functions
+
+Its super easy and even recommended to add your own functions and customize your autonomous app. Read how to add [agents](/blocks/agents) to your conversation.
+
+## Serve your App using FastApi
+
+Streamlit is great for building micro front-ends but any production application will be built using a front-end framework like [next.js](https://nextjs.org) backed by a RestApi built using [FastApi](https://fastapi.tiangolo.com/).
+
+Your LLM App comes pre-configured with FastApi, start the `api` group using:
+
+<CodeGroup>
+
+```bash Terminal
+phi ws up --group api
+```
+
+```bash Shorthand
+phi ws up dev:docker:api
+```
+
+</CodeGroup>
+
+**Press Enter** to confirm and give a few minutes for the image to download.
+
+### View API Endpoints
+
+- Open [localhost:8000/docs](http://localhost:8000/docs) to view the API Endpoints.
+- Load the knowledge base using `/v1/pdf/conversation/load-knowledge-base`
+- Test the `v1/pdf/conversation/chat` endpoint with `{"message": "How do I make chicken curry?", "conversation_type": "AUTO"}`
+
+<ImageContainer
+  src="/images/auto-llm-app-fastapi-local.png"
+  alt="auto-llm-app-fastapi-local"
+/>
+
+## Build your LLM Product
+
+Your LLM Api comes with common endpoints you can use to build your LLM product. These routes are developed in collaboration with real LLM Apps and provide a great starting point to build on.
+
+For example:
+
+- Call the `/conversation/create` endpoint to create a new conversation for a user.
+
+```json
+{
+  "user_name": "my-app-user-1",
+  "conversation_type": "AUTO"
+}
+```
+
+- The response contains a `conversation_id` that can be used to build a chat interface by calling the `/conversation/chat` endpoint. Message us on [discord](https://discord.gg/4MtYHHrgA8) if you need help.
+
+```json
+{
+  "message": "how do I make pasta",
+  "stream": true,
+  "conversation_id": "fc67f202-c2cb-4c3d-a640-704ab83d9460",
+  "conversation_type": "AUTO"
+}
+```
+
+The FastApi routes are defined the `api/routes` folder and can be customized to your use case.
+
+## Optional: Run Jupyterlab
+
+A jupyter notebook is a must have for AI development and your `llm-app` comes with a notebook pre-installed with the required dependencies. Enable it by updating the `workspace/settings.py` file:
+
+```python workspace/settings.py
+...
+ws_settings = WorkspaceSettings(
+    ...
+    # Uncomment the following line
+    dev_jupyter_enabled=True,
+...
+```
+
+Start `jupyter` using:
+
+<CodeGroup>
+
+```bash Terminal
+phi ws up --group jupyter
+```
+
+```bash Shorthand
+phi ws up dev:docker:jupyter
+```
+
+</CodeGroup>
+
+**Press Enter** to confirm and give a few minutes for the image to download (only the first time). Verify container status and view logs on the docker dashboard.
+
+### View Jupyterlab UI
+
+- Open [localhost:8888](http://localhost:8888) to view the Jupyterlab UI. Password: **admin**
+- Open `notebooks/auto_pdf_conversation` to play around with the autonomous conversation.
+
+<ImageContainer
+  src="/images/auto-llm-app-jupyter-local.png"
+  alt="auto-llm-app-jupyter-local"
+/>
+
+## Delete local resources
+
+Play around and stop the workspace using:
+
+<CodeGroup>
+
+```bash Terminal
+phi ws down
+```
+
+```bash With Options
+phi ws down --env dev --infra docker
+```
+
+```bash Shorthand
+phi ws down dev:docker
+```
+
+</CodeGroup>
+
+or stop individual Apps using:
+
+<CodeGroup>
+
+```bash App
+phi ws down --group app
+```
+
+```bash Api
+phi ws down --group api
+```
+
+```bash PgVector
+phi ws down --group db
+```
+
+```bash Jupyter
+phi ws down --group jupyter
+```
+
+</CodeGroup>
+
+---
+
+## Run on AWS
+
+Now let's run the **LLM App** in production on AWS.
+
+## AWS Authentication
+
+To run on AWS, you need **one** of the following:
+
+1. The `~/.aws/credentials` file with your AWS credentials
+2. `AWS_ACCESS_KEY_ID` + `AWS_SECRET_ACCESS_KEY` environment variables
+
+<Note>
+
+To create the credentials file, install the [aws cli](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html) and run `aws configure`
+
+</Note>
+
+### Add AWS Region and Subnets
+
+Add 2 [Subnets](https://us-east-1.console.aws.amazon.com/vpc/home?#subnets:) to the `workspace/settings.py` file, these are required for the ECS services.
+
+```python workspace/settings.py
+ws_settings = WorkspaceSettings(
+    ...
+    # -*- AWS settings
+    # Add your Subnet IDs here
+    subnet_ids=["subnet-xyz", "subnet-xyz"],
+    ...
+)
+```
+
+<Note>
+
+Please check that the subnets belong to the selected `aws_region`
+
+</Note>
+
+## Update Secrets
+
+Update the streamlit app password in the `workspace/secrets/prd_app_secrets.yml` file:
+
+```python workspace/secrets/prd_app_secrets.yml
+APP_PASSWORD: "admin"
+# OPENAI_API_KEY: "sk-***"
+```
+
+Update the RDS database password in the `workspace/secrets/prd_db_secrets.yml` file:
+
+```python workspace/secrets/prd_db_secrets.yml
+# Secrets used by prd RDS database
+MASTER_USERNAME: llm
+MASTER_USER_PASSWORD: "llm9999!!"
+```
+
+## Create AWS resources
+
+Create AWS resources for the LLM App using:
+
+<CodeGroup>
+
+```bash Terminal
+phi ws up --env prd --infra aws
+```
+
+```bash Shorthand
+phi ws up prd:aws
+```
+
+</CodeGroup>
+
+This will create:
+
+1. [ECS Cluster](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/clusters.html) for the application.
+2. [ECS Task Definitions](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task_definitions.html) and [Services](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs_services.html) that run the application on the ECS cluster.
+3. [LoadBalancer](https://aws.amazon.com/elasticloadbalancing/) to route traffic to the application.
+4. [Security Groups](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-security-groups.html) that control incoming and outgoing traffic.
+5. [Secrets](https://aws.amazon.com/secrets-manager/) for managing application and database secrets.
+6. [RDS Database](https://aws.amazon.com/rds/) for Knowledge Base and Storage.
+
+**Press Enter** to confirm and grab a cup of coffee while the resources spin up.
+
+- The RDS database takes about 10 minutes to activate.
+- These resources are defined in the `workspace/prd_resources.py` file.
+- Use the [ECS console](https://us-east-1.console.aws.amazon.com/ecs/v2/clusters) to view services and logs.
+- Use the [RDS console](https://us-east-1.console.aws.amazon.com/rds/home?#databases:) to view the database instance.
+
+<ImageContainer
+  src="/gifs/create_llm_app_aws.gif"
+  alt="create_llm_app_aws.gif"
+/>
+
+## Production Streamlit App
+
+**Open the LoadBalancer DNS** provided when creating the Streamlit App
+
+### Chat with PDF
+
+- Enter the `APP_PASSWORD` from the `prd_app_secrets.yml` file (default: `admin`)
+- Click on **Chat with PDFs** in the sidebar
+- Enter a username and wait for the knowledge base to load.
+- Choose the `Autonomous` Conversation type.
+- Ask "How do I make chicken curry?"
+- Notice how the LLM first searches the knowledge base and also uses the appropriate search query.
+
+<ImageContainer
+  src="/images/auto-llm-app-chat-with-pdf-prd.png"
+  alt="auto-llm-app-chat-with-pdf-prd"
+/>
+
+## Production FastApi
+
+- **Open the LoadBalancer DNS** + the `/docs` endpoint to view the API Endpoints.
+- Load the knowledge base using `/v1/pdf/conversation/load-knowledge-base`
+- Test the `v1/pdf/conversation/chat` endpoint with `{"message": "How do I make chicken curry?", "conversation_type": "AUTO"}`
+- Update and integrate with your front-end or product.
+
+<ImageContainer
+  src="/images/auto-llm-app-fastapi-prd.png"
+  alt="auto-llm-app-fastapi-prd"
+/>
+
+## Update Production
+
+To update the production application, follow [this guide](/day-2/production-app) to
+
+1. Create a new image
+2. Update the ECS Task Definition and Services.
+
+## Delete AWS resources
+
+Play around and then delete AWS resources using:
+
+<CodeGroup>
+
+```bash Terminal
+phi ws down --env prd --infra aws
+```
+
+```bash Shorthand
+phi ws down prd:aws
+```
+
+</CodeGroup>
+
+or delete individual resource groups using:
+
+<CodeGroup>
+
+```bash App
+phi ws down --env prd --infra aws --group app
+```
+
+```bash Database
+phi ws down --env prd --infra aws --group db
+```
+
+</CodeGroup>
+
+## Next
+
+Congratulations on building a production-ready RAG LLM App with access to a knowledge base and storage. Next Steps:
+
+- Make this App your own by adding your data.
+- Create a [git repository for this workspace](/day-2/git-repo).
+- Read how to [update the dev application](/day-2/dev-app).
+- Read how to [update the production application](/day-2/production-app).
+- Read how to [format and validate your code](/day-2/format-and-validate).
+- Read how to [add python libraries](/day-2/python-libraries).
+- Read how to [add database tables](/day-2/database-tables)
+- Read how to [add a custom domain and HTTPS](/day-2/domain-https).
+- Read how to [implement CI/CD](/day-2/ci-cd)
+- Learn about other [day-2 operations](/day-2/day-2-operations).
+- Chat with us on [discord](https://discord.gg/4MtYHHrgA8).

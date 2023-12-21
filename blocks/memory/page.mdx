@@ -1,0 +1,41 @@
+---
+title: Memory
+description: Every `Conversation` comes with built-in memory that can be used to access the **Chat History**, **LLM Messages** or **References**. Access the conversation memory using `conversation.memory`
+---
+
+```python 'conversation.py
+from phi.conversation import Conversation, ConversationMemory
+
+conversation = Conversation()
+
+# -*- Print a response
+conversation.print_response('Share a 5 word horror story.')
+
+# -*- Get the memory
+memory: ConversationMemory = conversation.memory
+
+# -*- Print Chat History
+print(f"Chat History: {memory.chat_history}")
+
+# -*- Print LLM Messages
+print(f"LLM Messages: {memory.llm_messages}")
+```
+
+But this memory only lasts while the session is active. To provide memory across sessions, remember to add `Storage` to the `Conversation`.
+
+## ConversationMemory
+
+### Attributes
+
+<ResponseField name="chat_history" type="List[Message]">
+  Messages between the user and the LLM. The actual prompts are stored in the
+  `llm_messages`.
+</ResponseField>
+<ResponseField name="llm_messages" type="List[Message]">
+  Messages(prompts) sent to the LLM and the LLM responses.
+</ResponseField>
+<ResponseField name="references" type="List[References]">
+  References from the vector database.
+</ResponseField>
+
+---

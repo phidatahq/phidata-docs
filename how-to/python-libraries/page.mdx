@@ -1,0 +1,128 @@
+---
+title: Python Dependencies
+description: Dependency management is one of the hardest parts of running a python application and phidata templates are designed to make it easy. Each template is setup to manage dependencies using a [pyproject.toml](<(https://packaging.python.org/en/latest/specifications/declaring-project-metadata/#declaring-project-metadata)>) file, **which is used to generate the `requirements.txt` file using [pip-tools](https://pip-tools.readthedocs.io/en/latest/).**
+---
+Adding or Updating a python library is a simple 2 step process:
+
+1. Add library to the `pyproject.toml` file
+2. Auto-Generate the `requirements.txt` file
+
+<Warning>
+
+We highly recommend auto-generating the `requirements.txt` file using this process.
+
+</Warning>
+
+## Update pyproject
+
+- Open the `pyproject.toml` file
+- Add new libraries to the dependencies section.
+
+## Generate requirements
+
+After updating the `dependencies` in the `pyproject.toml` file, auto-generate the `requirements.txt` file using a helper script or running `pip-compile` directly
+
+<CodeGroup>
+
+```bash Terminal
+./scripts/upgrade.sh
+```
+
+```bash Pip Compile
+pip-compile \
+    --no-annotate \
+    --pip-args "--no-cache-dir" \
+    -o requirements.txt pyproject.toml
+```
+
+</CodeGroup>
+
+If you'd like to upgrade all python libraries to their latest version, run:
+
+<CodeGroup>
+
+```bash Terminal
+./scripts/upgrade.sh all
+```
+
+```bash Pip Compile
+pip-compile \
+    --upgrade \
+    --no-annotate \
+    --pip-args "--no-cache-dir" \
+    -o requirements.txt pyproject.toml
+```
+
+</CodeGroup>
+
+## Rebuild Images
+
+After updating the `requirements.txt` file, rebuild your images.
+
+### Rebuild dev images
+
+<CodeGroup>
+
+```bash Terminal
+phi ws up --env dev --infra docker --type image
+```
+
+```bash Short Options
+phi ws up -e dev -i docker -t image
+```
+
+</CodeGroup>
+
+### Rebuild production images
+
+<Note>
+
+Remember to [authenticate with ECR](/day-2/production-app#ecr-images) if needed.
+
+</Note>
+
+<CodeGroup>
+
+```bash Terminal
+phi ws up --env prd --infra docker --type image
+```
+
+```bash Short Options
+phi ws up -e prd -i docker -t image
+```
+
+</CodeGroup>
+
+## Recreate Resources
+
+After rebuilding images, recreate the resources.
+
+### Recreate dev containers
+
+<CodeGroup>
+
+```bash Terminal
+phi ws restart --env dev --infra docker --type container
+```
+
+```bash Short options
+phi ws restart -e dev -c docker -t container
+```
+
+</CodeGroup>
+
+### Restart ECS services
+
+<CodeGroup>
+
+```bash Terminal
+phi ws patch --env prd --infra aws --name service
+```
+
+```bash Short options
+phi ws patch -e prd -i aws -n service
+```
+
+</CodeGroup>
+
+---

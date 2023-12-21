@@ -1,0 +1,217 @@
+---
+title: Apps
+description: Apps are tools like `FastApi`, `PgVector`, `Streamlit`, `Jupyter`, `Django` used to run software. They form the **Application** layer of a software product.
+---
+
+Phidata is the first toolkit that enables us to define and run software applications as python code.
+
+## Example: Run PgVector on Docker
+
+The following code runs `PgVector` on docker:
+
+```python resources.py
+from phi.docker.app.postgres import PgVectorDb
+from phi.docker.resources import DockerResources
+
+# -*- PgVector running on port 5432:5432
+vector_db = PgVectorDb(
+    pg_user="llm",
+    pg_password="llm",
+    pg_database="llm",
+    debug_mode=True,
+)
+
+# -*- DockerResources
+dev_docker_resources = DockerResources(
+    apps=[vector_db],
+)
+```
+
+### Try it out
+
+<Note>
+
+Install [docker desktop](https://docs.docker.com/desktop/install/mac-install/) to run apps locally
+
+</Note>
+
+Open the `Terminal` and create a new directory and a python virtual environment inside it.
+
+<CodeGroup>
+
+```bash Mac
+mkdir ai && cd ai
+
+python3 -m venv aienv
+source aienv/bin/activate
+```
+
+```bash Windows
+mkdir ai; cd ai
+
+python3 -m venv aienv
+aienv/scripts/activate
+```
+
+</CodeGroup>
+
+Install `phidata`
+
+<CodeGroup>
+
+```bash Mac
+pip install -U phidata
+```
+
+```bash Windows
+pip install -U phidata
+```
+
+</CodeGroup>
+
+<Note>
+
+If you encounter errors, update pip using `python -m pip install --upgrade pip`
+
+</Note>
+
+### Start resources
+
+Copy the code from above to a file `resources.py` and start resources using:
+
+<CodeGroup>
+
+```bash Mac
+phi start resources.py
+```
+
+```bash Windows
+phi start resources.py
+```
+
+</CodeGroup>
+
+**Press Enter** to confirm and give a few minutes for the image to download (only the first time). Verify container status and view logs on the docker dashboard.
+
+### Stop resources
+
+When done, stop resources using:
+
+<CodeGroup>
+
+```bash Mac
+phi stop resources.py
+```
+
+```bash Windows
+phi stop resources.py
+```
+
+</CodeGroup>
+
+---
+
+## Run Jupyter on Docker
+
+A jupyter notebook is a must have for AI development. Update the `resources.py` file to:
+
+```python resources.py
+from os import getenv
+
+from phi.docker.app.jupyter import Jupyter
+from phi.docker.app.postgres import PgVectorDb
+from phi.docker.resources import DockerResources
+
+# -*- PgVector running on port 5432:5432
+vector_db = PgVectorDb(
+    pg_user="llm",
+    pg_password="llm",
+    pg_database="llm",
+    debug_mode=True,
+)
+
+# -*- Jupyter running on port 8888:8888
+jupyter = Jupyter(
+    mount_workspace=True,
+    env_vars={"OPENAI_API_KEY": getenv("OPENAI_API_KEY")},
+)
+
+# -*- DockerResources
+dev_docker_resources = DockerResources(
+    apps=[vector_db, jupyter],
+)
+```
+
+### Start resources
+
+<CodeGroup>
+
+```bash Mac
+phi start resources.py
+```
+
+```bash Windows
+phi start resources.py
+```
+
+</CodeGroup>
+
+### View Jupyterlab UI
+
+- Open [localhost:8888](http://localhost:8888) to view the Jupyterlab UI. Password: **admin**
+- The `ai` directory is automatically mounted in the notebook.
+
+### Stop resources
+
+<CodeGroup>
+
+```bash Mac
+phi stop resources.py
+```
+
+```bash Windows
+phi stop resources.py
+```
+
+</CodeGroup>
+
+---
+
+## Install Requirements on startup
+
+Phidata Apps can install requirements on container startup. Update the `Jupyter` app to:
+
+```python resources.py
+...
+# -*- Jupyter running on port 8888:8888
+jupyter = Jupyter(
+    image_tag="4.0.5",
+    mount_workspace=True,
+    install_requirements=True,
+    requirements_file="requirements.txt",
+    env_vars={"OPENAI_API_KEY": getenv("OPENAI_API_KEY")},
+)
+...
+```
+
+Create a `requirements.txt` file in the same directory
+
+```python requirements.txt
+openai
+```
+
+## Restart resources
+
+<CodeGroup>
+
+```bash Terminal
+phi restart resources.py -y
+```
+
+```bash With Options
+phi restart resources.py --yes
+```
+
+</CodeGroup>
+
+---

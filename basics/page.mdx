@@ -1,0 +1,422 @@
+---
+title: Basics
+description: This guide walks through the basics of building an LLM App, by the end you'll have a mini LLM App with a knowledge base, storage and memory.
+---
+
+## Conversations
+
+**Conversations** are a human-like interface to language models and the starting point for every LLM App. We send the LLM a message and get a model-generated output as a response.
+
+Conversations come with built-in **Memory**, **Knowledge**, **Storage** and access to **Tools**. Giving LLMs the ability to have long-term, knowledge-based **Conversations** is the first step in our journey to AGI.
+
+_"The hottest new programming language is English"_ - [Andrej Karpathy](https://twitter.com/karpathy/status/1617979122625712128)
+
+A simple example looks like:
+
+```python conversation.py
+from phi.conversation import Conversation
+
+conversation = Conversation()
+
+# -*- Print the response
+conversation.print_response('Share a quick healthy breakfast recipe.')
+
+# -*- Get the response as a string
+response = conversation.chat('Share a quick healthy breakfast recipe.', stream=False)
+
+# -*- Get the response as a stream
+response = ""
+for delta in conversation.chat('Share a quick healthy breakfast recipe.'):
+    response += delta
+```
+
+### Try it out
+
+Open the `Terminal` and create an `ai` directory with a python virtual environment.
+
+<CodeGroup>
+
+```bash Mac
+mkdir ai && cd ai
+
+python3 -m venv aienv
+source aienv/bin/activate
+```
+
+```bash Windows
+mkdir ai; cd ai
+
+python3 -m venv aienv
+aienv/scripts/activate
+```
+
+</CodeGroup>
+
+Install `phidata` and `openai`
+
+<CodeGroup>
+
+```bash Mac
+pip install -U phidata openai
+```
+
+```bash Windows
+pip install -U phidata openai
+```
+
+</CodeGroup>
+
+<Note>
+
+If you encounter errors, update pip using `python -m pip install --upgrade pip`
+
+</Note>
+
+Copy the following code to a file `conversation.py`
+
+```python conversation.py
+from phi.conversation import Conversation
+
+conversation = Conversation()
+conversation.print_response('Share a quick healthy breakfast recipe.')
+```
+
+### Run the Conversation
+
+<CodeGroup>
+
+```bash Mac
+python conversation.py
+```
+
+```bash Windows
+python conversation.py
+```
+
+</CodeGroup>
+
+<ImageContainer src="/gifs/intro_conversation.gif" alt="Create Conversation" />
+
+## Add a Knowledge Base
+
+We can improve the quality of reponses by providing additional **Knowledge**, also known as Retrieval Augmented Generation (**RAG**). We use `PgVector` as our vector store because it can also provide long-term storage to our Conversations.
+
+<Note>
+
+While it would be easier to demo with an in-memory vector store, our goal is to stay as close to production as possible.
+
+</Note>
+
+Run `PgVector` on `Docker` using the following steps:
+
+- Install [docker desktop](https://docs.docker.com/desktop/install/mac-install/)
+- Create a file `resources.py` with the following contents.
+
+```python resources.py
+from phi.docker.app.postgres import PgVectorDb
+from phi.docker.resources import DockerResources
+
+# -*- PgVector running on port 5432:5432
+vector_db = PgVectorDb(
+    pg_user="llm",
+    pg_password="llm",
+    pg_database="llm",
+    debug_mode=True,
+)
+
+# -*- DockerResources
+dev_docker_resources = DockerResources(
+    apps=[vector_db],
+)
+```
+
+- Start `PgVector` by running `phi start resources.py`
+
+<CodeGroup>
+
+```bash Mac
+phi start resources.py
+```
+
+```bash Windows
+phi start resources.py
+```
+
+</CodeGroup>
+
+<ImageContainer
+  src="/gifs/phi_basics_start_resources.gif"
+  alt="phi_basics_start_resources.gif"
+  width={700}
+  height={700}
+  className="rounded-2xl"
+/>
+
+Next, lets load our knowledge base using PDFs from the web. Update the `conversation.py` file to:
+
+```python conversation.py
+from phi.conversation import Conversation
+from phi.knowledge.pdf import PDFUrlKnowledgeBase
+from phi.vectordb.pgvector import PgVector
+
+from resources import vector_db
+
+knowledge_base = PDFUrlKnowledgeBase(
+    urls=["https://www.family-action.org.uk/content/uploads/2019/07/meals-more-recipes.pdf"],
+    vector_db=PgVector(
+        collection="recipes",
+        db_url=vector_db.get_db_connection_local(),
+    ),
+)
+knowledge_base.load(recreate=False)
+
+conversation = Conversation(
+    knowledge_base=knowledge_base,
+    add_references_to_prompt=True,
+)
+
+conversation.print_response('Share a quick recipe for a healthy breakfast.')
+conversation.print_response('How do I make chicken tikka salad?')
+```
+
+<Note>
+
+The `PDFUrlKnowledgeBase` will load PDFs from the urls to the `llm.recipes` table.
+
+</Note>
+
+**Install the required libraries**
+
+<CodeGroup>
+
+```bash Mac
+pip install sqlalchemy pgvector psycopg pypdf
+```
+
+```bash Windows
+pip install sqlalchemy pgvector psycopg pypdf
+```
+
+</CodeGroup>
+
+Run the `conversation.py` file and give it a few minutes to load the knowledge base.
+
+<CodeGroup>
+
+```bash Mac
+python conversation.py
+```
+
+```bash Windows
+python conversation.py
+```
+
+</CodeGroup>
+
+<ImageContainer
+  src="/gifs/phi_basics_knowledge_base.gif"
+  alt="phi_basics_knowledge_base.gif"
+  width={700}
+  height={700}
+  className="rounded-2xl"
+/>
+
+<Note>
+
+If you want to read local PDFs, use a `PDFKnowledgeBase` instead
+
+</Note>
+
+```python use PDFKnowledgeBase in conversation.py
+from phi.knowledge.pdf import PDFKnowledgeBase
+
+...
+knowledge_base = PDFKnowledgeBase(
+    path="data/pdfs",
+    vector_db=PgVector(
+        collection="pdf_documents",
+        db_url=vector_db.get_db_connection_local(),
+    ),
+)
+...
+```
+
+## Make the Conversation Autonomous
+
+In the `RAG` conversation above, the `add_references_to_prompt=True` was always adding information from the knowledge base to the prompt, regardless of whether it was helpful.
+
+In the Autonomous conversation below, we let the LLM decide **if** it needs to access the knowledge base and what search parameters it needs to query the knowledge base.
+
+Make the `Conversation` Autonomous by setting `function_calls=True` - which gives it the ability to call functions to achieve tasks.
+
+<Note>
+
+Comment out the `knowledge_base.load()` as it is already loaded.
+
+</Note>
+
+```python conversation.py
+from phi.conversation import Conversation
+from phi.knowledge.pdf import PDFUrlKnowledgeBase
+from phi.vectordb.pgvector import PgVector
+
+from resources import vector_db
+
+knowledge_base = PDFUrlKnowledgeBase(
+    urls=["https://www.family-action.org.uk/content/uploads/2019/07/meals-more-recipes.pdf"],
+    vector_db=PgVector(
+        collection="recipes",
+        db_url=vector_db.get_db_connection_local(),
+    ),
+)
+# knowledge_base.load(recreate=False)
+
+conversation = Conversation(
+    knowledge_base=knowledge_base,
+    # add_references_to_prompt=True,
+    function_calls=True,
+    show_function_calls=True,
+)
+
+conversation.print_response('Share a quick recipe for a healthy breakfast.')
+conversation.print_response('How do I make chicken tikka salad?')
+conversation.print_response('What was my last question?')
+```
+
+Run the `conversation.py` file.
+
+<CodeGroup>
+
+```bash Mac
+python conversation.py
+```
+
+```bash Windows
+python conversation.py
+```
+
+</CodeGroup>
+
+<ImageContainer
+  src="/gifs/phi_basics_autonomous.gif"
+  alt="phi_basics_autonomous.gif"
+  width={700}
+  height={700}
+  className="rounded-2xl"
+/>
+
+## Add Storage & Memory
+
+Every `Conversation` comes with built-in memory but it only lasts while the session is active. To provide memory across sessions, we can enable long-term `Storage` backed by a `PostgreSQL` table.
+
+Update the `conversation.py` file to:
+
+```python conversation.py
+import typer
+from rich.prompt import Prompt
+from typing import Optional, List
+
+from phi.conversation import Conversation
+from phi.storage.conversation.postgres import PgConversationStorage
+from phi.knowledge.pdf import PDFUrlKnowledgeBase
+from phi.vectordb.pgvector import PgVector
+
+from resources import vector_db
+
+knowledge_base = PDFUrlKnowledgeBase(
+    urls=[
+        "https://www.family-action.org.uk/content/uploads/2019/07/meals-more-recipes.pdf"
+    ],
+    vector_db=PgVector(
+        collection="recipes",
+        db_url=vector_db.get_db_connection_local(),
+    ),
+)
+# knowledge_base.load(recreate=False)
+
+storage = PgConversationStorage(
+    table_name="recipe_conversations",
+    db_url=vector_db.get_db_connection_local(),
+)
+
+
+def llm_app(new: bool = False, user: str = "user"):
+    conversation_id: Optional[str] = None
+
+    if not new:
+        existing_conversation_ids: List[str] = storage.get_all_conversation_ids(user)
+        if len(existing_conversation_ids) > 0:
+            conversation_id = existing_conversation_ids[0]
+
+    conversation = Conversation(
+        user_name=user,
+        conversation_id=conversation_id,
+        knowledge_base=knowledge_base,
+        storage=storage,
+        # add_references_to_prompt=True,
+        function_calls=True,
+        show_function_calls=True,
+    )
+
+    # conversation.knowledge_base.load(recreate=False)
+    print(f"Conversation ID: {conversation.id}\n")
+    while True:
+        message = Prompt.ask(f"[bold] :sunglasses: {user} [/bold]")
+        if message in ("exit", "bye"):
+            break
+        conversation.print_response(message)
+
+
+if __name__ == "__main__":
+    typer.run(llm_app)
+```
+
+Run the `conversation.py` file.
+
+<CodeGroup>
+
+```bash Mac
+python conversation.py
+```
+
+```bash Windows
+python conversation.py
+```
+
+</CodeGroup>
+
+<ImageContainer
+  src="/gifs/phi_basics_llm_app.gif"
+  alt="phi_basics_llm_app.gif"
+  width={700}
+  height={700}
+  className="rounded-2xl"
+/>
+
+## Stop PgVector
+
+Play around and then stop `PgVector` using `phi stop resources.py`
+
+<CodeGroup>
+
+```bash Mac
+phi stop resources.py
+```
+
+```bash Windows
+phi stop resources.py
+```
+
+</CodeGroup>
+
+## Next
+
+Congratulations on building a mini LLM App that can operate in RAG or Autonomous mode, with access to a knowledge base and storage.
+
+We can serve this App in production using an Api built with `FastApi`, front-end built with `Streamlit` or a Web App built with Django.
+
+Instead of wiring tools manually, `phidata` provides pre-built templates that you can run locally or on AWS with just 1 command. These templates are fully customizable and used by many teams in production. Follow one of the guides below to start building.
+
+<Examples />
+
+<Templates />

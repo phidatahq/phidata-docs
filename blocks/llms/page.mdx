@@ -1,0 +1,96 @@
+---
+title: LLMs
+description: Large Language Models are machine-learning models that have been trained to understand natural language and code. They are quickly emerging as the building block of a new computing paradigm.
+---
+
+Phidata works with OpenAI's GPT models and Anthropic's Claude models using AWS Bedrock.
+
+## OpenAI 
+
+
+    OpenAI's GPT (generative pre-trained transformer) models are the currently the best in class LLMs and the default for the `Conversation` class.
+
+    You can provide your own `OPENAI_API_KEY`, otherwise `phi` provides ready to use access to OpenAI models.
+
+    <CodeGroup>
+
+    ```bash Mac
+    export OPENAI_API_KEY=sk-***
+    ```
+
+    ```bash Windows
+    setx OPENAI_API_KEY sk-***
+    ```
+
+    </CodeGroup>
+
+    ### Attributes
+
+        <ResponseField name="model" type="str">
+            OpenAI model ID.
+        </ResponseField>
+        <ResponseField name="max_tokens" type="int">
+            The maximum number of tokens to generate in the chat completion.
+        </ResponseField>
+        <ResponseField name="temperature" type="float">
+            What sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic.
+        </ResponseField>
+        <ResponseField name="frequency_penalty" type="float">
+            Number between -2.0 and 2.0. Positive values penalize new tokens based on their existing frequency in the text so far, decreasing the model's likelihood to repeat the same line verbatim.
+        </ResponseField>
+        <ResponseField name="presence_penalty" type="float">
+            Number between -2.0 and 2.0. Positive values penalize new tokens based on whether they appear in the text so far, increasing the model's likelihood to talk about new topics.
+        </ResponseField>
+        <ResponseField name="top_p" type="float">
+            An alternative to sampling with temperature, called nucleus sampling, where the model considers the results of the tokens with top_p probability mass.
+        </ResponseField>
+        <ResponseField name="stop" type="List[str]">
+            Up to 4 sequences where the API will stop generating further tokens.
+        </ResponseField>
+        <ResponseField name="user" type="str">
+            A unique identifier representing your end-user, which can help OpenAI to monitor and detect abuse.
+        </ResponseField>
+        <ResponseField name="headers" type="Dict[str, Any]">
+            Headers added to the OpenAI request.
+        </ResponseField>
+        <ResponseField name="logit_bias" type="Any">
+            Modify the likelihood of specified tokens appearing in the completion. Accepts a json object that maps tokens (specified by their token ID in the tokenizer) to an associated bias value from -100 to 100.
+        </ResponseField>
+
+    <CodeGroup>
+
+    ```python GPT 3.5 Conversation
+    from phi.conversation import Conversation
+    from phi.llm.openai import OpenAIChat
+
+    conversation = Conversation(
+        llm=OpenAIChat(
+            model="gpt-3.5-turbo-16k",
+            max_tokens=1024,
+            temperature=0.9,
+        )
+    )
+
+    # -*- Print a response
+    conversation.print_response('Share a 5 word horror story.')
+    ```
+
+    </CodeGroup>
+
+    <CodeGroup title="GPT-4 Conversation" tag="GPT 4">
+
+    ```python
+    from phi.conversation import Conversation
+    from phi.llm.openai import OpenAIChat
+
+    conversation = Conversation(
+        llm=OpenAIChat(model="gpt-4")
+    )
+
+    # -*- Print a response
+    conversation.print_response('Share a 5 word horror story.')
+    ```
+
+    </CodeGroup>
+
+---

@@ -1,0 +1,148 @@
+---
+title: Production Application
+description: The Production Application runs on AWS and its resources are defined in the workspace/prd_resources.py file. This guide shows how to
+---
+
+1. [Update Workspace Settings](#workspace-settings)
+2. [Use ECR for Images](#ecr-images)
+3. [Build a new image](#build-a-new-image)
+4. [Update ECS Task Definitions](#ecs-task-definition)
+5. [Update ECS Services](#ecs-service)
+
+## Workspace Settings
+
+`WorkspaceSettings` define common settings like `ws_name`, `aws_region` and `subnet_ids`. For the production application, you need to:
+
+- Open `workspace/settings.py` file
+- Update the `subnet_ids`
+- Update the `image_repo` to your image repository
+- Set `build_images=True` and `push_images=True`
+
+```python workspace/settings.py
+ws_settings = WorkspaceSettings(
+    ...
+    # Subnet IDs in the aws_region
+    subnet_ids=["subnet-xyz", "subnet-xyz"],
+    # -*- Image Settings
+    # Repository for images
+    image_repo="your-image-repo",
+    # Build images locally
+    build_images=True,
+    # Push images after building
+    push_images=True,
+)
+```
+
+## ECR Images
+
+To use ECR, create the image repo and **authenticate with ECR** before pushing images.
+
+**1. Create the image repository in ECR**
+
+<ImageContainer src="/images/create-ecr-image.png" alt="create-ecr-image" />
+
+**2. Authenticate with ECR**
+
+```bash Authenticate with ECR
+aws ecr get-login-password --region [region] | docker login --username AWS --password-stdin [account].dkr.ecr.[region].amazonaws.com
+```
+
+You can also use a helper script to avoid running the full command
+
+<Note>
+
+Update the script with your ECR repo before running.
+
+</Note>
+
+<CodeGroup>
+
+```bash Mac
+./scripts/auth_ecr.sh
+```
+
+</CodeGroup>
+
+## Build a new image
+
+Build a new image using:
+
+<CodeGroup>
+
+```bash Terminal
+phi ws up --env prd --infra docker --type image
+```
+
+```bash Shorthand
+phi ws up -e prd -i docker -t image
+```
+
+</CodeGroup>
+
+To `force` rebuild images, use the `--force` or `-f` flag
+
+<CodeGroup>
+
+```bash Terminal
+phi ws up --env prd --infra docker --type image --force
+```
+
+```bash Shorthand
+phi ws up -e prd -i docker -t image -f
+```
+
+</CodeGroup>
+
+Because the only production resources are docker images, you can also use:
+
+<CodeGroup>
+
+```bash Build Images
+phi ws up prd:docker
+```
+
+```bash Force Build Images
+phi ws up prd:docker -f
+```
+
+</CodeGroup>
+
+## ECS Task Definition
+
+If you updated the Image, CPU, Memory or Environment Variables, update the Task Definition using:
+
+<CodeGroup>
+
+```bash Terminal
+phi ws patch --env prd --infra aws --name td
+```
+
+```bash Shorthand
+phi ws patch -e prd -i aws -n td
+```
+
+</CodeGroup>
+
+## ECS Service
+
+To redeploy the production application, update the ECS Service using:
+
+<CodeGroup>
+
+```bash Terminal
+phi ws patch --env prd --infra aws --name service
+```
+
+```bash Shorthand
+phi ws patch -e prd -i aws -n service
+```
+
+</CodeGroup>
+
+<Note>
+
+If you **ONLY** rebuilt the image, you do not need to update the task definition and can just patch the service to pickup the new image.
+
+</Note>
+
+---

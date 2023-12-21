@@ -1,0 +1,63 @@
+---
+title: Introduction
+description: Phidata is an AI toolkit designed to run LLM Apps with 1 command 
+---
+
+It provides production-ready templates for common AI Apps that you can run locally or on AWS.
+
+## 🚀 How it works
+
+- Create your codebase using a template: `phi ws create`
+- Run your app locally: `phi ws up dev:docker`
+- Run your app on AWS: `phi ws up prd:aws`
+
+## ⭐ Features:
+
+- **Powerful:** Get a production-ready AI App with 1 command.
+- **Simple:** Built using a human-like `Conversation` interface to language models.
+- **Production Ready:** Your app can be deployed to aws with 1 command.
+
+For example, run a RAG LLM App built with FastApi, Streamlit and PgVector:
+
+![](/gifs/phi_llm_app.gif)
+
+Quickstart your AI App using one of these examples:
+
+Under the hood, phidata solves the problem of building LLM products by providing:
+
+### Software layer
+
+- Access to **LLMs** using a human-like `Conversation` interface
+- Strategies for improving LLM responses: **RAG, Tasks, Structured Outputs, Validators**
+- Building blocks for LLM apps: **Agents, Assistants, Knowledge Bases, Storage, Memory**
+- Monitoring for LLM apps: **Model Inputs/Outputs, Quality, Cost, Evals**
+
+### Application layer
+
+- Tools for serving LLM apps: **FastApi, Django, Streamlit**
+- Tools for serving LLM components: **PgVector, Postgres, Redis**
+
+### Infrastructure layer
+
+- Infrastructure for running LLM apps locally: **Docker**
+- Infrastructure for running LLM apps in production: **AWS**
+- Best practices like testing, formatting, CI/CD, security and secret management.
+
+Most LLM apps are built as a house of cards because engineers have to stitch each layer manually. Phidata bridges the 3 layers of software development to deliver production-grade LLM Apps.
+
+Continue reading to learn more or get started with a production-ready template.
+
+<CardGroup cols={2}>
+  <Card title="LLM App" icon="robot" iconType="duotone" href="/templates/llm-app/page">
+  Build an LLM App using FastApi, WritableStreamDefaultWriter, and PgVector
+  </Card>
+  <Card title="LLM Api" icon="square-terminal" iconType="duotone" href="/templates/llm-api/page">
+    Build an LLM Api using FastApi and PgVector
+  </Card>
+  <Card title="Streamlit App" icon="comment" iconType="duotone" href="/templates/streamlit-app/page">
+    Build a Micro-LLM App using Streamlit and PgVector
+  </Card>
+  <Card title="Django App" icon="grid-2" iconType="duotone" href="/templates/django-app/page">
+    Build an LLM Web App using Django and PgVector
+  </Card>
+</CardGroup>

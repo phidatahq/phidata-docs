@@ -1,0 +1,482 @@
+---
+title: Junior Data Engineer
+description: Junior DE is an LLM App for data analysts, engineers and scientists to offload the daily, mundane data tasks. It can
+---
+
+- Write python scripts for processing data, creating charts
+- Analyze CSV, Parquet or JSON data using DuckDb.
+- Write complex queries including joins and filtering.
+- Run data transformations and export the results.
+- Explain analysis step-by-step.
+
+The best part is that it inspects, validates and runs the code like a regular engineer. It also plays well with long-term, multi-turn conversations. Follow along to run your own Junior DE:
+
+<Note>
+
+Install [docker desktop](https://docs.docker.com/desktop/install/mac-install/) to run this app locally.
+
+</Note>
+
+## Setup
+
+Open the `Terminal` and create an `ai` directory with a python virtual environment.
+
+<CodeGroup>
+
+```bash Mac
+mkdir ai && cd ai
+
+python3 -m venv aienv
+source aienv/bin/activate
+```
+
+```bash Windows
+mkdir ai; cd ai
+
+python3 -m venv aienv
+aienv/scripts/activate
+```
+
+</CodeGroup>
+
+Install `phidata`
+
+<CodeGroup>
+
+```bash Mac
+pip install -U phidata
+```
+
+```bash Windows
+pip install -U phidata
+```
+
+</CodeGroup>
+
+<Note>
+
+If you encounter errors, update pip using `python -m pip install --upgrade pip`
+
+</Note>
+
+## Create your codebase
+
+Create your codebase using the `junior-de` template.
+
+<CodeGroup>
+
+```bash Mac
+phi ws create -t junior-de -n junior-de
+```
+
+```bash Windows
+phi ws create -t junior-de -n junior-de
+```
+
+</CodeGroup>
+
+This will create a folder named `junior-de` with the following structure:
+
+```bash junior-de
+junior-de                   # root directory for your Junior DE
+├── app                     # directory for Streamlit apps
+├── duckgpt                 # directory for the DuckDb data engineer
+├── pygpt                   # directory for the Python data engineer
+├── notebooks               # directory for Jupyter notebooks
+├── data                    # directory for local data files
+├── Dockerfile              # Dockerfile for the application
+├── pyproject.toml          # python project definition
+├── requirements.txt        # python dependencies managed by pyproject.toml
+├── scripts                 # directory for helper scripts
+├── utils                   # directory for utilities
+└── workspace               # phidata workspace directory
+    ├── dev_resources.py    # dev resources running locally
+    ├── prd_resources.py    # production resources running on AWS
+    ├── jupyter             # jupyter notebook resources
+    ├── secrets             # directory for storing secrets
+    └── settings.py         # phidata workspace settings
+```
+
+### Optional: Set OpenAI Api Key
+
+To use your own `OPENAI_API_KEY`, set the `OPENAI_API_KEY` environment variable. You can get one [from OpenAI here](https://platform.openai.com/account/api-keys). Otherwise `phi` provides ready to use access to OpenAI models.
+
+<CodeGroup>
+
+```bash Mac
+export OPENAI_API_KEY=sk-***
+```
+
+```bash Windows
+setx OPENAI_API_KEY sk-***
+```
+
+</CodeGroup>
+
+## Run Junior DE locally
+
+Start your Junior DE using:
+
+<CodeGroup>
+
+```bash Terminal
+phi ws up
+```
+
+```bash Shorthand
+phi ws up dev:docker
+```
+
+</CodeGroup>
+
+**Press Enter** to confirm and give a few minutes for the image to download (only the first time). Verify container status and view logs on the docker dashboard.
+
+## PyGPT: Automate Data Analysis using Python
+
+- Open [localhost:8501](http://localhost:8501) to access your Junior DE.
+- Your first Junior DE is **PyGPT**, it can write python scripts for processing data, create charts and more. Click on **PyGPT** and enter a username.
+- Ask "Show me revenue per year"
+- Each script that PyGPT created is saved to the `pygpt/op` folder.
+- See your Junior DE work through the problem.
+
+<ImageContainer src="/images/pygpt_local.jpeg" alt="Junior DE: PyGPT Local" />
+
+## Add your data
+
+The data used by `PyGPT` is defined in the `pygpt/csv_files.py` file.
+
+- Add `csv` files to the `data/` folder and then to the `csv_files` list.
+- The more information we can provide about the file, the better the results.
+
+## How PyGPT works
+
+The `Conversation` powering `PyGPT` is defined in the `llm/conversations/pygpt.py` file. You can customize the prompts and adapt the Junior DE to your workflow.
+
+```python llm/conversations/pygpt.py
+...
+    return Conversation(
+        ...
+        agents=[python_agent],;
+        system_prompt=f"""\
+        You are a Data Engineering assistant designed to perform tasks using Python.
+        ...
+    )
+...
+```
+
+The `PythonAgent()` defined in the `llm/agents/python_agent.py` file provides the `Tools` used by GPT-4.
+
+## DuckGPT: Automate Data Analysis using DuckDb
+
+- Your second Junior DE is **DuckGPT** that can write and run SQL queries using DuckDb.
+- Click on **DuckGPT Local** and enter a username.
+- Ask "Show me revenue over time"
+- See your Junior DE work through the problem.
+- Ask "Save it" to save the query to the `/duckgpt/op` folder.
+
+<ImageContainer
+  src="/images/duckdb_de_local.jpeg"
+  alt="Junior DE: DuckGPT Local"
+/>
+
+## Add your data
+
+The data used by local `DuckGPT` is defined in the `duckgpt/local_tables.py` file.
+
+- Add `csv` files to the `data/` folder and then to the `local_tables` list.
+- These tables are created using a `CREATE OR REPLACE TABLE '{name}' AS SELECT * FROM '{path}';` command so can accept any file type supported by DuckDb.
+- You can also define custom data loading operations in the `load_local_tables()` function and click on the **Load All Tables** button to load the DuckDb database manually.
+
+## How DuckGPT works
+
+The `Conversation` powering `DuckGPT` is defined in the `llm/conversations/duckgpt_local.py` file. You can customize the prompts and adapt the Junior DE to your workflow.
+
+```python llm/conversations/duckgpt_local.py
+...
+    return Conversation(
+        ...
+        agents=[duckdb_local_agent],;
+        system_prompt=f"""\
+        You are a Data Engineering assistant designed to answer questions using DuckDb.
+        ...
+    )
+...
+```
+
+The `DuckDbAgent()` defined in the `llm/agents/duckdb_agent.py` file provides the `Tools` used by GPT-4.
+
+## DuckGPT on S3 data
+
+- Click on **DuckGPT S3** and enter a username.
+- Ask "Which actor has the highest average movie rating? ignore those with under 25 moviees and total 1000000 votes."
+- See your Junior DE work through a complex problem.
+
+<Note>
+
+The first query takes a few minutes as a lot of data from s3 is loaded into memory. You can pre-load data using the `Load All Tables` button or use your own (smaller) datasets.
+
+</Note>
+
+<ImageContainer
+  src="/images/junior-de-duckgpt-s3.png"
+  alt="Junior DE: DuckGPT S3"
+/>
+
+## Add S3 data
+
+The tables used by S3 `DuckGPT` are defined in the `duckgpt/s3_tables.py` file.
+
+- Add your S3 `tables` and the `relationships` between them. These aren't necessary but help improve the responses of the LLM.
+- These tables are created using a `CREATE OR REPLACE TABLE '{name}' AS SELECT * FROM '{path}';` command so can accept any file type supported by DuckDb.
+- You can also define custom data loading operations in the `load_s3_tables()` function and click on the **Load All Tables** button to load the DuckDb database manually.
+
+## Optional: Run Jupyterlab
+
+A jupyter notebook is a must have for AI development and your `junior-de` comes with a notebook pre-installed with the required dependencies. Enable it by updating the `workspace/settings.py` file:
+
+```python workspace/settings.py
+...
+ws_settings = WorkspaceSettings(
+    ...
+    # Uncomment the following line
+    dev_jupyter_enabled=True,
+)
+...
+```
+
+Start `jupyter` using:
+
+<CodeGroup>
+
+```bash Terminal
+phi ws up --group lab
+```
+
+```bash Shorthand
+phi ws up dev:docker:lab
+```
+
+</CodeGroup>
+
+**Press Enter** to confirm and give a few minutes for the image to download (only the first time). Verify container status and view logs on the docker dashboard.
+
+### View Jupyterlab UI
+
+- Open [localhost:8888](http://localhost:8888) to view the Jupyterlab UI. Password: **admin**
+- Open `notebooks/local_duckgpt` to run DuckGPT on local data.
+
+<ImageContainer
+  src="/images/junior-de-jupyter-local.png"
+  alt="junior-de-jupyter-local"
+/>
+
+## Delete local resources
+
+Play around and stop the workspace using:
+
+<CodeGroup>
+
+```bash Terminal
+phi ws down
+```
+
+```bash With Options
+phi ws down --env dev --infra docker
+```
+
+```bash Shorthand
+phi ws down dev:docker
+```
+
+</CodeGroup>
+
+or stop individual Apps using:
+
+<CodeGroup>
+
+```bash App
+phi ws down --group app
+```
+
+```bash PgVector
+phi ws down --group db
+```
+
+```bash Jupyter
+phi ws down --group jupyter
+```
+
+</CodeGroup>
+
+## Upcoming Upgrades
+
+Junior DE is a v0 release, meaning there will be plenty of bugs and plenty of upgrades.
+
+Here's what we have in the works:
+
+- Add Polars agent.
+- Add Snowflake agent.
+- Ask questions via slack
+- Add Airflow agent.
+- Add ability to write and test data pipelines.
+
+Message us on [discord](https://discord.gg/4MtYHHrgA8) if you want to beta-test.
+
+---
+
+## Run on AWS
+
+Now let's run the **Junior DE** in production on AWS.
+
+## AWS Authentication
+
+To run on AWS, you need **one** of the following:
+
+1. The `~/.aws/credentials` file with your AWS credentials
+2. `AWS_ACCESS_KEY_ID` + `AWS_SECRET_ACCESS_KEY` environment variables
+
+<Note>
+
+To create the credentials file, install the [aws cli](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html) and run `aws configure`
+
+</Note>
+
+### Add AWS Region and Subnets
+
+Add 2 [Subnets](https://us-east-1.console.aws.amazon.com/vpc/home?#subnets:) to the `workspace/settings.py` file, these are required for the ECS services.
+
+```python workspace/settings.py
+ws_settings = WorkspaceSettings(
+    ...
+    # -*- AWS settings
+    # Add your Subnet IDs here
+    subnet_ids=["subnet-xyz", "subnet-xyz"],
+    ...
+)
+```
+
+<Note>
+
+Please check that the subnets belong to the selected `aws_region`
+
+</Note>
+
+## Update Secrets
+
+Update the Junior DE password in the `workspace/secrets/prd_app_secrets.yml` file:
+
+```python workspace/secrets/prd_app_secrets.yml
+APP_PASSWORD: "admin"
+# OPENAI_API_KEY: "sk-***"
+```
+
+Update the RDS database password in the `workspace/secrets/prd_db_secrets.yml` file:
+
+```python workspace/secrets/prd_db_secrets.yml
+# Secrets used by prd RDS database
+MASTER_USERNAME: llm
+MASTER_USER_PASSWORD: "llm9999!!"
+```
+
+## Create AWS resources
+
+Create AWS resources for the LLM App using:
+
+<CodeGroup>
+
+```bash Terminal
+phi ws up --env prd --infra aws
+```
+
+```bash Shorthand
+phi ws up prd:aws
+```
+
+</CodeGroup>
+
+This will create:
+
+1. [ECS Cluster](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/clusters.html) for the application.
+2. [ECS Task Definitions](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task_definitions.html) and [Services](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs_services.html) that run the application on the ECS cluster.
+3. [LoadBalancer](https://aws.amazon.com/elasticloadbalancing/) to route traffic to the application.
+4. [Security Groups](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-security-groups.html) that control incoming and outgoing traffic.
+5. [Secrets](https://aws.amazon.com/secrets-manager/) for managing application and database secrets.
+6. [RDS Database](https://aws.amazon.com/rds/) for Knowledge Base and Storage.
+
+**Press Enter** to confirm and grab a cup of coffee while the resources spin up.
+
+- The RDS database takes about 10 minutes to activate.
+- These resources are defined in the `workspace/prd_resources.py` file.
+- Use the [ECS console](https://us-east-1.console.aws.amazon.com/ecs/v2/clusters) to view services and logs.
+- Use the [RDS console](https://us-east-1.console.aws.amazon.com/rds/home?#databases:) to view the database instance.
+
+## Production Junior DE
+
+**Open the LoadBalancer DNS** provided when creating the Streamlit App
+
+### DuckGPT
+
+- Enter the `APP_PASSWORD` from the `prd_app_secrets.yml` file (default: `admin`)
+- Click on **DuckGPT Local** or **DuckGPT S3** and Enter a username.
+- Click on the **Load Tables** button to populate your DuckDb database with sample data.
+- Ask "Which actor has the highest average movie rating?"
+- See your Junior DE work through the problem.
+
+<ImageContainer
+  src="/images/junior-de-duckgpt-prd.png"
+  alt="Junior DE: DuckGPT Production"
+/>
+
+## Update Production
+
+To update the production application, follow [this guide](/day-2/production-app) to
+
+1. Create a new image
+2. Update the ECS Task Definition and Services.
+
+## Delete AWS resources
+
+Play around and then delete AWS resources using:
+
+<CodeGroup>
+
+```bash Terminal
+phi ws down --env prd --infra aws
+```
+
+```bash Shorthand
+phi ws down prd:aws
+```
+
+</CodeGroup>
+
+or delete individual resource groups using:
+
+<CodeGroup>
+
+```bash App
+phi ws down --env prd --infra aws --group app
+```
+
+```bash Database
+phi ws down --env prd --infra aws --group db
+```
+
+</CodeGroup>
+
+## Next
+
+Congratulations on running a Junior Data Engineer to help you with Data Engineering tasks. Next Steps:
+
+- Add your own data.
+- Update the prompts to fit your use-case.
+- Create a [git repository for this workspace](/day-2/git-repo).
+- Read how to [update the dev application](/day-2/dev-app).
+- Read how to [update the production application](/day-2/production-app).
+- Read how to [format and validate your code](/day-2/format-and-validate).
+- Read how to [add python libraries](/day-2/python-libraries).
+- Read how to [add database tables](/day-2/database-tables)
+- Read how to [add a custom domain and HTTPS](/day-2/domain-https).
+- Read how to [implement CI/CD](/day-2/ci-cd)
+- Learn about other [day-2 operations](/day-2/day-2-operations).
+- Chat with us on [discord](https://discord.gg/4MtYHHrgA8).

@@ -1,0 +1,66 @@
+---
+title: Storage
+description: Every `Conversation` comes with built-in memory but it only lasts while the session is active. To provide memory across sessions, we can store the `Conversation` to a `PostgreSQL` table.
+---
+
+<Note>
+
+[Run PgVector](/blocks/page/apps#example-run-pg-vector-on-docker) to provide storage.
+
+</Note>
+
+---
+
+## PgConversationStorage 
+
+    `PgConversationStorage` uses `PostgreSQL` for `Conversation` storage so they can be retrieved later.
+
+    ### Attributes
+
+      <ResponseField name="table_name" type="str">
+        The name of the table to store conversations in.
+      </ResponseField>
+      <ResponseField name="schema" type="str">
+        The schema to store the table in. Default: `llm`
+      </ResponseField>
+      <ResponseField name="db_url" type="str">
+        The database URL to connect to.
+      </ResponseField>
+      <ResponseField name="db_engine" type="Engine">
+        The database engine to use.
+      </ResponseField>
+
+    <CodeGroup>
+
+    ```python storage.py
+    from phi.storage.conversation.postgres import PgConversationStorage
+
+    from resources import vector_db
+
+    storage = PgConversationStorage(
+        # Table name: llm.conversations
+        table_name="conversations",
+        db_url=vector_db.get_db_connection_local(),
+    )
+    ```
+
+    </CodeGroup>
+
+    <CodeGroup>
+
+    ```python conversation.py
+    from phi.conversation import Conversation
+    from storage import storage
+
+    conversation = Conversation(
+        ...
+        storage=storage,
+        ...
+    )
+
+    ```
+
+    </CodeGroup>
+
+
+---

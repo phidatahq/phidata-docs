@@ -1,0 +1,97 @@
+s# Development Application
+
+The **Development Application** runs locally on docker and its resources are defined in the `workspace/dev_resources.py` file. This guide shows how to:
+
+1. [Update Workspace Settings](#workspace-settings)
+2. [Build a new image](#build-a-new-image)
+3. [Restart docker containers](#restart-containers)
+4. [Recreate development resources](#recreate-dev-resources)
+
+## Workspace Settings
+
+`WorkspaceSettings` define common settings used by the workspace apps and resources.
+
+We highly recommend building your own images:
+
+- Open `workspace/settings.py` file
+- Update the `image_repo` to your image repository
+- Set `build_images=True`
+
+```python workspace/settings.py
+ws_settings = WorkspaceSettings(
+    ...
+    # -*- Image Settings
+    # Repository for images
+    image_repo="local",
+    # Build images locally
+    build_images=True,
+)
+```
+
+## Build a new image
+
+Build a new image using:
+
+<CodeGroup>
+
+```bash Terminal
+phi ws up --env dev --infra docker --type image
+```
+
+```bash Shorthand
+phi ws up -e dev -i docker -t image
+```
+
+</CodeGroup>
+
+To `force` rebuild images, use the `--force` or `-f` flag
+
+<CodeGroup>
+
+```bash Terminal
+phi ws up --env dev --infra docker --type image --force
+```
+
+```bash Shorthand
+phi ws up -e dev -i docker -t image -f
+```
+
+</CodeGroup>
+
+## Restart containers
+
+Restart docker containers using:
+
+<CodeGroup>
+
+```bash Terminal
+phi ws restart --env dev --infra docker --type container
+```
+
+```bash Shorthand
+phi ws restart -e dev -c docker -t container
+```
+
+</CodeGroup>
+
+## Recreate Dev Resources
+
+To recreate all dev resources, use the `--force` flag:
+
+<CodeGroup>
+
+```bash Terminal
+phi ws up -f
+```
+
+```bash With Options
+phi ws up --env dev --infra docker --force
+```
+
+```bash Shorthand
+phi ws up -e dev -i docker -f
+```
+
+</CodeGroup>
+
+---
