@@ -29,7 +29,7 @@
     {
       "name": "Reference",
       "icon": "code",
-      "url": "api-reference"
+      "url": "reference"
     },
     {
       "name": "Support",
@@ -49,85 +49,90 @@
           "introduction",
           "basics",
           {
-            "group": "Examples",
+            "group": "Templates",
             "pages": [
-                "examples/rag-llm-app",
-                "examples/auto-llm-app",
-                "examples/multimodal-llm-app",
-                "examples/junior-de",
-                "examples/snowflake-llm"
+                "templates/llm-app",
+                "templates/llm-api",
+                "templates/streamlit-app",
+                "templates/django-app",
+                "templates/data-platform"
             ]
           },
           {
             "group": "Building Blocks",
             "pages": [
-                "blocks/introduction",
-                "blocks/conversations",
-                "blocks/assistants",
-                "blocks/tasks",
-                "blocks/knowledge-base",
-                "blocks/storage",
-                "blocks/memory",
-                "blocks/agents",
-                "blocks/llms",
-                "blocks/apps",
-                "blocks/resources",
-                "blocks/workspaces"
+              "blocks/overview",
+              "blocks/conversations",
+              "blocks/agents",
+              "blocks/tasks",
+              "blocks/assistants",
+              "blocks/knowledge-base",
+              "blocks/storage",
+              "blocks/llms",
+              "blocks/apps",
+              "blocks/resources",
+              "blocks/workspaces"
             ]
           },
           {
-            "group": "Cookbooks",
+            "group": "How to",
             "pages": [
-                "recipe/conversations",
-                "recipe/tasks"
+                "day-2/overview",
+                {
+                  "group": "Running locally",
+                  "pages": [
+                      "local/overview",
+                      "local/install",
+                      "local/docker",
+                      "local/create-resources",
+                      "local/update-resources",
+                      "local/delete-resources"
+                  ]
+                },
+                {
+                  "group": "Running on AWS",
+                  "pages": [
+                      "aws/overview",
+                      "aws/authenticate",
+                      "aws/create-resources",
+                      "aws/update-resources",
+                      "aws/delete-resources"
+                  ]
+                },
+                "day-2/git-repo",
+                "day-2/new-users",
+                "day-2/dev-app",
+                "day-2/production-app",
+                "day-2/python-libraries",
+                "day-2/secrets",
+                "day-2/env-vars",
+                "day-2/database-tables",
+                "day-2/format-and-validate",
+                "day-2/ci-cd",
+                "day-2/domain-https",
+                "day-2/ssh-access"
             ]
           }
       ]
     },
     {
-      "group": "Learn",
+      "group": "Examples",
       "pages": [
         {
-          "group": "Day 2",
+          "group": "AI Apps",
           "pages": [
-              "day-2-operations",
-              "day-2/git-repo",
-              "day-2/new-users",
-              "day-2/dev-app",
-              "day-2/production-app",
-              "day-2/python-libraries",
-              "day-2/secrets",
-              "day-2/env-vars",
-              "day-2/database-tables",
-              "day-2/format-and-validate",
-              "day-2/ci-cd",
-              "day-2/domain-https",
-              "day-2/ssh-access"
+            "examples/ai/overview",
+            "examples/ai/rag-llm-app",
+            "examples/ai/auto-llm-app",
+            "examples/ai/multimodal-llm-app",
+            "examples/ai/junior-de",
+            "examples/ai/snowflake-de"
           ]
         },
         {
-          "group": "Running locally",
+          "group": "Cookbook",
           "pages": [
-              "local/install",
-              "local/docker",
-              "local/create-resources",
-              "local/update-resources",
-              "local/delete-resources",
-              "local/managing-secrets",
-              "local/managing-env-vars"
-          ]
-        },
-        {
-          "group": "Running on AWS",
-          "pages": [
-              "aws/authenticate",
-              "aws/create-resources",
-              "aws/update-resources",
-              "aws/delete-resources",
-              "aws/ecs",
-              "aws/eks",
-              "aws/rds",
-              "aws/tools"
+              "recipe/basic-conversation"
           ]
         }
       ]
@@ -136,22 +141,30 @@
       "group": "Resources",
       "pages": [
         {
-          "group": "Templates",
+          "group": "Apps",
           "pages": [
-              "templates/llm-app",
-              "templates/llm-api",
-              "templates/streamlit-app",
-              "templates/django-app"
+              "apps/postgres"
+          ]
+        },
+        {
+          "group": "Docker",
+          "pages": [
+              "docker/container"
+          ]
+        },
+        {
+          "group": "AWS",
+          "pages": [
+              "aws/ecs",
+              "aws/rds"
           ]
         }
       ]
     }
   ],
   "footerSocials": {
-    "twitter": "https://twitter.com/phidatahq",
     "github": "https://github.com/mintlify",
     "discord": "https://discord.com/invite/4MtYHHrgA8",
-    "linkedin": "https://www.linkedin.com/company/phidatahq/",
     "website": "https://phidata.com"
   }
 }
