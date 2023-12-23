@@ -35,11 +35,6 @@
       "name": "Support",
       "icon": "discord",
       "url": "https://discord.com/invite/4MtYHHrgA8"
-    },
-    {
-      "name": "GitHub",
-      "icon": "github",
-      "url": "https://github.com/phidatahq/phidata"
     }
   ],
   "navigation": [
@@ -47,7 +42,7 @@
       "group": "Documentation",
       "pages": [
           "introduction",
-          "basics",
+          "quickstart",
           {
             "group": "Templates",
             "pages": [

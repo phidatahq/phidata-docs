@@ -1,71 +1,94 @@
 ---
 title: Introduction
-description: 'Welcome to the home of your new documentation'
 ---
 
-<img
-  className="block dark:hidden"
-  src="/images/hero-light.svg"
-  alt="Hero Light"
-/>
-<img
-  className="hidden dark:block"
-  src="/images/hero-dark.svg"
-  alt="Hero Dark"
-/>
+## What is phidata?
 
-## Setting up
+Phidata provides the developer experience and tools for building AI powered software.
 
-The first step to world-class documentation is setting up your editing environnments.
+## Use it to build
+
+- **AI Apps** (RAG, Autonomous, Multimodal applications)
+- **AI Assistants** (automate data engineering, python or snowflake tasks)
+- **RestApis** (with FastApi, PostgreSQL)
+- **Web Apps** (with Django, PostgreSQL)
+- **Data Platforms** (with Airflow, Superset, Jupyter)
+
+## What you get
+
+**Production ready codebases** for AI Apps, Web Apps and RestAPIs built with:
+
+- A human-like `Conversation` interface to AI models with built-in knowledge base, storage
+- Tools like FastApi, Streamlit, Django, Postgres defined as pydantic classes
+- Infrastructure components (docker, AWS) also defined as pydantic classes
+
+Phidata applications run locally on docker and can be deployed to AWS with 1 command.
+
+## How it works
+
+- Create your codebase using a template: `phi ws create`
+- Run your app locally on docker: `phi ws up dev:docker`
+- Run your app on AWS: `phi ws up prd:aws`
+
+## Its designed for
+
+- Teams building AI products
+- Teams building RestAPI backends
+- Teams building Web Apps with Django
+- Teams building Data Platforms with Airflow, Superset and Jupyter
+
+## Advantages
+
+- **Simple:** Application, tools and infrastructure code is written in python
+- **Powerful:** Get a production-ready codebase with 1 command
+- **Production Ready:** Deploy your application to AWS with 1 command
+
+## Get started
+
+Follow the [Quickstart](/quickstart) guide to build an AI App or checkout one of the examples below.
+
+## Examples
+
+Build your application using an example
 
 <CardGroup cols={2}>
-  <Card
-    title="Edit Your Docs"
-    icon="pen-to-square"
-    href="https://mintlify.com/docs/quickstart"
-  >
-    Get your docs set up locally for easy development
+  <Card title="RAG LLM App" icon="books" href="examples/ai/rag-llm-app">
+    Build a RAG LLM App using FastApi, Streamlit and PgVector
+  </Card>
+  <Card title="Autonomous LLM App" icon="code" href="examples/ai/auto-llm-app">
+    Build an Autonomous LLM App using FastApi, Streamlit and PgVector
   </Card>
   <Card
-    title="Preview Changes"
-    icon="image"
-    href="https://mintlify.com/docs/development"
+    title="Multimodal LLM App"
+    icon="screwdriver-wrench"
+    href="examples/ai/multimodal-llm-app"
   >
-    Preview your changes before you push to make sure they're perfect
+    Build a Multimodal LLM App that can understand images and text
+  </Card>
+  <Card title="Junior Data Engineer" icon="stars" href="examples/ai/junior-de">
+    Build a Junior DE to automate data analysis using DuckDb and Python
   </Card>
 </CardGroup>
 
-## Make it yours
+## Templates
 
-Update your docs to your brand and add valuable content for the best user conversion.
+Build your application using a production-ready template
 
 <CardGroup cols={2}>
-  <Card
-    title="Customize Style"
-    icon="palette"
-    href="https://mintlify.com/docs/settings/global"
-  >
-    Customize your docs to your company's colors and brands
+  <Card title="LLM App" icon="palette" href="examples/ai/rag-llm-app">
+    Build an LLM App using FastApi, Streamlit and PgVector
+  </Card>
+  <Card title="LLM Api" icon="code" href="examples/ai/auto-llm-app">
+    Build an LLM Api using FastApi and PgVector
   </Card>
   <Card
-    title="Reference APIs"
-    icon="code"
-    href="https://mintlify.com/docs/api-playground/openapi"
-  >
-    Automatically generate endpoints from an OpenAPI spec
-  </Card>
-  <Card
-    title="Add Components"
+    title="Streamlit App"
     icon="screwdriver-wrench"
-    href="https://mintlify.com/docs/components/accordion"
+    href="examples/ai/multimodal-llm-app"
   >
-    Build interactive features and designs to guide your users
+    Build a Micro-LLM App using Streamlit and PgVecto
   </Card>
-  <Card
-    title="Get Inspiration"
-    icon="stars"
-    href="https://mintlify.com/showcase"
-  >
-    Check out our showcase of our favorite documentation
+  <Card title="Django App" icon="stars" href="examples/ai/junior-de">
+    Build an LLM Web App using Django and PgVector
   </Card>
 </CardGroup>
