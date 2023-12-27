@@ -94,6 +94,7 @@
         {
           "group": "Cookbook",
           "pages": [
+              "recipe/cli-app",
               "recipe/basic-conversation"
           ]
         }
