@@ -1,0 +1,74 @@
+---
+title: PDF Knowledge Base
+sidebarTitle: PDF
+---
+
+The `PDFKnowledgeBase` reads **local PDFs**, converts them into vector embeddings and loads them to a `vector_db`.
+
+## Usage
+
+<Note>
+
+Install `pypdf` if needed using [this guide](/how-to/python-libraries)
+
+</Note>
+
+```python knowledge_base.py
+from phi.knowledge.pdf import PDFKnowledgeBase, PDFReader
+from phi.vectordb.pgvector import PgVector
+
+from resources import vector_db
+
+pdf_knowledge_base = PDFKnowledgeBase(
+    path="data/pdfs",
+    # Table name: llm.pdf_documents
+    vector_db=PgVector(
+        collection="pdf_documents",
+        db_url=vector_db.get_db_connection_local(),
+    ),
+    reader=PDFReader(chunk=True),
+)
+```
+
+Then use the `knowledge_base` in a `Conversation`:
+
+```python conversation.py
+from phi.conversation import Conversation
+from knowledge_base import knowledge_base
+
+conversation = Conversation(
+    knowledge_base=knowledge_base,
+    add_references_to_prompt=True,
+)
+
+conversation.knowledge_base.load(recreate=False)
+
+conversation.print_response("Ask me about something from the knowledge base")
+```
+
+## Params
+
+<ResponseField name="path" type="Union[str, Path]">
+  Path to `PDF` files.
+
+Can point to a single PDF file or a directory of PDF files.
+
+</ResponseField>
+<ResponseField name="vector_db" type="VectorDb">
+  Vector Database for the Knowledge Base.
+
+Example: `PgVector`
+
+</ResponseField>
+<ResponseField name="reader" type="PDFReader">
+  A `PDFReader` that converts the `PDFs` into `Documents` for the vector database.
+</ResponseField>
+<ResponseField name="num_documents" type="int">
+  Number of documents to return on search. (default: `5`)
+</ResponseField>
+<ResponseField name="optimize_on" type="int">
+  Number of documents to optimize the vector db on.
+
+For Example: Create an index for `PgVector`.
+
+</ResponseField>

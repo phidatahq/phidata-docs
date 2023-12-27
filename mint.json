@@ -58,7 +58,20 @@
               },
               "blocks/agents",
               "blocks/assistants",
-              "blocks/knowledge-base",
+              {
+                "group": "Knowledge Base",
+                "pages": [
+                  "blocks/kb/introduction",
+                  "blocks/kb/pdf",
+                  "blocks/kb/pdf-url",
+                  "blocks/kb/text",
+                  "blocks/kb/json",
+                  "blocks/kb/website",
+                  "blocks/kb/wikipedia",
+                  "blocks/kb/arxiv",
+                  "blocks/kb/combined"
+                ]
+              },
               "blocks/storage",
               "blocks/llms",
               "blocks/apps",
