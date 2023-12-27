@@ -5,7 +5,7 @@
     "dark": "/logo/dark.svg",
     "light": "/logo/light.svg"
   },
-  "favicon": "/phifav.png",
+  "favicon": "/favicon.png",
   "colors": {
     "primary": "#0D9373",
     "light": "#07C983",
@@ -49,53 +49,31 @@
               "blocks/overview",
               "blocks/conversations",
               "blocks/agents",
-              "blocks/tasks",
               "blocks/assistants",
               "blocks/knowledge-base",
               "blocks/storage",
               "blocks/llms",
               "blocks/apps",
               "blocks/resources",
-              "blocks/workspaces"
+              "blocks/workspace"
             ]
           },
           {
             "group": "How to",
             "pages": [
-                "day-2/overview",
-                {
-                  "group": "Running locally",
-                  "pages": [
-                      "local/overview",
-                      "local/install",
-                      "local/docker",
-                      "local/create-resources",
-                      "local/update-resources",
-                      "local/delete-resources"
-                  ]
-                },
-                {
-                  "group": "Running on AWS",
-                  "pages": [
-                      "aws/overview",
-                      "aws/authenticate",
-                      "aws/create-resources",
-                      "aws/update-resources",
-                      "aws/delete-resources"
-                  ]
-                },
-                "day-2/git-repo",
-                "day-2/new-users",
-                "day-2/dev-app",
-                "day-2/production-app",
-                "day-2/python-libraries",
-                "day-2/secrets",
-                "day-2/env-vars",
-                "day-2/database-tables",
-                "day-2/format-and-validate",
-                "day-2/ci-cd",
-                "day-2/domain-https",
-                "day-2/ssh-access"
+                "how-to/install",
+                "how-to/development-app",
+                "how-to/production-app",
+                "how-to/git-repo",
+                "how-to/new-users",
+                "how-to/python-libraries",
+                "how-to/secrets",
+                "how-to/env-vars",
+                "how-to/database-tables",
+                "how-to/format-and-validate",
+                "how-to/ci-cd",
+                "how-to/domain-https",
+                "how-to/ssh-access"
             ]
           }
       ]
@@ -106,7 +84,6 @@
         {
           "group": "AI Apps",
           "pages": [
-            "examples/ai/overview",
             "examples/ai/rag-llm-app",
             "examples/ai/auto-llm-app",
             "examples/ai/multimodal-llm-app",
@@ -154,6 +131,12 @@
               "aws/rds"
           ]
         }
+      ]
+    },
+    {
+      "group": "Command Line",
+      "pages": [
+        "reference/cli/init"
       ]
     }
   ],

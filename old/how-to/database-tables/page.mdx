@@ -133,11 +133,11 @@ Because we updated the Environment Variables, we need to update the Task Definit
 
 <CodeGroup>
 
-```bash Terminal
+```bash terminal
 phi ws patch --env prd --infra aws --name td
 ```
 
-```bash Shorthand
+```bash shorthand
 phi ws patch -e prd -i aws -n td
 ```
 
@@ -149,11 +149,11 @@ After updating the task definition, redeploy the production application:
 
 <CodeGroup>
 
-```bash Terminal
+```bash terminal
 phi ws patch --env prd --infra aws --name service
 ```
 
-```bash Shorthand
+```bash shorthand
 phi ws patch -e prd -i aws -n service
 ```
 

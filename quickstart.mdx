@@ -58,21 +58,7 @@ llm-app                       # root directory for your RAG llm-app
     └── settings.py         # phidata workspace settings
 ```
 
-### Optional: Set OpenAI Api Key
-
-To use your own `OPENAI_API_KEY`, set the `OPENAI_API_KEY` environment variable. You can get one [from OpenAI here](https://platform.openai.com/account/api-keys). Otherwise `phi` provides ready to use access to OpenAI models.
-
-<CodeGroup>
-
-```bash Mac
-export OPENAI_API_KEY=sk-***
-```
-
-```bash Windows
-setx OPENAI_API_KEY sk-***
-```
-
-</CodeGroup>
+<Snippet file="set-openai-key.mdx" />
 
 ## Serve your App using Streamlit
 
@@ -82,11 +68,11 @@ in pure python. Start the `app` group using:
 
 <CodeGroup>
 
-```bash Terminal
+```bash terminal
 phi ws up --group app
 ```
 
-```bash Shorthand
+```bash shorthand
 phi ws up dev:docker:app
 ```
 
@@ -105,19 +91,19 @@ phi ws up dev:docker:app
 
 ![Chat with pdf](/images/rag-llm-app-chat-with-pdf.png)
 
-- Check the docker logs to see the "context" passed along with the question.
+Check the docker logs to see the "context" passed along with the question.
 
 ![RAG logs](/images/rag-llm-app-docker-logs.png)
 
 ## Add your data
 
-The `pdf_knowledge_base` in the `llm/knowledge_base.py` file provides the references used for RAG. The `PDFKnowledgeBase` reads local PDFs and the `PDFUrlKnowledgeBase` reads PDFs from URLs.
+The `pdf_knowledge_base` in the `llm/knowledge_base.py` file provides the references (context) used for RAG. The `PDFKnowledgeBase` reads local PDFs and the `PDFUrlKnowledgeBase` reads PDFs from URLs.
 
-<Note>
+<Tip>
 
 **Make this app your own** by creating a `data/pdfs` folder with your PDFs. Then click on the `Update Knowledge Base` button to load the knowledge base.
 
-</Note>
+</Tip>
 
 ```python llm/knowledge_base.py
 url_pdf_knowledge_base = PDFUrlKnowledgeBase(
@@ -167,9 +153,9 @@ def get_pdf_rag_conversation(
         USER: {message}
         ASSISTANT:
         """,
-        # This setting populates the "references" argument of the user prompt function
+        # This populates the "references" argument to the user prompt function
         add_references_to_prompt=True,
-        # This setting adds the last 8 messages to the API call
+        # This adds the last 8 messages to the API call
         add_chat_history_to_messages=True,
     )
 ```
@@ -182,17 +168,17 @@ Your LLM App comes ready-to-use with FastApi endpoints, start the `api` group us
 
 <CodeGroup>
 
-```bash Terminal
+```bash terminal
 phi ws up --group api
 ```
 
-```bash Shorthand
+```bash shorthand
 phi ws up dev:docker:api
 ```
 
 </CodeGroup>
 
-**Press Enter** to confirm and give a few minutes for the image to download.
+**Press Enter** to confirm
 
 ### View API Endpoints
 
@@ -200,14 +186,14 @@ phi ws up dev:docker:api
 - Load the knowledge base using `/v1/pdf/conversation/load-knowledge-base`
 - Test the `v1/pdf/conversation/chat` endpoint with `{"message": "How do I make chicken curry?"}`
 
-<ImageContainer
+<img
   src="/images/rag-llm-app-fastapi-local.png"
   alt="rag-llm-app-fastapi-local"
 />
 
-## Build your LLM Product
+## Build your RAG LLM Product
 
-Your LLM Api comes with common endpoints you can use to build your LLM product. These routes are developed in collaboration with real LLM Apps and provide a great starting point to build on.
+Your LLM Api provides common endpoints you can use to build your LLM product. These routes are developed in collaboration with real LLM Apps and are a great starting point to build on.
 
 For example:
 
@@ -220,7 +206,7 @@ For example:
 }
 ```
 
-- The response contains a `conversation_id` that can be used to build a chat interface by calling the `/conversation/chat` endpoint. Message us on [discord](https://discord.gg/4MtYHHrgA8) if you need help.
+- The response contains a `conversation_id` that can be used to build a chat interface by calling the `/conversation/chat` endpoint.
 
 ```json
 {
@@ -231,7 +217,11 @@ For example:
 }
 ```
 
-The FastApi routes are defined the `api/routes` folder and can be customized to your use case.
+These routes are defined the `api/routes` folder and can be customized to your use case.
+
+<Tip>
+  Message us on [discord](https://discord.gg/4MtYHHrgA8) if you need help.
+</Tip>
 
 ## Optional: Run Jupyterlab
 
@@ -250,11 +240,11 @@ Start `jupyter` using:
 
 <CodeGroup>
 
-```bash Terminal
+```bash terminal
 phi ws up --group jupyter
 ```
 
-```bash Shorthand
+```bash shorthand
 phi ws up dev:docker:jupyter
 ```
 
@@ -267,7 +257,7 @@ phi ws up dev:docker:jupyter
 - Open [localhost:8888](http://localhost:8888) to view the Jupyterlab UI. Password: **admin**
 - Play around with cookbooks in the `notebooks` folder.
 
-<ImageContainer
+<img
   src="/images/rag-llm-app-jupyter-local.png"
   alt="rag-llm-app-jupyter-local"
 />
@@ -278,7 +268,7 @@ Play around and stop the workspace using:
 
 <CodeGroup>
 
-```bash Terminal
+```bash terminal
 phi ws down
 ```
 
@@ -286,7 +276,7 @@ phi ws down
 phi ws down --env dev --infra docker
 ```
 
-```bash Shorthand
+```bash shorthand
 phi ws down dev:docker
 ```
 
@@ -376,11 +366,11 @@ Create AWS resources for the LLM App using:
 
 <CodeGroup>
 
-```bash Terminal
+```bash terminal
 phi ws up --env prd --infra aws
 ```
 
-```bash Shorthand
+```bash shorthand
 phi ws up prd:aws
 ```
 
@@ -402,11 +392,6 @@ This will create:
 - Use the [ECS console](https://us-east-1.console.aws.amazon.com/ecs/v2/clusters) to view services and logs.
 - Use the [RDS console](https://us-east-1.console.aws.amazon.com/rds/home?#databases:) to view the database instance.
 
-<ImageContainer
-  src="/gifs/create_llm_app_aws.gif"
-  alt="create_llm_app_aws.gif"
-/>
-
 ## Production Streamlit App
 
 **Open the LoadBalancer DNS** provided when creating the Streamlit App
@@ -419,7 +404,7 @@ This will create:
 - Choose the `RAG` Conversation type.
 - Ask "How do I make chicken curry?"
 
-<ImageContainer
+<img
   src="/images/rag-llm-app-chat-with-pdf-prd.png"
   alt="rag-llm-app-chat-with-pdf-prd"
 />
@@ -431,14 +416,11 @@ This will create:
 - Test the `v1/pdf/conversation/chat` endpoint with `{"message": "How do I make chicken curry?"}`
 - Update and integrate with your front-end or product.
 
-<ImageContainer
-  src="/images/rag-llm-app-fastapi-prd.png"
-  alt="rag-llm-app-fastapi-prd"
-/>
+<img src="/images/rag-llm-app-fastapi-prd.png" alt="rag-llm-app-fastapi-prd" />
 
 ## Update Production
 
-To update the production application, follow [this guide](/day-2/production-app) to
+To update the production application, follow [this guide](how-to/production-app) to
 
 1. Create a new image
 2. Update the ECS Task Definition and Services.
@@ -449,11 +431,11 @@ Play around and then delete AWS resources using:
 
 <CodeGroup>
 
-```bash Terminal
+```bash terminal
 phi ws down --env prd --infra aws
 ```
 
-```bash Shorthand
+```bash shorthand
 phi ws down prd:aws
 ```
 
@@ -477,14 +459,12 @@ phi ws down --env prd --infra aws --group db
 
 Congratulations on building a production-ready RAG LLM App with access to a knowledge base and storage. Next Steps:
 
-- Make this App your own by adding your data.
-- Create a [git repository for this workspace](/day-2/git-repo).
-- Read how to [update the dev application](/day-2/dev-app).
-- Read how to [update the production application](/day-2/production-app).
-- Read how to [format and validate your code](/day-2/format-and-validate).
-- Read how to [add python libraries](/day-2/python-libraries).
-- Read how to [add database tables](/day-2/database-tables)
-- Read how to [add a custom domain and HTTPS](/day-2/domain-https).
-- Read how to [implement CI/CD](/day-2/ci-cd)
-- Learn about other [day-2 operations](/day-2/day-2-operations).
-- Chat with us on [discord](https://discord.gg/4MtYHHrgA8).
+- Make this App your own by adding your data
+- Create a [git repository for your workspace](how-to/git-repo)
+- [Update the dev application](how-to/dev-app)
+- [Update the production application](how-to/production-app)
+- [Format and validate your code](how-to/format-and-validate)
+- [Add python libraries](how-to/python-libraries)
+- [Add a custom domain and HTTPS](how-to/domain-https)
+- [Implement CI/CD](how-to/ci-cd)
+- Chat with us on [discord](https://discord.gg/4MtYHHrgA8)

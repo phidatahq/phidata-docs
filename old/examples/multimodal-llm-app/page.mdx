@@ -132,11 +132,11 @@ group using:
 
 <CodeGroup>
 
-```bash Terminal
+```bash terminal
 phi ws up --group app
 ```
 
-```bash Shorthand
+```bash shorthand
 phi ws up dev:docker:app
 ```
 
@@ -177,11 +177,11 @@ Your LLM App comes pre-configured with FastApi, start the `api` group using:
 
 <CodeGroup>
 
-```bash Terminal
+```bash terminal
 phi ws up --group api
 ```
 
-```bash Shorthand
+```bash shorthand
 phi ws up dev:docker:api
 ```
 
@@ -214,11 +214,11 @@ Start `jupyter` using:
 
 <CodeGroup>
 
-```bash Terminal
+```bash terminal
 phi ws up --group jupyter
 ```
 
-```bash Shorthand
+```bash shorthand
 phi ws up dev:docker:jupyter
 ```
 
@@ -248,7 +248,7 @@ Play around and stop the workspace using:
 
 <CodeGroup>
 
-```bash Terminal
+```bash terminal
 phi ws down
 ```
 
@@ -256,7 +256,7 @@ phi ws down
 phi ws down --env dev --infra docker
 ```
 
-```bash Shorthand
+```bash shorthand
 phi ws down dev:docker
 ```
 
@@ -346,11 +346,11 @@ Create AWS resources for the LLM App using:
 
 <CodeGroup>
 
-```bash Terminal
+```bash terminal
 phi ws up --env prd --infra aws
 ```
 
-```bash Shorthand
+```bash shorthand
 phi ws up prd:aws
 ```
 
@@ -406,7 +406,7 @@ We are working on building a set of common endpoints for this multimodal LLM App
 
 ## Update Production
 
-To update the production application, follow [this guide](/day-2/production-app) to
+To update the production application, follow [this guide](/how-to/production-app) to
 
 1. Create a new image
 2. Update the ECS Task Definition and Services.
@@ -417,11 +417,11 @@ Play around and then delete AWS resources using:
 
 <CodeGroup>
 
-```bash Terminal
+```bash terminal
 phi ws down --env prd --infra aws
 ```
 
-```bash Shorthand
+```bash shorthand
 phi ws down prd:aws
 ```
 
@@ -446,13 +446,13 @@ phi ws down --env prd --infra aws --group db
 Congratulations on building a production-ready RAG LLM App with access to a knowledge base and storage. Next Steps:
 
 - Modify and make this App your own.
-- Create a [git repository for this workspace](/day-2/git-repo).
-- Read how to [update the dev application](/day-2/dev-app).
-- Read how to [update the production application](/day-2/production-app).
-- Read how to [format and validate your code](/day-2/format-and-validate).
-- Read how to [add python libraries](/day-2/python-libraries).
-- Read how to [add database tables](/day-2/database-tables)
-- Read how to [add a custom domain and HTTPS](/day-2/domain-https).
-- Read how to [implement CI/CD](/day-2/ci-cd)
-- Learn about other [day-2 operations](/day-2/day-2-operations).
+- Create a [git repository for this workspace](/how-to/git-repo).
+- Read how to [update the dev application](/how-to/dev-app).
+- Read how to [update the production application](/how-to/production-app).
+- Read how to [format and validate your code](/how-to/format-and-validate).
+- Read how to [add python libraries](/how-to/python-libraries).
+- Read how to [add database tables](/how-to/database-tables)
+- Read how to [add a custom domain and HTTPS](/how-to/domain-https).
+- Read how to [implement CI/CD](/how-to/ci-cd)
+- Learn about other [day-2 operations](/how-to/how-to-operations).
 - Chat with us on [discord](https://discord.gg/4MtYHHrgA8).

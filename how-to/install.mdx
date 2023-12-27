@@ -1,0 +1,88 @@
+---
+title: Install & Setup
+---
+
+## Install phidata
+
+Install `phidata` using `pip` in a python virtual environment
+
+<Steps>
+  <Step title="Create a virtual environment">
+    Open the `Terminal` and create a python virtual environment.
+
+    <CodeGroup>
+
+    ```bash Mac
+    python3 -m venv ~/.venvs/aienv
+    source ~/.venvs/aienv/bin/activate
+    ```
+
+    ```bash Windows
+    python3 -m venv aienv
+    aienv/scripts/activate
+    ```
+
+    </CodeGroup>
+
+  </Step>
+  <Step title="Install phidata">
+    Install `phidata` using pip
+
+    <CodeGroup>
+
+    ```bash Mac
+    pip install -U phidata
+    ```
+
+    ```bash Windows
+    pip install -U phidata
+    ```
+
+    </CodeGroup>
+
+  </Step>
+</Steps>
+
+<br />
+
+<Note>
+
+If you encounter errors, try updating pip using `python -m pip install --upgrade pip`
+
+</Note>
+
+---
+
+## Upgrade phidata
+
+To upgrade `phidata`, run this in your virtual environment
+
+```bash
+pip install -U phidata --no-cache-dir
+```
+
+---
+
+## Setup workspace
+
+If you have an existing `phidata` workspace, set it up using
+
+```bash
+phi ws setup
+```
+
+---
+
+## Reset phidata
+
+To reset the phidata config, run
+
+```bash
+phi init -r
+```
+
+<Note>
+
+This does not delete any physical data
+
+</Note>

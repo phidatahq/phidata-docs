@@ -2,6 +2,7 @@
 title: Python Dependencies
 description: Dependency management is one of the hardest parts of running a python application and phidata templates are designed to make it easy. Each template is setup to manage dependencies using a [pyproject.toml](<(https://packaging.python.org/en/latest/specifications/declaring-project-metadata/#declaring-project-metadata)>) file, **which is used to generate the `requirements.txt` file using [pip-tools](https://pip-tools.readthedocs.io/en/latest/).**
 ---
+
 Adding or Updating a python library is a simple 2 step process:
 
 1. Add library to the `pyproject.toml` file
@@ -24,7 +25,7 @@ After updating the `dependencies` in the `pyproject.toml` file, auto-generate th
 
 <CodeGroup>
 
-```bash Terminal
+```bash terminal
 ./scripts/upgrade.sh
 ```
 
@@ -41,7 +42,7 @@ If you'd like to upgrade all python libraries to their latest version, run:
 
 <CodeGroup>
 
-```bash Terminal
+```bash terminal
 ./scripts/upgrade.sh all
 ```
 
@@ -63,11 +64,11 @@ After updating the `requirements.txt` file, rebuild your images.
 
 <CodeGroup>
 
-```bash Terminal
+```bash terminal
 phi ws up --env dev --infra docker --type image
 ```
 
-```bash Short Options
+```bash short options
 phi ws up -e dev -i docker -t image
 ```
 
@@ -77,17 +78,17 @@ phi ws up -e dev -i docker -t image
 
 <Note>
 
-Remember to [authenticate with ECR](/day-2/production-app#ecr-images) if needed.
+Remember to [authenticate with ECR](/how-to/production-app#ecr-images) if needed.
 
 </Note>
 
 <CodeGroup>
 
-```bash Terminal
+```bash terminal
 phi ws up --env prd --infra docker --type image
 ```
 
-```bash Short Options
+```bash short options
 phi ws up -e prd -i docker -t image
 ```
 
@@ -101,11 +102,11 @@ After rebuilding images, recreate the resources.
 
 <CodeGroup>
 
-```bash Terminal
+```bash terminal
 phi ws restart --env dev --infra docker --type container
 ```
 
-```bash Short options
+```bash short options
 phi ws restart -e dev -c docker -t container
 ```
 
@@ -115,11 +116,11 @@ phi ws restart -e dev -c docker -t container
 
 <CodeGroup>
 
-```bash Terminal
+```bash terminal
 phi ws patch --env prd --infra aws --name service
 ```
 
-```bash Short options
+```bash short options
 phi ws patch -e prd -i aws -n service
 ```
 

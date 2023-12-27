@@ -1,0 +1,104 @@
+---
+title: Use Custom Domain and HTTPS
+sidebarTitle: Custom Domain & HTTPS
+---
+
+## Use a custom domain
+
+1. Register your domain with [Route 53](https://us-east-1.console.aws.amazon.com/route53/).
+2. Point the domain to the loadbalancer DNS.
+
+### Custom domain for your Streamlit App
+
+Create a record in the Route53 console to point `app.[YOUR_DOMAIN]` to the Streamlit App.
+
+<img src="/images/llm-app-aidev-run.png" alt="llm-app-aidev-run" />
+
+You can visit the app at [http://app.aidev.run](http://app.aidev.run)
+
+<Note>Note the `http` in the domain name.</Note>
+
+### Custom domain for your FastApi App
+
+Create a record in the Route53 console to point `api.[YOUR_DOMAIN]` to the FastApi App.
+
+<img src="/images/llm-api-aidev-run.png" alt="llm-api-aidev-run" />
+
+You can access the api at [http://api.aidev.run](http://api.aidev.run)
+
+<Note>Note the `http` in the domain name.</Note>
+
+## Add HTTPS
+
+To add HTTPS:
+
+1. Create a certificate using [AWS ACM](https://us-east-1.console.aws.amazon.com/acm). Request a certificat for `*.[YOUR_DOMAIN]`
+
+<img src="/images/llm-app-request-cert.png" alt="llm-app-request-cert" />
+
+2. Creating records in Route 53.
+
+<img src="/images/llm-app-validate-cert.png" alt="llm-app-validate-cert" />
+
+3. Add the certificate ARN to Apps
+
+<Note>Make sure the certificate is `Issued` before adding it to your Apps</Note>
+
+Update the `llm-app/workspace/prd_resources.py` file and add the `load_balancer_certificate_arn` to the `FastApi` and `Streamlit` Apps.
+
+```python workspace/prd_resources.py
+
+# -*- Streamlit running on ECS
+prd_streamlit = Streamlit(
+    ...
+    # To enable HTTPS, create an ACM certificate and add the ARN below:
+    load_balancer_enable_https=True,
+    load_balancer_certificate_arn="arn:aws:acm:us-east-1:497891874516:certificate/6598c24a-d4fc-4f17-8ee0-0d3906eb705f",
+    ...
+)
+
+# -*- FastApi running on ECS
+prd_fastapi = FastApi(
+    ...
+    # To enable HTTPS, create an ACM certificate and add the ARN below:
+    load_balancer_enable_https=True,
+    load_balancer_certificate_arn="arn:aws:acm:us-east-1:497891874516:certificate/6598c24a-d4fc-4f17-8ee0-0d3906eb705f",
+    ...
+)
+```
+
+4. Create new Loadbalancer Listeners
+
+Create new listeners for the loadbalancer to pickup the HTTPs configuration.
+
+<CodeGroup>
+
+```bash terminal
+phi ws up --env prd --infra aws --name listener
+```
+
+```bash shorthand
+phi ws up -e prd -i aws -n listener
+```
+
+</CodeGroup>
+
+<Note>The certificate should be `Issued` before applying it.</Note>
+
+After this, `https` should be working on your custom domain.
+
+5. Update existing listeners to redirect HTTP to HTTPS
+
+<CodeGroup>
+
+```bash terminal
+phi ws patch --env prd --infra aws --name listener
+```
+
+```bash shorthand
+phi ws patch -e prd -i aws -n listener
+```
+
+</CodeGroup>
+
+After this, all HTTP requests should redirect to HTTPS automatically.

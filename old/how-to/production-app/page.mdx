@@ -69,11 +69,11 @@ Build a new image using:
 
 <CodeGroup>
 
-```bash Terminal
+```bash terminal
 phi ws up --env prd --infra docker --type image
 ```
 
-```bash Shorthand
+```bash shorthand
 phi ws up -e prd -i docker -t image
 ```
 
@@ -83,11 +83,11 @@ To `force` rebuild images, use the `--force` or `-f` flag
 
 <CodeGroup>
 
-```bash Terminal
+```bash terminal
 phi ws up --env prd --infra docker --type image --force
 ```
 
-```bash Shorthand
+```bash shorthand
 phi ws up -e prd -i docker -t image -f
 ```
 
@@ -113,11 +113,11 @@ If you updated the Image, CPU, Memory or Environment Variables, update the Task 
 
 <CodeGroup>
 
-```bash Terminal
+```bash terminal
 phi ws patch --env prd --infra aws --name td
 ```
 
-```bash Shorthand
+```bash shorthand
 phi ws patch -e prd -i aws -n td
 ```
 
@@ -129,11 +129,11 @@ To redeploy the production application, update the ECS Service using:
 
 <CodeGroup>
 
-```bash Terminal
+```bash terminal
 phi ws patch --env prd --infra aws --name service
 ```
 
-```bash Shorthand
+```bash shorthand
 phi ws patch -e prd -i aws -n service
 ```
 

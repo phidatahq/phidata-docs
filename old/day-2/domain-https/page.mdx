@@ -78,11 +78,11 @@ Create new listeners for the loadbalancer to pickup the HTTPs configuration.
 
 <CodeGroup>
 
-```bash Terminal
+```bash terminal
 phi ws up --env prd --infra aws --name listener
 ```
 
-```bash Shorthand
+```bash shorthand
 phi ws up -e prd -i aws -n listener
 ```
 
@@ -96,11 +96,11 @@ After this, `https` should be working on your custom domain.
 
 <CodeGroup>
 
-```bash Terminal
+```bash terminal
 phi ws patch --env prd --infra aws --name listener
 ```
 
-```bash Shorthand
+```bash shorthand
 phi ws patch -e prd -i aws -n listener
 ```
 

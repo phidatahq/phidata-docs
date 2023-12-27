@@ -34,11 +34,11 @@ Build a new image using:
 
 <CodeGroup>
 
-```bash Terminal
+```bash terminal
 phi ws up --env dev --infra docker --type image
 ```
 
-```bash Shorthand
+```bash shorthand
 phi ws up -e dev -i docker -t image
 ```
 
@@ -48,11 +48,11 @@ To `force` rebuild images, use the `--force` or `-f` flag
 
 <CodeGroup>
 
-```bash Terminal
+```bash terminal
 phi ws up --env dev --infra docker --type image --force
 ```
 
-```bash Shorthand
+```bash shorthand
 phi ws up -e dev -i docker -t image -f
 ```
 
@@ -64,11 +64,11 @@ Restart docker containers using:
 
 <CodeGroup>
 
-```bash Terminal
+```bash terminal
 phi ws restart --env dev --infra docker --type container
 ```
 
-```bash Shorthand
+```bash shorthand
 phi ws restart -e dev -c docker -t container
 ```
 
@@ -80,7 +80,7 @@ To recreate all dev resources, use the `--force` flag:
 
 <CodeGroup>
 
-```bash Terminal
+```bash terminal
 phi ws up -f
 ```
 
@@ -88,7 +88,7 @@ phi ws up -f
 phi ws up --env dev --infra docker --force
 ```
 
-```bash Shorthand
+```bash shorthand
 phi ws up -e dev -i docker -f
 ```
 
