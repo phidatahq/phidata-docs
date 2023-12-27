@@ -5,7 +5,7 @@
     "dark": "/logo/dark.svg",
     "light": "/logo/light.svg"
   },
-  "favicon": "/favicon.png",
+  "favicon": "/phifav.png",
   "colors": {
     "primary": "#0D9373",
     "light": "#07C983",
@@ -43,16 +43,6 @@
       "pages": [
           "introduction",
           "quickstart",
-          {
-            "group": "Templates",
-            "pages": [
-                "templates/llm-app",
-                "templates/llm-api",
-                "templates/streamlit-app",
-                "templates/django-app",
-                "templates/data-platform"
-            ]
-          },
           {
             "group": "Building Blocks",
             "pages": [
@@ -135,6 +125,16 @@
     {
       "group": "Resources",
       "pages": [
+        {
+          "group": "Templates",
+          "pages": [
+              "templates/llm-app",
+              "templates/llm-api",
+              "templates/streamlit-app",
+              "templates/django-app",
+              "templates/data-platform"
+          ]
+        },
         {
           "group": "Apps",
           "pages": [
