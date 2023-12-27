@@ -1,0 +1,60 @@
+---
+title: RAG Conversations
+sidebarTitle: RAG
+---
+
+Retrieval Augmented Generation (**RAG**) helps us improve the quality of LLM reponses by providing additional **Knowledge**.
+
+To enable **RAG**, provide your `Conversation` with a Knowledge Base and set `add_references_to_prompt=True`. This will search the **Knowledge Base** for information about the `message` and add it to the **User Prompt** before sending it to the LLM.
+
+## Example
+
+```python rag_conversation.py
+from phi.llm.openai import OpenAIChat
+from phi.conversation import Conversation
+from phi.storage.conversation.postgres import PgConversationStorage
+from phi.knowledge.pdf import PDFUrlKnowledgeBase, PDFKnowledgeBase, PDFReader
+
+rag_conversation = Conversation(
+    llm=OpenAIChat(model="gpt-4"),
+    # -*- Store conversations in: llm.pdf_conversations
+    storage=PgConversationStorage(
+        table_name="pdf_conversations",
+        db_url=db_url,
+    ),
+    # -*- Store knowledge base in: llm.pdf_documents
+    knowledge_base=PDFKnowledgeBase(
+        path="data/pdfs",
+        # Table name: llm.pdf_documents
+        vector_db=PgVector(
+            collection="pdf_documents",
+            db_url=db_url,
+        ),
+    ),
+    # -*- Add references to the user prompt (RAG)
+    add_references_to_prompt=True,
+    # -*- Add chat history to messages
+    add_chat_history_to_messages=True,
+)
+```
+
+## Params
+
+<ResponseField name="llm" type="LLM">
+  The LLM to use for this Conversation.
+</ResponseField>
+<ResponseField name="storage" type="ConversationStorage">
+  Save conversations to a Postgres table. [Read more](/blocks/storage)
+</ResponseField>
+<ResponseField name="knowledge_base" type="KnowledgeBase">
+  Convert PDFs into vector embeddings and store them in a Postgres table. [Read
+  more](/blocks/knowledge-base#run-pg-vector)
+</ResponseField>
+<ResponseField name="add_references_to_prompt" type="bool">
+  Search the knowledge base for documents similar to the input `message` and add
+  them to the user prompt.
+</ResponseField>
+<ResponseField name="add_chat_history_to_messages" type="bool">
+  Add chat history to the messages sent to the LLM, enabling long-term,
+  multi-turn conversations.
+</ResponseField>

@@ -1,0 +1,60 @@
+---
+title: Autonomous Conversations
+sidebarTitle: Autonomous
+---
+
+With Autonomous Conversations, we let the LLM decide **if** it needs to access the knowledge base and what search parameters it needs to query the knowledge base.
+
+Behind the scenes, we provide the `Conversation` with a set of `Functions` the LLM can call to achieve tasks.
+
+Set `function_calls=True` to enable function calling and provide default functions to search the **Knowledge Base** and **Memory** when needed.
+
+## Example
+
+```python auto_conversation.py
+from phi.llm.openai import OpenAIChat
+from phi.conversation import Conversation
+from phi.storage.conversation.postgres import PgConversationStorage
+from phi.knowledge.pdf import PDFUrlKnowledgeBase, PDFKnowledgeBase, PDFReader
+
+auto_conversation = Conversation(
+    llm=OpenAIChat(model="gpt-4"),
+    # -*- Store conversations in: llm.pdf_conversations
+    storage=PgConversationStorage(
+        table_name="pdf_conversations",
+        db_url=db_url,
+    ),
+    # -*- Store knowledge base in: llm.pdf_documents
+    knowledge_base=PDFKnowledgeBase(
+        path="data/pdfs",
+        # Table name: llm.pdf_documents
+        vector_db=PgVector(
+            collection="pdf_documents",
+            db_url=db_url,
+        ),
+    ),
+    # -*- Let the LLM call functions to achieve tasks
+    function_calls=True,
+    # -*- Print the signature of called functions
+    show_function_calls=True,
+)
+```
+
+## Params
+
+<ResponseField name="function_calls" type="bool">
+  Makes the conversation `Autonomous` by letting the LLM call functions to
+  achieve tasks.
+</ResponseField>
+<ResponseField name="default_functions" type="bool" default="True">
+  Add default functions to the LLM
+</ResponseField>
+<ResponseField name="show_function_calls" type="bool">
+  Print the signature of called functions.
+</ResponseField>
+<ResponseField
+  name="tools"
+  type="List[Union[Tool, ToolRegistry, Callable, Dict]]"
+>
+  A list of tools provided to the LLM. [Read more](/blocks/conversations#tools)
+</ResponseField>

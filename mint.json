@@ -47,7 +47,15 @@
             "group": "Building Blocks",
             "pages": [
               "blocks/overview",
-              "blocks/conversations",
+              {
+                "group": "Conversations",
+                "pages": [
+                  "blocks/conversation/introduction",
+                  "blocks/conversation/rag",
+                  "blocks/conversation/auto",
+                  "blocks/conversation/prompts"
+                ]
+              },
               "blocks/agents",
               "blocks/assistants",
               "blocks/knowledge-base",
@@ -132,6 +140,12 @@
               "aws/rds"
           ]
         }
+      ]
+    },
+    {
+      "group": "Building Blocks",
+      "pages": [
+        "reference/blocks/conversation"
       ]
     },
     {

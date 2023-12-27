@@ -1,7 +1,8 @@
 ---
 title: Knowledge Base
-description: A Knowledge Base is a database of information that the LLM can search to improve its responses. Knowledge Bases play a critical part in making LLMs respond in a context-aware manner.
 ---
+
+A Knowledge Base is a database of information that the LLM can search to improve its responses. Knowledge Bases play a critical part in making LLMs respond in a context-aware manner.
 
 While any type of storage can act as a knowledge base, vector databases currently offer the best solution for retrieving relevant results from dense information quickly.
 
@@ -9,49 +10,47 @@ We're big fans of using **PgVector** for vector storage because it delivers spec
 
 ## Run PgVector
 
-    Each template already comes with PgVector pre-configured but if needed, your can easily run `PgVector` on `Docker`.
+Each template already comes with PgVector pre-configured but if needed, your can easily run `PgVector` on `Docker`.
 
-    Create a file `resources.py` with the following contents and start `PgVector` by running `phi start resources.py`
+Create a file `resources.py` with the following contents and start `PgVector` by running `phi start resources.py`
 
-    <CodeGroup>
+<CodeGroup>
 
-    ```bash Mac
-    phi start resources.py
-    ```
+```bash Mac
+phi start resources.py
+```
 
-    ```bash Windows
-    phi start resources.py
-    ```
+```bash Windows
+phi start resources.py
+```
 
-    </CodeGroup>
+</CodeGroup>
 
-    <Note>
+```python resources.py
+from phi.docker.app.postgres import PgVectorDb
+from phi.docker.resources import DockerResources
 
-    Install [docker desktop](https://docs.docker.com/desktop/install/mac-install/) if needed.
+# -*- PgVector running on port 5432:5432
+vector_db = PgVectorDb(
+    pg_user="llm",
+    pg_password="llm",
+    pg_database="llm",
+    debug_mode=True,
+)
 
-    </Note>
+# -*- DockerResources
+dev_docker_resources = DockerResources(
+    apps=[vector_db],
+)
+```
 
-    <CodeGroup>
+<br />
 
-    ```python resources.py
-    from phi.docker.app.postgres import PgVectorDb
-    from phi.docker.resources import DockerResources
+<Note>
 
-    # -*- PgVector running on port 5432:5432
-    vector_db = PgVectorDb(
-        pg_user="llm",
-        pg_password="llm",
-        pg_database="llm",
-        debug_mode=True,
-    )
+Install [docker desktop](https://docs.docker.com/desktop/install/mac-install/) if needed.
 
-    # -*- DockerResources
-    dev_docker_resources = DockerResources(
-        apps=[vector_db],
-    )
-    ```
-
-    </CodeGroup>
+</Note>
 
 ---
 

@@ -1,7 +1,8 @@
 ---
 title: Assistants
-description: OpenAI provides a powerful [Assistants API](https://platform.openai.com/docs/assistants/overview) and phidata provides a clean interface to build applications using them. Assistants can leverage models, run code in a sandboxed environment and retrieve information from a knowledge base. Here's simple example
 ---
+
+OpenAI provides a powerful [Assistants API](https://platform.openai.com/docs/assistants/overview) and phidata provides a clean interface to build applications using them. Assistants can leverage models, run code in a sandboxed environment and retrieve information from a knowledge base. Here's simple example
 
 ```python csv_ai.py
 from phi.assistant import Assistant
@@ -26,11 +27,11 @@ Lets explore more by building a simple LLM App using OpenAI Assistants.
 
 ## Setup
 
-<Note>
+<Tip>
 
 Skip this step if you already have a virtual environment with phidata installed
 
-</Note>
+</Tip>
 
 ### Create a virtual environment
 
@@ -69,6 +70,8 @@ pip install -U phidata openai
 ```
 
 </CodeGroup>
+
+<br />
 
 <Note>
 
@@ -231,5 +234,3 @@ Ask questions like:
 - Show me a time series, choose any column you like.
 
 It also downloads the resulting files which you can click to view.
-
----
