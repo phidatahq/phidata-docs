@@ -106,7 +106,7 @@ setx OPENAI_API_KEY sk-***
 
 ## Local Django App
 
-Your codebase comes with a <LinkOpenNewTab href="https://www.djangoproject.com/" text="Django" /> application connected to a [Postgres](https://www.postgresql.org/) database. Run it using:
+Your codebase comes with a [Django](https://www.djangoproject.com/) application connected to a [Postgres](https://www.postgresql.org/) database. Run it using:
 
 <CodeGroup>
 
@@ -114,7 +114,7 @@ Your codebase comes with a <LinkOpenNewTab href="https://www.djangoproject.com/"
 phi ws up
 ```
 
-```bash With Options
+```bash full options
 phi ws up --env dev --infra docker
 ```
 
@@ -137,7 +137,7 @@ Open [localhost:8000](http://localhost:8000) to view the Django App running loca
 
 ## Local Django Admin
 
-Open <LinkOpenNewTab href="http://localhost:8000/admin" text="localhost:8000/admin" /> to view the Django admin site. Create an admin user by running:
+Open [localhost:8000/admin](http://localhost:8000/admin) to view the Django admin site. Create an admin user by running:
 
 ```bash
 docker exec -it django-dev-app python manage.py createsuperuser
@@ -152,7 +152,7 @@ Log in to the admin panel:
 
 ## Build your Web App
 
-The <LinkOpenNewTab href="https://docs.djangoproject.com/en/4.2/intro/tutorial01/" text="Django Tutorials" /> are a great place to learn about Django, play around and update your Web App to your use case. Here's how to create a simple chat application:
+The [Django Tutorials](https://docs.djangoproject.com/en/4.2/intro/tutorial01/) are a great place to learn about Django, play around and update your Web App to your use case. Here's how to create a simple chat application:
 
 **1. Create a new django app**
 
@@ -162,7 +162,7 @@ docker exec -it django-dev-app python manage.py startapp chat
 
 <Note>
 
-Read more about <LinkOpenNewTab href="https://docs.djangoproject.com/en/4.2/intro/tutorial01/#creating-the-polls-app" text="django apps here" />
+Read more about [django apps here](https://docs.djangoproject.com/en/4.2/intro/tutorial01/#creating-the-polls-app)
 
 </Note>
 
@@ -322,7 +322,7 @@ Create the HTML templates for the chat interface in the `chat/templates/chat` fo
 
 **6. Open Django App**
 
-Open <LinkOpenNewTab href="http://localhost:8000/chat/" text="localhost:8000/chat/" /> to view the LLM chat app.
+Open [localhost:8000/chat/](http://localhost:8000/chat/) to view the LLM chat app.
 
 <ImageContainer
   src="/images/django-app-chat-app.png"
@@ -345,7 +345,7 @@ Stop the workspace using:
 phi ws down
 ```
 
-```bash With Options
+```bash full options
 phi ws down --env dev --infra docker
 ```
 

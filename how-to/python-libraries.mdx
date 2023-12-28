@@ -2,11 +2,9 @@
 title: Python Libraries
 ---
 
-Dependency management is one of the hardest parts of running a python application and phidata templates are designed to make it easy.
+Phidata templates are setup to manage dependencies using a [pyproject.toml](https://packaging.python.org/en/latest/specifications/declaring-project-metadata/#declaring-project-metadata) file, **which is used to generate the `requirements.txt` file using [pip-tools](https://pip-tools.readthedocs.io/en/latest/).**
 
-Each template is setup to manage dependencies using a [pyproject.toml](https://packaging.python.org/en/latest/specifications/declaring-project-metadata/#declaring-project-metadata) file, **which is used to generate the `requirements.txt` file using [pip-tools](https://pip-tools.readthedocs.io/en/latest/).**
-
-Adding or Updating a python library is a simple 2 step process:
+Adding or Updating a python library is a 2 step process:
 
 1. Add library to the `pyproject.toml` file
 2. Auto-Generate the `requirements.txt` file
@@ -17,7 +15,7 @@ We highly recommend auto-generating the `requirements.txt` file using this proce
 
 </Warning>
 
-## Update pyproject
+## Update pyproject.toml
 
 - Open the `pyproject.toml` file
 - Add new libraries to the dependencies section.

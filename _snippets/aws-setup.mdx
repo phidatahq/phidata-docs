@@ -1,0 +1,37 @@
+## AWS Setup
+
+<Steps>
+  <Step title="Add Credentials">
+    To run on AWS, you need **one** of the following:
+
+    1. The `~/.aws/credentials` file with your AWS credentials
+    2. `AWS_ACCESS_KEY_ID` + `AWS_SECRET_ACCESS_KEY` environment variables
+
+    <Note>
+
+    To create the credentials file, install the [aws cli](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html) and run `aws configure`
+
+    </Note>
+
+  </Step>
+  <Step title="Add Region and Subnets">
+    Add 2 [Subnets](https://us-east-1.console.aws.amazon.com/vpc/home?#subnets:) to the `workspace/settings.py` file (required for ECS services)
+
+    ```python workspace/settings.py
+    ws_settings = WorkspaceSettings(
+        ...
+        # -*- AWS settings
+        # Add your Subnet IDs here
+        subnet_ids=["subnet-xyz", "subnet-xyz"],
+        ...
+    )
+    ```
+
+    <Note>
+
+    Please check that the subnets belong to the selected `aws_region`
+
+    </Note>
+
+  </Step>
+</Steps>

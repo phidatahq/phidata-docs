@@ -1,0 +1,123 @@
+---
+title: "Run on AWS"
+---
+
+Let's run the **LLM App** in production on AWS.
+
+<Snippet file="aws-setup.mdx" />
+
+<Snippet file="update-prd-secrets.mdx" />
+
+## Create AWS resources
+
+Create AWS resources for the LLM App using:
+
+<CodeGroup>
+
+```bash terminal
+phi ws up --env prd --infra aws
+```
+
+```bash shorthand
+phi ws up prd:aws
+```
+
+</CodeGroup>
+
+This will create:
+
+1. [ECS Cluster](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/clusters.html) for the application.
+2. [ECS Task Definitions](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task_definitions.html) and [Services](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs_services.html) that run the application on the ECS cluster.
+3. [LoadBalancer](https://aws.amazon.com/elasticloadbalancing/) to route traffic to the application.
+4. [Security Groups](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-security-groups.html) that control incoming and outgoing traffic.
+5. [Secrets](https://aws.amazon.com/secrets-manager/) for managing application and database secrets.
+6. [RDS Database](https://aws.amazon.com/rds/) for Knowledge Base and Storage.
+
+**Press Enter** to confirm and grab a cup of coffee while the resources spin up.
+
+- The RDS database takes about 10 minutes to activate.
+- These resources are defined in the `workspace/prd_resources.py` file.
+- Use the [ECS console](https://us-east-1.console.aws.amazon.com/ecs/v2/clusters) to view services and logs.
+- Use the [RDS console](https://us-east-1.console.aws.amazon.com/rds/home?#databases:) to view the database instance.
+
+## Production Streamlit App
+
+**Open the LoadBalancer DNS** provided when creating the Streamlit App
+
+### Chat with PDF
+
+- Enter the `APP_PASSWORD` from the `prd_app_secrets.yml` file (default: `admin`)
+- Click on **Chat with PDFs** in the sidebar
+- Enter a username and wait for the knowledge base to load.
+- Choose the `RAG` Conversation type.
+- Ask "How do I make chicken curry?"
+
+<img
+  src="/images/rag-llm-app-chat-with-pdf-prd.png"
+  alt="rag-llm-app-chat-with-pdf-prd"
+/>
+
+## Production FastApi
+
+- **Open the LoadBalancer DNS** + the `/docs` endpoint to view the API Endpoints.
+- Load the knowledge base using `/v1/pdf/conversation/load-knowledge-base`
+- Test the `v1/pdf/conversation/chat` endpoint with
+
+```json
+{
+  "message": "How do I make chicken curry?"
+}
+```
+
+- Update and integrate with your front-end or product.
+
+<img src="/images/rag-llm-app-fastapi-prd.png" alt="rag-llm-app-fastapi-prd" />
+
+## Update Production
+
+Follow [this guide](/how-to/production-app) to update your production application. You'll need to:
+
+1. Create a new image
+2. Update the ECS Task Definition and Services.
+
+## Delete AWS resources
+
+Play around and then delete AWS resources using:
+
+<CodeGroup>
+
+```bash terminal
+phi ws down --env prd --infra aws
+```
+
+```bash shorthand
+phi ws down prd:aws
+```
+
+</CodeGroup>
+
+or delete individual resource groups using:
+
+<CodeGroup>
+
+```bash app
+phi ws down --env prd --infra aws --group app
+```
+
+```bash database
+phi ws down --env prd --infra aws --group db
+```
+
+</CodeGroup>
+
+## Next
+
+Congratulations on running your LLM App on AWS. Next Steps:
+
+- Create a [git repository for your workspace](/how-to/git-repo)
+- Read how to [manage the production application](/how-to/production-app)
+- Read how to [format and validate your code](/how-to/format-and-validate)
+- Read how to [add python libraries](/how-to/python-libraries)
+- Read how to [add a custom domain and HTTPS](how-to/domain-https)
+- Read how to [implement CI/CD](how-to/ci-cd)
+- Chat with us on [discord](https://discord.gg/4MtYHHrgA8)

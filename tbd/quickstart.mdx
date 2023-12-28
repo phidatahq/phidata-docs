@@ -19,7 +19,7 @@ Retrieval Augmented Generation means providing the LLM with additional informati
 
 ## Create your codebase
 
-Create your codebase using the `llm-app` template pre-configured with [FastApi](https://fastapi.tiangolo.com/), [Streamlit](https://streamlit.io/) and [PgVector](https://github.com/pgvector/pgvector). Use this codebase as the starting point for your RAG LLM App.
+Create your codebase using the `llm-app` template pre-configured with [FastApi](https://fastapi.tiangolo.com/), [Streamlit](https://streamlit.io/) and [PgVector](https://github.com/pgvector/pgvector).
 
 <CodeGroup>
 
@@ -33,9 +33,9 @@ phi ws create -t llm-app -n llm-app
 
 </CodeGroup>
 
-This will create a folder named `llm-app` with the following structure:
+This command creates a folder `llm-app` with a production-ready RAG LLM App that you can customize to your use-case. It has the following structure:
 
-```bash llm-app
+```bash
 llm-app                       # root directory for your RAG llm-app
 ├── api                     # directory for FastApi routes
 ├── app                     # directory for Streamlit apps
@@ -98,37 +98,25 @@ Check the docker logs to see the "context" passed along with the question.
 
 ## Add your data
 
-The `pdf_knowledge_base` in the `llm/knowledge_base.py` file provides the references (context) used for RAG. The `PDFKnowledgeBase` reads local PDFs and the `PDFUrlKnowledgeBase` reads PDFs from URLs.
+The `pdf_knowledge_base` in the `llm/knowledge_base.py` file provides the references (context) used for RAG. To add your data:
 
-<Tip>
+<Steps>
+  <Step title="Create a folder for your data">
+    Create a folder `data/pdfs` in the root directory of your app
+  </Step>
+  <Step title="Add your data">Add your files to the `data/pdfs` folder</Step>
+  <Step title="Update Knowledge Base">
+    Click on the `Update Knowledge Base` button to load the knowledge base.
+  </Step>
+</Steps>
 
-**Make this app your own** by creating a `data/pdfs` folder with your PDFs. Then click on the `Update Knowledge Base` button to load the knowledge base.
-
-</Tip>
-
-```python llm/knowledge_base.py
-url_pdf_knowledge_base = PDFUrlKnowledgeBase(
-  ...
-)
-
-local_pdf_knowledge_base = PDFKnowledgeBase(
-    path="data/pdfs",
-    ...
-)
-
-pdf_knowledge_base = CombinedKnowledgeBase(
-    sources=[
-        url_pdf_knowledge_base,
-        local_pdf_knowledge_base,
-    ],
-    num_documents=2, # 2 references are added to the prompt.
-    ...
-)
-```
+Checkout the `pdf_knowledge_base` in the `llm/knowledge_base.py` for more information. The `PDFKnowledgeBase` reads local PDFs and the `PDFUrlKnowledgeBase` reads PDFs from URLs.
 
 ## How this App works
 
-The streamlit apps are defined in the `app` folder and the `Conversations` powering these apps are defined in the `llm/conversations` folder. Checkout the `llm/conversations/pdf_rag.py` file:
+The streamlit apps are defined in the `app` folder and the `Conversations` powering these apps are defined in the `llm/conversations` folder.
+
+Checkout the `llm/conversations/pdf_rag.py` file for more information:
 
 - The `add_references_to_prompt` flag will populate the `references` argument of the `user_prompt_function`
 - The `user_prompt_function` builds the **Prompt** sent to the LLM. The prompt is injected with additional information from the knowledge base using the `references` variable.
@@ -192,7 +180,7 @@ phi ws up dev:docker:api
   alt="rag-llm-app-fastapi-local"
 />
 
-## Build your RAG LLM Product
+## Build your LLM Product
 
 Your LLM Api provides common endpoints you can use to build your LLM product. These routes are developed in collaboration with real LLM Apps and are a great starting point to build on.
 
@@ -226,42 +214,52 @@ These routes are defined the `api/routes` folder and can be customized to your u
 
 ## Optional: Run Jupyterlab
 
-A jupyter notebook is a must have for AI development and your `llm-app` comes with a notebook pre-installed with the required dependencies. Enable it by updating the `workspace/settings.py` file:
+A jupyter notebook is a must have for AI development and your `llm-app` comes with a notebook pre-installed with the required dependencies. To start your notebook:
 
-```python workspace/settings.py
-...
-ws_settings = WorkspaceSettings(
+<Steps>
+  <Step title="Enable Jupyter">
+    Update the `workspace/settings.py` file and set `dev_jupyter_enabled=True`
+
+    ```python workspace/settings.py
     ...
-    # Uncomment the following line
-    dev_jupyter_enabled=True,
-...
-```
+    ws_settings = WorkspaceSettings(
+        ...
+        # Uncomment the following line
+        dev_jupyter_enabled=True,
+    ...
+    ```
 
-Start `jupyter` using:
+  </Step>
+  <Step title="Start Jupyter">
 
-<CodeGroup>
+    Start `jupyter` using:
 
-```bash terminal
-phi ws up --group jupyter
-```
+    <CodeGroup>
 
-```bash shorthand
-phi ws up dev:docker:jupyter
-```
+    ```bash terminal
+    phi ws up --group jupyter
+    ```
 
-</CodeGroup>
+    ```bash shorthand
+    phi ws up dev:docker:jupyter
+    ```
 
-**Press Enter** to confirm and give a few minutes for the image to download (only the first time). Verify container status and view logs on the docker dashboard.
+    </CodeGroup>
 
-### View Jupyterlab UI
+    **Press Enter** to confirm and give a few minutes for the image to download (only the first time). Verify container status and view logs on the docker dashboard.
 
-- Open [localhost:8888](http://localhost:8888) to view the Jupyterlab UI. Password: **admin**
-- Play around with cookbooks in the `notebooks` folder.
+  </Step>
+  <Step title="View JupyterLab UI">
+    - Open [localhost:8888](http://localhost:8888) to view the Jupyterlab UI. Password: **admin**
+    - Play around with cookbooks in the `notebooks` folder.
 
-<img
-  src="/images/rag-llm-app-jupyter-local.png"
-  alt="rag-llm-app-jupyter-local"
-/>
+    <img
+      src="/images/rag-llm-app-jupyter-local.png"
+      alt="rag-llm-app-jupyter-local"
+    />
+
+  </Step>
+</Steps>
 
 ## Delete local resources
 
@@ -273,7 +271,7 @@ Play around and stop the workspace using:
 phi ws down
 ```
 
-```bash With Options
+```bash full options
 phi ws down --env dev --infra docker
 ```
 
@@ -307,9 +305,11 @@ phi ws down --group jupyter
 
 ---
 
-## Run on AWS
+# Run on AWS
 
 Now let's run the **LLM App** in production on AWS.
+
+<Snippet file="aws-setup.mdx" />
 
 ## AWS Authentication
 
