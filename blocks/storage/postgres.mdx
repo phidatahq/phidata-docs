@@ -1,0 +1,49 @@
+---
+title: Postgres
+---
+
+Use PostgreSQL to provide long-term storage for Conversations using the `PgConversationStorage` class.
+
+## Usage
+
+<Tip>
+
+[Run PgVector](/blocks/app/examples/pgvector) to test this.
+
+</Tip>
+
+```python storage.py
+from phi.storage.conversation.postgres import PgConversationStorage
+
+from resources import vector_db
+
+storage = PgConversationStorage(
+    # Table name: llm.conversations
+    table_name="conversations",
+    db_url=vector_db.get_db_connection_local(),
+)
+```
+
+Then use the `storage` in a `Conversation`:
+
+```python conversation.py
+from phi.conversation import Conversation
+from storage import storage
+
+conversation = Conversation(storage=storage)
+```
+
+## Params
+
+<ResponseField name="table_name" type="str">
+  The name of the table to store conversations in.
+</ResponseField>
+<ResponseField name="schema" type="str">
+  The schema to store the table in. Default: `llm`
+</ResponseField>
+<ResponseField name="db_url" type="str">
+  The database URL to connect to.
+</ResponseField>
+<ResponseField name="db_engine" type="Engine">
+  The database engine to use.
+</ResponseField>

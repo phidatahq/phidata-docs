@@ -7,7 +7,7 @@ Retrieval Augmented Generation (**RAG**) helps us improve the quality of LLM rep
 
 To enable **RAG**, provide your `Conversation` with a Knowledge Base and set `add_references_to_prompt=True`. This will search the **Knowledge Base** for information about the `message` and add it to the **User Prompt** before sending it to the LLM.
 
-## Example
+## Usage
 
 ```python rag_conversation.py
 from phi.llm.openai import OpenAIChat
@@ -44,11 +44,11 @@ rag_conversation = Conversation(
   The LLM to use for this Conversation.
 </ResponseField>
 <ResponseField name="storage" type="ConversationStorage">
-  Save conversations to a Postgres table. [Read more](/blocks/storage)
+  Save conversations to a database. [Read more](/blocks/storage/introduction)
 </ResponseField>
 <ResponseField name="knowledge_base" type="KnowledgeBase">
-  Convert PDFs into vector embeddings and store them in a Postgres table. [Read
-  more](/blocks/knowledge-base#run-pg-vector)
+  Convert PDFs into vector embeddings and store them in a vector db. [Read
+  more](/blocks/kb/introduction)
 </ResponseField>
 <ResponseField name="add_references_to_prompt" type="bool">
   Search the knowledge base for documents similar to the input `message` and add

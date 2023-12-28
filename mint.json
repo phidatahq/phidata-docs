@@ -68,7 +68,10 @@
                   "blocks/conversation/rag",
                   "blocks/conversation/auto",
                   "blocks/conversation/prompts",
-                  "blocks/conversation/memory"
+                  "blocks/conversation/memory",
+                  "blocks/conversation/tools",
+                  "blocks/conversation/tasks",
+                  "blocks/conversation/structured-output"
                 ]
               },
               {
@@ -87,7 +90,7 @@
                 "group": "Storage",
                 "pages": [
                   "blocks/storage/introduction",
-                  "blocks/storage/pgvector",
+                  "blocks/storage/postgres",
                   "blocks/storage/singlestore"
 
                 ]

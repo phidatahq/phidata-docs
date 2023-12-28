@@ -5,11 +5,9 @@ sidebarTitle: Autonomous
 
 With Autonomous Conversations, we let the LLM decide **if** it needs to access the knowledge base and what search parameters it needs to query the knowledge base.
 
-Behind the scenes, we provide the `Conversation` with a set of `Functions` the LLM can call to achieve tasks.
+Behind the scenes, we provide the `Conversation` with a set of `Functions` the LLM can call to achieve tasks. Set `function_calls=True` to enable default functions for searching the **Knowledge Base** and **Memory**.
 
-Set `function_calls=True` to enable function calling and provide default functions to search the **Knowledge Base** and **Memory** when needed.
-
-## Example
+## Usage
 
 ```python auto_conversation.py
 from phi.llm.openai import OpenAIChat
@@ -24,10 +22,9 @@ auto_conversation = Conversation(
         table_name="pdf_conversations",
         db_url=db_url,
     ),
-    # -*- Store knowledge base in: llm.pdf_documents
     knowledge_base=PDFKnowledgeBase(
         path="data/pdfs",
-        # Table name: llm.pdf_documents
+        # Store knowledge base in: llm.pdf_documents
         vector_db=PgVector(
             collection="pdf_documents",
             db_url=db_url,
@@ -56,5 +53,5 @@ auto_conversation = Conversation(
   name="tools"
   type="List[Union[Tool, ToolRegistry, Callable, Dict]]"
 >
-  A list of tools provided to the LLM. [Read more](/blocks/conversations#tools)
+  A list of tools provided to the LLM. [Read more](/blocks/conversation/tools)
 </ResponseField>
