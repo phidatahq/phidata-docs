@@ -1,0 +1,143 @@
+---
+title: "Build an Autonomous LLM App"
+sidebarTitle: "Run locally"
+---
+
+Let's build an Autonomous LLM App powered by GPT-4. We'll use PgVector for knowledge and storage and serve the app using Streamlit and FastApi.
+
+## What is Autonomous mode?
+
+Autonomous mode is when the LLM has access to a set of functions and it can run those functions to achieve tasks. Here's an example:
+
+- With RAG, a user asks the LLM a question and we always add information to the prompt, regardless of whether it is helpful. This not only confuses the LLM and leads to quality issues, it uses extra tokens and increases latency and cost.
+- With Autonomous mode, the LLM decides **if** it needs to access the knowledge base and what search parameters it needs to query the knowledge base.
+- We can also provide functions to:
+  - Get chat history when needed (further saving tokens).
+  - Add content to the knowledge base (increasing its knowledge).
+  - Complete tasks like send emails, create PRs, query data (baby steps towards AGI).
+
+**By the end of this guide you'll be up and running with your own Autonomous LLM App.**
+
+<Snippet file="setup.mdx" />
+
+<Tip>
+
+If you already have an `llm-app` created, skip the next step.
+
+</Tip>
+
+<Snippet file="create-llm-app-codebase.mdx" />
+
+<Snippet file="set-openai-key.mdx" />
+
+<Snippet file="serve-llm-app-streamlit.mdx" />
+
+### Chat with PDFs
+
+- Open [localhost:8501](http://localhost:8501) to view streamlit apps that you can customize and make your own.
+- Click on **Chat with PDFs** in the sidebar
+- Enter a username and wait for the knowledge base to load.
+- Choose the `Autonomous` Conversation type.
+- Ask "How do I make chicken curry?"
+- Notice how the LLM first searches the knowledge base. It also uses the appropriate search query, which is very useful when the user sends a long 3-4 sentence message and the usual RAG approach fails to retrieve the correct information.
+- Upload PDFs and ask questions
+
+![Chat with pdf](/images/auto-llm-app-chat-with-pdf-local.png)
+
+<Snippet file="llm-app-add-data.mdx" />
+
+## How this App works
+
+The streamlit apps are defined in the `app` folder and the `Conversations` powering these apps are defined in the `llm/conversations` folder.
+
+Checkout the `llm/conversations/pdf_auto.py` file for more information:
+
+- The `function_calls` flag gives the LLM the ability to call functions.
+- The `show_function_calls` prints which functions the LLM is running.
+
+```python llm/conversations/pdf_auto.py
+...
+def get_pdf_auto_conversation(
+    user_name: Optional[str] = None,
+    conversation_id: Optional[str] = None,
+    debug_mode: bool = False,
+) -> Conversation:
+    """Get an autonomous conversation with the PDF knowledge base"""
+
+    return Conversation(
+        ...
+        function_calls=True,
+        show_function_calls=True,
+        ...
+    )
+```
+
+## Add your own tools
+
+Its super easy and even recommended to add your own tools to your autonomous app.
+
+Read how to add [tools](/blocks/conversation/tools) to Conversations.
+
+<Snippet file="serve-llm-app-fastapi.mdx" />
+
+### View API Endpoints
+
+- Open [localhost:8000/docs](http://localhost:8000/docs) to view the API Endpoints.
+- Load the knowledge base using `/v1/pdf/conversation/load-knowledge-base`
+- Test the `v1/pdf/conversation/chat` endpoint with
+
+```json
+{
+  "message": "How do I make chicken curry?",
+  "conversation_type": "AUTO"
+}
+```
+
+![auto-llm-app-fastapi-local](/images/auto-llm-app-fastapi-local.png)
+
+## Build your LLM Product
+
+Your LLM Api provides common endpoints you can use to build your LLM product. These routes are developed in collaboration with real AI Apps and are a great starting point to build on.
+
+For example:
+
+- Call the `/conversation/create` endpoint to create a new conversation for a user.
+
+```json
+{
+  "user_name": "my-app-user-1",
+  "conversation_type": "AUTO"
+}
+```
+
+- The response contains a `conversation_id` that can be used to build a chat interface by calling the `/conversation/chat` endpoint.
+
+```json
+{
+  "message": "how do I make pasta",
+  "stream": true,
+  "conversation_id": "fc67f202-c2cb-4c3d-a640-704ab83d9460",
+  "conversation_type": "AUTO"
+}
+```
+
+These routes are defined the `api/routes` folder and can be customized to your use case.
+
+<Tip>
+  Message us on [discord](https://discord.gg/4MtYHHrgA8) if you need help.
+</Tip>
+
+<Snippet file="llm-app-run-jupyter.mdx" />
+
+<Snippet file="llm-app-delete-local-resources.mdx" />
+
+## Next
+
+Congratulations on running your RAG LLM App locally. Next Steps:
+
+- [Run your LLM App on AWS](/examples/ai/auto/run-aws)
+- Create a [git repository for your workspace](/how-to/git-repo)
+- Read how to [manage the development application](/how-to/development-app)
+- Read how to [format and validate your code](/how-to/format-and-validate)
+- Read how to [add python libraries](/how-to/python-libraries)
+- Chat with us on [discord](https://discord.gg/4MtYHHrgA8)

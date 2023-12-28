@@ -71,7 +71,7 @@
                   "blocks/conversation/memory",
                   "blocks/conversation/tools",
                   "blocks/conversation/tasks",
-                  "blocks/conversation/structured-output"
+                  "blocks/conversation/pydantic-output"
                 ]
               },
               {
@@ -131,7 +131,13 @@
                 "group": "Apps",
                 "pages": [
                   "blocks/app/introduction",
-                  "blocks/app/examples",
+                  {
+                    "group": "Examples",
+                    "pages": [
+                      "blocks/app/examples/pgvector",
+                      "blocks/app/examples/jupyter"
+                    ]
+                  },
                   "blocks/app/features"
                 ]
               },
@@ -177,8 +183,20 @@
         {
           "group": "AI Apps",
           "pages": [
-            "examples/ai/rag-llm-app",
-            "examples/ai/auto-llm-app",
+            {
+              "group": "RAG LLM App",
+              "pages": [
+                "examples/ai/rag/run-local",
+                "examples/ai/rag/run-aws"
+              ]
+            },
+            {
+              "group": "Autonomous LLM App",
+              "pages": [
+                "examples/ai/auto/run-local",
+                "examples/ai/auto/run-aws"
+              ]
+            },
             "examples/ai/multimodal-llm-app",
             "examples/ai/junior-de",
             "examples/ai/snowflake-de"

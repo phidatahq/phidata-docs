@@ -1,0 +1,31 @@
+## Create AWS resources
+
+Create AWS resources for the LLM App using:
+
+<CodeGroup>
+
+```bash terminal
+phi ws up --env prd --infra aws
+```
+
+```bash shorthand
+phi ws up prd:aws
+```
+
+</CodeGroup>
+
+This will create:
+
+1. [ECS Cluster](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/clusters.html) for the application.
+2. [ECS Task Definitions](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task_definitions.html) and [Services](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs_services.html) that run the application on the ECS cluster.
+3. [LoadBalancer](https://aws.amazon.com/elasticloadbalancing/) to route traffic to the application.
+4. [Security Groups](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-security-groups.html) that control incoming and outgoing traffic.
+5. [Secrets](https://aws.amazon.com/secrets-manager/) for managing application and database secrets.
+6. [RDS Database](https://aws.amazon.com/rds/) for Knowledge Base and Storage.
+
+**Press Enter** to confirm and grab a cup of coffee while the resources spin up.
+
+- The RDS database takes about 10 minutes to activate.
+- These resources are defined in the `workspace/prd_resources.py` file.
+- Use the [ECS console](https://us-east-1.console.aws.amazon.com/ecs/v2/clusters) to view services and logs.
+- Use the [RDS console](https://us-east-1.console.aws.amazon.com/rds/home?#databases:) to view the database instance.

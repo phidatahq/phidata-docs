@@ -4,20 +4,27 @@ title: Install & Setup
 
 ## Install phidata
 
-Install `phidata` using `pip` in a python virtual environment
+We highly recommend:
+
+- Installing `phidata` using `pip` in a python virtual environment.
+- Creating an `ai` directory for your ai workspaces
 
 <Steps>
   <Step title="Create a virtual environment">
-    Open the `Terminal` and create a python virtual environment.
+    Open the `Terminal` and create an `ai` directory with a python virtual environment.
 
     <CodeGroup>
 
     ```bash Mac
-    python3 -m venv ~/.venvs/aienv
-    source ~/.venvs/aienv/bin/activate
+    mkdir ai && cd ai
+
+    python3 -m venv aienv
+    source aienv/bin/activate
     ```
 
     ```bash Windows
+    mkdir ai; cd ai
+
     python3 -m venv aienv
     aienv/scripts/activate
     ```
@@ -40,6 +47,9 @@ Install `phidata` using `pip` in a python virtual environment
 
     </CodeGroup>
 
+  </Step>
+  <Step title="Install docker">
+    Install [docker desktop](https://docs.docker.com/desktop/install/mac-install/) to run apps locally
   </Step>
 </Steps>
 
