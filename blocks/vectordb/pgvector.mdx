@@ -4,23 +4,53 @@ title: PgVector
 
 We're big fans of using **PgVector** for vector storage because it delivers spectacular results for 99.9% of the use-cases and can also provide long-term storage for our `Conversations`.
 
-## Run PgVector
+It runs locally on docker and is provided as a resilient service by major cloud providers. It truly is a remarkable option -- just without the marketing budget of other vector databases.
 
-Each template already comes with PgVector pre-configured but if needed, your can easily run `PgVector` on `Docker`.
+## Run PgVector on docker
 
-Create a file `resources.py` with the following contents and start `PgVector` by running `phi start resources.py`
+Follow the following steps to run `PgVector` on Docker:
 
-<CodeGroup>
+<Steps>
+  <Step title="Create a virtual environment">
+    Open the `Terminal` and create an `ai` directory with a python virtual environment.
 
-```bash Mac
-phi start resources.py
-```
+    <CodeGroup>
 
-```bash Windows
-phi start resources.py
-```
+    ```bash Mac
+    mkdir ai && cd ai
 
-</CodeGroup>
+    python3 -m venv aienv
+    source aienv/bin/activate
+    ```
+
+    ```bash Windows
+    mkdir ai; cd ai
+
+    python3 -m venv aienv
+    aienv/scripts/activate
+    ```
+
+    </CodeGroup>
+
+  </Step>
+  <Step title="Install phidata">
+    Install `phidata` using pip
+
+    <CodeGroup>
+
+    ```bash Mac
+    pip install -U phidata
+    ```
+
+    ```bash Windows
+    pip install -U phidata
+    ```
+
+    </CodeGroup>
+
+  </Step>
+  <Step title="Run PgVector">
+    Create a file `resources.py` with the following contents
 
 ```python resources.py
 from phi.docker.app.postgres import PgVectorDb
@@ -40,10 +70,11 @@ dev_docker_resources = DockerResources(
 )
 ```
 
-<br />
+    Start `resources.py` using:
 
-<Note>
+```bash
+phi start resources.py
+```
 
-Install [docker desktop](https://docs.docker.com/desktop/install/mac-install/) if needed.
-
-</Note>
+  </Step>
+</Steps>

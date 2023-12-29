@@ -1,0 +1,29 @@
+**Here's how vector databases provide a knowledge base for AI products:**
+
+<Steps>
+  <Step title="Goal: Get relevant information from a knowledge base quickly">
+    Our goal is to search our knowledge base for information related to our
+    input query which can be provided to the LLM as context.
+  </Step>
+  <Step title="Chunking the knowledge base">
+    We break down the data in our knowledge base into small chunks to ensure our
+    search query returns the most relevant results.
+  </Step>
+  <Step title="Loading the knowledge base">
+    We convert these chunks into embedding vectors and store them in a vector
+    database.
+  </Step>
+  <Step title="Searching the knowledge base">
+    When the user sends a message, we convert the input message into an
+    embedding and "search" for nearest neighbors in the vector database.
+  </Step>
+  <Step title="Optimizing the knowledge base">
+    If we have a large # of vectors to search, we create an index (like HNSW) to
+    search for approximate nearest neighbors.
+  </Step>
+</Steps>
+
+The following VectorDb are supported:
+
+- [PgVector](/blocks/vectordb/pgvector)
+- [SingleStore](/blocks/vectordb/singlestore)

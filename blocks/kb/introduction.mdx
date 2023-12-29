@@ -2,7 +2,9 @@
 title: Introduction
 ---
 
-A Knowledge Base is a database of information that the LLM can search to improve its responses. Knowledge Bases make LLMs respond in a context-aware manner by enabling Retrieval Augmented Generation (**RAG**).
+A Knowledge Base is a database of information that the LLM can search to improve its responses. They are used to provide additional context to LLMs and make them respond in a context-aware manner.
+
+Knowledge Bases can be used with RAG or Autonomous Conversations.
 
 ## Example: RAG Conversation
 
@@ -58,14 +60,11 @@ auto_conversation = Conversation(
 
 While any type of storage can act as a knowledge base, vector databases offer the best solution for retrieving relevant results from dense information quickly.
 
-The following vector databases are supported:
-
-- [PgVector](/blocks/vectordb/pgvector)
-- [SingleStore](/blocks/vectordb/singlestore)
+<Snippet file="vector-database-workflow.mdx" />
 
 ## Loading the Knowledge Base
 
-Your knowledge base needs to be loaded with vector embeddings that can be used for retrieval. You can load the embeddings manually or use one of the following knowledge bases:
+Before you can use a knowledge base, it needs to be loaded with embedding vectors that will be used for retrieval. Use one of the following knowledge bases to simplify the chunking, loading, searching and optimization process:
 
 - [PDF knowledge base](/blocks/kb/pdf): Load local PDF files to a knowledge base
 - [PDF URL knowledge base](/blocks/kb/pdf-url): Load PDF files from a URL to a knowledge base

@@ -2,11 +2,6 @@
 title: Introduction
 ---
 
-While any type of storage can act as a knowledge base, vector databases currently offer the best solution for retrieving relevant results from dense information quickly.
+Vector databases enable us to store information as embeddings and search for the "similar results" to our input query. These results are then provided to the LLM as context so it can respond in a context-aware manner using Retrieval Augmented Generation (**RAG**).
 
-Each phidata template includes PgVector as a VectorDb.
-
-The following VectorDb are supported:
-
-- [PgVector](/blocks/vectordb/pgvector)
-- [SingleStore](/blocks/vectordb/singlestore)
+<Snippet file="vector-database-workflow.mdx" />
