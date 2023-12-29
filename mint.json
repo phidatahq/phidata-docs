@@ -109,7 +109,9 @@
                   "blocks/kb/website",
                   "blocks/kb/wikipedia",
                   "blocks/kb/arxiv",
-                  "blocks/kb/combined"
+                  "blocks/kb/combined",
+                  "blocks/kb/langchain",
+                  "blocks/kb/manual"
                 ]
               },
               {

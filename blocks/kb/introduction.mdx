@@ -2,7 +2,57 @@
 title: Introduction
 ---
 
-A Knowledge Base is a database of information that the LLM can search to improve its responses. Knowledge Bases make LLMs respond in a context-aware manner.
+A Knowledge Base is a database of information that the LLM can search to improve its responses. Knowledge Bases make LLMs respond in a context-aware manner by enabling Retrieval Augmented Generation (**RAG**).
+
+## Example: RAG Conversation
+
+In this example, we add a Knowledge Base to the `Conversation` and set `add_references_to_prompt=True`. This will search the **Knowledge Base** for information about the `message` and add it to the **User Prompt** before sending it to the LLM.
+
+```python rag_conversation.py
+from phi.llm.openai import OpenAIChat
+from phi.conversation import Conversation
+from phi.knowledge.pdf import PDFKnowledgeBase
+from phi.vectordb.pgvector import PgVector
+
+rag_conversation = Conversation(
+    # -*- Provide the conversation with a knowledge base
+    knowledge_base=PDFKnowledgeBase(
+        path="data/pdfs",
+        vector_db=PgVector(
+            collection="pdf_documents",
+            db_url=db_url,
+        ),
+    ),
+    # -*- This setting adds references to the user prompt enabling RAG
+    add_references_to_prompt=True,
+)
+```
+
+## Example: Autonomous Conversation
+
+In this example, we add a Knowledge Base to the `Conversation` and set `function_calls=True`. This adds a function for searching the **Knowledge Base** and lets the LLM decide when its needs to access the knowledge base and what search parameters to use.
+
+```python auto_conversation.py
+from phi.llm.openai import OpenAIChat
+from phi.conversation import Conversation
+from phi.knowledge.pdf import PDFUrlKnowledgeBase
+from phi.vectordb.pgvector import PgVector
+
+auto_conversation = Conversation(
+    # -*- Provide the conversation with a knowledge base
+    knowledge_base=PDFKnowledgeBase(
+        path="data/pdfs",
+        vector_db=PgVector(
+            collection="pdf_documents",
+            db_url=db_url,
+        ),
+    ),
+    # -*- Let the LLM call functions to achieve tasks
+    function_calls=True,
+    # -*- Print the signature of called functions
+    show_function_calls=True,
+)
+```
 
 ## Vector Databases
 
@@ -13,7 +63,7 @@ The following vector databases are supported:
 - [PgVector](/blocks/vectordb/pgvector)
 - [SingleStore](/blocks/vectordb/singlestore)
 
-## Input Data
+## Loading the Knowledge Base
 
 Your knowledge base needs to be loaded with vector embeddings that can be used for retrieval. You can load the embeddings manually or use one of the following knowledge bases:
 
@@ -25,3 +75,5 @@ Your knowledge base needs to be loaded with vector embeddings that can be used f
 - [Wikipedia knowledge base](/blocks/kb/wikipedia): Load wikipedia articles to a knowledge base
 - [ArXiv knowledge base](/blocks/kb/arxiv): Load ArXiv papers to a knowledge base
 - [Combined knowledge base](/blocks/kb/combined): Combine multiple knowledge bases into 1
+- [LangChain knowledge base](/blocks/kb/langchain): Use a Langchain retriever as a knowledge base
+- [Load knowledge base manually](/blocks/kb/manual)

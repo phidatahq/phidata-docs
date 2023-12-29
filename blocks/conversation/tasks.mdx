@@ -9,7 +9,7 @@ In general, Conversations follow the `Input -> Output` pattern and Tasks allows 
 
 ## Usage
 
-In the following example, we use 3 `Tasks` to reliably generate short stories for a given `Theme` by:
+In this example, we use 3 `Tasks` to reliably generate short stories for a given `Theme` by:
 
 1. Generate a `setting` and `genre` for a `Theme` using a Pydantic model.
 2. Write a 2 sentence story about the the `setting` and `genre`.
@@ -126,9 +126,18 @@ python story_generator.py
   </Step>
   <Step title="Generate short stories">
     Test short stories for the following themes:
-    - Drag race in 2090 New York
-    - Love in 1800s Punjab
-    - Christmas in London year 15000AD
+    ```
+    Drag race in 2090 New York
+    ```
+
+    ```
+    Love in 1800s Punjab
+    ```
+
+    ```
+    Christmas in London year 15000AD
+    ```
+
   </Step>
 </Steps>
 
