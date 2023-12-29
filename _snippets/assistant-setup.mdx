@@ -1,0 +1,48 @@
+## Setup
+
+<Tip>
+
+Skip this step if you already have a virtual environment with phidata installed
+
+</Tip>
+
+<Steps>
+  <Step title="Create a virtual environment">
+    Open the `Terminal` and create an `ai` directory with a python virtual environment.
+
+    <CodeGroup>
+
+    ```bash Mac
+    mkdir ai && cd ai
+
+    python3 -m venv aienv
+    source aienv/bin/activate
+    ```
+
+    ```bash Windows
+    mkdir ai; cd ai
+
+    python3 -m venv aienv
+    aienv/scripts/activate
+    ```
+
+    </CodeGroup>
+
+  </Step>
+  <Step title="Install libraries">
+    Install libraries using pip
+
+    <CodeGroup>
+
+    ```bash Mac
+    pip install -U phidata openai
+    ```
+
+    ```bash Windows
+    pip install -U phidata openai
+    ```
+
+    </CodeGroup>
+
+  </Step>
+</Steps>

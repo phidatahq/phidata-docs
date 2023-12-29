@@ -2,9 +2,15 @@
 title: Introduction
 ---
 
-OpenAI provides a powerful [Assistants API](https://platform.openai.com/docs/assistants/overview) and phidata provides a clean interface to build applications using them. Assistants can leverage models, run code in a sandboxed environment and retrieve information from a knowledge base. Here's simple example
+OpenAI provides a powerful [Assistants API](https://platform.openai.com/docs/assistants/overview) and phidata provides an easy to use interface for building applications with them.
 
-```python csv_ai.py
+Assistants can leverage models, run code in a sandboxed environment and retrieve information from a knowledge base.
+
+## Usage
+
+In the following example, we create an Assistant `CsvAssistant` to analyze a CSV file.
+
+```python csv_assistant.py
 from phi.assistant import Assistant
 from phi.assistant.file.url import UrlFile
 from phi.assistant.tool import CodeInterpreter
@@ -14,92 +20,26 @@ imdb_movie_data_s3 = UrlFile(url="https://phi-public.s3.amazonaws.com/imdb/IMDB-
 
 # Create an Assistant
 with Assistant(
-    name="CsvAI",
+    name="CsvAssistant",
     tools=[CodeInterpreter],
     files=[imdb_movie_data_s3],
     instructions="You are an expert at analyzing CSV data. Whenever you run an analysis, explain each step.",
-) as csv_ai:
-    # Query the Assistant
-    csv_ai.print_response("How is the most popular actor by votes?")
+) as csv_assistant:
+    # Run the Assistant
+    csv_assistant.print_response("Who is the most popular actor by votes?")
 ```
 
-Lets explore more by building a simple LLM App using OpenAI Assistants.
+Lets explore more by building a couple of LLM Apps using OpenAI Assistants.
 
-## Setup
+<Snippet file="assistant-setup.mdx" />
 
-<Tip>
-
-Skip this step if you already have a virtual environment with phidata installed
-
-</Tip>
-
-### Create a virtual environment
-
-Open the `Terminal` and create an `ai` directory with a python virtual environment.
-
-<CodeGroup>
-
-```bash Mac
-mkdir ai && cd ai
-
-python3 -m venv aienv
-source aienv/bin/activate
-```
-
-```bash Windows
-mkdir ai; cd ai
-
-python3 -m venv aienv
-aienv/scripts/activate
-```
-
-</CodeGroup>
-
-### Install phidata
-
-Install `phidata` and `openai`
-
-<CodeGroup>
-
-```bash Mac
-pip install -U phidata openai
-```
-
-```bash Windows
-pip install -U phidata openai
-```
-
-</CodeGroup>
-
-<br />
-
-<Note>
-
-If you encounter errors, update pip using `python -m pip install --upgrade pip`
-
-</Note>
-
-## Set OpenAI Key
-
-Assistants are tied to your OpenAI account so please set the `OPENAI_API_KEY` environment variable. You can get one [from OpenAI here](https://platform.openai.com/account/api-keys).
-
-<CodeGroup>
-
-```bash Mac
-export OPENAI_API_KEY=sk-***
-```
-
-```bash Windows
-setx OPENAI_API_KEY sk-***
-```
-
-</CodeGroup>
+<Snippet file="assistant-openai-key.mdx" />
 
 ## Create an Assistant
 
-Copy this code to a file `csv_ai.py`
+Copy this code to a file `csv_assistant.py`
 
-```python csv_ai.py
+```python csv_assistant.py
 from phi.assistant import Assistant
 from phi.assistant.file.url import UrlFile
 from phi.assistant.tool import CodeInterpreter
@@ -107,38 +47,40 @@ from phi.assistant.tool import CodeInterpreter
 # Load the IMDB dataset from S3
 imdb_movie_data_s3 = UrlFile(url="https://phi-public.s3.amazonaws.com/imdb/IMDB-Movie-Data.csv").get_or_create()
 
-# Create an Assistant
+# Create the Assistant
 with Assistant(
-    name="CsvAI",
+    name="CsvAssistant",
     tools=[CodeInterpreter],
     files=[imdb_movie_data_s3],
     instructions="You are an expert at analyzing CSV data. Whenever you run an analysis, explain each step.",
-) as csv_ai:
-    # Query the Assistant
-    csv_ai.print_response("How is the most popular actor by votes?")
+) as csv_assistant:
+    # Run the Assistant
+    csv_assistant.print_response("Who is the most popular actor by votes?")
 ```
 
-Run the `csv_ai.py` file
+Run the `csv_assistant.py` file
 
 <CodeGroup>
 
 ```bash Mac
-python csv_ai.py
+python csv_assistant.py
 ```
 
 ```bash Windows
-python csv_ai.py
+python csv_assistant.py
 ```
 
 </CodeGroup>
 
-## Add Files
+## Add Files for Retrieval
 
-Assistants can use [Files](https://platform.openai.com/docs/api-reference/files) for retrieval and analysis. Phidata helps upload different types of files and provides a `get_or_create()` method that ensures files with the same name are not recreated.
+Assistants can use [Files](https://platform.openai.com/docs/api-reference/files) for retrieval and analysis.
+
+Phidata helps upload different types of files and provides a `get_or_create()` method that ensures files with the same name are not recreated.
 
 Here's how to use a file stored **locally** or on **s3** with the `Retrieval` tool.
 
-```python recipe_ai.py
+```python recipe_assistant.py
 from phi.assistant import Assistant
 from phi.assistant.file.url import UrlFile
 from phi.assistant.file.local import LocalFile
@@ -151,34 +93,34 @@ recipe_book_s3 = UrlFile(url="https://www.family-action.org.uk/content/uploads/2
 
 # Create an Assistant
 with Assistant(
-    name="RecipeAI",
+    name="RecipeAssistant",
     tools=[Retrieval],
     files=[recipe_book_s3],
     instructions="Format your answers using Markdown.",
-) as recipe_ai:
-    # Query the Assistant
-    recipe_ai.print_response("How do I make chicken tikka salad?")
+) as recipe_assistant:
+    # Run the Assistant
+    recipe_assistant.print_response("How do I make chicken tikka salad?", markdown=True)
 ```
 
-Run the `recipe_ai.py` file
+Run the `recipe_assistant.py` file
 
 <CodeGroup>
 
 ```bash Mac
-python recipe_ai.py
+python recipe_assistant.py
 ```
 
 ```bash Windows
-python recipe_ai.py
+python recipe_assistant.py
 ```
 
 </CodeGroup>
 
 ## Build a mini LLM App
 
-Now let's turn the `CsvAI` into a mini LLM App. Update the `csv_ai.py` file to:
+Now let's turn the `CsvAssistant` into a mini LLM App. Update the `csv_assistant.py` file to:
 
-```python csv_ai.py
+```python csv_assistant.py
 import typer
 from rich.prompt import Prompt
 
@@ -187,18 +129,17 @@ from phi.assistant.thread import Thread
 from phi.assistant.file.url import UrlFile
 from phi.assistant.tool import CodeInterpreter
 
-imdb_movie_data_s3 = UrlFile(
-    url="https://phi-public.s3.amazonaws.com/imdb/IMDB-Movie-Data.csv"
-).get_or_create()
-
+# Load the IMDB dataset from S3
+imdb_movie_data_s3 = UrlFile(url="https://phi-public.s3.amazonaws.com/imdb/IMDB-Movie-Data.csv").get_or_create()
 
 def llm_app():
+    # Create an Assistant
     with Assistant(
-        name="CsvAI",
+        name="CsvAssistant",
         tools=[CodeInterpreter],
         files=[imdb_movie_data_s3],
         instructions="You are an expert at analyzing CSV data. Whenever you run an analysis, explain each step.",
-    ) as csv_ai:
+    ) as csv_assistant:
         thread = Thread()
         while True:
             message = Prompt.ask(f"[bold] :sunglasses: User [/bold]")
@@ -206,31 +147,37 @@ def llm_app():
                 break
 
             thread.print_response(
-                message=message, assistant=csv_ai, current_message_only=True
+                message=message, assistant=csv_assistant, current_message_only=True
             )
-
 
 if __name__ == "__main__":
     typer.run(llm_app)
 ```
 
-Run the `csv_ai.py` file.
+Run the `csv_assistant.py` file.
 
 <CodeGroup>
 
 ```bash Mac
-python csv_ai.py
+python csv_assistant.py
 ```
 
 ```bash Windows
-python csv_ai.py
+python csv_assistant.py
 ```
 
 </CodeGroup>
 
 Ask questions like:
 
-- Show me a histogram of ratings.
-- Show me a time series, choose any column you like.
+```
+Show me a histogram of ratings.
+```
 
-It also downloads the resulting files which you can click to view.
+```
+Show me a time series, choose any column you like.
+```
+
+The Assistant downloads the resulting files which you can click to view.
+
+<Snippet file="discord.mdx" />
