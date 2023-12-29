@@ -2,7 +2,7 @@
 title: "Run on AWS"
 ---
 
-Let's run the **Autonomous LLM App** in production on AWS.
+Let's run the **Multimodal LLM App** in production on AWS.
 
 <Snippet file="aws-setup.mdx" />
 
@@ -14,33 +14,23 @@ Let's run the **Autonomous LLM App** in production on AWS.
 
 **Open the LoadBalancer DNS** provided when creating the Streamlit App
 
-### Chat with PDF
+### Chat with Images
 
 - Enter the `APP_PASSWORD` from the `prd_app_secrets.yml` file (default: `admin`)
-- Click on **Chat with PDFs** in the sidebar
-- Enter a username and wait for the knowledge base to load.
-- Choose the `Autonomous` Conversation type.
-- Ask "How do I make chicken curry?"
-- Notice how the LLM first searches the knowledge base and also uses the appropriate search query.
+- Click on **Chat with Images** in the sidebar
+- Enter a username.
+- Upload an image and ask questions
+- Click on `Generate Caption`, `Describe Image`, `Identify Brands`, `Identify Items` for examples.
 
-![auto-llm-app-chat-with-pdf-prd](/images/auto-llm-app-chat-with-pdf-prd.png)
+![chat-with-images-local](/images/chat-with-images-local.png)
 
 ## Production FastApi
 
-- **Open the LoadBalancer DNS** + the `/docs` endpoint to view the API Endpoints.
-- Load the knowledge base using `/v1/pdf/conversation/load-knowledge-base`
-- Test the `v1/pdf/conversation/chat` endpoint with
+<Note>
 
-```json
-{
-  "message": "How do I make chicken curry?",
-  "conversation_type": "AUTO"
-}
-```
+We are working on a set of common endpoints for the Multimodal LLM App.
 
-- Update and integrate with your front-end or product.
-
-![auto-llm-app-fastapi-prd](/images/auto-llm-app-fastapi-prd.png)
+</Note>
 
 <Snippet file="llm-app-update-production.mdx" />
 

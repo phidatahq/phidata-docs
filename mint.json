@@ -197,8 +197,20 @@
                 "examples/ai/auto/run-aws"
               ]
             },
-            "examples/ai/multimodal-llm-app",
-            "examples/ai/junior-de",
+            {
+              "group": "Multimodal LLM App",
+              "pages": [
+                "examples/ai/multimodal/run-local",
+                "examples/ai/multimodal/run-aws"
+              ]
+            },
+            {
+              "group": "Junior Data Engineer",
+              "pages": [
+                "examples/ai/junior-de/run-local",
+                "examples/ai/junior-de/run-aws"
+              ]
+            },
             "examples/ai/snowflake-de"
           ]
         },
