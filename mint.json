@@ -71,8 +71,8 @@
                   "blocks/conversation/memory",
                   "blocks/conversation/storage",
                   "blocks/conversation/tools",
-                  "blocks/conversation/tasks",
-                  "blocks/conversation/pydantic-output"
+                  "blocks/conversation/pydantic-output",
+                  "blocks/conversation/tasks"
                 ]
               },
               {
