@@ -27,10 +27,76 @@ for delta in conversation.chat('Share a quick healthy breakfast recipe.'):
 
 Under the hood, the message is converted to `System` and `User` prompts that are sent to the LLM. The default prompts can be easily customized to fit any use case.
 
+## Working Example
+
+<Steps>
+  <Step title="Create a virtual environment">
+    Open the `Terminal` and create an `ai` directory with a python virtual environment.
+
+    <CodeGroup>
+
+    ```bash Mac
+    mkdir ai && cd ai
+
+    python3 -m venv aienv
+    source aienv/bin/activate
+    ```
+
+    ```bash Windows
+    mkdir ai; cd ai
+
+    python3 -m venv aienv
+    aienv/scripts/activate
+    ```
+
+    </CodeGroup>
+
+  </Step>
+  <Step title="Install libraries">
+    Install `phidata` and `openai` using pip
+
+    <CodeGroup>
+
+    ```bash Mac
+    pip install -U phidata openai
+    ```
+
+    ```bash Windows
+    pip install -U phidata openai
+    ```
+
+    </CodeGroup>
+
+  </Step>
+  <Step title="Create a conversation">
+    Create a file `conversation.py` with the following contents
+
+```python conversation.py
+from phi.conversation import Conversation
+
+conversation = Conversation()
+
+# -*- Print a response
+conversation.print_response('Share a quick healthy breakfast recipe.')
+```
+
+  </Step>
+  <Step title="Run the conversation">
+    Run the `conversation.py` file
+```bash
+python conversation.py
+```
+  </Step>
+</Steps>
+
+## More Information
+
 Read more about:
 
 - [RAG Conversations](/blocks/conversation/rag)
 - [Autonomous Conversations](/blocks/conversation/auto)
 - [Updating Prompts](/blocks/conversation/prompts)
-- [Conversation Memory](/blocks/conversation/memory)
-- [Conversation Tools](/blocks/conversation/tools)
+- [Memory](/blocks/conversation/memory)
+- [Tools](/blocks/conversation/tools)
+- [Tasks](/blocks/conversation/tasks)
+- [Generating Pydantic models as output](/blocks/conversation/pydantic-output)
