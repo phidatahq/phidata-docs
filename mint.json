@@ -78,7 +78,9 @@
               {
                 "group": "Agents",
                 "pages": [
-                  "blocks/agent/introduction"
+                  "blocks/agent/introduction",
+                  "blocks/agent/duckdb",
+                  "blocks/agent/python"
                 ]
               },
               {
