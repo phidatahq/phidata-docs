@@ -229,10 +229,20 @@
         {
           "group": "Templates",
           "pages": [
-              "templates/llm-app",
-              "templates/llm-api",
-              "templates/streamlit-app",
-              "templates/django-app",
+              {
+                "group": "LLM App",
+                "pages": [
+                  "templates/llm-app/run-local",
+                  "templates/llm-app/run-aws"
+                ]
+              },
+              {
+                "group": "Django App",
+                "pages": [
+                  "templates/django-app/run-local",
+                  "templates/django-app/run-aws"
+                ]
+              },
               "templates/data-platform"
           ]
         },

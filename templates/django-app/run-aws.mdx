@@ -2,43 +2,49 @@
 title: "Run on AWS"
 ---
 
-Let's run the **RAG LLM App** in production on AWS.
+Let's run the **Django App** in production on AWS.
 
 <Snippet file="aws-setup.mdx" />
 
-<Snippet file="update-prd-secrets.mdx" />
+## Update Secrets
+
+Update the RDS database password in the `workspace/secrets/prd_db_secrets.yml` file:
+
+```python workspace/secrets/prd_db_secrets.yml
+# Secrets used by RDS Database
+MASTER_USERNAME: app
+MASTER_USER_PASSWORD: "app9999!!"
+```
 
 <Snippet file="create-llm-app-aws-resources.mdx" />
 
-## Production Streamlit App
+## Production Django app
 
-**Open the LoadBalancer DNS** provided when creating the Streamlit App
+**Open the LoadBalancer DNS** to view your Django App running on AWS.
 
-### Chat with PDF
+![django-app-django-prd](/images/django-app-django-prd.png)
 
-- Enter the `APP_PASSWORD` from the `prd_app_secrets.yml` file (default: `admin`)
-- Click on **Chat with PDFs** in the sidebar
-- Enter a username and wait for the knowledge base to load.
-- Choose the `RAG` Conversation type.
-- Ask "How do I make chicken curry?"
+## Production Django Admin
 
-![rag-llm-app-chat-with-pdf-prd](/images/rag-llm-app-chat-with-pdf-prd.png)
+Open the **LoadBalancer DNS** + `/admin` page to view the Django admin site.
 
-## Production FastApi
+Create an admin user by SSH-ing into the production container:
 
-- **Open the LoadBalancer DNS** + the `/docs` endpoint to view the API Endpoints.
-- Load the knowledge base using `/v1/pdf/conversation/load-knowledge-base`
-- Test the `v1/pdf/conversation/chat` endpoint with
+```bash
+ECS_CLUSTER=django-prd
+TASK_ARN=$(aws ecs list-tasks --cluster django-prd --query "taskArns[0]" --output text)
+CONTAINER_NAME=django-prd
 
-```json
-{
-  "message": "How do I make chicken curry?"
-}
+aws ecs execute-command --cluster $ECS_CLUSTER \
+    --task $TASK_ARN \
+    --container $CONTAINER_NAME \
+    --interactive \
+    --command "python manage.py createsuperuser"
 ```
 
-- Update and integrate with your front-end or product.
+Log in to the admin panel:
 
-![rag-llm-app-fastapi-prd](/images/rag-llm-app-fastapi-prd.png)
+![django-app-django-admin-prd](/images/django-app-django-admin-prd.png)
 
 <Snippet file="llm-app-update-production.mdx" />
 
@@ -46,7 +52,7 @@ Let's run the **RAG LLM App** in production on AWS.
 
 ## Next
 
-Congratulations on running your LLM App on AWS. Next Steps:
+Congratulations on running your Django App on AWS. Next Steps:
 
 - Create a [git repository for your workspace](/how-to/git-repo)
 - Read how to [manage the production application](/how-to/production-app)

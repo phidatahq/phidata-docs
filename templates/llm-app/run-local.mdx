@@ -1,19 +1,11 @@
 ---
-title: "Build a RAG LLM App"
+title: "Build an LLM App"
 sidebarTitle: "Run locally"
 ---
 
-Let's build a RAG LLM App powered by GPT-4. We'll use PgVector for knowledge and storage and serve the app using Streamlit and FastApi.
+Use this template to build an **LLM App** powered by GPT-4. This template comes pre-configured with **PgVector** for Knowledge Base and Storage. We'll serve the app using **Streamlit** and **FastApi**, running locally on docker and in production on AWS.
 
-## What is RAG?
-
-Retrieval Augmented Generation means providing the LLM with additional information along with the question to improve its responses. Here's how it works:
-
-- Without RAG, a user asks the LLM a question and the LLM responds with information from its training data.
-- With RAG, a user asks the LLM a question and we "stuff the prompt" with relevant information from a knowledge base. The LLM then responds in a context-aware manner.
-- Using RAG is like taking an open-book test.
-
-**By the end of this guide you'll be up and running with your own RAG LLM App.**
+**By the end of this guide you'll be up and running with your own LLM App.**
 
 <Snippet file="setup.mdx" />
 
@@ -31,7 +23,7 @@ Retrieval Augmented Generation means providing the LLM with additional informati
 
 The streamlit apps are defined in the `app` folder and the `Conversations` powering these apps are defined in the `llm/conversations` folder.
 
-Checkout the `llm/conversations/pdf_rag.py` file for more information:
+**Checkout the `llm/conversations/pdf_rag.py` file for the `RAG` conversation:**
 
 - The `add_references_to_prompt` flag will populate the `references` argument of the `user_prompt_function`
 - The `user_prompt_function` builds the **Prompt** sent to the LLM. The prompt is injected with additional information from the knowledge base using the `references` variable.
@@ -61,6 +53,28 @@ def get_pdf_rag_conversation(
         add_references_to_prompt=True,
         # This adds the last 8 messages to the API call
         add_chat_history_to_messages=True,
+    )
+```
+
+**Checkout the `llm/conversations/pdf_auto.py` file for the `Autonomous` conversation:**
+
+- The `function_calls` flag gives the LLM the ability to call functions.
+- The `show_function_calls` prints which functions the LLM is running.
+
+```python llm/conversations/pdf_rag.py
+...
+def get_pdf_auto_conversation(
+    user_name: Optional[str] = None,
+    conversation_id: Optional[str] = None,
+    debug_mode: bool = False,
+) -> Conversation:
+    """Get an autonomous conversation with the PDF knowledge base"""
+
+    return Conversation(
+        ...
+        function_calls=True,
+        show_function_calls=True,
+        ...
     )
 ```
 
@@ -120,7 +134,7 @@ These routes are defined the `api/routes` folder and can be customized to your u
 
 Congratulations on running your LLM App locally. Next Steps:
 
-- [Run your LLM App on AWS](/examples/ai/rag/run-aws)
+- [Run your LLM App on AWS](/templates/llm-app/run-aws)
 - Create a [git repository for your workspace](/how-to/git-repo)
 - Read how to [manage the development application](/how-to/development-app)
 - Read how to [format and validate your code](/how-to/format-and-validate)
