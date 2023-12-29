@@ -5,9 +5,7 @@ sidebarTitle: Autonomous
 
 With Autonomous Conversations, we let the LLM decide **if** it needs to access the knowledge base and what search parameters it needs to query the knowledge base.
 
-Behind the scenes, we provide the `Conversation` with a set of `Functions` the LLM can call to achieve tasks.
-
-Set `function_calls=True` to make the conversation autonomous by enabling default functions for searching the **Knowledge Base** and **Memory**.
+Behind the scenes, we provide the `Conversation` with a set of `Functions` the LLM can call to achieve tasks. Set `function_calls=True` to make the conversation autonomous by enabling default functions for searching the **Knowledge Base** and **Memory**.
 
 ## Usage
 
@@ -15,6 +13,7 @@ Set `function_calls=True` to make the conversation autonomous by enabling defaul
 from phi.llm.openai import OpenAIChat
 from phi.conversation import Conversation
 from phi.knowledge.pdf import PDFUrlKnowledgeBase
+from phi.vectordb.pgvector import PgVector
 
 auto_conversation = Conversation(
     # -*- Provide the conversation with a knowledge base
@@ -57,7 +56,7 @@ auto_conversation = Conversation(
   [Read more](/blocks/conversation/tools)
 </ResponseField>
 
-## Working Example
+## Example
 
 <Steps>
   <Step title="Create a virtual environment">
@@ -126,10 +125,10 @@ phi start resources.py
 ```
 
   </Step>
-  <Step title="Create a RAG conversation">
-    Create a file `conversation.py` with the following contents
+  <Step title="Create a Autonomous conversation">
+    Create a file `auto_conversation.py` with the following contents
 
-```python conversation.py
+```python auto_conversation.py
 from phi.conversation import Conversation
 from phi.knowledge.pdf import PDFUrlKnowledgeBase
 from phi.vectordb.pgvector import PgVector
@@ -147,17 +146,21 @@ knowledge_base.load(recreate=False)
 
 conversation = Conversation(
     knowledge_base=knowledge_base,
-    add_references_to_prompt=True,
+    function_calls=True,
+    show_function_calls=True,
 )
 
 conversation.print_response('How do I make chicken tikka salad?')
+conversation.print_response('What was my last question?')
 ```
 
   </Step>
   <Step title="Run the conversation">
-    Run the `conversation.py` file
+    Run the `auto_conversation.py` file
 ```bash
-python conversation.py
+python auto_conversation.py
 ```
   </Step>
 </Steps>
+
+As `show_function_calls=True`, notice how the function calls are displayed in the response.

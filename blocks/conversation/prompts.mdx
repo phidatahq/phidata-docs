@@ -4,92 +4,215 @@ title: Update Prompts
 
 The `Conversation` class provides a user-friendly interface to LLMs, meaning behind the scenes it converts the message into `system` and `user` prompts.
 
-Checkout the following examples on how to update prompts:
+## Usage
 
-## Examples
-
-**Update Prompts for RAG Conversation:**
+### Update prompts for a RAG Conversation
 
 ```python rag_conversation.py
 rag_conversation = Conversation(
-    ...
     system_prompt="Talk to me like a pirate!",
     # The references variable is populated by setting add_references_to_prompt=True
     user_prompt_function=lambda message, references, **kwargs: f"""\
     Use the following information from the knowledge base if it helps.
 
-    START OF KNOWLEDGE BASE
-    ---
+    <knowledge_base>
     {references}
-    ---
-    END OF KNOWLEDGE BASE
+    </knowledge_base>
 
-    Your task is to respond to the following message:
+    Respond to the following message:
     USER: {message}
     ASSISTANT:
     """,
     # -*- Add references to the user prompt
     add_references_to_prompt=True,
-    ...
 )
 ```
 
-**Update Prompts for Autonomous Conversation:**
+### Update prompts for an Autonomous Conversation
 
 ```python auto_conversation.py
 auto_conversation = Conversation(
-    ...
     system_prompt="Talk to me like a pirate!",
     user_prompt_function=lambda message, **kwargs: f"""\
-    Your task is to respond to the following message:
+    Respond to the following message:
     USER: {message}
     ASSISTANT:
     """,
-    ...
 )
 ```
 
 ## Params
 
-  <ResponseField name="system_prompt" type="str" default="None">
-    If provided, sets the `System Prompt` sent to the LLM.
-  </ResponseField>
-  <ResponseField name="system_prompt_function" type="Callable[..., Optional[str]]" default="None">
-    A function which returns the `System Prompt` sent to the LLM.
+The following params allow us to modify the `system` and `user` prompts.
 
-    Signature:
-    ```python
-      def system_prompt_function(conversation: Conversation) -> str:
-          ...
+<ResponseField name="system_prompt" type="str" default="None">
+  If provided, sets the `System Prompt` sent to the LLM.
+</ResponseField>
+<ResponseField name="system_prompt_function" type="Callable[..., Optional[str]]" default="None">
+  A function which returns the `System Prompt` sent to the LLM.
+
+Signature:
+
+```python
+  def system_prompt_function(conversation: Conversation) -> str:
+      ...
+```
+
+</ResponseField>
+<ResponseField name="use_default_system_prompt" type="str" default="True">
+  If True, the conversation provides a default system prompt
+</ResponseField>
+<ResponseField name="user_prompt" type="str" default="None">
+  If provided, sets the `User Prompt` sent to the LLM.
+</ResponseField>
+<ResponseField name="user_prompt_function" type="Callable[..., str]" default="None">
+  A function which returns the `User Prompt` sent to the LLM.
+
+Signature:
+
+```python
+  def custom_user_prompt_function(
+      conversation: Conversation,
+      message: str,
+      references: Optional[str] = None,
+      chat_history: Optional[str] = None,
+  ) -> str:
+      ...
+```
+
+This function is provided the `Conversation` object and the input `message` as arguments. It should return the `user_prompt` as a string.
+
+If `add_references_to_prompt` is True, the `references` argument is populated.
+
+If `add_chat_history_to_prompt` is True, the `chat_history` argument is populated.
+
+</ResponseField>
+<ResponseField name="use_default_user_prompt" type="str" default="True">
+  If True, the conversation provides a default user prompt
+</ResponseField>
+
+Checkout the following examples on how to update prompts:
+
+## Example
+
+<Steps>
+  <Step title="Create a virtual environment">
+    Open the `Terminal` and create an `ai` directory with a python virtual environment.
+
+    <CodeGroup>
+
+    ```bash Mac
+    mkdir ai && cd ai
+
+    python3 -m venv aienv
+    source aienv/bin/activate
     ```
 
-  </ResponseField>
-  <ResponseField name="use_default_system_prompt" type="str" default="True">
-    If True, the conversation provides a default system prompt
-  </ResponseField>
-  <ResponseField name="user_prompt" type="str" default="None">
-    If provided, sets the `User Prompt` sent to the LLM.
-  </ResponseField>
-  <ResponseField name="user_prompt_function" type="Callable[..., str]" default="None">
-    A function which returns the `User Prompt` sent to the LLM.
+    ```bash Windows
+    mkdir ai; cd ai
 
-    Signature:
-    ```python
-      def custom_user_prompt_function(
-          conversation: Conversation,
-          message: str,
-          references: Optional[str] = None,
-          chat_history: Optional[str] = None,
-      ) -> str:
-          ...
+    python3 -m venv aienv
+    aienv/scripts/activate
     ```
-    This function is provided the `Conversation` object and the input `message` as arguments. It should return the `user_prompt` as a string.
 
-    If `add_references_to_prompt` is True, then `references` are also provided as an argument.
+    </CodeGroup>
 
-    If `add_chat_history_to_prompt` is True, then `chat_history` is also provided as an argument.
+  </Step>
+  <Step title="Install libraries">
+    Install libraries using pip
 
-  </ResponseField>
-  <ResponseField name="use_default_user_prompt" type="str" default="True">
-    If True, the conversation provides a default user prompt
-  </ResponseField>
+    <CodeGroup>
+
+    ```bash Mac
+    pip install -U phidata openai pgvector pypdf psycopg sqlalchemy
+    ```
+
+    ```bash Windows
+    pip install -U phidata openai pgvector pypdf psycopg sqlalchemy
+    ```
+
+    </CodeGroup>
+
+  </Step>
+  <Step title="Start PgVector">
+    Create a file `resources.py` with the following contents
+
+```python resources.py
+from phi.docker.app.postgres import PgVectorDb
+from phi.docker.resources import DockerResources
+
+# -*- PgVector running on port 5432:5432
+vector_db = PgVectorDb(
+    pg_user="llm",
+    pg_password="llm",
+    pg_database="llm",
+    debug_mode=True,
+)
+
+# -*- DockerResources
+dev_docker_resources = DockerResources(
+    apps=[vector_db],
+)
+```
+
+    Start `resources.py` using:
+
+```bash
+phi start resources.py
+```
+
+  </Step>
+  <Step title="Create a RAG conversation">
+    Create a file `rag_conversation.py` with the following contents
+
+```python rag_conversation.py
+from phi.conversation import Conversation
+from phi.knowledge.pdf import PDFUrlKnowledgeBase
+from phi.vectordb.pgvector import PgVector
+
+from resources import vector_db
+
+knowledge_base = PDFUrlKnowledgeBase(
+    urls=["https://www.family-action.org.uk/content/uploads/2019/07/meals-more-recipes.pdf"],
+    vector_db=PgVector(
+        collection="recipes",
+        db_url=vector_db.get_db_connection_local(),
+    ),
+)
+knowledge_base.load(recreate=False)
+
+conversation = Conversation(
+    knowledge_base=knowledge_base,
+    system_prompt="Talk to me like a pirate!",
+    # The references variable is populated by setting add_references_to_prompt=True
+    user_prompt_function=lambda message, references, **kwargs: f"""\
+    Use the following information from the knowledge base if it helps.
+
+    <knowledge_base>
+    {references}
+    </knowledge_base>
+
+    <rules>
+    - Start and end your response with a polite greeting.
+    - Sign off with a cool pirate name and a haiku about the romantic waters.
+    </rules>
+
+    Respond to the following message:
+    USER: {message}
+    ASSISTANT:
+    """,
+    # -*- Add references to the user prompt
+    add_references_to_prompt=True,
+)
+
+conversation.print_response('How do I make coconut chicken curry?')
+```
+
+  </Step>
+  <Step title="Run the conversation">
+    Run the `rag_conversation.py` file
+```bash
+python rag_conversation.py
+```
+  </Step>
+</Steps>

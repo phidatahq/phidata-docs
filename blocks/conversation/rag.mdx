@@ -5,7 +5,7 @@ sidebarTitle: RAG
 
 Retrieval Augmented Generation (**RAG**) helps us improve the quality of LLM reponses by providing additional **Knowledge** in the prompt.
 
-To enable **RAG**, provide your `Conversation` with a Knowledge Base and set `add_references_to_prompt=True`. This will search the **Knowledge Base** for information about the `message` and add it to the **User Prompt** before sending it to the LLM.
+To enable **RAG**, add a Knowledge Base to the `Conversation` and set `add_references_to_prompt=True`. This will search the **Knowledge Base** for information about the `message` and add it to the **User Prompt** before sending it to the LLM.
 
 ## Usage
 
@@ -13,6 +13,7 @@ To enable **RAG**, provide your `Conversation` with a Knowledge Base and set `ad
 from phi.llm.openai import OpenAIChat
 from phi.conversation import Conversation
 from phi.knowledge.pdf import PDFKnowledgeBase
+from phi.vectordb.pgvector import PgVector
 
 rag_conversation = Conversation(
     # -*- Provide the conversation with a knowledge base
@@ -40,7 +41,7 @@ rag_conversation = Conversation(
   to the input `message` and adds them to the user prompt.
 </ResponseField>
 
-## Working Example
+## Example
 
 <Steps>
   <Step title="Create a virtual environment">

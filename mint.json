@@ -69,6 +69,7 @@
                   "blocks/conversation/auto",
                   "blocks/conversation/prompts",
                   "blocks/conversation/memory",
+                  "blocks/conversation/storage",
                   "blocks/conversation/tools",
                   "blocks/conversation/tasks",
                   "blocks/conversation/pydantic-output"

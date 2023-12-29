@@ -4,6 +4,8 @@ title: Memory
 
 Every `Conversation` comes with built-in memory that can be used to access the **Chat History**, **LLM Messages** or **References**. Access the conversation memory using `conversation.memory`
 
+## Usage
+
 ```python conversation.py
 from phi.conversation import Conversation, ConversationMemory
 
@@ -22,17 +24,92 @@ print(f"Chat History: {memory.chat_history}")
 print(f"LLM Messages: {memory.llm_messages}")
 ```
 
-But this memory only lasts while the session is active. To provide memory across sessions, remember to add `Storage` to the `Conversation`.
+<Note>
+
+ConversationMemory only lasts while the session is active. To provide memory across sessions, remember to add `Storage` to the `Conversation`.
+
+</Note>
 
 ## Params
 
 <ResponseField name="chat_history" type="List[Message]">
   Messages between the user and the LLM. The actual prompts are stored in the
-  `llm_messages`.
+  `llm_messages`. Note: the actual prompts are stored in the `llm_messages`
 </ResponseField>
 <ResponseField name="llm_messages" type="List[Message]">
-  Messages(prompts) sent to the LLM and the LLM responses.
+  Prompts sent to the LLM and the LLM responses.
 </ResponseField>
 <ResponseField name="references" type="List[References]">
   References from the vector database.
 </ResponseField>
+
+## Working Example
+
+<Steps>
+  <Step title="Create a virtual environment">
+    Open the `Terminal` and create an `ai` directory with a python virtual environment.
+
+    <CodeGroup>
+
+    ```bash Mac
+    mkdir ai && cd ai
+
+    python3 -m venv aienv
+    source aienv/bin/activate
+    ```
+
+    ```bash Windows
+    mkdir ai; cd ai
+
+    python3 -m venv aienv
+    aienv/scripts/activate
+    ```
+
+    </CodeGroup>
+
+  </Step>
+  <Step title="Install libraries">
+    Install `phidata` and `openai` using pip
+
+    <CodeGroup>
+
+    ```bash Mac
+    pip install -U phidata openai
+    ```
+
+    ```bash Windows
+    pip install -U phidata openai
+    ```
+
+    </CodeGroup>
+
+  </Step>
+  <Step title="Create a conversation">
+    Create a file `conversation.py` with the following contents
+
+```python conversation.py
+from phi.conversation import Conversation, ConversationMemory
+
+conversation = Conversation()
+
+# -*- Print a response
+conversation.print_response('Share a 5 word horror story.')
+
+# -*- Get the memory
+memory: ConversationMemory = conversation.memory
+
+# -*- Print Chat History
+print(f"Chat History: {memory.chat_history}")
+
+# -*- Print LLM Messages
+print(f"LLM Messages: {memory.llm_messages}")
+```
+
+  </Step>
+  <Step title="Run the conversation">
+    Run the `conversation.py` file
+```bash
+python conversation.py
+```
+  </Step>
+</Steps>
