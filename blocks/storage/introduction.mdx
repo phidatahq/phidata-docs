@@ -2,9 +2,9 @@
 title: Introduction
 ---
 
-Conversations come with built-in memory but it only lasts while the session is active. To provide memory across sessions, store the `Conversation` in a database table.
+Storage backends enable us to save Conversations to a database table and retrieve them across sessions. They are a necessary component when building user facing AI products as any production application will require users to be able to "continue" the conversation with the AI.
 
-Each phidata template includes PostgreSQL as a storage backend.
+Because `Storage` is such a critical component, each phidata template comes pre-configured with `PostgreSQL` as a storage backend. Read more in the [Conversations/Storage guide](/blocks/conversation/storage).
 
 The following database backends are supported:
 
