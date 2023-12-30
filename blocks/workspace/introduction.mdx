@@ -1,4 +1,357 @@
 ---
 title: Introduction
-description: This guide is in the works
 ---
+
+# Workspaces
+
+The codebase for your application is managed as a **Workspace**. It should be version controlled using git and shared by your team.
+
+## Create workspace
+
+Run `phi ws create` to create a new workspace in the current directory. `phi` will ask for a workspace template and name if not provided.
+
+<CodeGroup>
+
+```bash {{ title: 'Create Workspace' }}
+phi ws create
+```
+
+```bash {{ title: 'Create LLM App' }}
+phi ws create -t llm-app -n llm-app
+```
+
+```bash {{ title: 'Create Api App' }}
+phi ws create -t api-app -n api-app
+```
+
+```bash {{ title: 'Create Web App' }}
+phi ws create -t django-app -n web-app
+```
+
+</CodeGroup>
+
+## Start workspace
+
+Run `phi ws up` to create resources defined in the [`WorkspaceConfig`](#workspace-ionfiguration)
+
+<CodeGroup>
+
+```bash {{ title: 'Terminal' }}
+phi ws up
+```
+
+```bash {{ title: 'Shorthand' }}
+phi ws up dev:docker
+```
+
+```bash {{ title: 'With Options' }}
+phi ws up --env dev --infra docker
+```
+
+```bash {{ title: 'Short Options' }}
+phi ws up -e dev -i docker
+```
+
+</CodeGroup>
+
+## Stop workspace
+
+Run `phi ws down` to stop resources
+
+<CodeGroup>
+
+```bash {{ title: 'Terminal' }}
+phi ws down
+```
+
+```bash {{ title: 'Shorthand' }}
+phi ws down dev:docker
+```
+
+```bash {{ title: 'With Options' }}
+phi ws down --env dev --infra docker
+```
+
+```bash {{ title: 'Short Options' }}
+phi ws down -e dev -i docker
+```
+
+</CodeGroup>
+
+## Patch workspace
+
+Run `phi ws patch` to update resources
+
+<CodeGroup>
+
+```bash {{ title: 'Terminal' }}
+phi ws patch
+```
+
+```bash {{ title: 'Shorthand' }}
+phi ws patch dev:docker
+```
+
+```bash {{ title: 'With Options' }}
+phi ws patch --env dev --infra docker
+```
+
+```bash {{ title: 'Short Options' }}
+phi ws patch -e dev -i docker
+```
+
+</CodeGroup>
+
+<Note>
+
+The `patch` command in under development for some resources. Use `restart` if needed
+
+</Note>
+
+## Restart workspace
+
+Run `phi ws restart` to stop resources and start them again
+
+<CodeGroup>
+
+```bash {{ title: 'Terminal' }}
+phi ws restart
+```
+
+```bash {{ title: 'Shorthand' }}
+phi ws restart dev:docker
+```
+
+```bash {{ title: 'With Options' }}
+phi ws restart --env dev --infra docker
+```
+
+```bash {{ title: 'Short Options' }}
+phi ws restart -e dev -i docker
+```
+
+</CodeGroup>
+
+## Command Options
+
+<Note>Run `phi ws up --help` for all options</Note>
+
+### Environment (`--env`)
+
+Use the `--env` or `-e` flag to filter the environment
+
+<CodeGroup>
+
+```bash {{ title: 'Flag' }}
+phi ws up --env dev
+```
+
+```bash {{ title: 'Shorthand' }}
+phi ws up dev
+```
+
+```bash {{ title: 'Short Options' }}
+phi ws up -e dev
+```
+
+</CodeGroup>
+
+### Config (`--infra`)
+
+Use the `--infra` or `-i` flag to filter the config
+
+<CodeGroup>
+
+```bash {{ title: 'Flag' }}
+phi ws up --infra docker
+```
+
+```bash {{ title: 'Shorthand' }}
+phi ws up :docker
+```
+
+```bash {{ title: 'Short Options' }}
+phi ws up -i docker
+```
+
+</CodeGroup>
+
+### Group (`--group`)
+
+Use the `--group` or `-g` flag to filter the resource group.
+
+<CodeGroup>
+
+```bash {{ title: 'Flag' }}
+phi ws up --group airflow-ws
+```
+
+```bash {{ title: 'With Options' }}
+phi ws up \
+  --env dev \
+  --infra docker \
+  --group airflow-ws
+```
+
+```bash {{ title: 'Shorthand' }}
+phi ws up dev:docker:airflow-ws
+```
+
+```bash {{ title: 'Short Options' }}
+phi ws up \
+  -e dev \
+  -i docker \
+  -g airflow-ws
+```
+
+</CodeGroup>
+
+### Name (`--name`)
+
+Use the `--name` or `-n` flag to filter the resource name
+
+<CodeGroup>
+
+```bash {{ title: 'Flag' }}
+phi ws up --name airflow-ws
+```
+
+```bash {{ title: 'With Options' }}
+phi ws up \
+  --env dev \
+  --infra docker \
+  --name airflow-ws
+```
+
+```bash {{ title: 'Shorthand' }}
+phi ws up dev:docker::airflow-ws
+```
+
+```bash {{ title: 'Short Options' }}
+phi ws up \
+  -e dev \
+  -i docker \
+  -n airflow-ws
+```
+
+</CodeGroup>
+
+### Type (`--type`)
+
+Use the `--type` or `-t` flag to filter the resource type.
+
+<CodeGroup>
+
+```bash {{ title: 'Flag' }}
+phi ws up --type container
+```
+
+```bash {{ title: 'With Options' }}
+phi ws up \
+  --env dev \
+  --infra docker \
+  --type container
+```
+
+```bash {{ title: 'Shorthand' }}
+phi ws up dev:docker:airflow-ws::container
+```
+
+```bash {{ title: 'Short Options' }}
+phi ws up \
+  -e dev \
+  -i docker \
+  -t container
+```
+
+</CodeGroup>
+
+### Dry Run (`--dry-run`)
+
+The `--dry-run` or `-dr` flag can be used to **dry-run** the command. `phi ws up -dr` will only print resources, not create them.
+
+<CodeGroup>
+
+```bash {{ title: 'Flag' }}
+phi ws up --dry-run
+```
+
+```bash {{ title: 'With Options' }}
+phi ws up \
+  --env dev \
+  --infra docker \
+  --dry-run
+```
+
+```bash {{ title: 'Shorthand' }}
+phi ws up dev:docker -dr
+```
+
+```bash {{ title: 'Short Options' }}
+phi ws up \
+  -e dev \
+  -i docker \
+  -dr
+```
+
+</CodeGroup>
+
+### Show Debug logs (`--debug`)
+
+Use the `--debug` or `-d` flag to show debug logs.
+
+<CodeGroup>
+
+```bash {{ title: 'Flag' }}
+phi ws up -d
+```
+
+```bash {{ title: 'With Options' }}
+phi ws up \
+  --env dev \
+  --infra docker \
+  -d
+```
+
+```bash {{ title: 'Shorthand' }}
+phi ws up dev:docker -d
+```
+
+```bash {{ title: 'Short Options' }}
+phi ws up \
+  -e dev \
+  -i docker \
+  -d
+```
+
+</CodeGroup>
+
+### Force recreate images & containers (`-f`)
+
+Use the `--force` or `-f` flag to force recreate images & containers
+
+<CodeGroup>
+
+```bash {{ title: 'Flag' }}
+phi ws up -f
+```
+
+```bash {{ title: 'With Options' }}
+phi ws up \
+  --env dev \
+  --infra docker \
+  -f
+```
+
+```bash {{ title: 'Shorthand' }}
+phi ws up dev:docker -f
+```
+
+```bash {{ title: 'Short Options' }}
+phi ws up \
+  -e dev \
+  -i docker \
+  -f
+```
+
+</CodeGroup>
