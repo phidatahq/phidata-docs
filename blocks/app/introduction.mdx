@@ -4,9 +4,21 @@ title: Introduction
 
 Apps are tools like `FastApi`, `PgVector`, `Streamlit`, `Jupyter`, `Django` that provide the **"Application Layer"** for our AI products.
 
-Phidata is the first toolkit that enables us to define and run software applications as pydatic objects.
+<Tip>
 
-Checkout the following apps you can run on docker:
+Phidata enables us to define software applications as pydatic objects.
+
+</Tip>
+
+The software we write needs to be served using an Application, and this Application needs to run the same locally for development and in the cloud for production. By defining **Applications as Code**, we bring the benefits of **Infrastructure as Code** to the software layer.
+
+Defining **Applications as Code** also allows us to package them into templates for common use cases like **LLM Apps**, **Rest Apis**, **Web Apps** and **Data Platforms**. Applications in every phidata template are pre-configured to run locally using docker or on AWS with 1 command.
+
+Checkout the example apps you can run on docker:
 
 - [PgVector](/blocks/app/examples/pgvector)
 - [Jupyter](/blocks/app/examples/jupyter)
+
+Defining **Applications as Code** offers many benefits, such as:
+
+- [Install requirements on startup](/blocks/app/features#install-requirements-on-startup)

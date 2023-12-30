@@ -136,13 +136,7 @@
                 "group": "Apps",
                 "pages": [
                   "blocks/app/introduction",
-                  {
-                    "group": "Examples",
-                    "pages": [
-                      "blocks/app/examples/pgvector",
-                      "blocks/app/examples/jupyter"
-                    ]
-                  },
+                  "blocks/app/examples",
                   "blocks/app/features"
                 ]
               },

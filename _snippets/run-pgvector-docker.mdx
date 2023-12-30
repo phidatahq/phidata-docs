@@ -1,0 +1,37 @@
+## Run PgVector on Docker
+
+Create a file `resources.py` with the following contents:
+
+```python resources.py
+from phi.docker.app.postgres import PgVectorDb
+from phi.docker.resources import DockerResources
+
+# -*- PgVector running on port 5432:5432
+vector_db = PgVectorDb(
+    pg_user="llm",
+    pg_password="llm",
+    pg_database="llm",
+    debug_mode=True,
+)
+
+# -*- DockerResources
+dev_docker_resources = DockerResources(
+    apps=[vector_db],
+)
+```
+
+Start resources using:
+
+<CodeGroup>
+
+```bash Mac
+phi start resources.py
+```
+
+```bash Windows
+phi start resources.py
+```
+
+</CodeGroup>
+
+**Press Enter** to confirm and verify container status on the docker dashboard.

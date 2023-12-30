@@ -2,15 +2,14 @@
 title: Features
 ---
 
-## Install Requirements on startup
+## Install requirements on startup
 
-Phidata Apps can install requirements on container startup. Update the `Jupyter` app to:
+Apps can install requirements on container startup. Update the `Jupyter` app to:
 
 ```python resources.py
 ...
 # -*- Jupyter running on port 8888:8888
 jupyter = Jupyter(
-    image_tag="4.0.5",
     mount_workspace=True,
     install_requirements=True,
     requirements_file="requirements.txt",
@@ -25,16 +24,16 @@ Create a `requirements.txt` file in the same directory
 openai
 ```
 
-## Restart resources
+## Patch resources
 
 <CodeGroup>
 
 ```bash terminal
-phi restart resources.py -y
+phi patch resources.py -y
 ```
 
 ```bash full options
-phi restart resources.py --yes
+phi patch resources.py --yes
 ```
 
 </CodeGroup>
