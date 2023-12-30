@@ -37,6 +37,14 @@ The software we write needs to be served by an Application, and this Application
 
 Defining **Applications as Code** also allows us to package them into templates for use cases like **LLM Apps**, **Rest Apis**, **Web Apps** and **Data Platforms**. This means every phidata template can run locally using docker or on AWS with 1 command.
 
+Finally, defining **Applications as python objects** means we can import them in our code like regular software objects making the following code possible:
+
+```python
+from resources import vector_db
+
+db_url=vector_db.get_db_connection_local()
+```
+
 Checkout some example apps you can run on docker:
 
 - [PgVector](/blocks/app/examples/pgvector)
