@@ -265,6 +265,18 @@
           ]
         }
       ]
+    },
+    {
+      "group": "Building Blocks",
+      "pages": [
+        "reference/blocks/conversation"
+      ]
+    },
+    {
+      "group": "Command Line",
+      "pages": [
+        "reference/cli/init"
+      ]
     }
   ],
   "footerSocials": {
