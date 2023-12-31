@@ -151,7 +151,9 @@
               {
                 "group": "Workspace",
                 "pages": [
-                  "blocks/workspace/introduction"
+                  "blocks/workspace/introduction",
+                  "blocks/workspace/resources",
+                  "blocks/workspace/settings"
                 ]
               }
             ]
