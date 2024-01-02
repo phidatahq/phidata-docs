@@ -17,10 +17,6 @@
   },
   "topbarLinks": [
     {
-      "name": "Github",
-      "url": "https://github.com/phidatahq/phidata"
-    },
-    {
       "name": "Sign in",
       "url": "https://phidata.app/login"
     }
@@ -39,6 +35,11 @@
       "name": "Support",
       "icon": "discord",
       "url": "https://discord.com/invite/4MtYHHrgA8"
+    },
+    {
+      "name": "Github",
+      "icon": "github",
+      "url": "https://github.com/phidatahq/phidata"
     }
   ],
   "navigation": [
