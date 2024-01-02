@@ -212,10 +212,10 @@
           ]
         },
         {
-          "group": "Cookbook",
+          "group": "AI Cookbook",
           "pages": [
-              "recipe/cli-app",
-              "recipe/basic-conversation"
+              "ai-cookbook/cli-app",
+              "ai-cookbook/basic-conversation"
           ]
         }
       ]
@@ -231,6 +231,13 @@
                 "pages": [
                   "templates/llm-app/run-local",
                   "templates/llm-app/run-aws"
+                ]
+              },
+              {
+                "group": "Rest API",
+                "pages": [
+                  "templates/api-app/run-local",
+                  "templates/api-app/run-aws"
                 ]
               },
               {
