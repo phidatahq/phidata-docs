@@ -10,14 +10,14 @@ In other words, each application built with phidata is a **Workspace** that cont
 - **Application layer:** code for the applications that serve the software - FastApi, Streamlit, Django, PostgreSQL.
 - **Infrastructure layer:** code for the infrastructure that runs the applications - S3 buckets, RDS databases, ECS clusters and services.
 
-Phidata provides templates for common applications that you can use to create a workspace. The root directory of the codebase contains a `workspace` directory with:
+You can create a phidata **Workspace** using a pre-built template or by adding a `workspace` directory in your codebase with:
 
 - [Resources](/blocks/workspace/resources)
 - [Settings](/blocks/workspace/settings)
 
-## Create workspace
+## Create new workspace
 
-Run `phi ws create` to create a new workspace in the current directory.
+Run `phi ws create` to create a new workspace using a phidata template
 
 <CodeGroup>
 
@@ -47,9 +47,25 @@ phi ws create -t django-app -n web-app
 
 </Note>
 
+## Setup existing workspace
+
+Run `phi ws setup` to setup an existing directory as a phidata workspace
+
+<CodeGroup>
+
+```bash terminal
+phi ws setup
+```
+
+```bash with debug logs
+phi ws setup -d
+```
+
+</CodeGroup>
+
 ## Start workspace
 
-Run `phi ws up` to create resources
+Run `phi ws up` to create workspace resources
 
 <CodeGroup>
 
@@ -73,7 +89,7 @@ phi ws up -e dev -i docker
 
 ## Stop workspace
 
-Run `phi ws down` to delete resources
+Run `phi ws down` to delete workspace resources
 
 <CodeGroup>
 
@@ -97,7 +113,7 @@ phi ws down -e dev -i docker
 
 ## Patch workspace
 
-Run `phi ws patch` to update resources
+Run `phi ws patch` to update workspace resources
 
 <CodeGroup>
 
