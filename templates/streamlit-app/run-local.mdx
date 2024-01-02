@@ -1,0 +1,56 @@
+---
+title: "Build a Streamlit App"
+sidebarTitle: "Run locally"
+---
+
+The `streamlit-app` template gives us a Micro-LLM App built with [Streamlit](https://streamlit.io/) and [PgVector](https://github.com/pgvector/pgvector), a stack we love for its simplicity. Its simple but not to be underestimated.
+
+**By the end of this guide you'll have your own Micro-LLM App built with:**
+
+- **GPT-4** as the LLM
+- **Streamlit** as chat interface
+- **PostgreSQL** for knowledge and storage
+- **Docker** for running locally
+- **AWS** for running in production
+
+<Snippet file="setup.mdx" />
+
+<Snippet file="create-streamlit-app-codebase.mdx" />
+
+<Snippet file="set-openai-key.mdx" />
+
+## Local Streamlit App
+
+[Streamlit](https://streamlit.io/) allows us to build micro front-ends for our LLM App and is extremely useful for building basic applications in pure python. Start your workspace using:
+
+<CodeGroup>
+
+```bash terminal
+phi ws up
+```
+
+```bash shorthand
+phi ws up dev:docker
+```
+
+</CodeGroup>
+
+**Press Enter** to confirm and give a few minutes for the image to download (only the first time). Verify container status and view logs on the docker dashboard.
+
+<Snippet file="chat-with-pdfs-rag.mdx" />
+
+<Snippet file="llm-app-add-data.mdx" />
+
+<Snippet file="llm-app-how-this-app-works.mdx" />
+
+<Snippet file="stop-local-workspace.mdx" />
+## Next
+
+Congratulations on running your Streamlit App locally. Next Steps:
+
+- [Run your Streamlit App on AWS](/templates/streamlit-app/run-aws)
+- Create a [git repository for your workspace](/how-to/git-repo)
+- Read how to [manage the development application](/how-to/development-app)
+- Read how to [format and validate your code](/how-to/format-and-validate)
+- Read how to [add python libraries](/how-to/python-libraries)
+- Chat with us on [discord](https://discord.gg/4MtYHHrgA8)

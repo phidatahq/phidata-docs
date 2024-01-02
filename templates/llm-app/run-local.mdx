@@ -5,7 +5,7 @@ sidebarTitle: "Run locally"
 
 The `llm-app` template gives us a production-ready LLM App built with [FastApi](https://fastapi.tiangolo.com/), [Streamlit](https://streamlit.io/) and [PgVector](https://github.com/pgvector/pgvector).
 
-**By the end of this guide you'll be up and running with your own LLM App built with:**
+**By the end of this guide have your own LLM App built with:**
 
 - **GPT-4** as the LLM
 - **PostgreSQL** for knowledge and storage
@@ -25,64 +25,7 @@ The `llm-app` template gives us a production-ready LLM App built with [FastApi](
 
 <Snippet file="llm-app-add-data.mdx" />
 
-## How this App works
-
-The streamlit apps are defined in the `app` folder and the `Conversations` powering these apps are defined in the `llm/conversations` folder.
-
-**Checkout the `llm/conversations/pdf_rag.py` file for the `RAG` conversation:**
-
-- The `add_references_to_prompt` flag will populate the `references` argument of the `user_prompt_function`
-- The `user_prompt_function` builds the **Prompt** sent to the LLM. The prompt is injected with additional information from the knowledge base using the `references` variable.
-
-```python llm/conversations/pdf_rag.py
-...
-def get_pdf_rag_conversation(
-    user_name: Optional[str] = None,
-    conversation_id: Optional[str] = None,
-    debug_mode: bool = False,
-) -> Conversation:
-    """Get a RAG conversation with the PDF knowledge base"""
-
-    return Conversation(
-        ...
-        user_prompt_function=lambda message, references, **kwargs: f"""\
-        Use the following information from the knowledge base if it helps.
-        <knowledge_base>
-        {references}
-        </knowledge_base>
-
-        Respond to the following message:
-        USER: {message}
-        ASSISTANT:
-        """,
-        # This populates the "references" argument to the user prompt function
-        add_references_to_prompt=True,
-        # This adds the last 8 messages to the API call
-        add_chat_history_to_messages=True,
-    )
-```
-
-**Checkout the `llm/conversations/pdf_auto.py` file for the `Autonomous` conversation:**
-
-- The `function_calls` flag gives the LLM the ability to call functions.
-- The `show_function_calls` prints which functions the LLM is running.
-
-```python llm/conversations/pdf_rag.py
-...
-def get_pdf_auto_conversation(
-    user_name: Optional[str] = None,
-    conversation_id: Optional[str] = None,
-    debug_mode: bool = False,
-) -> Conversation:
-    """Get an autonomous conversation with the PDF knowledge base"""
-
-    return Conversation(
-        ...
-        function_calls=True,
-        show_function_calls=True,
-        ...
-    )
-```
+<Snippet file="llm-app-how-this-app-works.mdx" />
 
 <Snippet file="serve-llm-app-fastapi.mdx" />
 

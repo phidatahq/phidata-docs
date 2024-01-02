@@ -247,6 +247,13 @@
                   "templates/django-app/run-aws"
                 ]
               },
+              {
+                "group": "Streamlit App",
+                "pages": [
+                  "templates/streamlit-app/run-local",
+                  "templates/streamlit-app/run-aws"
+                ]
+              },
               "templates/data-platform"
           ]
         },
