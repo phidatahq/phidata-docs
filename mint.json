@@ -54,7 +54,7 @@
               "quickstart/run-aws"
             ]
           },
-          "ai-basics",
+          "basics",
           {
             "group": "Building Blocks",
             "pages": [
