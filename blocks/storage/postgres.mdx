@@ -145,16 +145,20 @@ def llm_app(new: bool = False, user: str = "user"):
 
     conversation = Conversation(
         user_name=user,
-        conversation_id=conversation_id,
+        id=conversation_id,
         knowledge_base=knowledge_base,
         storage=storage,
         # add_references_to_prompt=True,
         function_calls=True,
         show_function_calls=True,
     )
+    if conversation_id is None:
+        conversation_id = conversation.id
+        print(f"Started Conversation: {conversation_id}\n")
+    else:
+        print(f"Continuing Conversation: {conversation_id}\n")
 
-    conversation.knowledge_base.load(recreate=False)
-    print(f"Conversation ID: {conversation.id}\n")
+    # conversation.knowledge_base.load(recreate=False)
     while True:
         message = Prompt.ask(f"[bold] :sunglasses: {user} [/bold]")
         if message in ("exit", "bye"):

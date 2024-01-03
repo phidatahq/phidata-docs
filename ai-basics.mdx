@@ -2,7 +2,7 @@
 title: AI Basics
 ---
 
-This guide walks through the basics of an AI App. We'll build a mini AI App with a knowledge base, storage and memory.
+This guide walks through the basics of building an AI App. Its a great resource to learn by building a mini AI App with a knowledge base, storage and memory.
 
 ## Conversations
 
@@ -26,7 +26,84 @@ response = conversation.chat('Share a quick healthy breakfast recipe.', stream=F
 
 ### Try it out
 
-<Snippet file="run-conversation-steps.mdx" />
+<Steps>
+  <Step title="Create a virtual environment">
+    Open the `Terminal` and create an `ai` directory with a python virtual environment.
+
+    <CodeGroup>
+
+    ```bash Mac
+    mkdir ai && cd ai
+
+    python3 -m venv aienv
+    source aienv/bin/activate
+    ```
+
+    ```bash Windows
+    mkdir ai; cd ai
+
+    python3 -m venv aienv
+    aienv/scripts/activate
+    ```
+
+    </CodeGroup>
+
+  </Step>
+  <Step title="Install libraries">
+    Install `phidata` and `openai` using pip
+
+    <CodeGroup>
+
+    ```bash Mac
+    pip install -U phidata openai
+    ```
+
+    ```bash Windows
+    pip install -U phidata openai
+    ```
+
+    </CodeGroup>
+
+  </Step>
+  <Step title="Create a conversation">
+    Create a file `conversation.py` with the following contents
+
+    ```python conversation.py
+    from phi.conversation import Conversation
+
+    conversation = Conversation()
+
+    # -*- Print a response
+    conversation.print_response('Share a quick healthy breakfast recipe.')
+    ```
+
+  </Step>
+  <Step title="Set your OpenAI key">
+
+    Set the `OPENAI_API_KEY` environment variable to your OpenAI Key. You can get one [from OpenAI here](https://platform.openai.com/account/api-keys). Otherwise `phi` provides ready to use access to OpenAI models.
+
+    <CodeGroup>
+
+    ```bash Mac
+    export OPENAI_API_KEY=sk-***
+    ```
+
+    ```bash Windows
+    setx OPENAI_API_KEY sk-***
+    ```
+
+    </CodeGroup>
+
+  </Step>
+  <Step title="Run the conversation">
+    Run the `conversation.py` file
+
+    ```bash
+    python conversation.py
+    ```
+
+  </Step>
+</Steps>
 
 ## Knowledge Base
 
@@ -51,31 +128,33 @@ Run `PgVector` on `Docker` using the following steps:
   <Step title="Define PgVector as a resource">
     Create a file `resources.py` with the following contents
 
-```python resources.py
-from phi.docker.app.postgres import PgVectorDb
-from phi.docker.resources import DockerResources
+    ```python resources.py
+    from phi.docker.app.postgres import PgVectorDb
+    from phi.docker.resources import DockerResources
 
-# -*- PgVector running on port 5432:5432
-vector_db = PgVectorDb(
-    pg_user="llm",
-    pg_password="llm",
-    pg_database="llm",
-    debug_mode=True,
-)
+    # -*- PgVector running on port 5432:5432
+    vector_db = PgVectorDb(
+        pg_user="llm",
+        pg_password="llm",
+        pg_database="llm",
+        debug_mode=True,
+    )
 
-# -*- DockerResources
-dev_docker_resources = DockerResources(
-    apps=[vector_db],
-)
-```
+    # -*- DockerResources
+    dev_docker_resources = DockerResources(
+        apps=[vector_db],
+    )
+    ```
 
   </Step>
   <Step title="Start PgVector">
     Start `resources.py` using:
 
-```bash
-phi start resources.py
-```
+    ```bash
+    phi start resources.py
+    ```
+
+    **Press Enter** to confirm. Verify container status and view logs on the docker dashboard.
 
   </Step>
 </Steps>
@@ -209,7 +288,6 @@ Make the `Conversation` Autonomous by setting `function_calls=True` - which give
         show_function_calls=True,
     )
 
-    conversation.print_response('Share a quick recipe for a healthy breakfast.')
     conversation.print_response('How do I make chicken tikka salad?')
     conversation.print_response('What was my last question?')
     ```
@@ -222,7 +300,7 @@ Make the `Conversation` Autonomous by setting `function_calls=True` - which give
 
   </Step>
   <Step title="Run the conversation">
-    Run the `conversation.py` file and give it a few minutes to load the knowledge base.
+    Run the `conversation.py` file and notice how it searches the knowledge base and chat history when needed.
 
     <CodeGroup>
 
@@ -256,15 +334,12 @@ from phi.vectordb.pgvector import PgVector
 from resources import vector_db
 
 knowledge_base = PDFUrlKnowledgeBase(
-    urls=[
-        "https://www.family-action.org.uk/content/uploads/2019/07/meals-more-recipes.pdf"
-    ],
+    urls=["https://www.family-action.org.uk/content/uploads/2019/07/meals-more-recipes.pdf"],
     vector_db=PgVector(
         collection="recipes",
         db_url=vector_db.get_db_connection_local(),
     ),
 )
-# knowledge_base.load(recreate=False)
 
 storage = PgConversationStorage(
     table_name="recipe_conversations",
@@ -282,16 +357,20 @@ def llm_app(new: bool = False, user: str = "user"):
 
     conversation = Conversation(
         user_name=user,
-        conversation_id=conversation_id,
+        id=conversation_id,
         knowledge_base=knowledge_base,
         storage=storage,
         # add_references_to_prompt=True,
         function_calls=True,
         show_function_calls=True,
     )
+    if conversation_id is None:
+        conversation_id = conversation.id
+        print(f"Started Conversation: {conversation_id}\n")
+    else:
+        print(f"Continuing Conversation: {conversation_id}\n")
 
     # conversation.knowledge_base.load(recreate=False)
-    print(f"Conversation ID: {conversation.id}\n")
     while True:
         message = Prompt.ask(f"[bold] :sunglasses: {user} [/bold]")
         if message in ("exit", "bye"):
@@ -313,6 +392,32 @@ python conversation.py
 
 ```bash Windows
 python conversation.py
+```
+
+</CodeGroup>
+
+Now the conversation continues across sessions. Ask a question:
+
+```
+How do I make chicken tikka salad?
+```
+
+Then message `bye` to exit, start the app again and ask:
+
+```
+What was my last message?
+```
+
+Run the `conversation.py` file with the `--new` flag to start a new conversation.
+
+<CodeGroup>
+
+```bash Mac
+python conversation.py --new
+```
+
+```bash Windows
+python conversation.py --new
 ```
 
 </CodeGroup>
