@@ -304,13 +304,84 @@
             "reference/blocks/agent/python",
             "reference/blocks/agent/duckdb"
           ]
+        },
+        {
+          "group": "Tasks",
+          "pages": [
+            "reference/blocks/task/llm"
+          ]
+        },
+        "reference/blocks/assistant",
+        {
+          "group": "LLMs",
+          "pages": [
+            "reference/blocks/llm/openai",
+            "reference/blocks/llm/aws"
+          ]
+        },
+        {
+          "group": "Storage",
+          "pages": [
+            "reference/blocks/storage/conversation/postgres",
+            "reference/blocks/storage/conversation/sqlite",
+            "reference/blocks/storage/conversation/singlestore"
+          ]
+        },
+        {
+          "group": "Knowledge Base",
+          "pages": [
+            "reference/blocks/kb/base",
+            "reference/blocks/kb/pdf",
+            "reference/blocks/kb/pdf-url",
+            "reference/blocks/kb/text",
+            "reference/blocks/kb/json",
+            "reference/blocks/kb/website",
+            "reference/blocks/kb/arxiv",
+            "reference/blocks/kb/combined",
+            "reference/blocks/kb/langchain"
+          ]
+        },
+        {
+          "group": "VectorDbs",
+          "pages": [
+            "reference/blocks/vectordb/pgvector",
+            "reference/blocks/vectordb/singlestore",
+            "reference/blocks/vectordb/qdrant"
+          ]
         }
       ]
     },
     {
       "group": "Command Line",
       "pages": [
-        "reference/cli/init"
+        {
+          "group": "phi",
+          "pages": [
+            "reference/cli/phi/init",
+            "reference/cli/phi/auth",
+            "reference/cli/phi/start",
+            "reference/cli/phi/stop",
+            "reference/cli/phi/patch",
+            "reference/cli/phi/restart",
+            "reference/cli/phi/config",
+            "reference/cli/phi/set",
+            "reference/cli/phi/reset"
+
+          ]
+        },
+        {
+          "group": "phi ws",
+          "pages": [
+            "reference/cli/ws/create",
+            "reference/cli/ws/up",
+            "reference/cli/ws/down",
+            "reference/cli/ws/patch",
+            "reference/cli/ws/restart",
+            "reference/cli/ws/config",
+            "reference/cli/ws/delete",
+            "reference/cli/ws/setup"
+          ]
+        }
       ]
     }
   ],
