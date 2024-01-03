@@ -293,6 +293,25 @@
           ]
         }
       ]
+    },
+    {
+      "group": "Building Blocks",
+      "pages": [
+        "reference/blocks/conversation",
+        {
+          "group": "Agents",
+          "pages": [
+            "reference/blocks/agent/python",
+            "reference/blocks/agent/duckdb"
+          ]
+        }
+      ]
+    },
+    {
+      "group": "Command Line",
+      "pages": [
+        "reference/cli/init"
+      ]
     }
   ],
   "footerSocials": {
