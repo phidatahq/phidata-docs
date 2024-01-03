@@ -216,8 +216,8 @@
         {
           "group": "AI Cookbook",
           "pages": [
-            "ai-cookbook/setup",
-            "ai-cookbook/basic-conversation"
+            "ai-cookbook/introduction",
+            "ai-cookbook/simple-conversation"
           ]
         },
         {

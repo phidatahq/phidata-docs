@@ -1,0 +1,33 @@
+---
+title: Simple Conversation
+---
+
+A simple conversation that prints a response from GPT3.5
+
+```python recipe/simple_conversation.py
+from phi.conversation import Conversation
+from phi.llm.openai import OpenAIChat
+
+conversation = Conversation(llm=OpenAIChat(model="gpt-3.5-turbo-1106"))
+
+# -*- Print response
+conversation.print_response("Share a quick healthy breakfast recipe.")
+```
+
+## Usage
+
+<CodeGroup>
+
+```bash Mac
+pip install openai
+
+python recipe/simple_conversation.py
+```
+
+```bash Windows
+pip install openai
+
+python recipe/simple_conversation.py
+```
+
+</CodeGroup>
