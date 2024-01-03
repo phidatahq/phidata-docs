@@ -1,0 +1,39 @@
+## Local Web App
+
+Your codebase comes with a pre-configured [Django](https://www.djangoproject.com/) application connected to a [Postgres](https://www.postgresql.org/) database. Run it using:
+
+<CodeGroup>
+
+```bash terminal
+phi ws up
+```
+
+```bash full options
+phi ws up --env dev --infra docker
+```
+
+```bash shorthand
+phi ws up dev:docker
+```
+
+</CodeGroup>
+
+**Press Enter** to confirm and give a few minutes for the image to download (only the first time). Verify container status and view logs on the docker dashboard.
+
+### View your Django App
+
+Open [localhost:8000](http://localhost:8000) to view the Django App running locally.
+
+![django-app-django-local](/images/django-app-django-local.png)
+
+### Django Admin
+
+Open [localhost:8000/admin](http://localhost:8000/admin) to view the Django admin site. Create an admin user by running:
+
+```bash
+docker exec -it django-dev-app python manage.py createsuperuser
+```
+
+Log in to the admin panel:
+
+![django-app-django-admin-local](/images/django-app-django-admin-local.png)

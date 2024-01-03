@@ -218,6 +218,20 @@
               "ai-cookbook/cli-app",
               "ai-cookbook/basic-conversation"
           ]
+        },
+        {
+          "group": "LLM API",
+          "pages": [
+            "examples/llm-api/run-local",
+            "examples/llm-api/run-aws"
+          ]
+        },
+        {
+          "group": "Django Web App",
+          "pages": [
+            "examples/web-app/run-local",
+            "examples/web-app/run-aws"
+          ]
         }
       ]
     },

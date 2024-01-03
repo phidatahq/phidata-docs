@@ -1,0 +1,27 @@
+## Production Django app
+
+**Open the LoadBalancer DNS** to view your Django App running on AWS.
+
+![django-app-django-prd](/images/django-app-django-prd.png)
+
+### Production Django Admin
+
+Open the **LoadBalancer DNS** + `/admin` page to view the Django admin site.
+
+Create an admin user by SSH-ing into the production container:
+
+```bash
+ECS_CLUSTER=django-prd
+TASK_ARN=$(aws ecs list-tasks --cluster django-prd --query "taskArns[0]" --output text)
+CONTAINER_NAME=django-prd
+
+aws ecs execute-command --cluster $ECS_CLUSTER \
+    --task $TASK_ARN \
+    --container $CONTAINER_NAME \
+    --interactive \
+    --command "python manage.py createsuperuser"
+```
+
+Log in to the admin panel:
+
+![django-app-django-admin-prd](/images/django-app-django-admin-prd.png)
