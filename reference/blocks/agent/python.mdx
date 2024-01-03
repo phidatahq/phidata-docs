@@ -3,4 +3,69 @@ title: Python Agent
 sidebarTitle: Python
 ---
 
-<Snippet file="coming-soon.mdx" />
+## Example
+
+```python python_agent.py
+from phi.agent.python import PythonAgent
+from phi.file.local.csv import CsvFile
+
+python_agent = PythonAgent(
+    files=[
+        CsvFile(
+            path="https://phidata-public.s3.amazonaws.com/demo_data/IMDB-Movie-Data.csv",
+            description="Contains information about movies from IMDB.",
+        )
+    ],
+    pip_install=True,
+    show_function_calls=True,
+)
+
+python_agent.print_response("What is the average rating of movies?")
+```
+
+## PythonAgent Reference
+
+<ResponseField name="files" type="List[File]" default="None">
+  List of Files available for the PythonAgent.
+</ResponseField>
+<ResponseField name="file_information" type="str" default="None">
+  Provide information about Files as a string.
+</ResponseField>
+<ResponseField
+  name="charting_libraries"
+  type="List[str]"
+  default="['plotly', 'matplotlib', 'seaborn']"
+>
+  List of charting libraries the PythonAgent can use.
+</ResponseField>
+<ResponseField name="base_dir" type="Path" default=".">
+  Where to save files if needed.
+</ResponseField>
+<ResponseField name="save_and_run" type="bool" default="True">
+  If the PythonAgent is allowed to save and run python code.
+</ResponseField>
+<ResponseField name="pip_install" type="bool" default="False">
+  If the PythonAgent is allowed to `pip install` libraries. Disabled by default
+  for security reasons.
+</ResponseField>
+<ResponseField name="run_code" type="bool" default="False">
+  If the PythonAgent is allowed to run python code directly. Disabled by default
+  for security reasons.
+</ResponseField>
+<ResponseField name="list_files" type="bool" default="False">
+  If the PythonAgent is allowed to list files.
+</ResponseField>
+<ResponseField name="run_files" type="bool" default="True">
+  If the PythonAgent is allowed to run files.
+</ResponseField>
+<ResponseField name="read_files" type="bool" default="False">
+  If the PythonAgent is allowed to read files.
+</ResponseField>
+<ResponseField name="safe_globals" type="dict" default="None">
+  Provide a list of global variables to for the PythonAgent.
+</ResponseField>
+<ResponseField name="safe_locals" type="dict" default="None">
+  Provide a list of local variables to for the PythonAgent.
+</ResponseField>
+
+<Snippet file="conversation-reference.mdx" />
