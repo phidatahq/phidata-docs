@@ -54,6 +54,7 @@
               "quickstart/run-aws"
             ]
           },
+          "ai-basics",
           {
             "group": "Building Blocks",
             "pages": [
@@ -215,8 +216,8 @@
         {
           "group": "AI Cookbook",
           "pages": [
-              "ai-cookbook/cli-app",
-              "ai-cookbook/basic-conversation"
+            "ai-cookbook/setup",
+            "ai-cookbook/basic-conversation"
           ]
         },
         {
