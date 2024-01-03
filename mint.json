@@ -15,6 +15,11 @@
       "to": "#07C983"
     }
   },
+  "feedback": {
+    "thumbsRating": true,
+    "raiseIssue": true,
+    "suggestEdit": true
+  },
   "topbarLinks": [
     {
       "name": "Sign in",
@@ -217,7 +222,9 @@
           "group": "AI Cookbook",
           "pages": [
             "ai-cookbook/introduction",
-            "ai-cookbook/simple-conversation"
+            "ai-cookbook/simple-conversation",
+            "ai-cookbook/rag-conversation",
+            "ai-cookbook/auto-conversation"
           ]
         },
         {

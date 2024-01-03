@@ -9,51 +9,50 @@ You can run each recipe individually or clone the [AI Cookbook](https://github.c
 ## Setup
 
 <Steps>
-  <Step title="Create a virtual environment">
-    Open the `Terminal` and create an `ai` directory with a python virtual environment.
-
-    <CodeGroup>
-
-    ```bash Mac
-    mkdir ai && cd ai
-
-    python3 -m venv aienv
-    source aienv/bin/activate
-    ```
-
-    ```bash Windows
-    mkdir ai; cd ai
-
-    python3 -m venv aienv
-    aienv/scripts/activate
-    ```
-
-    </CodeGroup>
-
-  </Step>
-  <Step title="Install phidata">
-    Install `phidata` pip
-
-    <CodeGroup>
-
-    ```bash Mac
-    pip install -U phidata
-    ```
-
-    ```bash Windows
-    pip install -U phidata
-    ```
-
-    </CodeGroup>
-
-  </Step>
   <Step title="Clone the AI Cookbook repo">
+    clone the [ai-cookbook](https://github.com/phidatahq/ai-cookbook) repo
+
     ```bash
     git clone https://github.com/phidatahq/ai-cookbook.git
     ```
+
+    cd into the `ai-cookbook` directory
+
+    ```bash
+    cd ai-cookbook
+    ```
+
+  </Step>
+  <Step title="Create a virtual environment">
+    Create a virtual environment with the required libraries and install the project in editable mode. You can use a helper script or run these steps manually.
+
+    <CodeGroup>
+
+    ```bash Mac
+    ./scripts/create_venv.sh
+    source aienv/bin/activate
+    ```
+
+    ```bash Manual (Mac)
+    python3 -m venv aienv
+    source aienv/bin/activate
+
+    pip install -r requirements.txt
+    pip install --editable .
+    ```
+
+    ```bash Windows
+    python3 -m venv aienv
+    aienv/scripts/activate
+
+    pip install -r requirements.txt
+    pip install --editable .
+    ```
+    </CodeGroup>
+
   </Step>
   <Step title="Install docker">
-    Install [docker desktop](https://docs.docker.com/desktop/install/mac-install/) to run the cookbook locally
+    Install [docker desktop](https://docs.docker.com/desktop/install/mac-install/) to run the cookbook resources locally
   </Step>
   <Step title="Set your OpenAI key">
 
@@ -73,11 +72,6 @@ You can run each recipe individually or clone the [AI Cookbook](https://github.c
 
   </Step>
   <Step title="Setup & start workspace">
-    cd into the `ai-cookbook` directory
-    ```bash
-    cd ai-cookbook
-    ```
-
     Setup the `ai-cookbook` workspace
     ```bash
     phi ws setup
@@ -93,8 +87,6 @@ You can run each recipe individually or clone the [AI Cookbook](https://github.c
 
     Run the `simple_conversation.py` recipe
     ```bash
-    pip install openai
-
     python recipe/simple_conversation.py
     ```
 
