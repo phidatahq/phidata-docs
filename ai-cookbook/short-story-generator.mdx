@@ -1,0 +1,84 @@
+---
+title: Short story generator
+---
+
+A Conversation showcasing how to chain `Tasks` to generate reliable outputs from LLMs. This conversation will generate a short story given a theme.
+
+## Code
+
+```python recipe/short_story.py
+from phi.task.llm import LLMTask
+from phi.conversation import Conversation
+from pydantic import BaseModel, Field
+
+
+class StoryTheme(BaseModel):
+    setting: str = Field(..., description="This is the context of the story. If not available, provide a random setting.")
+    genre: str = Field(..., description="This is the genre of the story. If not provided, select horror.")
+
+
+get_story_theme = LLMTask(
+    system_prompt="Generate a theme for a story.",
+    output_model=StoryTheme,
+    show_output=False,
+)
+
+write_story = LLMTask(system_prompt="Write a 2 sentence story about the users message.")
+
+give_story_a_name = LLMTask(system_prompt="Give the users story a name. Start with `Name:`. Don't surround with quotes.")
+
+story_conversation = Conversation(tasks=[get_story_theme, write_story, give_story_a_name])
+story_conversation.cli_app(user="Theme")
+```
+
+## Usage
+
+<Steps>
+  <Step title="Run the conversation">
+    Run the `short_story.py` file
+
+    <CodeGroup>
+
+    ```bash Mac
+    python recipe/short_story.py
+    ```
+
+    ```bash Windows
+    python recipe/short_story.py
+    ```
+
+    </CodeGroup>
+
+  </Step>
+  <Step title="Generate short stories">
+    Test short stories for the following themes:
+    ```
+    Drag race in 2090 New York
+    ```
+
+    ```
+    Love in 1800s Punjab
+    ```
+
+    ```
+    Christmas in London year 15000AD
+    ```
+
+  </Step>
+</Steps>
+
+<br />
+
+<Accordion title="Required libraries">
+
+```bash
+pip install openai
+```
+
+</Accordion>
+
+## Information
+
+- View on [Github](https://github.com/phidatahq/ai-cookbook/blob/main/recipe/short_story.py)
+- Read about [Tasks](/blocks/conversation/tasks)
+- <Snippet file="discord.mdx" />
