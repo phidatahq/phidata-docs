@@ -225,7 +225,8 @@
             "ai-cookbook/simple-conversation",
             "ai-cookbook/rag-conversation",
             "ai-cookbook/auto-conversation",
-            "ai-cookbook/conversation-w-storage"
+            "ai-cookbook/conversation-w-storage",
+            "ai-cookbook/trending-on-hn"
           ]
         },
         {
