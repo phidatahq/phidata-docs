@@ -228,7 +228,8 @@
             "ai-cookbook/conversation-w-storage",
             "ai-cookbook/trending-on-hn",
             "ai-cookbook/movie-generator",
-            "ai-cookbook/short-story-generator"
+            "ai-cookbook/short-story-generator",
+            "ai-cookbook/langchain-retriever"
           ]
         },
         {
