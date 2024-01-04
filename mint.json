@@ -224,7 +224,8 @@
             "ai-cookbook/introduction",
             "ai-cookbook/simple-conversation",
             "ai-cookbook/rag-conversation",
-            "ai-cookbook/auto-conversation"
+            "ai-cookbook/auto-conversation",
+            "ai-cookbook/conversation-w-storage"
           ]
         },
         {

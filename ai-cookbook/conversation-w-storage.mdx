@@ -1,0 +1,116 @@
+---
+title: Conversation with Storage
+---
+
+Store Conversations in PostgreSQL to provide long-term memory across sessions.
+
+## Code
+
+```python recipe/conversation_with_storage.py
+import typer
+from rich.prompt import Prompt
+from typing import Optional, List
+
+from phi.conversation import Conversation
+from phi.storage.conversation.postgres import PgConversationStorage
+from phi.knowledge.pdf import PDFUrlKnowledgeBase
+from phi.vectordb.pgvector import PgVector
+
+from db.session import db_url
+
+knowledge_base = PDFUrlKnowledgeBase(
+    urls=["https://www.family-action.org.uk/content/uploads/2019/07/meals-more-recipes.pdf"],
+    vector_db=PgVector(collection="recipes", db_url=db_url),
+)
+
+storage = PgConversationStorage(table_name="recipe_conversations", db_url=db_url)
+
+
+def llm_app(new: bool = False, user: str = "user"):
+    conversation_id: Optional[str] = None
+
+    if not new:
+        existing_conversation_ids: List[str] = storage.get_all_conversation_ids(user)
+        if len(existing_conversation_ids) > 0:
+            conversation_id = existing_conversation_ids[0]
+
+    conversation = Conversation(
+        user_name=user,
+        id=conversation_id,
+        knowledge_base=knowledge_base,
+        storage=storage,
+        function_calls=True,
+        show_function_calls=True,
+    )
+    if conversation_id is None:
+        conversation_id = conversation.id
+        print(f"Started Conversation: {conversation_id}\n")
+    else:
+        print(f"Continuing Conversation: {conversation_id}\n")
+
+    # -*- If you want to load the knowledge base, uncomment the following line
+    # conversation.knowledge_base.load(recreate=False)
+    while True:
+        message = Prompt.ask(f"[bold] :sunglasses: {user} [/bold]")
+        if message in ("exit", "bye"):
+            break
+        conversation.print_response(message)
+
+
+if __name__ == "__main__":
+    typer.run(llm_app)
+```
+
+## Usage
+
+<Steps>
+  <Step title="Run the conversation">
+    Run the `conversation_with_storage.py` file
+
+    <CodeGroup>
+
+    ```bash Mac
+    python recipe/conversation_with_storage.py
+    ```
+
+    ```bash Windows
+    python recipe/conversation_with_storage.py
+    ```
+    </CodeGroup>
+
+    Now the conversation continues across sessions. Ask a question:
+
+    ```
+    How do I make chicken tikka salad?
+    ```
+
+    Then message `bye` to exit, start the app again and ask:
+
+    ```
+    What was my last message?
+    ```
+
+  </Step>
+  <Step title="Start a new conversation">
+    Run the `conversation.py` file with the `--new` flag to start a new conversation.
+```bash
+python conversation.py --new
+```
+  </Step>
+</Steps>
+
+<br />
+
+<Accordion title="Required libraries">
+
+```bash
+pip install openai pgvector pypdf psycopg sqlalchemy
+```
+
+</Accordion>
+
+## Information
+
+- View on [Github](https://github.com/phidatahq/ai-cookbook/blob/main/recipe/conversation_with_storage.py)
+- Read about [Conversation Storage](/blocks/conversation/storage)
+- <Snippet file="discord.mdx" />
