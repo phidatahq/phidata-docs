@@ -11,9 +11,9 @@ Junior DE is an LLM App for data analysts, engineers and scientists to offload t
 - Run data transformations and export the results.
 - Explain analysis step-by-step.
 
-The best part is that it inspects, validates and runs the code like a regular engineer. It also plays well with long-term, multi-turn conversations. Follow along to run your own Junior DE:
+The best part is that it inspects, validates and runs code like a regular engineer. It also plays well with long-term, multi-turn conversations. Follow along to run your own Junior DE:
 
-**By the end of this guide have your own Junior DE**
+**By the end of this guide you'll have your own Junior DE**
 
 <Snippet file="setup.mdx" />
 
@@ -108,8 +108,6 @@ The `Conversation` powering `PyGPT` is defined in the `llm/conversations/pygpt.p
 ...
 ```
 
-The `PythonAgent()` defined in the `llm/agents/python_agent.py` file provides the `Tools` used by GPT-4.
-
 ## DuckGPT: Automate Data Analysis using DuckDb
 
 - Your second Junior DE is **DuckGPT** that can write and run SQL queries using DuckDb.
@@ -143,8 +141,6 @@ The `Conversation` powering `DuckGPT` is defined in the `llm/conversations/duckg
     )
 ...
 ```
-
-The `DuckDbAgent()` defined in the `llm/agents/duckdb_agent.py` file provides the `Tools` used by GPT-4.
 
 ## DuckGPT on S3 data
 
