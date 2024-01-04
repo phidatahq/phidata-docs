@@ -4,9 +4,15 @@ title: Introduction
 
 Apps are tools like `FastApi`, `PgVector`, `Streamlit`, `Jupyter`, `Django` that we define as python classes and run using `phi start` or `phi ws up`.
 
+When running Apps on docker, think of it as an alternative to the docker-compose file, but at a higher level of abstraction. Instead of defining containers, volumes etc.. we define the application we want to run.
+
+Along with docker, the same `App` can also run on AWS (ECS) or Kubernetes (EKS), where the App creates the underlying resources like LoadBalancers, Services, Deployments. As the underlying resources become more complex, the concept of Apps become more appealing.
+
 ## Example
 
-Running `phi start resources.py` will run a Jupyter notebook and PgVector on docker.
+Lets run a Jupyter notebook and PgVector on docker.
+
+Copy the following contents to a file `resources.py` and run `phi start resources.py`
 
 ```python resources.py
 from phi.docker.app.jupyter import Jupyter
@@ -23,11 +29,11 @@ jupyter = Jupyter(mount_workspace=True)
 dev_docker_resources = DockerResources(apps=[vector_db, jupyter])
 ```
 
-<Tip>
+- Each App is a pydantic object providing input and type validation.
+- Note how the `mount_workspace` automatically mounts the directory
+- Note how `pg_user`, `pg_password` set the required settings for the underlying database.
 
-Each App is a pydatic object providing input and type validation.
-
-</Tip>
+While this is a simple example, these concepts become very powerful for cloud applications.
 
 ## Motivation
 

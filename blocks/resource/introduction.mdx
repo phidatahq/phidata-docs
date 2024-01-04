@@ -2,14 +2,25 @@
 title: Introduction
 ---
 
-Resources are infrastructure components used by our applications. Similar to [Apps](/blocks/app/introduction), we define them as python classes and create using `phi start` or `phi ws up`.
+Resources are the infrastructure components for your application. Similar to [Apps](/blocks/app/introduction), we define them as python classes and create using `phi start` or `phi ws up`.
 
 ## Examples
 
-- Docker containers, images, volumes
-- RDS database, S3 bucket, ECS services, task definitions, security groups
+- **Local Resources**: Docker containers and images
+- **Cloud Resources**: RDS database, S3 bucket, ECS services, task definitions, security groups
+- **Kubernetes Resources**: Services, deployments
 
 <CodeGroup>
+
+```python Docker Container
+from phi.docker.resource.container import DockerContainer
+
+whoami = DockerContainer(
+    name='whoami',
+    image='traefik/whoami',
+    ports={'80': 8080},
+)
+```
 
 ```python Docker Image
 from phi.docker.resource.image import DockerImage
@@ -24,7 +35,7 @@ dev_image = DockerImage(
 ```python S3 Bucket
 from phi.aws.resource.s3 import S3Bucket
 
-# -*- An S3 bucket called my-bucket
+# -*- S3 bucket called my-bucket
 prd_bucket = S3Bucket(name="my-bucket")
 ```
 
@@ -32,8 +43,8 @@ prd_bucket = S3Bucket(name="my-bucket")
 from pathlib import Path
 from phi.aws.resource.secret import SecretsManager
 
-# -*- A Secret called my-secret
-prd_secret = SecretsManager(
+# -*- Secret called my-secret
+my_secret = SecretsManager(
     name="my-secret",
     # Read secret variables from my_secrets.yml
     secret_files=[Path('my_secrets.yml')],
@@ -72,9 +83,11 @@ db = DbInstance(
 
 </CodeGroup>
 
+<br />
+
 <Tip>
 
-Each Resource is a pydatic object providing input and type validation.
+Each Resource is a pydantic object providing input and type validation.
 
 </Tip>
 
@@ -84,9 +97,10 @@ Resources provide the **"Infrastructure Layer"** for our AI products. The softwa
 
 Defining **Applications as Code** and **Infrastructure as Code** allows us completely write our application as python code - providing numerous benefits like re-usability, version control, unit testing, formatting.
 
-Phidata currently supports resources for:
+Phidata currently provides:
 
-- [Docker](/blocks/resource/docker)
-- [AWS](/blocks/resource/aws)
+- [Docker Resources](/blocks/resource/docker)
+- [AWS Resources](/blocks/resource/aws)
+- [Kubernetes Resources](/blocks/resource/k8s)
 
 <Snippet file="discord.mdx" />

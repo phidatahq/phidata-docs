@@ -148,7 +148,8 @@
                 "pages": [
                   "blocks/resource/introduction",
                   "blocks/resource/docker",
-                  "blocks/resource/aws"
+                  "blocks/resource/aws",
+                  "blocks/resource/k8s"
                 ]
               },
               {
