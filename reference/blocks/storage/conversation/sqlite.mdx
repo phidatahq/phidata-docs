@@ -3,4 +3,17 @@ title: Sqlite Conversation Storage
 sidebarTitle: Sqlite
 ---
 
-<Snippet file="coming-soon.mdx" />
+## SqlConversationStorage Reference
+
+<ResponseField name="table_name" type="str">
+  The name of the table to store conversations in.
+</ResponseField>
+<ResponseField name="schema" type="str" default="llm">
+  The schema to store the table in.
+</ResponseField>
+<ResponseField name="db_url" type="str">
+  The database URL to connect to.
+</ResponseField>
+<ResponseField name="db_engine" type="Engine">
+  The database engine to use.
+</ResponseField>

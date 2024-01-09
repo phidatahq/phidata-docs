@@ -2,4 +2,34 @@
 title: PgVector
 ---
 
-<Snippet file="coming-soon.mdx" />
+## Example
+
+```python resources.py
+from phi.docker.app.postgres import PgVectorDb
+
+# -*- PgVector running on port 5432:5432
+vector_db = PgVectorDb(
+    pg_user="llm",
+    pg_password="llm",
+    pg_database="llm",
+    debug_mode=True,
+)
+
+```
+
+## PgVectorDb Reference
+
+<ResponseField name="collection" type="str">
+</ResponseField>
+<ResponseField name="schema" type="str" default="llm">
+</ResponseField>
+<ResponseField name="db_url" type="str" default="None">
+</ResponseField>
+<ResponseField name="db_engine" type="Engine" default="None">
+</ResponseField>
+<ResponseField name="embedder" type="embedder" default="OpenAIEmbedder()">
+</ResponseField>
+<ResponseField name="distance" type="Distance" default="Distance.cosine">
+</ResponseField>
+<ResponseField name="index" type="Union" default="HNSW()">
+</ResponseField>

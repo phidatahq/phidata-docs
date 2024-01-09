@@ -328,6 +328,7 @@
         {
           "group": "LLMs",
           "pages": [
+            "reference/blocks/llm/base",
             "reference/blocks/llm/openai",
             "reference/blocks/llm/aws"
           ]

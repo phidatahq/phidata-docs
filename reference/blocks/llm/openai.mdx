@@ -2,4 +2,128 @@
 title: OpenAI
 ---
 
-<Snippet file="coming-soon.mdx" />
+## Example
+
+Use `OpenAIChat` with your `Conversation`, `Agent` or `Task`:
+
+<CodeGroup>
+
+```python Conversation
+from phi.conversation import Conversation
+from phi.llm.openai import OpenAIChat
+
+conversation = Conversation(
+    llm=OpenAIChat(
+        model="gpt-4",
+        max_tokens=1024,
+        temperature=0.9,
+    )
+)
+
+# -*- Print a response
+conversation.print_response('Share a 5 word horror story.')
+```
+
+```python Agent
+from phi.agent.python import PythonAgent
+from phi.file.local.csv import CsvFile
+
+python_agent = PythonAgent(
+    llm=OpenAIChat(
+        model="gpt-4",
+        max_tokens=1024,
+        temperature=0.9,
+    ),
+    files=[
+        CsvFile(
+            path="https://phidata-public.s3.amazonaws.com/demo_data/IMDB-Movie-Data.csv",
+            description="Contains information about movies from IMDB.",
+        )
+    ],
+    pip_install=True,
+    show_function_calls=True,
+)
+
+python_agent.print_response("What is the average rating of movies?")
+```
+
+```python Task
+from phi.llm.openai import OpenAIChat
+from phi.task.llm import LLMTask
+from phi.conversation import Conversation
+from pydantic import BaseModel, Field
+
+class StoryTheme(BaseModel):
+    setting: str = Field(..., description="This is the context of the story. If not available, provide a random setting.",)
+    genre: str = Field(..., description="This is the genre of the story. If not provided, select horror.")
+
+get_story_theme = LLMTask(
+    llm=OpenAIChat(model="gpt-4"),
+    system_prompt="Generate a theme for a story.",
+    output_model=StoryTheme,
+    show_output=False,
+)
+
+write_story = LLMTask(
+    llm=OpenAIChat(model="gpt-4"),
+    system_prompt="Write a 2 sentence story for a given theme. It should be less than 30 words.",
+)
+
+give_story_a_name = LLMTask(
+    system_prompt="Give this story a 2 word name. Format output as `Name: {name}`. Don't surround with quotes.",
+)
+
+story_conversation = Conversation(tasks=[get_story_theme, write_story, give_story_a_name])
+story_conversation.cli_app(user="Theme")
+```
+
+</CodeGroup>
+
+## OpenAI Reference
+
+<ResponseField name="model" type="str">
+  OpenAI model ID.
+</ResponseField>
+<ResponseField name="max_tokens" type="int">
+  The maximum number of tokens to generate in the chat completion.
+</ResponseField>
+<ResponseField name="temperature" type="float">
+  What sampling temperature to use, between 0 and 2. Higher values like 0.8 will
+  make the output more random, while lower values like 0.2 will make it more
+  focused and deterministic.
+</ResponseField>
+<ResponseField name="frequency_penalty" type="float">
+  Number between -2.0 and 2.0. Positive values penalize new tokens based on
+  their existing frequency in the text so far, decreasing the model's likelihood
+  to repeat the same line verbatim.
+</ResponseField>
+<ResponseField name="presence_penalty" type="float">
+  Number between -2.0 and 2.0. Positive values penalize new tokens based on
+  whether they appear in the text so far, increasing the model's likelihood to
+  talk about new topics.
+</ResponseField>
+<ResponseField name="top_p" type="float">
+  An alternative to sampling with temperature, called nucleus sampling, where
+  the model considers the results of the tokens with top_p probability mass.
+</ResponseField>
+<ResponseField name="stop" type="List[str]">
+  Up to 4 sequences where the API will stop generating further tokens.
+</ResponseField>
+<ResponseField name="user" type="str">
+  A unique identifier representing your end-user, which can help OpenAI to
+  monitor and detect abuse.
+</ResponseField>
+<ResponseField name="headers" type="Dict[str, Any]">
+  Headers added to the OpenAI request.
+</ResponseField>
+<ResponseField name="logit_bias" type="Any">
+  Modify the likelihood of specified tokens appearing in the completion. Accepts
+  a json object that maps tokens (specified by their token ID in the tokenizer)
+  to an associated bias value from -100 to 100.
+</ResponseField>
+
+## LLM Reference
+
+`OpenAIChat` is a subclass of the `LLM` class and has access to the same params
+
+<Snippet file="llm-base-reference.mdx" />
