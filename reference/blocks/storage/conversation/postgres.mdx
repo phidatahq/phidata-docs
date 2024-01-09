@@ -3,4 +3,34 @@ title: PostgreSQL Conversation Storage
 sidebarTitle: PostgreSQL
 ---
 
-<Snippet file="coming-soon.mdx" />
+## Example
+
+```python conversation.py
+from phi.llm.openai import OpenAIChat
+from phi.conversation import Conversation
+from phi.storage.conversation.postgres import PgConversationStorage
+
+conversation = Conversation(
+    # -*- Add storage to the conversation
+    storage = PgConversationStorage(
+        # Table name: llm.conversations
+        table_name="conversations",
+        db_url=db_url,
+    )
+)
+```
+
+## PgConversationStorage Reference
+
+<ResponseField name="table_name" type="str">
+  The name of the table to store conversations in.
+</ResponseField>
+<ResponseField name="schema" type="str" default="llm">
+  The schema to store the table in.
+</ResponseField>
+<ResponseField name="db_url" type="str">
+  The database URL to connect to.
+</ResponseField>
+<ResponseField name="db_engine" type="Engine">
+  The database engine to use.
+</ResponseField>
