@@ -3,4 +3,51 @@ title: Arxiv KnowledgeBase
 sidebarTitle: Arxiv
 ---
 
-<Snippet file="coming-soon.mdx" />
+## Example
+
+<Note>
+
+Install `arxiv` using [this guide](/how-to/python-libraries)
+
+</Note>
+
+```python knowledge_base.py
+from phi.knowledge.arxiv import ArxivKnowledgeBase
+from phi.vectordb.pgvector import PgVector
+
+from resources import vector_db
+
+knowledge_base = ArxivKnowledgeBase(
+    queries=["Generative AI", "Machine Learning"],
+    # Table name: llm.arxiv_documents
+    vector_db=PgVector(
+        collection="arxiv_documents",
+        db_url=vector_db.get_db_connection_local(),
+    ),
+)
+```
+
+## ArxivKnowledgeBase Reference
+
+<ResponseField name="queries" type="List[str]">
+  Queries to search
+</ResponseField>
+<ResponseField name="vector_db" type="VectorDb">
+  Vector Database for the Knowledge Base.
+</ResponseField>
+<ResponseField name="reader" type="ArxivReader">
+  A `ArxivReader` that reads the articles and converts them into `Documents` for
+  the vector database.
+</ResponseField>
+<ResponseField name="num_documents" type="int">
+  Number of documents to return on search. (default: `5`)
+</ResponseField>
+<ResponseField name="optimize_on" type="int">
+  Number of documents to optimize the vector db on.
+</ResponseField>
+
+## KnowledgeBase Reference
+
+`ArxivKnowledgeBase` is a subclass of the `KnowledgeBase` class and has access to the same params
+
+<Snippet file="kb-base-reference.mdx" />

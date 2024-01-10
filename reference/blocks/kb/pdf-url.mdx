@@ -3,4 +3,52 @@ title: PDF Url KnowledgeBase
 sidebarTitle: PDF Url
 ---
 
-<Snippet file="coming-soon.mdx" />
+## Example
+
+<Note>
+
+Install `pypdf` if needed using [this guide](/how-to/python-libraries)
+
+</Note>
+
+```python knowledge_base.py
+from phi.knowledge.pdf import PDFUrlKnowledgeBase
+from phi.vectordb.pgvector import PgVector
+
+from resources import vector_db
+
+knowledge_base = PDFUrlKnowledgeBase(
+    urls=["pdf_url"],
+    # Table name: llm.pdf_documents
+    vector_db=PgVector(
+        collection="pdf_documents",
+        db_url=vector_db.get_db_connection_local(),
+    ),
+)
+```
+
+## PDFUrlKnowledgeBase Reference
+
+<ResponseField name="urls" type="List[str]">
+  URLs for `PDF` files.
+</ResponseField>
+<ResponseField name="vector_db" type="VectorDb">
+  Vector Database for the Knowledge Base.
+</ResponseField>
+<ResponseField name="reader" type="PDFUrlReader">
+  A `PDFUrlReader` that converts the `PDFs` into `Documents` for the vector
+  database.
+</ResponseField>
+<ResponseField name="num_documents" type="int">
+  Number of documents to return on search. (default: `5`)
+</ResponseField>
+<ResponseField name="optimize_on" type="int">
+  Number of documents to optimize the vector db on.
+</ResponseField>
+
+## KnowledgeBase Reference
+
+`PDFUrlKnowledgeBase` is a subclass of the `KnowledgeBase` class and has access to the same params
+
+<Snippet file="kb-base-reference.mdx" />
+
