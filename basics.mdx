@@ -218,12 +218,12 @@ Run `PgVector` on `Docker` using the following steps:
 
 ## RAG Conversation
 
-Retrieval Augmented Generation means providing the LLM with additional information so it responds in a context-aware manner. When a user sends a message, we **"stuff the prompt"** with relevant information from the knowledge base.
+Retrieval Augmented Generation means providing the LLM with additional information so it responds in a context-aware manner. When a user sends a message, we **"stuff the prompt"** with relevant information to improve response quality.
 
 Let's test out RAG by building a **PDF Assistant** that helps us parse a recipe book.
 
 1. We'll load our knowledge base with the PDF of a recipe book.
-2. Every time we ask a question, our **PDF Assistant** will respond with the recipes from our knowledge base.
+2. Our **PDF Assistant** will respond with the recipes from our knowledge base.
 
 <Steps>
   <Step title="Install libraries">
@@ -293,8 +293,8 @@ Let's test out RAG by building a **PDF Assistant** that helps us parse a recipe 
   </Step>
 </Steps>
 
-<Accordion title="Read local PDFs">
-If you want to read local PDFs, use a `PDFKnowledgeBase` instead
+<Accordion title="Use local PDFs">
+If you want to use local PDFs, use a `PDFKnowledgeBase` instead
 
 ```python conversation.py
 from phi.knowledge.pdf import PDFKnowledgeBase

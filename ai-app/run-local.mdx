@@ -3,17 +3,13 @@ title: "Build an AI App"
 sidebarTitle: "Run locally"
 ---
 
-Let's build an AI App powered by GPT-4. We'll use PgVector for knowledge and storage and serve the app using Streamlit and FastApi.
+Let's build an **AI App powered by GPT-4**. We'll use:
 
-## What is RAG?
+- **Streamlit** as the chat interface
+- **FastApi** to serve API endpoints
+- **PgVector** for knowledge and storage
 
-Retrieval Augmented Generation means providing the LLM with additional information along with the question to improve its responses. Here's how it works:
-
-- Without RAG, a user asks the LLM a question and the LLM responds with information from its training data.
-- With RAG, a user asks the LLM a question and we "stuff the prompt" with relevant information from a knowledge base. The LLM then responds in a context-aware manner.
-- Using RAG is like taking an open-book test.
-
-**By the end of this guide you'll have your own RAG LLM App.**
+**By the end of this guide have an AI App to customize and make your own.**
 
 <Snippet file="setup.mdx" />
 
@@ -34,7 +30,7 @@ The streamlit apps are defined in the `app` folder and the `Conversations` power
 Checkout the `llm/conversations/pdf_rag.py` file for more information:
 
 - The `add_references_to_prompt` flag will populate the `references` argument of the `user_prompt_function`
-- The `user_prompt_function` builds the **Prompt** sent to the LLM. The prompt is injected with additional information from the knowledge base using the `references` variable.
+- The `user_prompt_function` builds the **Prompt** sent to the LLM. The prompt is stuffed with additional information from the knowledge base using the `references` variable.
 
 ```python llm/conversations/pdf_rag.py
 ...
@@ -80,7 +76,7 @@ def get_pdf_rag_conversation(
 
 ![rag-llm-app-fastapi-local](/images/rag-llm-app-fastapi-local.png)
 
-## Build your LLM Product
+## Build your AI Product
 
 Your LLM Api provides common endpoints you can use to build your LLM product. These routes are developed in collaboration with real AI Apps and are a great starting point to build on.
 

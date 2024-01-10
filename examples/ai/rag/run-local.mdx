@@ -34,7 +34,7 @@ The streamlit apps are defined in the `app` folder and the `Conversations` power
 Checkout the `llm/conversations/pdf_rag.py` file for more information:
 
 - The `add_references_to_prompt` flag will populate the `references` argument of the `user_prompt_function`
-- The `user_prompt_function` builds the **Prompt** sent to the LLM. The prompt is injected with additional information from the knowledge base using the `references` variable.
+- The `user_prompt_function` builds the **Prompt** sent to the LLM. The prompt is stuffed with additional information from the knowledge base using the `references` variable.
 
 ```python llm/conversations/pdf_rag.py
 ...
