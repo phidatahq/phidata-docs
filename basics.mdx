@@ -2,18 +2,13 @@
 title: Basics
 ---
 
-This guide walks through the basics of building an AI App. We'll learn by building a mini AI App with a knowledge base, storage and memory.
+Let's learn the basics by building a mini AI App with a knowledge base, storage and memory.
 
 ## Conversations
 
-**Conversations** are a human-like interface to language models and the starting point for every AI App. We send the LLM a message and get a model-generated output as a response.
+With phidata, we build AI products using **Conversations**.
 
-Conversations come with built-in **Memory**, **Knowledge**, **Storage** and access to **Tools**. Giving LLMs the ability to have long-term, knowledge-based **Conversations** is the first step in our journey to AGI. Using phidata, we can have conversations with AI specialists designed for specific tasks, for example:
-
-- **PDF Assistants:** Answer questions using PDFs.
-- **Python Engineers:** Perform tasks by writing and running python scripts.
-- **Data Analysts:** Analyze data by writing and running SQL queries.
-- **Stock Analysts:** Analyze stocks and research companies.
+**Conversations** are a human-like interface to language models. We send the LLM a message and get a model-generated output as a response. Conversations have built-in **Memory**, **Knowledge**, **Storage** and **Tools**. Giving LLMs the ability to have long-term, knowledge-based conversations is the first step in our journey to AGI.
 
 ### Try it out
 
@@ -98,7 +93,7 @@ Conversations come with built-in **Memory**, **Knowledge**, **Storage** and acce
 
 ## Agents
 
-You can have a Conversation with an `Agent` designed for a specific task.
+We can have Conversations with `Agents` designed for specific tasks.
 
 ### Python Engineer
 
@@ -177,15 +172,9 @@ The `DuckDbAgent` can perform data analysis using SQL queries.
 
 ## Knowledge Base
 
-A Knowledge Base is a database of information that the LLM can search to improve its responses. They are used to provide additional context to LLMs and make them respond in a context-aware manner. This is known as Retrieval Augmented Generation (**RAG**).
+Knowledge Base is a database of information that the LLM can search to improve its responses. They are used to provide extra context to LLMs so they respond in a context-aware manner.
 
-While any type of storage can act as a knowledge base, vector databases offer the best solution for retrieving relevant results from dense information quickly. We'll use `PgVector` as our vector store because it can also provide long-term storage to our Conversations.
-
-<Note>
-
-While it would be easier to demo with an in-memory vector store, our goal is to stay as close to production-ready as possible.
-
-</Note>
+While any type of storage can act as a knowledge base, vector databases offer the best solution for retrieving relevant results from dense information quickly. Let's use `PgVector` as our vector store as it can also provide long-term storage to our Conversations.
 
 ### Run PgVector
 
@@ -211,9 +200,7 @@ Run `PgVector` on `Docker` using the following steps:
     )
 
     # -*- DockerResources
-    dev_docker_resources = DockerResources(
-        apps=[vector_db],
-    )
+    dev_docker_resources = DockerResources(apps=[vector_db])
     ```
 
   </Step>
@@ -229,9 +216,14 @@ Run `PgVector` on `Docker` using the following steps:
   </Step>
 </Steps>
 
-### Load Knowledge Base
+## RAG Conversation
 
-Next, lets load our knowledge base using PDFs from the web.
+Retrieval Augmented Generation means providing the LLM with additional information so it responds in a context-aware manner. When a user sends a message, we **"stuff the prompt"** with relevant information from the knowledge base.
+
+Let's test out RAG by building a **PDF Assistant** that helps us parse a recipe book.
+
+1. We'll load our knowledge base with the PDF of a recipe book.
+2. Every time we ask a question, our **PDF Assistant** will respond with the recipes from our knowledge base.
 
 <Steps>
   <Step title="Install libraries">
@@ -250,16 +242,18 @@ Next, lets load our knowledge base using PDFs from the web.
     </CodeGroup>
 
   </Step>
-  <Step title="Update the Conversation">
-    Update the `conversation.py` file to:
+  <Step title="Create a RAG Conversation">
+    Create a file `rag_conversation.py` with the following contents
 
-    ```python conversation.py
+    ```python rag_conversation.py
     from phi.conversation import Conversation
     from phi.knowledge.pdf import PDFUrlKnowledgeBase
     from phi.vectordb.pgvector import PgVector
 
     from resources import vector_db
 
+    # The PDFUrlKnowledgeBase reads PDFs from urls and loads
+    # the `llm.recipes` table when`knowledge_base.load()` is called.
     knowledge_base = PDFUrlKnowledgeBase(
         urls=["https://www.family-action.org.uk/content/uploads/2019/07/meals-more-recipes.pdf"],
         vector_db=PgVector(
@@ -271,6 +265,8 @@ Next, lets load our knowledge base using PDFs from the web.
 
     conversation = Conversation(
         knowledge_base=knowledge_base,
+        # The add_references_to_prompt flag searches the knowledge base
+        # and updates the prompt sent to the LLM.
         add_references_to_prompt=True,
     )
 
@@ -278,24 +274,18 @@ Next, lets load our knowledge base using PDFs from the web.
     conversation.print_response('How do I make chicken tikka salad?')
     ```
 
-    <Note>
-
-    The `PDFUrlKnowledgeBase` will load PDFs from the urls to the `llm.recipes` table.
-
-    </Note>
-
   </Step>
   <Step title="Run the conversation">
-    Run the `conversation.py` file and give it a few minutes to load the knowledge base.
+    Run the `rag_conversation.py` file. Give it a few minutes to load the knowledge base and see it respond with recipes from the recipe book.
 
     <CodeGroup>
 
     ```bash Mac
-    python conversation.py
+    python rag_conversation.py
     ```
 
     ```bash Windows
-    python conversation.py
+    python rag_conversation.py
     ```
 
     </CodeGroup>
@@ -322,20 +312,19 @@ knowledge_base = PDFKnowledgeBase(
 
 </Accordion>
 
-## Autonomous Conversations
+## Autonomous Conversation
 
-In the `RAG` conversation above, the `add_references_to_prompt=True` was always adding information from the knowledge base to the prompt, regardless of whether it was helpful.
+In the RAG conversation above, the `add_references_to_prompt=True` was always adding information from the knowledge base to the prompt, regardless of whether it was helpful.
 
 In Autonomous conversations, we let the LLM decide **if** it needs to access the knowledge base and what search parameters it needs to query the knowledge base.
 
 Make the `Conversation` Autonomous by setting `function_calls=True` - which gives it the ability to call functions to achieve tasks.
 
 <Steps>
-  <Step title="Update the Conversation">
+  <Step title="Create an Autonomous Conversation">
+    Create a file `auto_conversation.py` with the following contents
 
-    Update the `conversation.py` file to:
-
-    ```python conversation.py
+    ```python auto_conversation.py
     from phi.conversation import Conversation
     from phi.knowledge.pdf import PDFUrlKnowledgeBase
     from phi.vectordb.pgvector import PgVector
@@ -349,6 +338,7 @@ Make the `Conversation` Autonomous by setting `function_calls=True` - which give
             db_url=vector_db.get_db_connection_local(),
         ),
     )
+    # Commented out as the knowledge base is already loaded.
     # knowledge_base.load(recreate=False)
 
     conversation = Conversation(
@@ -362,24 +352,18 @@ Make the `Conversation` Autonomous by setting `function_calls=True` - which give
     conversation.print_response('What was my last question?')
     ```
 
-    <Note>
-
-    Comment out the `knowledge_base.load()` as it is already loaded.
-
-    </Note>
-
   </Step>
   <Step title="Run the conversation">
-    Run the `conversation.py` file and notice how it searches the knowledge base and chat history when needed.
+    Run the `auto_conversation.py` file and notice how it searches the knowledge base and chat history when needed.
 
     <CodeGroup>
 
     ```bash Mac
-    python conversation.py
+    python auto_conversation.py
     ```
 
     ```bash Windows
-    python conversation.py
+    python auto_conversation.py
     ```
 
     </CodeGroup>
@@ -389,9 +373,14 @@ Make the `Conversation` Autonomous by setting `function_calls=True` - which give
 
 ## Storage & Memory
 
-Every `Conversation` comes with built-in memory but it only lasts while the session is active. To provide memory across sessions, we use long-term `Storage` backed by a `PostgreSQL` table. Update the `conversation.py` file to:
+Every `Conversation` comes with built-in memory but it only lasts while the session is active. To provide long-term memory we use a `Storage` backend like `PostgreSQL`.
 
-```python conversation.py
+<Steps>
+  <Step title="Create a PDF Assistant with Knowledge and Storage">
+
+    Create a file `pdf_assistant.py` with the following contents
+
+```python pdf_assistant.py
 import typer
 from rich.prompt import Prompt
 from typing import Optional, List
@@ -417,7 +406,7 @@ storage = PgConversationStorage(
 )
 
 
-def llm_app(new: bool = False, user: str = "user"):
+def pdf_assistant(new: bool = False, user: str = "user"):
     conversation_id: Optional[str] = None
 
     if not new:
@@ -449,50 +438,58 @@ def llm_app(new: bool = False, user: str = "user"):
 
 
 if __name__ == "__main__":
-    typer.run(llm_app)
+    typer.run(pdf_assistant)
 ```
 
-Run the `conversation.py` file.
+  </Step>
+  <Step title="Run the PDF Assistant">
+    Run the `pdf_assistant.py` file.
 
-<CodeGroup>
+    <CodeGroup>
 
-```bash Mac
-python conversation.py
-```
+    ```bash Mac
+    python pdf_assistant.py
+    ```
 
-```bash Windows
-python conversation.py
-```
+    ```bash Windows
+    python pdf_assistant.py
+    ```
 
-</CodeGroup>
+    </CodeGroup>
 
-Now the conversation continues across sessions. Ask a question:
+  </Step>
+  <Step title="Ask Questions">
 
-```
-How do I make chicken tikka salad?
-```
+    Now the conversation continues across sessions. Ask a question:
 
-Then message `bye` to exit, start the app again and ask:
+    ```
+    How do I make chicken tikka salad?
+    ```
 
-```
-What was my last message?
-```
+    Then message `bye` to exit, start the app again and ask:
 
-Run the `conversation.py` file with the `--new` flag to start a new conversation.
+    ```
+    What was my last message?
+    ```
 
-<CodeGroup>
+    Run the `conversation.py` file with the `--new` flag to start a new conversation.
 
-```bash Mac
-python conversation.py --new
-```
+    <CodeGroup>
 
-```bash Windows
-python conversation.py --new
-```
+    ```bash Mac
+    python conversation.py --new
+    ```
 
-</CodeGroup>
+    ```bash Windows
+    python conversation.py --new
+    ```
 
-## Stop Resources
+    </CodeGroup>
+
+  </Step>
+</Steps>
+
+## Stop PgVector
 
 Play around and then stop `PgVector` using `phi stop resources.py`
 
@@ -510,8 +507,8 @@ phi stop resources.py
 
 ## Next
 
-Congratulations on building a mini LLM App that can operate in RAG or Autonomous mode, with access to a knowledge base and storage. We can serve this App in production using an Api built with `FastApi`, front-end built with `Streamlit` or a Web App built with Django.
+Congratulations on building a mini AI App that can operate in RAG or Autonomous mode, with access to a knowledge base and storage. We can serve this App in production using an Api built with `FastApi`, front-end built with `Streamlit` or a Web App built with `Django`
 
-Instead of wiring tools manually, `phidata` provides pre-built templates that you can run locally or on AWS with just 1 command. These templates are fully customizable and used by many teams in production. Checkout one of the examples below to start building
+Instead of wiring tools manually, phidata provides **pre-built templates** that you can run locally or on AWS with just 1 command. These templates are fully customizable and used by many teams in production. Checkout one of the examples below to start building
 
 <Snippet file="examples.mdx" />
