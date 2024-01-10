@@ -52,14 +52,14 @@
       "group": "Documentation",
       "pages": [
           "introduction",
+          "basics",
           {
-            "group": "Quickstart: RAG LLM App",
+            "group": "Build an AI App",
             "pages": [
-              "quickstart/run-local",
-              "quickstart/run-aws"
+              "ai-app/run-local",
+              "ai-app/run-aws"
             ]
           },
-          "basics",
           {
             "group": "Building Blocks",
             "pages": [

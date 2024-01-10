@@ -1,28 +1,19 @@
 ---
-title: AI Basics
+title: Basics
 ---
 
-This guide walks through the basics of building an AI App. Its a great resource to learn by building a mini AI App with a knowledge base, storage and memory.
+This guide walks through the basics of building an AI App. We'll learn by building a mini AI App with a knowledge base, storage and memory.
 
 ## Conversations
 
 **Conversations** are a human-like interface to language models and the starting point for every AI App. We send the LLM a message and get a model-generated output as a response.
 
-Conversations come with built-in **Memory**, **Knowledge**, **Storage** and access to **Tools**. Giving LLMs the ability to have long-term, knowledge-based **Conversations** is the first step in our journey to AGI. _"The hottest new programming language is English"_ - [Andrej Karpathy](https://twitter.com/karpathy/status/1617979122625712128)
+Conversations come with built-in **Memory**, **Knowledge**, **Storage** and access to **Tools**. Giving LLMs the ability to have long-term, knowledge-based **Conversations** is the first step in our journey to AGI. Using phidata, we can have conversations with AI specialists designed for specific tasks, for example:
 
-A simple example looks like:
-
-```python conversation.py
-from phi.conversation import Conversation
-
-conversation = Conversation()
-
-# -*- Print the response
-conversation.print_response('Share a quick healthy breakfast recipe.')
-
-# -*- Get the response as a string
-response = conversation.chat('Share a quick healthy breakfast recipe.', stream=False)
-```
+- **PDF Assistants:** Answer questions using PDFs.
+- **Python Engineers:** Perform tasks by writing and running python scripts.
+- **Data Analysts:** Analyze data by writing and running SQL queries.
+- **Stock Analysts:** Analyze stocks and research companies.
 
 ### Try it out
 
@@ -100,6 +91,85 @@ response = conversation.chat('Share a quick healthy breakfast recipe.', stream=F
 
     ```bash
     python conversation.py
+    ```
+
+  </Step>
+</Steps>
+
+## Agents
+
+You can have a Conversation with an `Agent` designed for a specific task.
+
+### Python Engineer
+
+The `PythonAgent` can perform virtually any task using python code.
+
+<Steps>
+  <Step title="Create a PythonAgent">
+    Create a file `python_agent.py` and install pandas using `pip install pandas`
+
+    ```python python_agent.py
+    from phi.agent.python import PythonAgent
+    from phi.file.local.csv import CsvFile
+
+    python_agent = PythonAgent(
+        files=[
+            CsvFile(
+                path="https://phidata-public.s3.amazonaws.com/demo_data/IMDB-Movie-Data.csv",
+                description="Contains information about movies from IMDB.",
+            )
+        ],
+        pip_install=True,
+        show_function_calls=True,
+    )
+
+    python_agent.print_response("What is the average rating of movies?")
+    ```
+
+  </Step>
+  <Step title="Run the conversation">
+    Run the `python_agent.py` file
+
+    ```bash
+    python python_agent.py
+    ```
+
+  </Step>
+</Steps>
+
+### Data Analyst
+
+The `DuckDbAgent` can perform data analysis using SQL queries.
+
+<Steps>
+  <Step title="Create a DuckDbAgent">
+    Create a file `data_analyst.py` and install duckdb using `pip install duckdb`
+
+    ```python data_analyst.py
+    import json
+    from phi.agent.duckdb import DuckDbAgent
+
+    duckdb_agent = DuckDbAgent(
+        semantic_model=json.dumps({
+            "tables": [
+                {
+                    "name": "movies",
+                    "description": "Contains information about movies from IMDB.",
+                    "path": "https://phidata-public.s3.amazonaws.com/demo_data/IMDB-Movie-Data.csv",
+                }
+            ]
+        }),
+    )
+
+    duckdb_agent.print_response("What is the average rating of movies? Show me the SQL.")
+    ```
+
+  </Step>
+  <Step title="Run the conversation">
+    Run the `data_analyst.py` file
+
+    ```bash
+    python data_analyst.py
     ```
 
   </Step>
@@ -440,9 +510,7 @@ phi stop resources.py
 
 ## Next
 
-Congratulations on building a mini LLM App that can operate in RAG or Autonomous mode, with access to a knowledge base and storage.
-
-We can serve this App in production using an Api built with `FastApi`, front-end built with `Streamlit` or a Web App built with Django.
+Congratulations on building a mini LLM App that can operate in RAG or Autonomous mode, with access to a knowledge base and storage. We can serve this App in production using an Api built with `FastApi`, front-end built with `Streamlit` or a Web App built with Django.
 
 Instead of wiring tools manually, `phidata` provides pre-built templates that you can run locally or on AWS with just 1 command. These templates are fully customizable and used by many teams in production. Checkout one of the examples below to start building
 

@@ -4,51 +4,24 @@ title: Introduction
 
 ## What is phidata?
 
-Phidata is an [open source](https://github.com/phidatahq/phidata) toolkit for building AI products. It gives you pre-built AI Apps that you can run locally using docker or deploy to AWS.
+Phidata is a toolkit for building human-like AI products using language models.
 
-## Use it to build
+Like we have conversations with human specialists, phidata provides a `Conversation` interface to AI specialists. Conversations come with built-in memory, knowledge, storage, tools and can be used to build pretty much any kind of AI application. For example:
 
-- **AI Apps** (RAG, autonomous or multimodal applications)
-- **AI Agents** (automate data engineering, python or snowflake tasks)
-- **Rest Apis** (with FastApi, PostgreSQL)
-- **Web Apps** (with Django, PostgreSQL)
-- **Data Platforms** (with Airflow, Superset, Jupyter)
-
-## What you get
-
-**Production ready codebases** built with:
-
-- **Building blocks** like conversations, agents, knowledge bases defined as pydantic objects
-- **Applications** like FastApi, Streamlit, Django, Postgres defined as pydantic objects
-- **Infrastructure** components (docker, AWS) also defined as pydantic objects
-
-Phidata applications run locally using docker and can be deployed to AWS with 1 command.
-
-## How it works
-
-- Create your codebase using a template: `phi ws create`
-- Run your app locally: `phi ws up dev:docker`
-- Run your app on AWS: `phi ws up prd:aws`
-
-## Advantages
-
-- **Simple:** Application, tools and infrastructure code is written in python
-- **Powerful:** Get a production-ready codebase with 1 command
-- **Production Ready:** Deploy your application to AWS with 1 command
-
-## Its designed for
-
-- Teams building AI products
-- Teams building RestAPI backends
-- Teams building Web Apps with Django
-- Teams building Data Platforms with Airflow, Superset and Jupyter
+- **PDF Assistants:** Answer questions using PDFs.
+- **Python Engineers:** Perform tasks by writing and running python scripts.
+- **Data Analysts:** Analyze data by writing and running SQL queries.
+- **Stock Analysts:** Analyze stocks and research companies.
+- **Marketing Analysts:** Provide marketing insights, copywriting and content ideas.
 
 ## Get started
 
-Follow the [Quickstart](/quickstart/run-local) guide to build a RAG LLM App or checkout one of the examples below
+1. Follow the [basics](/basics) guide to learn the basics of an AI App.
+2. Follow the [AI App](/ai-app/run-local) guide to build your own AI App.
+3. Checkout the [building blocks](/blocks/overview) for an in-depth guide to building AI products.
+
+You can also build your application using one of the examples below
 
 ## Examples
-
-Build your application using an example
 
 <Snippet file="examples.mdx" />
