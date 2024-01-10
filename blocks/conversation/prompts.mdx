@@ -2,7 +2,7 @@
 title: Update Prompts
 ---
 
-The `Conversation` class provides a user-friendly interface to LLMs, meaning behind the scenes it converts the message into `system` and `user` prompts.
+The `Conversation` class provides a user-friendly interface to language models, meaning behind the scenes it converts the message into `system` and `user` prompts.
 
 ## Usage
 
@@ -150,9 +150,7 @@ vector_db = PgVectorDb(
 )
 
 # -*- DockerResources
-dev_docker_resources = DockerResources(
-    apps=[vector_db],
-)
+dev_docker_resources = DockerResources(apps=[vector_db])
 ```
 
     Start `resources.py` using:

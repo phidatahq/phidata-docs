@@ -3,14 +3,13 @@ title: RAG Conversations
 sidebarTitle: RAG
 ---
 
-Retrieval Augmented Generation (**RAG**) helps us improve the quality of LLM reponses by providing additional **Knowledge** in the prompt.
+Retrieval Augmented Generation means providing the LLM with additional information so it responds in a context-aware manner. When a user sends a message, we **"stuff the prompt"** with relevant information to improve response quality.
 
-To enable **RAG**, add a Knowledge Base to the `Conversation` and set `add_references_to_prompt=True`. This will search the **Knowledge Base** for information about the `message` and add it to the **User Prompt** before sending it to the LLM.
+To enable **RAG**, add a Knowledge Base to the `Conversation` and set `add_references_to_prompt=True`. This will search the **Knowledge Base** for information about the `message` and add it to the prompt before sending it to the LLM.
 
 ## Usage
 
 ```python rag_conversation.py
-from phi.llm.openai import OpenAIChat
 from phi.conversation import Conversation
 from phi.knowledge.pdf import PDFKnowledgeBase
 from phi.vectordb.pgvector import PgVector
@@ -98,9 +97,7 @@ vector_db = PgVectorDb(
 )
 
 # -*- DockerResources
-dev_docker_resources = DockerResources(
-    apps=[vector_db],
-)
+dev_docker_resources = DockerResources(apps=[vector_db])
 ```
 
     Start `resources.py` using:
@@ -120,6 +117,8 @@ from phi.vectordb.pgvector import PgVector
 
 from resources import vector_db
 
+# The PDFUrlKnowledgeBase reads PDFs from urls and loads
+# the `llm.recipes` table when`knowledge_base.load()` is called.
 knowledge_base = PDFUrlKnowledgeBase(
     urls=["https://www.family-action.org.uk/content/uploads/2019/07/meals-more-recipes.pdf"],
     vector_db=PgVector(
@@ -131,17 +130,22 @@ knowledge_base.load(recreate=False)
 
 conversation = Conversation(
     knowledge_base=knowledge_base,
+    # The add_references_to_prompt flag searches the knowledge base
+    # and updates the prompt sent to the LLM.
     add_references_to_prompt=True,
 )
 
+conversation.print_response('Share a quick recipe for a healthy breakfast.')
 conversation.print_response('How do I make chicken tikka salad?')
 ```
 
   </Step>
   <Step title="Run the conversation">
-    Run the `rag_conversation.py` file
+    Run the `rag_conversation.py` file. Give it a few minutes to load the knowledge base and see it respond with recipes from the recipe book.
+
 ```bash
 python rag_conversation.py
 ```
+
   </Step>
 </Steps>

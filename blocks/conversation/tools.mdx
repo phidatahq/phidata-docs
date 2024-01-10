@@ -10,6 +10,8 @@ Phidata also provides pre-built Tools for specific tasks.
 
 ## Usage
 
+The following conversation will write a python function to get top hackernews stories, run it and summarize the results.
+
 ```python python_tools.py
 from phi.conversation import Conversation
 from phi.tools.python import PythonTools
@@ -20,7 +22,7 @@ conversation.print_response("Show me the top 5 hackernews stories")
 
 ## Create your own Tools
 
-Creating your own tools is as simple as writing a python function (which you can use the PythonTools to generate). For example:
+For more control, write your own functions and provide them as tools to a conversation. Creating your own tools i as simple as writing a python function (which you can use the PythonTools to generate). For example:
 
 ```python hn_conversation.py
 import json

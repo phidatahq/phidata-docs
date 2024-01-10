@@ -10,7 +10,6 @@ Behind the scenes, we provide the `Conversation` with a set of `Functions` the L
 ## Usage
 
 ```python auto_conversation.py
-from phi.llm.openai import OpenAIChat
 from phi.conversation import Conversation
 from phi.knowledge.pdf import PDFUrlKnowledgeBase
 from phi.vectordb.pgvector import PgVector
@@ -113,9 +112,7 @@ vector_db = PgVectorDb(
 )
 
 # -*- DockerResources
-dev_docker_resources = DockerResources(
-    apps=[vector_db],
-)
+dev_docker_resources = DockerResources(apps=[vector_db])
 ```
 
     Start `resources.py` using:

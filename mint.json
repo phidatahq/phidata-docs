@@ -75,7 +75,8 @@
                   "blocks/conversation/storage",
                   "blocks/conversation/tools",
                   "blocks/conversation/pydantic-output",
-                  "blocks/conversation/tasks"
+                  "blocks/conversation/tasks",
+                  "blocks/conversation/assistant"
                 ]
               },
               {
@@ -89,7 +90,8 @@
               {
                 "group": "Assistants",
                 "pages": [
-                  "blocks/assistant/introduction"
+                  "blocks/assistant/introduction",
+                  "blocks/assistant/openai"
                 ]
               },
               {

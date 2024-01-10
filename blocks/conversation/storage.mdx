@@ -10,7 +10,6 @@ We're big fans of using PostgreSQL for storage.
 ## Usage
 
 ```python conversation.py
-from phi.llm.openai import OpenAIChat
 from phi.conversation import Conversation
 from phi.storage.conversation.postgres import PgConversationStorage
 
@@ -96,9 +95,7 @@ vector_db = PgVectorDb(
 )
 
 # -*- DockerResources
-dev_docker_resources = DockerResources(
-    apps=[vector_db],
-)
+dev_docker_resources = DockerResources(apps=[vector_db])
 ```
 
     Start `resources.py` using:

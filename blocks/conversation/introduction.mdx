@@ -17,15 +17,15 @@ conversation = Conversation()
 conversation.print_response('Share a quick healthy breakfast recipe.')
 
 # -*- Get the response as a string
-response = conversation.chat('Share a quick healthy breakfast recipe.', stream=False)
+response = conversation.run('Share a quick healthy breakfast recipe.', stream=False)
 
 # -*- Get the response as a stream
 response = ""
-for delta in conversation.chat('Share a quick healthy breakfast recipe.'):
+for delta in conversation.run('Share a quick healthy breakfast recipe.'):
     response += delta
 ```
 
-Under the hood, the message is converted to `System` and `User` prompts that are sent to the LLM. The default prompts can be easily customized to fit any use case.
+Under the hood, the message is converted into prompts that are sent to the LLM. The default prompts can be customized to fit any use case.
 
 ## Example
 
@@ -42,3 +42,4 @@ Read more about:
 - [Tools](/blocks/conversation/tools)
 - [Generating Pydantic models as output](/blocks/conversation/pydantic-output)
 - [Tasks](/blocks/conversation/tasks)
+- [Delegating work to Assistants](/blocks/conversation/assistant)
