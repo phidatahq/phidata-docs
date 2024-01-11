@@ -2,4 +2,82 @@
 title: Assistant
 ---
 
-<Snippet file="coming-soon.mdx" />
+## Example
+
+In this example, we create an Assistant `CsvAssistant` to analyze a CSV file.
+
+```python csv_assistant.py
+from phi.assistant import Assistant
+from phi.assistant.file.url import UrlFile
+from phi.assistant.tool import CodeInterpreter
+
+# Load the IMDB dataset from S3
+imdb_movie_data_s3 = UrlFile(url="https://phi-public.s3.amazonaws.com/imdb/IMDB-Movie-Data.csv").get_or_create()
+
+# Create an Assistant
+with Assistant(
+    name="CsvAssistant",
+    tools=[CodeInterpreter],
+    files=[imdb_movie_data_s3],
+    instructions="You are an expert at analyzing CSV data. Whenever you run an analysis, explain each step.",
+) as csv_assistant:
+    # Run the Assistant
+    csv_assistant.print_response("Who is the most popular actor by votes?")
+```
+
+## Assistant Reference
+
+<ResponseField name="model" type="str" default="gpt-4-1106-preview">
+</ResponseField>
+<ResponseField name="openai" type="OpenAI" default="None">
+</ResponseField>
+<ResponseField name="id" type="str" default="None">
+  Assistant id which can be referenced in API endpoints.
+</ResponseField>
+<ResponseField name="object" type="str" default="None">
+  The object type, populated by the API. Always assistant.
+</ResponseField>
+<ResponseField name="name" type="str" default="None">
+  The name of the assistant. The maximum length is 256 characters.
+</ResponseField>
+<ResponseField name="description" type="str" default="None">
+  The description of the assistant. The maximum length is 512 characters.
+</ResponseField>
+<ResponseField name="instructions" type="str" default="None">
+  The system instructions that the assistant uses. The maximum length is 32768 characters.
+</ResponseField>
+<ResponseField name="tools" type="List[Union]" default="None">
+  A list of tools provided to the assistant. There can be a maximum of 128 tools per assistant.
+  Tools can be of types code_interpreter, retrieval, or function.
+</ResponseField>
+<ResponseField name="functions" type="dict" default="None">
+  Functions available to the Assistant to call
+  Functions extracted from the tools which can be executed locally by the assistant.
+</ResponseField>
+<ResponseField name="file_ids" type="List[str]" default="None">
+  A list of file IDs attached to this assistant.
+  There can be a maximum of 20 files attached to the assistant.
+  Files are ordered by their creation date in ascending order.
+</ResponseField>
+<ResponseField name="files" type="List[File]" default="None">
+  Files attached to this assistant.
+</ResponseField>
+<ResponseField name="metadata" type="dict" default="None">
+  Set of 16 key-value pairs that can be attached to an object.
+  This can be useful for storing additional information about the object in a structured format.
+  Keys can be a maximum of 64 characters long and values can be a maximum of 512 characters long.
+</ResponseField>
+<ResponseField name="is_active" type="bool" default="True">
+  True if this assistant is active
+</ResponseField>
+<ResponseField name="created_at" type="int" default="None">
+  The Unix timestamp (in seconds) for when the assistant was created.
+</ResponseField>
+<ResponseField name="debug_mode" type="bool" default="False">
+  If True, show debug logs
+</ResponseField>
+<ResponseField name="monitoring" type="bool" default="False">
+  Enable monitoring on phidata.com
+</ResponseField>
+<ResponseField name="openai_assistant" type="OpenAIAssistant" default="None">
+</ResponseField>

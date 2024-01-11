@@ -321,6 +321,7 @@
         {
           "group": "Tasks",
           "pages": [
+            "reference/blocks/task/base",
             "reference/blocks/task/llm"
           ]
         },

@@ -3,4 +3,136 @@ title: LLMTask
 sidebarTitle: LLM Task
 ---
 
-<Snippet file="coming-soon.mdx" />
+## Example
+
+In this example, we use 3 `Tasks` to reliably generate short stories for a given `Theme` by:
+
+1. Generate a `setting` and `genre` for a `Theme` using a Pydantic model.
+2. Write a 2 sentence story about the the `setting` and `genre`.
+3. Give the story a `Name`.
+
+```python story_generator.py
+from phi.llm.openai import OpenAIChat
+from phi.task.llm import LLMTask
+from phi.conversation import Conversation
+from pydantic import BaseModel, Field
+
+class StoryTheme(BaseModel):
+    setting: str = Field(..., description="This is the context of the story. If not available, provide a random setting.",)
+    genre: str = Field(..., description="This is the genre of the story. If not provided, select horror.")
+
+get_story_theme = LLMTask(
+    system_prompt="Generate a theme for a story.",
+    output_model=StoryTheme,
+    show_output=False,
+)
+
+write_story = LLMTask(
+    llm=OpenAIChat(model="gpt-4"),
+    system_prompt="Write a 2 sentence story for a given theme. It should be less than 30 words.",
+)
+
+give_story_a_name = LLMTask(
+    system_prompt="Give this story a 2 word name. Format output as `Name: {name}`. Don't surround with quotes.",
+)
+
+story_conversation = Conversation(tasks=[get_story_theme, write_story, give_story_a_name])
+story_conversation.cli_app(user="Theme")
+```
+
+## LLMTask Reference
+
+<ResponseField name="llm" type="LLM" default="None">
+  LLM to use for this task
+</ResponseField>
+<ResponseField name="memory" type="LLMTaskMemory" default="LLMTaskMemory()">
+  Task Memory
+</ResponseField>
+<ResponseField name="add_chat_history_to_messages" type="bool" default="False">
+  Add chat history to the messages sent to the LLM.
+  If True, the chat history is added to the messages sent to the LLM.
+</ResponseField>
+<ResponseField name="num_history_messages" type="int" default="8">
+  Number of previous messages to add to prompt or messages sent to the LLM.
+</ResponseField>
+<ResponseField name="knowledge_base" type="KnowledgeBase" default="None">
+  Task Knowledge Base
+</ResponseField>
+<ResponseField name="add_references_to_prompt" type="bool" default="False">
+  Add references from the knowledge base to the prompt sent to the LLM.
+</ResponseField>
+<ResponseField name="function_calls" type="bool" default="False">
+  Makes the task Autonomous by letting the LLM call functions to achieve tasks.
+</ResponseField>
+<ResponseField name="default_functions" type="bool" default="True">
+  Add default functions to the LLM when function_calls is True.
+</ResponseField>
+<ResponseField name="show_function_calls" type="bool" default="False">
+  Show function calls in LLM messages.
+</ResponseField>
+<ResponseField name="function_call_limit" type="int" default="None">
+  Maximum number of function calls allowed.
+</ResponseField>
+<ResponseField name="tools" type="List[Union]" default="None">
+  A list of tools provided to the LLM.
+  Tools are functions the model may generate JSON inputs for.
+  If you provide a dict, it is not called by the model.
+</ResponseField>
+<ResponseField name="tool_choice" type="Union" default="None">
+  Controls which (if any) function is called by the model.
+  "none" means the model will not call a function and instead generates a message.
+  "auto" means the model can pick between generating a message or calling a function.
+  Specifying a particular function via \{"type: "function", "function": \{"name": "my_function"}}
+  forces the model to call that function.
+  "none" is the default when no functions are present. "auto" is the default if functions are present.
+</ResponseField>
+<ResponseField name="system_prompt" type="str" default="None">
+  Provides the system prompt as a string
+</ResponseField>
+<ResponseField name="system_prompt_function" type="Callable" default="None">
+  System prompt function: provide the system prompt as a function
+  This function is provided the task as an argument
+  and should return the system_prompt as a string.
+  Signature: def system_prompt_function(task: Task) -> str: ...
+</ResponseField>
+<ResponseField name="use_default_system_prompt" type="bool" default="True">
+  If True, the task provides a default system prompt
+</ResponseField>
+<ResponseField name="user_prompt" type="Union" default="None">
+  Provides the user prompt as a string
+  Note: this will ignore the message provided to the run function
+</ResponseField>
+<ResponseField name="user_prompt_function" type="Callable" default="None">
+  User prompt function: provide the user prompt as a function.
+  This function is provided the task and the input message as arguments
+  and should return the user_prompt as a Union[List[Dict], str].
+  If add_references_to_prompt is True, then references are also provided as an argument.
+  Signature:
+  def custom_user_prompt_function(
+      task: Task,
+      message: Optional[Union[List[Dict], str]] = None,
+      references: Optional[str] = None,
+  ) -> str:
+      ...
+</ResponseField>
+<ResponseField name="use_default_user_prompt" type="bool" default="True">
+  If True, the task provides a default user prompt
+</ResponseField>
+<ResponseField name="references_function" type="Callable" default="None">
+  Function to build references for the default user_prompt
+  This function, if provided, is called when add_references_to_prompt is True
+  Signature:
+  def references(task: Task, query: str) -> Optional[str]: ...
+</ResponseField>
+<ResponseField name="markdown" type="bool" default="True">
+  Format the output using markdown
+</ResponseField>
+<ResponseField name="guidelines" type="List[str]" default="None">
+  List of guidelines for the default system prompt
+</ResponseField>
+
+## Task Reference
+
+`LLMTask` is a subclass of the `Task` class and has access to the same params
+
+<Snippet file="task-base-reference.mdx" />
