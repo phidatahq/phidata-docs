@@ -1,13 +1,13 @@
 ---
-title: RAG Conversation
+title: RAG Assistant
 ---
 
-A Retrieval Augmented Generation (RAG) conversation that uses a PDF Knowledge Base and adds context about the query to the prompt.
+A Retrieval Augmented Generation (RAG) assistant that uses a PDF Knowledge Base and adds context about the query to the prompt.
 
 ## Code
 
-```python recipe/rag_conversation.py
-from phi.conversation import Conversation
+```python recipe/rag_assistant.py
+from phi.assistant import Assistant
 from phi.knowledge.pdf import PDFUrlKnowledgeBase
 from phi.vectordb.pgvector import PgVector
 
@@ -19,12 +19,12 @@ knowledge_base = PDFUrlKnowledgeBase(
 )
 knowledge_base.load(recreate=False)
 
-conversation = Conversation(
+assistant = Assistant(
     knowledge_base=knowledge_base,
     add_references_to_prompt=True,
 )
 
-conversation.print_response("How do I make chicken tikka salad?")
+assistant.print_response("How do I make chicken tikka salad?")
 ```
 
 ## Usage
@@ -32,11 +32,11 @@ conversation.print_response("How do I make chicken tikka salad?")
 <CodeGroup>
 
 ```bash Mac
-python recipe/rag_conversation.py
+python recipe/rag_assistant.py
 ```
 
 ```bash Windows
-python recipe/rag_conversation.py
+python recipe/rag_assistant.py
 ```
 
 </CodeGroup>
@@ -53,6 +53,6 @@ pip install openai pgvector pypdf psycopg sqlalchemy
 
 ## Information
 
-- View on [Github](https://github.com/phidatahq/ai-cookbook/blob/main/recipe/rag_conversation.py)
-- Read about [RAG Conversations](/blocks/conversation/rag)
+- View on [Github](https://github.com/phidatahq/ai-cookbook/blob/main/recipe/rag_assistant.py)
+- Read about [RAG Assistants](/blocks/assistant/rag)
 - <Snippet file="discord.mdx" />

@@ -1,19 +1,16 @@
 ---
-title: Simple Conversation
+title: Simple Assistant
 ---
 
-A simple conversation that prints a response from GPT3.5
+A simple assistant that prints a response from GPT4-turbo
 
 ## Code
 
-```python recipe/simple_conversation.py
-from phi.conversation import Conversation
-from phi.llm.openai import OpenAIChat
+```python recipe/simple_assistant.py
+from phi.assistant import Assistant
 
-conversation = Conversation(llm=OpenAIChat(model="gpt-3.5-turbo-1106"))
-
-# -*- Print response
-conversation.print_response("Share a quick healthy breakfast recipe.")
+assistant = Assistant(description="You help people with their health and fitness goals.")
+assistant.print_response("Share a quick healthy breakfast recipe.")
 ```
 
 ## Usage
@@ -21,11 +18,11 @@ conversation.print_response("Share a quick healthy breakfast recipe.")
 <CodeGroup>
 
 ```bash Mac
-python recipe/simple_conversation.py
+python recipe/simple_assistant.py
 ```
 
 ```bash Windows
-python recipe/simple_conversation.py
+python recipe/simple_assistant.py
 ```
 
 </CodeGroup>
@@ -42,6 +39,6 @@ pip install openai
 
 ## Information
 
-- View on [Github](https://github.com/phidatahq/ai-cookbook/blob/main/recipe/simple_conversation.py)
-- Read about [Conversations](/blocks/conversation/introduction)
+- View on [Github](https://github.com/phidatahq/ai-cookbook/blob/main/recipe/simple_assistant.py)
+- Read about [Assistants](/blocks/assistant/introduction)
 - <Snippet file="discord.mdx" />

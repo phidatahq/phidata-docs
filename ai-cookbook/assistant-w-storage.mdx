@@ -1,18 +1,18 @@
 ---
-title: Conversation with Storage
+title: Assistant with Storage
 ---
 
-Store Conversations in PostgreSQL to provide long-term memory across sessions.
+Store assistant runs in PostgreSQL to provide long-term memory across sessions.
 
 ## Code
 
-```python recipe/conversation_with_storage.py
+```python recipe/assistant_with_storage.py
 import typer
 from rich.prompt import Prompt
 from typing import Optional, List
 
-from phi.conversation import Conversation
-from phi.storage.conversation.postgres import PgConversationStorage
+from phi.assistant import Assistant
+from phi.storage.assistant.postgres import PgAssistantStorage
 from phi.knowledge.pdf import PDFUrlKnowledgeBase
 from phi.vectordb.pgvector import PgVector
 
@@ -23,62 +23,65 @@ knowledge_base = PDFUrlKnowledgeBase(
     vector_db=PgVector(collection="recipes", db_url=db_url),
 )
 
-storage = PgConversationStorage(table_name="recipe_conversations", db_url=db_url)
+storage = PgAssistantStorage(table_name="recipe_assistant", db_url=db_url)
 
 
-def llm_app(new: bool = False, user: str = "user"):
-    conversation_id: Optional[str] = None
+def recipe_assistant(new: bool = False, user: str = "user"):
+    run_id: Optional[str] = None
 
     if not new:
-        existing_conversation_ids: List[str] = storage.get_all_conversation_ids(user)
-        if len(existing_conversation_ids) > 0:
-            conversation_id = existing_conversation_ids[0]
+        existing_run_ids: List[str] = storage.get_all_run_ids(user)
+        if len(existing_run_ids) > 0:
+            run_id = existing_run_ids[0]
 
-    conversation = Conversation(
-        user_name=user,
-        id=conversation_id,
+    assistant = Assistant(
+        run_id=run_id,
+        user_id=user,
         knowledge_base=knowledge_base,
         storage=storage,
-        function_calls=True,
-        show_function_calls=True,
+        # tool_calls=True adds functions to
+        # search the knowledge base and chat history
+        tool_calls=True,
+        show_tool_calls=True,
+        # Uncomment the following line to use traditional RAG
+        # add_references_to_prompt=True,
     )
-    if conversation_id is None:
-        conversation_id = conversation.id
-        print(f"Started Conversation: {conversation_id}\n")
+    if run_id is None:
+        run_id = assistant.run_id
+        print(f"Started Run: {run_id}\n")
     else:
-        print(f"Continuing Conversation: {conversation_id}\n")
+        print(f"Continuing Run: {run_id}\n")
 
-    # -*- If you want to load the knowledge base, uncomment the following line
-    # conversation.knowledge_base.load(recreate=False)
+    assistant.knowledge_base.load(recreate=False)
     while True:
         message = Prompt.ask(f"[bold] :sunglasses: {user} [/bold]")
         if message in ("exit", "bye"):
             break
-        conversation.print_response(message)
+        assistant.print_response(message)
 
 
 if __name__ == "__main__":
-    typer.run(llm_app)
+    typer.run(recipe_assistant)
 ```
 
 ## Usage
 
 <Steps>
-  <Step title="Run the conversation">
-    Run the `conversation_with_storage.py` file
+  <Step title="Run the assistant">
+    Run the `assistant_with_storage.py` file
 
     <CodeGroup>
 
     ```bash Mac
-    python recipe/conversation_with_storage.py
+    python recipe/assistant_with_storage.py
     ```
 
     ```bash Windows
-    python recipe/conversation_with_storage.py
+    python recipe/assistant_with_storage.py
     ```
     </CodeGroup>
 
-    Now the conversation continues across sessions. Ask a question:
+    Now the assistant continues across sessions. Ask a question:
 
     ```
     How do I make chicken tikka salad?
@@ -91,11 +94,13 @@ if __name__ == "__main__":
     ```
 
   </Step>
-  <Step title="Start a new conversation">
-    Run the `conversation.py` file with the `--new` flag to start a new conversation.
+  <Step title="Start a new run">
+    Run the `assistant_with_storage.py` file with the `--new` flag to start a new run.
+
 ```bash
-python conversation.py --new
+python assistant_with_storage.py --new
 ```
+
   </Step>
 </Steps>
 
@@ -111,6 +116,6 @@ pip install openai pgvector pypdf psycopg sqlalchemy
 
 ## Information
 
-- View on [Github](https://github.com/phidatahq/ai-cookbook/blob/main/recipe/conversation_with_storage.py)
-- Read about [Conversation Storage](/blocks/conversation/storage)
+- View on [Github](https://github.com/phidatahq/ai-cookbook/blob/main/recipe/assistant_with_storage.py)
+- Read about [Assistant Storage](/blocks/assistant/storage)
 - <Snippet file="discord.mdx" />

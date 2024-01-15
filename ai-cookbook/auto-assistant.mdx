@@ -1,19 +1,19 @@
 ---
-title: Autonomous Conversation
+title: Autonomous Assistant
 ---
 
-In Autonomous Conversations, the LLM can run functions to:
+With Autonomous Assistants, the LLM can run functions to:
 
 - Search the knowledge base
 - Search the chat history
 - Achieve other tasks
 
-This in conversation, the GPT4 decides **if** it needs to access the knowledge base and what search parameters it needs to query the knowledge base.
+This in assistant, GPT4 decides **if** it needs to access the knowledge base and what search parameters it needs to query the knowledge base.
 
 ## Code
 
-```python recipe/auto_conversation.py
-from phi.conversation import Conversation
+```python recipe/auto_assistant.py
+from phi.assistant import Assistant
 from phi.knowledge.pdf import PDFUrlKnowledgeBase
 from phi.vectordb.pgvector import PgVector
 
@@ -25,14 +25,14 @@ knowledge_base = PDFUrlKnowledgeBase(
 )
 knowledge_base.load(recreate=False)
 
-conversation = Conversation(
+assistant = Assistant(
     knowledge_base=knowledge_base,
     function_calls=True,
     show_function_calls=True,
 )
 
-conversation.print_response('How do I make chicken tikka salad?')
-conversation.print_response('What was my last question?')
+assistant.print_response("How do I make chicken tikka salad?")
+assistant.print_response("What was my last question?")
 ```
 
 ## Usage
@@ -40,11 +40,11 @@ conversation.print_response('What was my last question?')
 <CodeGroup>
 
 ```bash Mac
-python recipe/auto_conversation.py
+python recipe/auto_assistant.py
 ```
 
 ```bash Windows
-python recipe/auto_conversation.py
+python recipe/auto_assistant.py
 ```
 
 </CodeGroup>
@@ -61,6 +61,6 @@ pip install openai pgvector pypdf psycopg sqlalchemy
 
 ## Information
 
-- View on [Github](https://github.com/phidatahq/ai-cookbook/blob/main/recipe/auto_conversation.py)
-- Read about [Autonomous Conversations](/blocks/conversation/auto)
+- View on [Github](https://github.com/phidatahq/ai-cookbook/blob/main/recipe/auto_assistant.py)
+- Read about [Autonomous Assistants](/blocks/assistant/auto)
 - <Snippet file="discord.mdx" />
