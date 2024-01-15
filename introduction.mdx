@@ -6,32 +6,34 @@ title: Introduction
 
 **Phidata is a toolkit for building AI applications using language models.**
 
-It provides a human-like **Assistant** interface that enables LLMs to achieve tasks using [function calling](https://platform.openai.com/docs/guides/function-calling). Assistants come with built-in **memory**, **knowledge**, **storage** and **tools**, making it possible to build AI applications with ease. You can build:
+Given a task, the LLM can achieve it by calling functions. For example, to answer questions from a document, the LLM can call a function to search the document, synthesize the results and return the answer.
 
-- **PDF Assistants:** Answer questions using PDFs.
+It provides a simple **Assistant** interface that enables LLMs to intelligently choose their course of action to solve tasks. Assistants come with **memory**, **knowledge**, **storage** and **tools**, making it easy to build AI applications.
+
+Use phidata to build:
+
+- **PDF Assistants:** Answer questions from PDFs.
 - **Data Assistants:** Analyze data by running SQL queries.
 - **Python Assistants:** Perform tasks by running python code.
 - **Stock Assistants:** Analyze stocks and research companies.
 - **Marketing Assistants:** Provide marketing insights, copywriting and content ideas.
-- **Sales Assistants:** Answer customer queries using product descriptions and purchase history.
-- **Customer Support Assistants:** Answer customer queries using user manuals.
-- **Real Estate Assistants:** Help search property listings using neighborhood information and user preferences.
-- **Travel Assistants:** Help plan travel by researching destinations and booking tickets.
+- **Customer Assistants:** Answer customer queries using product descriptions and purchase history.
+- **Travel Assistants:** Help plan travel by researching destinations.
 - **Meal Prep Assistants:** Help plan meals by researching recipes and adding ingredients to shopping lists.
 
 ## Build AI for your product
 
-We've helped many companies build AI features for their products, the general workflow is:
+We've helped many companies build AI for their products, the general workflow is:
 
 1. Train an assistant with proprietary data to perform tasks specific to your product.
 2. Connect to your product to the assistant via an API.
 3. Test, Monitor and Improve the AI.
 
-We provide dedicated support and development for AI products. [Book a call](https://cal.com/phidata/intro) to get started.
+We also provide dedicated support and development for AI products. [Book a call](https://cal.com/phidata/intro) to get started.
 
 ## Templates
 
-After building an Assistant, we serve it using **Streamlit**, **FastApi** or **Django** to build an AI App. Instead of wiring tools manually, phidata provides **pre-built** templates for AI Apps that you customise and make your own. Here's how they work:
+After building an Assistant, we serve it using **Streamlit**, **FastApi** or **Django** to build an AI application. Instead of wiring tools manually, phidata provides **pre-built** templates for AI Apps that you customise and make your own. Here's how they work:
 
 - Create your codebase using a template: `phi ws create`
 - Run your app locally: `phi ws up dev:docker`
