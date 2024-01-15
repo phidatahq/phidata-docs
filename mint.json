@@ -218,7 +218,8 @@
                 "examples/ai/junior-de/run-aws"
               ]
             },
-            "examples/ai/snowflake-de"
+            "examples/ai/snowflake-de",
+            "examples/ai/ai-api"
           ]
         },
         {
@@ -233,13 +234,6 @@
             "ai-cookbook/movie-generator",
             "ai-cookbook/short-story-generator",
             "ai-cookbook/langchain-retriever"
-          ]
-        },
-        {
-          "group": "LLM API",
-          "pages": [
-            "examples/llm-api/run-local",
-            "examples/llm-api/run-aws"
           ]
         },
         {
@@ -258,34 +252,12 @@
           "group": "Templates",
           "pages": [
               {
-                "group": "LLM App",
+                "group": "AI App",
                 "pages": [
-                  "templates/llm-app/run-local",
-                  "templates/llm-app/run-aws"
+                  "templates/ai-app/run-local",
+                  "templates/ai-app/run-aws"
                 ]
-              },
-              {
-                "group": "Rest API",
-                "pages": [
-                  "templates/api-app/run-local",
-                  "templates/api-app/run-aws"
-                ]
-              },
-              {
-                "group": "Django App",
-                "pages": [
-                  "templates/django-app/run-local",
-                  "templates/django-app/run-aws"
-                ]
-              },
-              {
-                "group": "Streamlit App",
-                "pages": [
-                  "templates/streamlit-app/run-local",
-                  "templates/streamlit-app/run-aws"
-                ]
-              },
-              "templates/data-platform"
+              }
           ]
         },
         {

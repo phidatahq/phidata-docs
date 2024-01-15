@@ -2,13 +2,13 @@
 title: Basics
 ---
 
-Let's learn the basics by building a mini AI App with a knowledge base, storage and memory.
+Let's learn the basics by building an AI Assistant with a knowledge base, storage and memory.
 
-## Conversations
+## Assistants
 
-With phidata, we build AI products using **Conversations**.
+With phidata, we build AI products using **Assistants**.
 
-**Conversations** are a human-like interface to language models. We send the LLM a message and get a model-generated output as a response. Conversations have built-in **Memory**, **Knowledge**, **Storage** and **Tools**. Giving LLMs the ability to have long-term, knowledge-based conversations is the first step in our journey to AGI.
+**Assistants** provide a human-like interface to language models. They come with built-in **Memory**, **Knowledge**, **Storage** and **Tools**, making it easy to build any kind of AI product.
 
 ### Try it out
 
@@ -51,16 +51,14 @@ With phidata, we build AI products using **Conversations**.
     </CodeGroup>
 
   </Step>
-  <Step title="Create a conversation">
-    Create a file `conversation.py` with the following contents
+  <Step title="Create an assistant">
+    Create a file `assistant.py` with the following contents
 
-    ```python conversation.py
-    from phi.conversation import Conversation
+    ```python assistant.py
+    from phi.assistant import Assistant
 
-    conversation = Conversation()
-
-    # -*- Print a response
-    conversation.print_response('Share a quick healthy breakfast recipe.')
+    assistant = Assistant(description="You help people with their health and fitness goals.")
+    assistant.print_response("Share a quick healthy breakfast recipe.")
     ```
 
   </Step>
@@ -81,33 +79,29 @@ With phidata, we build AI products using **Conversations**.
     </CodeGroup>
 
   </Step>
-  <Step title="Run the conversation">
-    Run the `conversation.py` file
+  <Step title="Run the assistant">
+    Run the `assistant.py` file
 
     ```bash
-    python conversation.py
+    python assistant.py
     ```
 
   </Step>
 </Steps>
 
-## Agents
+### Python Assistant
 
-We can have Conversations with `Agents` designed for specific tasks.
-
-### Python Engineer
-
-The `PythonAgent` can perform virtually any task using python code.
+The `PythonAssistant` can perform virtually any task using python code.
 
 <Steps>
-  <Step title="Create a PythonAgent">
-    Create a file `python_agent.py` and install pandas using `pip install pandas`
+  <Step title="Create a PythonAssistant">
+    Create a file `python_assistant.py` and install pandas using `pip install pandas`
 
-    ```python python_agent.py
-    from phi.agent.python import PythonAgent
+    ```python python_assistant.py
+    from phi.assistant.python import PythonAssistant
     from phi.file.local.csv import CsvFile
 
-    python_agent = PythonAgent(
+    python_assistant = PythonAssistant(
         files=[
             CsvFile(
                 path="https://phidata-public.s3.amazonaws.com/demo_data/IMDB-Movie-Data.csv",
@@ -115,36 +109,36 @@ The `PythonAgent` can perform virtually any task using python code.
             )
         ],
         pip_install=True,
-        show_function_calls=True,
+        show_tool_calls=True,
     )
 
-    python_agent.print_response("What is the average rating of movies?")
+    python_assistant.print_response("What is the average rating of movies?")
     ```
 
   </Step>
-  <Step title="Run the conversation">
-    Run the `python_agent.py` file
+  <Step title="Run the assistant">
+    Run the `python_assistant.py` file
 
     ```bash
-    python python_agent.py
+    python python_assistant.py
     ```
 
   </Step>
 </Steps>
 
-### Data Analyst
+### Data Assistant
 
-The `DuckDbAgent` can perform data analysis using SQL queries.
+The `DuckDbAssistant` can perform data analysis using SQL queries.
 
 <Steps>
-  <Step title="Create a DuckDbAgent">
-    Create a file `data_analyst.py` and install duckdb using `pip install duckdb`
+  <Step title="Create a DuckDbAssistant">
+    Create a file `data_assistant.py` and install duckdb using `pip install duckdb`
 
-    ```python data_analyst.py
+    ```python data_assistant.py
     import json
-    from phi.agent.duckdb import DuckDbAgent
+    from phi.assistant.duckdb import DuckDbAssistant
 
-    duckdb_agent = DuckDbAgent(
+    duckdb_assistant = DuckDbAssistant(
         semantic_model=json.dumps({
             "tables": [
                 {
@@ -156,15 +150,15 @@ The `DuckDbAgent` can perform data analysis using SQL queries.
         }),
     )
 
-    duckdb_agent.print_response("What is the average rating of movies? Show me the SQL.")
+    duckdb_assistant.print_response("What is the average rating of movies? Show me the SQL.")
     ```
 
   </Step>
-  <Step title="Run the conversation">
-    Run the `data_analyst.py` file
+  <Step title="Run the assistant">
+    Run the `data_assistant.py` file
 
     ```bash
-    python data_analyst.py
+    python data_assistant.py
     ```
 
   </Step>
@@ -172,9 +166,9 @@ The `DuckDbAgent` can perform data analysis using SQL queries.
 
 ## Knowledge Base
 
-Knowledge Base is a database of information that the LLM can search to improve its responses. They are used to provide extra context to LLMs so they respond in a context-aware manner.
+Knowledge Base is a database of information that the Assistant can search to improve its responses. This information provide extra context to language models so they respond in a context-aware manner.
 
-While any type of storage can act as a knowledge base, vector databases offer the best solution for retrieving relevant results from dense information quickly. Let's use `PgVector` as our vector store as it can also provide long-term storage to our Conversations.
+While any type of storage can act as a knowledge base, vector databases offer the best solution for retrieving relevant results from dense information quickly. Let's use `PgVector` as our vector store as it can also provide long-term storage for our Assistants.
 
 ### Run PgVector
 
@@ -193,9 +187,9 @@ Run `PgVector` on `Docker` using the following steps:
 
     # -*- PgVector running on port 5432:5432
     vector_db = PgVectorDb(
-        pg_user="llm",
-        pg_password="llm",
-        pg_database="llm",
+        pg_user="ai",
+        pg_password="ai",
+        pg_database="ai",
         debug_mode=True,
     )
 
@@ -216,14 +210,14 @@ Run `PgVector` on `Docker` using the following steps:
   </Step>
 </Steps>
 
-## RAG Conversation
+## RAG Assistant
 
 Retrieval Augmented Generation means providing the LLM with additional information so it responds in a context-aware manner. When a user sends a message, we **"stuff the prompt"** with relevant information to improve response quality.
 
-Let's test out RAG by building a **PDF Assistant** that helps us parse a recipe book.
+Let's test out RAG by building a **PDF Assistant** that helps us read a recipe book.
 
-1. We'll load our knowledge base with the PDF of a recipe book.
-2. Our **PDF Assistant** will respond with the recipes from our knowledge base.
+1. We'll load the knowledge base with the PDF of a recipe book.
+2. Our **PDF Assistant** will respond with the recipes from the knowledge base.
 
 <Steps>
   <Step title="Install libraries">
@@ -242,18 +236,18 @@ Let's test out RAG by building a **PDF Assistant** that helps us parse a recipe 
     </CodeGroup>
 
   </Step>
-  <Step title="Create a RAG Conversation">
-    Create a file `rag_conversation.py` with the following contents
+  <Step title="Create a RAG Assistant">
+    Create a file `rag_assistant.py` with the following contents
 
-    ```python rag_conversation.py
-    from phi.conversation import Conversation
+    ```python rag_assistant.py
+    from phi.assistant import Assistant
     from phi.knowledge.pdf import PDFUrlKnowledgeBase
     from phi.vectordb.pgvector import PgVector
 
     from resources import vector_db
 
     # The PDFUrlKnowledgeBase reads PDFs from urls and loads
-    # the `llm.recipes` table when`knowledge_base.load()` is called.
+    # the `ai.recipes` table when`knowledge_base.load()` is called.
     knowledge_base = PDFUrlKnowledgeBase(
         urls=["https://www.family-action.org.uk/content/uploads/2019/07/meals-more-recipes.pdf"],
         vector_db=PgVector(
@@ -263,29 +257,29 @@ Let's test out RAG by building a **PDF Assistant** that helps us parse a recipe 
     )
     knowledge_base.load(recreate=False)
 
-    conversation = Conversation(
+    assistant = Assistant(
         knowledge_base=knowledge_base,
         # The add_references_to_prompt flag searches the knowledge base
         # and updates the prompt sent to the LLM.
         add_references_to_prompt=True,
     )
 
-    conversation.print_response('Share a quick recipe for a healthy breakfast.')
-    conversation.print_response('How do I make chicken tikka salad?')
+    assistant.print_response('Share a quick recipe for a healthy breakfast.')
+    assistant.print_response('How do I make chicken tikka salad?')
     ```
 
   </Step>
-  <Step title="Run the conversation">
-    Run the `rag_conversation.py` file. Give it a few minutes to load the knowledge base and see it respond with recipes from the recipe book.
+  <Step title="Run the assistant">
+    Run the `rag_assistant.py` file. Give it a few minutes to load the knowledge base and see it respond with recipes from the recipe book.
 
     <CodeGroup>
 
     ```bash Mac
-    python rag_conversation.py
+    python rag_assistant.py
     ```
 
     ```bash Windows
-    python rag_conversation.py
+    python rag_assistant.py
     ```
 
     </CodeGroup>
@@ -296,7 +290,7 @@ Let's test out RAG by building a **PDF Assistant** that helps us parse a recipe 
 <Accordion title="Use local PDFs">
 If you want to use local PDFs, use a `PDFKnowledgeBase` instead
 
-```python conversation.py
+```python assistant.py
 from phi.knowledge.pdf import PDFKnowledgeBase
 
 ...
@@ -312,20 +306,20 @@ knowledge_base = PDFKnowledgeBase(
 
 </Accordion>
 
-## Autonomous Conversation
+## Autonomous Assistant
 
-In the RAG conversation above, the `add_references_to_prompt=True` was always adding information from the knowledge base to the prompt, regardless of whether it was helpful.
+With the RAG assistant above, the `add_references_to_prompt=True` always adds information from the knowledge base to the prompt, regardless of whether it is helpful.
 
-In Autonomous conversations, we let the LLM decide **if** it needs to access the knowledge base and what search parameters it needs to query the knowledge base.
+With Autonomous assistants, we let the assistant decide **if** it needs to access the knowledge base and what search parameters it needs to query the knowledge base.
 
-Make the `Conversation` Autonomous by setting `function_calls=True` - which gives it the ability to call functions to achieve tasks.
+Make the `Assistant` Autonomous by setting `tool_calls=True` - which gives it the ability to search the knowledge base and chat history.
 
 <Steps>
-  <Step title="Create an Autonomous Conversation">
-    Create a file `auto_conversation.py` with the following contents
+  <Step title="Create an Autonomous Assistant">
+    Create a file `auto_assistant.py` with the following contents
 
-    ```python auto_conversation.py
-    from phi.conversation import Conversation
+    ```python auto_assistant.py
+    from phi.assistant import Assistant
     from phi.knowledge.pdf import PDFUrlKnowledgeBase
     from phi.vectordb.pgvector import PgVector
 
@@ -338,32 +332,32 @@ Make the `Conversation` Autonomous by setting `function_calls=True` - which give
             db_url=vector_db.get_db_connection_local(),
         ),
     )
-    # Commented out as the knowledge base is already loaded.
+    # Comment out as the knowledge base is already loaded.
     # knowledge_base.load(recreate=False)
 
-    conversation = Conversation(
+    assistant = Assistant(
         knowledge_base=knowledge_base,
         # add_references_to_prompt=True,
-        function_calls=True,
-        show_function_calls=True,
+        tool_calls=True,
+        show_tool_calls=True,
     )
 
-    conversation.print_response('How do I make chicken tikka salad?')
-    conversation.print_response('What was my last question?')
+    assistant.print_response('How do I make chicken tikka salad?')
+    assistant.print_response('What was my last question?')
     ```
 
   </Step>
-  <Step title="Run the conversation">
-    Run the `auto_conversation.py` file and notice how it searches the knowledge base and chat history when needed.
+  <Step title="Run the assistant">
+    Run the `auto_assistant.py` file and notice how it searches the knowledge base and chat history when needed.
 
     <CodeGroup>
 
     ```bash Mac
-    python auto_conversation.py
+    python auto_assistant.py
     ```
 
     ```bash Windows
-    python auto_conversation.py
+    python auto_assistant.py
     ```
 
     </CodeGroup>
@@ -373,7 +367,7 @@ Make the `Conversation` Autonomous by setting `function_calls=True` - which give
 
 ## Storage & Memory
 
-Every `Conversation` comes with built-in memory but it only lasts while the session is active. To provide long-term memory we use a `Storage` backend like `PostgreSQL`.
+Every `Assistant` comes with built-in memory but it only lasts while the session is active. To provide long-term memory we use a `Storage` backend like `PostgreSQL`.
 
 <Steps>
   <Step title="Create a PDF Assistant with Knowledge and Storage">
@@ -384,9 +378,8 @@ Every `Conversation` comes with built-in memory but it only lasts while the sess
 import typer
 from rich.prompt import Prompt
 from typing import Optional, List
-
-from phi.conversation import Conversation
-from phi.storage.conversation.postgres import PgConversationStorage
+from phi.assistant import Assistant
+from phi.storage.assistant.postgres import PgAssistantStorage
 from phi.knowledge.pdf import PDFUrlKnowledgeBase
 from phi.vectordb.pgvector import PgVector
 
@@ -400,41 +393,44 @@ knowledge_base = PDFUrlKnowledgeBase(
     ),
 )
 
-storage = PgConversationStorage(
-    table_name="recipe_conversations",
+storage = PgAssistantStorage(
+    table_name="pdf_assistant",
     db_url=vector_db.get_db_connection_local(),
 )
 
 
 def pdf_assistant(new: bool = False, user: str = "user"):
-    conversation_id: Optional[str] = None
+    run_id: Optional[str] = None
 
     if not new:
-        existing_conversation_ids: List[str] = storage.get_all_conversation_ids(user)
-        if len(existing_conversation_ids) > 0:
-            conversation_id = existing_conversation_ids[0]
+        existing_run_ids: List[str] = storage.get_all_run_ids(user)
+        if len(existing_run_ids) > 0:
+            run_id = existing_run_ids[0]
 
-    conversation = Conversation(
-        user_name=user,
-        id=conversation_id,
+    assistant = Assistant(
+        run_id=run_id,
+        user_id=user,
         knowledge_base=knowledge_base,
         storage=storage,
+        # tool_calls=True adds functions to
+        # search the knowledge base and chat history
+        tool_calls=True,
+        show_tool_calls=True,
+        # Uncomment the following line to use traditional RAG
         # add_references_to_prompt=True,
-        function_calls=True,
-        show_function_calls=True,
     )
-    if conversation_id is None:
-        conversation_id = conversation.id
-        print(f"Started Conversation: {conversation_id}\n")
+    if run_id is None:
+        run_id = assistant.run_id
+        print(f"Started Run: {run_id}\n")
     else:
-        print(f"Continuing Conversation: {conversation_id}\n")
+        print(f"Continuing Run: {run_id}\n")
 
-    # conversation.knowledge_base.load(recreate=False)
+    assistant.knowledge_base.load(recreate=False)
     while True:
         message = Prompt.ask(f"[bold] :sunglasses: {user} [/bold]")
         if message in ("exit", "bye"):
             break
-        conversation.print_response(message)
+        assistant.print_response(message)
 
 
 if __name__ == "__main__":
@@ -460,7 +456,7 @@ if __name__ == "__main__":
   </Step>
   <Step title="Ask Questions">
 
-    Now the conversation continues across sessions. Ask a question:
+    Now the assistant continues across sessions. Ask a question:
 
     ```
     How do I make chicken tikka salad?
@@ -472,16 +468,16 @@ if __name__ == "__main__":
     What was my last message?
     ```
 
-    Run the `conversation.py` file with the `--new` flag to start a new conversation.
+    Run the `pdf_assistant.py` file with the `--new` flag to start a new run.
 
     <CodeGroup>
 
     ```bash Mac
-    python conversation.py --new
+    python pdf_assistant.py --new
     ```
 
     ```bash Windows
-    python conversation.py --new
+    python pdf_assistant.py --new
     ```
 
     </CodeGroup>
@@ -507,7 +503,7 @@ phi stop resources.py
 
 ## Next
 
-Congratulations on building a mini AI App that can operate in RAG or Autonomous mode, with access to a knowledge base and storage. We can serve this App in production using an Api built with `FastApi`, front-end built with `Streamlit` or a Web App built with `Django`
+Congratulations on building an AI Assistant that can operate in RAG or Autonomous mode, with access to a knowledge base and storage. We can serve this Assistant in production using an Api built with `FastApi`, front-end built with `Streamlit` or a Web App built with `Django`
 
 Instead of wiring tools manually, phidata provides **pre-built templates** that you can run locally or on AWS with just 1 command. These templates are fully customizable and used by many teams in production. Checkout one of the examples below to start building
 
