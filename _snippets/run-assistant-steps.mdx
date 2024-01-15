@@ -37,23 +37,21 @@
     </CodeGroup>
 
   </Step>
-  <Step title="Create a conversation">
-    Create a file `conversation.py` with the following contents
+  <Step title="Create an assistant">
+    Create a file `assistant.py` with the following contents
 
-```python conversation.py
-from phi.conversation import Conversation
+```python assistant.py
+from phi.assistant import Assistant
 
-conversation = Conversation()
-
-# -*- Print a response
-conversation.print_response('Share a quick healthy breakfast recipe.')
+assistant = Assistant(description="You help people with their health and fitness goals.")
+assistant.print_response("Share a quick healthy breakfast recipe.")
 ```
 
   </Step>
-  <Step title="Run the conversation">
-    Run the `conversation.py` file
+  <Step title="Run the assistant">
+    Run the `assistant.py` file
 ```bash
-python conversation.py
+python assistant.py
 ```
   </Step>
 </Steps>

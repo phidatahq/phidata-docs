@@ -2,47 +2,41 @@
 title: Introduction
 ---
 
-Assistants are sandboxed **"workers"** that Conversations can delegate tasks to.
+Assistants are a human-like interface to language models that achieve tasks by intelligently choosing a course of action using [function calling](https://platform.openai.com/docs/guides/function-calling). They come with built-in **Memory**, **Knowledge**, **Storage** and access to **Tools**. A simple assistant looks like:
 
-Unlike Agents, Assistants run in a separate process and are given tasks to complete. Think of the Conversation as a project manager that delegates tasks to an Assistant. The Assistants completes the task and returns the result to the Conversation.
+```python assistant.py
+from phi.assistant import Assistant
 
-## Usage
+assistant = Assistant(description="You help people with their health and fitness goals.")
 
-In this example, we use the `PythonAssistant` with a conversation
+# -*- Print a response
+assistant.print_response('Share a quick healthy breakfast recipe.')
 
-```python python_assistant.py
-from phi.conversation import Conversation
-from phi.llm.openai import OpenAIChat
-from phi.assistant.python import PythonAssistant
-from phi.file.local.csv import CsvFile
+# -*- Get the response as a string
+response = assistant.run('Share a quick healthy breakfast recipe.', stream=False)
 
-from workspace.settings import ws_settings
-
-python_assistant = PythonAssistant(
-    files=[
-        CsvFile(
-            description="Contains information about movies from IMDB.",
-            path=str(ws_settings.ws_root.joinpath("data/csv/IMDB-Movie-Data.csv")),
-        )
-    ],
-    base_dir=ws_settings.ws_root.joinpath("pygpt/op"),
-    show_function_calls=True,
-)
-
-conversation = Conversation(
-    llm=OpenAIChat(model="gpt-4"),
-    assistants=[python_assistant],
-    show_assistant_responses=True,
-)
-
-# -*- Print response
-conversation.print_response("Show me a table of revenue by year")
+# -*- Get the response as a stream
+response = ""
+for delta in assistant.run('Share a quick healthy breakfast recipe.'):
+    response += delta
 ```
 
-<Warning>
+Under the hood, the description and message are converted into system and user prompts that are sent to the LLM. The prompts can be customized to fit any use case.
 
-Assistants are a work in progress and should not be used in production.
+## Example
 
-</Warning>
+<Snippet file="run-assistant-steps.mdx" />
 
-<Snippet file="discord.mdx" />
+## More Information
+
+Read more about:
+
+- [RAG Assistants](/blocks/assistant/rag)
+- [Autonomous Assistants](/blocks/assistant/auto)
+- [Assistant Instructions](/blocks/assistant/instructions)
+- [Assistant Memory](/blocks/assistant/memory)
+- [Assistant Storage](/blocks/assistant/storage)
+- [Assistant Tools](/blocks/assistant/tools)
+- [Generating Pydantic models as output](/blocks/assistant/pydantic-output)
+- [Assistant Tasks](/blocks/assistant/tasks)
+- [OpenAI Assistants](/blocks/assistant/openai)

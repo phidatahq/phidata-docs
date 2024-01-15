@@ -1,30 +1,30 @@
 ## Create your codebase
 
-Create your codebase using the `llm-app` template
+Create your codebase using the `ai-app` template
 
 <CodeGroup>
 
 ```bash Mac
-phi ws create -t llm-app -n llm-app
+phi ws create -t ai-app -n ai-app
 ```
 
 ```bash Windows
-phi ws create -t llm-app -n llm-app
+phi ws create -t ai-app -n ai-app
 ```
 
 </CodeGroup>
 
-This will create a folder `llm-app` with a pre-built LLM App that you can customize and make your own. It has the following structure:
+This will create a folder `ai-app` with the following structure:
 
 ```bash
-llm-app                       # root directory for your llm-app
+ai-app                       # root directory for your ai-app
+├── ai                      # directory for AI components
+    ├── assistants          # AI assistants
+    ├── knowledge_base.py   # assistant knowledge base
+    └── storage.py          # assistant storage
 ├── api                     # directory for FastApi routes
 ├── app                     # directory for Streamlit apps
 ├── db                      # directory for database components
-├── llm                     # directory for LLM components
-    ├── conversations       # LLM conversations
-    ├── knowledge_base.py   # LLM knowledge base
-    └── storage.py          # LLM storage
 ├── notebooks               # directory for Jupyter notebooks
 ├── Dockerfile              # Dockerfile for the application
 ├── pyproject.toml          # python project definition

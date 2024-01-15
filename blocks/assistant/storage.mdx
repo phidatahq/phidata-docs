@@ -1,9 +1,11 @@
 ---
-title: Postgres Assistant Storage
-sidebarTitle: Postgres
+title: Assistant Storage
+sidebarTitle: Storage
 ---
 
-Phidata supports using PostgreSQL as a storage backend for assistant runs using the `PgAssistantStorage` class.
+Assistants come with built-in memory but it only lasts while the session is active. To provide memory across sessions, we can store the Assistant runs in a database table.
+
+We're big fans of using PostgreSQL for storage.
 
 ## Usage
 

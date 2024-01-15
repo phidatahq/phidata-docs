@@ -1,0 +1,122 @@
+---
+title: Pydantic models as output
+---
+
+One of our favorite features is generating structured data (i.e. a pydantic model) from sparse information. Meaning we can use Assistants to return pydantic models and generate content which previously could not be possible.
+
+Use this feature to anomyize datasets, generate movie plots, produce fake data ...
+
+## Usage
+
+In this example, our movie assistant generates an object of the `MovieScript` class.
+
+```python movie_assistant.py
+from typing import List
+from pydantic import BaseModel, Field
+from rich.pretty import pprint
+from phi.assistant import Assistant
+
+class MovieScript(BaseModel):
+    setting: str = Field(..., description="Provide a nice setting for a blockbuster movie.")
+    ending: str = Field(..., description="Ending of the movie. If not available, provide a happy ending.")
+    genre: str = Field(..., description="Genre of the movie. If not available, select action, thriller or romantic comedy.")
+    name: str = Field(..., description="Give a name to this movie")
+    characters: List[str] = Field(..., description="Name of characters for this movie.")
+    storyline: str = Field(..., description="3 sentence storyline for the movie. Make it exciting!")
+
+movie_assistant = Assistant(
+    description="You help write movie scripts.",
+    output_model=MovieScript,
+)
+
+pprint(movie_assistant.run("New York"))
+
+# ======== OUTPUT ========
+# MovieScript(
+# │   setting='A bustling and vibrant New York City',
+# │   ending='The protagonist saves the city and reconciles with their estranged family.',
+# │   genre='action',
+# │   name='City Pulse',
+# │   characters=['Alex Mercer', 'Nina Castillo', 'Detective Mike Johnson'],
+# │   storyline='In the heart of New York City, a former cop turned vigilante, Alex Mercer, teams up with a street-smart activist, Nina Castillo, to take down a corrupt political figure who threatens to destroy the city. As they navigate through the intricate web of power and deception, they uncover shocking truths that push them to the brink of their abilities. With time running out, they must race against the clock to save New York and confront their own demons.'
+# )
+```
+
+## Example
+
+<Steps>
+  <Step title="Create a virtual environment">
+    Open the `Terminal` and create an `ai` directory with a python virtual environment.
+
+    <CodeGroup>
+
+    ```bash Mac
+    mkdir ai && cd ai
+
+    python3 -m venv aienv
+    source aienv/bin/activate
+    ```
+
+    ```bash Windows
+    mkdir ai; cd ai
+
+    python3 -m venv aienv
+    aienv/scripts/activate
+    ```
+
+    </CodeGroup>
+
+  </Step>
+  <Step title="Install libraries">
+    Install libraries using pip
+
+    <CodeGroup>
+
+    ```bash Mac
+    pip install -U phidata openai
+    ```
+
+    ```bash Windows
+    pip install -U phidata openai
+    ```
+
+    </CodeGroup>
+
+  </Step>
+  <Step title="Create an assistant with an output_model">
+    Create a file `movie_assistant.py` with the following contents
+
+```python movie_assistant.py
+from typing import List
+from pydantic import BaseModel, Field
+from rich.pretty import pprint
+from phi.assistant import Assistant
+
+class MovieScript(BaseModel):
+    setting: str = Field(..., description="Provide a nice setting for a blockbuster movie.")
+    ending: str = Field(..., description="Ending of the movie. If not available, provide a happy ending.")
+    genre: str = Field(..., description="Genre of the movie. If not available, select action, thriller or romantic comedy.")
+    name: str = Field(..., description="Give a name to this movie")
+    characters: List[str] = Field(..., description="Name of characters for this movie.")
+    storyline: str = Field(..., description="3 sentence storyline for the movie. Make it exciting!")
+
+movie_assistant = Assistant(
+    description="You help write movie scripts.",
+    output_model=MovieScript,
+)
+
+pprint(movie_assistant.run("New York"))
+```
+
+  </Step>
+  <Step title="Run the assistant">
+    Run the `movie_assistant.py` file
+
+```bash
+python movie_assistant.py
+```
+
+  </Step>
+</Steps>
+
+<Snippet file="discord.mdx" />

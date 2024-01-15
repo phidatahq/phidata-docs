@@ -1,9 +1,9 @@
 ---
-title: "Build a RAG LLM App"
+title: "Build a RAG AI App"
 sidebarTitle: "Run locally"
 ---
 
-Let's build a RAG LLM App powered by GPT-4. We'll use PgVector for knowledge and storage and serve the app using Streamlit and FastApi.
+Let's build a RAG AI App powered by GPT-4. We'll use PgVector for knowledge and storage and serve the app using Streamlit and FastApi.
 
 ## What is RAG?
 
@@ -13,114 +13,37 @@ Retrieval Augmented Generation means providing the LLM with additional informati
 - With RAG, a user asks the LLM a question and we "stuff the prompt" with relevant information from a knowledge base. The LLM then responds in a context-aware manner.
 - Using RAG is like taking an open-book test.
 
-**By the end of this guide have your own RAG LLM App.**
+**By the end of this guide have your own RAG AI App.**
 
 <Snippet file="setup.mdx" />
 
-<Snippet file="create-llm-app-codebase.mdx" />
+<Snippet file="create-ai-app-codebase.mdx" />
 
 <Snippet file="set-openai-key.mdx" />
 
-<Snippet file="serve-llm-app-streamlit.mdx" />
+<Snippet file="serve-ai-app-streamlit.mdx" />
 
-<Snippet file="chat-with-pdfs-rag.mdx" />
+<Snippet file="ai-app-pdf-assistant.mdx" />
 
-<Snippet file="llm-app-add-data.mdx" />
+<Snippet file="ai-app-add-data.mdx" />
 
-## How this App works
+<Snippet file="ai-app-how-this-app-works.mdx" />
 
-The streamlit apps are defined in the `app` folder and the `Conversations` powering these apps are defined in the `llm/conversations` folder.
+<Snippet file="serve-ai-app-fastapi.mdx" />
 
-Checkout the `llm/conversations/pdf_rag.py` file for more information:
+<Snippet file="ai-app-view-api-endpoints.mdx" />
 
-- The `add_references_to_prompt` flag will populate the `references` argument of the `user_prompt_function`
-- The `user_prompt_function` builds the **Prompt** sent to the LLM. The prompt is stuffed with additional information from the knowledge base using the `references` variable.
+<Snippet file="ai-app-build-your-ai-product.mdx" />
 
-```python llm/conversations/pdf_rag.py
-...
-def get_pdf_rag_conversation(
-    user_name: Optional[str] = None,
-    conversation_id: Optional[str] = None,
-    debug_mode: bool = False,
-) -> Conversation:
-    """Get a RAG conversation with the PDF knowledge base"""
+<Snippet file="ai-app-run-jupyter.mdx" />
 
-    return Conversation(
-        ...
-        user_prompt_function=lambda message, references, **kwargs: f"""\
-        Use the following information from the knowledge base if it helps.
-        <knowledge_base>
-        {references}
-        </knowledge_base>
-
-        Respond to the following message:
-        USER: {message}
-        ASSISTANT:
-        """,
-        # This populates the "references" argument to the user prompt function
-        add_references_to_prompt=True,
-        # This adds the last 8 messages to the API call
-        add_chat_history_to_messages=True,
-    )
-```
-
-<Snippet file="serve-llm-app-fastapi.mdx" />
-
-### View API Endpoints
-
-- Open [localhost:8000/docs](http://localhost:8000/docs) to view the API Endpoints.
-- Load the knowledge base using `/v1/pdf/conversation/load-knowledge-base`
-- Test the `v1/pdf/conversation/chat` endpoint with
-
-```json
-{
-  "message": "How do I make chicken curry?"
-}
-```
-
-![rag-llm-app-fastapi-local](/images/rag-llm-app-fastapi-local.png)
-
-## Build your LLM Product
-
-Your LLM Api provides common endpoints you can use to build your LLM product. These routes are developed in collaboration with real AI Apps and are a great starting point to build on.
-
-For example:
-
-- Call the `/conversation/create` endpoint to create a new conversation for a user.
-
-```json
-{
-  "user_name": "my-app-user-1",
-  "conversation_type": "RAG"
-}
-```
-
-- The response contains a `conversation_id` that can be used to build a chat interface by calling the `/conversation/chat` endpoint.
-
-```json
-{
-  "message": "how do I make pasta",
-  "stream": true,
-  "conversation_id": "fc67f202-c2cb-4c3d-a640-704ab83d9460",
-  "conversation_type": "RAG"
-}
-```
-
-These routes are defined the `api/routes` folder and can be customized to your use case.
-
-<Tip>
-  Message us on [discord](https://discord.gg/4MtYHHrgA8) if you need help.
-</Tip>
-
-<Snippet file="llm-app-run-jupyter.mdx" />
-
-<Snippet file="llm-app-delete-local-resources.mdx" />
+<Snippet file="ai-app-delete-local-resources.mdx" />
 
 ## Next
 
-Congratulations on running your LLM App locally. Next Steps:
+Congratulations on running your AI App locally. Next Steps:
 
-- [Run your LLM App on AWS](/examples/ai/rag/run-aws)
+- [Run your AI App on AWS](/examples/ai/rag/run-aws)
 - Create a [git repository for your workspace](/how-to/git-repo)
 - Read how to [manage the development application](/how-to/development-app)
 - Read how to [format and validate your code](/how-to/format-and-validate)

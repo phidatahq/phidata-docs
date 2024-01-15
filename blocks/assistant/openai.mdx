@@ -1,8 +1,17 @@
 ---
-title: OpenAI
+title: OpenAI Assistants
 ---
 
-OpenAI provides a powerful [Assistants API](https://platform.openai.com/docs/assistants/overview) and phidata provides an easy to use interface for building applications with them. Assistants can leverage models, run code in a sandboxed environment and retrieve information from a knowledge base.
+OpenAI provides a powerful [Assistants API](https://platform.openai.com/docs/assistants/overview) and phidata provides an easy to use interface for building applications with them.
+
+OpenAI Assistants can leverage models, run code in a sandboxed environment and retrieve information from a knowledge base.
+
+They key difference between Phidata Assistants and OpenAIAssistants is that:
+
+- Phidata Assistants run in your local environment and execute local functions.
+- OpenAIAssistants run in a sandboxed environment and cannot execute local functions.
+
+For example, if you have a function that requires using credentials stored locally (like sending an email, creating cloud resources or running a database query), it would be difficult to get the OpenAIAssistant to run that -- but a phidata Assistant can easily run that function.
 
 ## Usage
 
@@ -33,7 +42,7 @@ Lets explore more by building a couple of AI Apps using OpenAI Assistants.
 
 <Snippet file="assistant-openai-key.mdx" />
 
-## Create an Assistant
+## Create a CSV Assistant
 
 Copy this code to a file `csv_assistant.py`
 

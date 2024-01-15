@@ -2,20 +2,20 @@
 title: Memory
 ---
 
-Every `Conversation` comes with built-in memory that can be used to access the **Chat History**, **LLM Messages** or **References**. Access the conversation memory using `conversation.memory`
+Every `Assistant` comes with built-in memory that can be used to access the **Chat History**, **LLM Messages** or **References**. Access the assistant memory using `assistant.memory`
 
 ## Usage
 
-```python conversation.py
-from phi.conversation import Conversation, ConversationMemory
+```python assistant_memory.py
+from phi.assistant import Assistant, AssistantMemory
 
-conversation = Conversation()
+assistant = Assistant()
 
 # -*- Print a response
-conversation.print_response('Share a 5 word horror story.')
+assistant.print_response('Share a 5 word horror story.')
 
 # -*- Get the memory
-memory: ConversationMemory = conversation.memory
+memory: AssistantMemory = assistant.memory
 
 # -*- Print Chat History
 print(f"Chat History: {memory.chat_history}")
@@ -26,7 +26,7 @@ print(f"LLM Messages: {memory.llm_messages}")
 
 <Note>
 
-ConversationMemory only lasts while the session is active. To provide memory across sessions, remember to add `Storage` to the `Conversation`.
+AssistantMemory only lasts while the session is active. To provide memory across sessions, remember to add `Storage` to the `Assistant`.
 
 </Note>
 
@@ -34,7 +34,7 @@ ConversationMemory only lasts while the session is active. To provide memory acr
 
 <ResponseField name="chat_history" type="List[Message]">
   Messages between the user and the LLM. The actual prompts are stored in the
-  `llm_messages`. Note: the actual prompts are stored in the `llm_messages`
+  `llm_messages`.
 </ResponseField>
 <ResponseField name="llm_messages" type="List[Message]">
   Prompts sent to the LLM and the LLM responses.
@@ -84,19 +84,19 @@ ConversationMemory only lasts while the session is active. To provide memory acr
     </CodeGroup>
 
   </Step>
-  <Step title="Create a conversation">
-    Create a file `conversation.py` with the following contents
+  <Step title="Create an assistant">
+    Create a file `assistant_memory.py` with the following contents
 
-```python conversation.py
-from phi.conversation import Conversation, ConversationMemory
+```python assistant_memory.py
+from phi.assistant import Assistant, AssistantMemory
 
-conversation = Conversation()
+assistant = Assistant()
 
 # -*- Print a response
-conversation.print_response('Share a 5 word horror story.')
+assistant.print_response('Share a 5 word horror story.')
 
 # -*- Get the memory
-memory: ConversationMemory = conversation.memory
+memory: AssistantMemory = assistant.memory
 
 # -*- Print Chat History
 print(f"Chat History: {memory.chat_history}")
@@ -106,10 +106,12 @@ print(f"LLM Messages: {memory.llm_messages}")
 ```
 
   </Step>
-  <Step title="Run the conversation">
-    Run the `conversation.py` file
+  <Step title="Run the assistant">
+    Run the `assistant_memory.py` file
+
 ```bash
-python conversation.py
+python assistant_memory.py
 ```
+
   </Step>
 </Steps>

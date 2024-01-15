@@ -148,6 +148,7 @@ The `DuckDbAssistant` can perform data analysis using SQL queries.
                 }
             ]
         }),
+        show_tool_calls=True,
     )
 
     duckdb_assistant.print_response("What is the average rating of movies? Show me the SQL.")
@@ -166,7 +167,7 @@ The `DuckDbAssistant` can perform data analysis using SQL queries.
 
 ## Knowledge Base
 
-Knowledge Base is a database of information that the Assistant can search to improve its responses. This information provide extra context to language models so they respond in a context-aware manner.
+Knowledge Base is a database of information that the Assistant can search to improve its responses. This information provides extra context to language models so they respond in a context-aware manner.
 
 While any type of storage can act as a knowledge base, vector databases offer the best solution for retrieving relevant results from dense information quickly. Let's use `PgVector` as our vector store as it can also provide long-term storage for our Assistants.
 
@@ -310,7 +311,7 @@ knowledge_base = PDFKnowledgeBase(
 
 With the RAG assistant above, the `add_references_to_prompt=True` always adds information from the knowledge base to the prompt, regardless of whether it is helpful.
 
-With Autonomous assistants, we let the assistant decide **if** it needs to access the knowledge base and what search parameters it needs to query the knowledge base.
+With Autonomous assistants, we let the LLM decide **if** it needs to access the knowledge base and what search parameters it needs to query the knowledge base.
 
 Make the `Assistant` Autonomous by setting `tool_calls=True` - which gives it the ability to search the knowledge base and chat history.
 

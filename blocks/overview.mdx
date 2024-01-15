@@ -4,13 +4,12 @@ title: Overview
 
 **Phidata provides a powerful set of building blocks for your AI product:**
 
-- [Conversations](/blocks/conversation/introduction) are a human-like interface to LLMs and the core building block for AI Apps.
-- [Agents](/blocks/agent/introduction) are `Autonomous Conversations` designed for specific workflows.
-- [Assistants](/blocks/assistant/introduction) are **"workers"** that Conversations can delegate tasks to. (<Tooltip tip="Unlike Agents, Assistants run in a separate process and are given tasks to complete. Think of the Conversation as a project manager that delegates tasks to an Assistant. The Assistants completes the task and returns the result to the Conversation.">More Info</Tooltip>)
-- [Storage](/blocks/storage/introduction) enables us to store conversations in a database and provide long-term memory.
-- [Knowledge Bases](/blocks/kb/introduction) are information stores used by LLMs to improve their responses.
-- [Vector Databases](/blocks/vectordb/introduction) provide storage for our knowledge bases.
-- [LLMs](/blocks/llm/introduction) are machine-learning models that have been trained to understand natural language and code. They are quickly emerging as the building block of a new computing paradigm.
-- [Apps](/blocks/app/introduction) are applications like FastApi, PgVector, Streamlit, Django used to run software. They **serve** our AI App.
-- [Resources](/blocks/resource/introduction) are infrastructure components that help us run the applications. They provide the infrastructure for our AI App. Eg: docker container, ECS task, RDS database.
-- [Workspace](/blocks/workspace/introduction) is the codebase for our application and helps manage our resources and infrastructure in one place.
+- [Assistants](/blocks/assistant/introduction) enable LLMs to achieve tasks using [function calling](https://platform.openai.com/docs/guides/function-calling).
+- [Custom Assistants](/blocks/assistant/custom/introduction) are pre-built assistants designed for specific tasks.
+- [Storage](/blocks/storage/introduction) provides long-term memory for assistants.
+- [Knowledge Bases](/blocks/kb/introduction) provide assistants with information to improve their responses.
+- [Vector Databases](/blocks/vectordb/introduction) provide storage for knowledge bases.
+- [LLMs](/blocks/llm/introduction) are machine-learning models that have been trained to understand natural language and code. They power the assistants' decision making using [function calling](https://platform.openai.com/docs/guides/function-calling).
+- [Apps](/blocks/app/introduction) are tools like FastApi, Streamlit, Django that serve Assistants as AI Apps.
+- [Resources](/blocks/resource/introduction) are infrastructure resources that run AI Apps. Eg: Docker containers, ECS services
+- [Workspace](/blocks/workspace/introduction) is the codebase for our application and helps manage our Apps and Resources in one place.

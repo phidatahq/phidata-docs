@@ -65,33 +65,26 @@
             "pages": [
               "blocks/overview",
               {
-                "group": "Conversations",
-                "pages": [
-                  "blocks/conversation/introduction",
-                  "blocks/conversation/rag",
-                  "blocks/conversation/auto",
-                  "blocks/conversation/prompts",
-                  "blocks/conversation/memory",
-                  "blocks/conversation/storage",
-                  "blocks/conversation/tools",
-                  "blocks/conversation/pydantic-output",
-                  "blocks/conversation/tasks",
-                  "blocks/conversation/assistant"
-                ]
-              },
-              {
-                "group": "Agents",
-                "pages": [
-                  "blocks/agent/introduction",
-                  "blocks/agent/duckdb",
-                  "blocks/agent/python"
-                ]
-              },
-              {
                 "group": "Assistants",
                 "pages": [
                   "blocks/assistant/introduction",
+                  "blocks/assistant/rag",
+                  "blocks/assistant/auto",
+                  "blocks/assistant/instructions",
+                  "blocks/assistant/memory",
+                  "blocks/assistant/storage",
+                  "blocks/assistant/tools",
+                  "blocks/assistant/pydantic-output",
+                  "blocks/assistant/tasks",
                   "blocks/assistant/openai"
+                ]
+              },
+              {
+                "group": "Custom Assistants",
+                "pages": [
+                  "blocks/assistant/custom/introduction",
+                  "blocks/assistant/custom/duckdb",
+                  "blocks/assistant/custom/python"
                 ]
               },
               {
@@ -191,21 +184,21 @@
           "group": "AI Apps",
           "pages": [
             {
-              "group": "RAG LLM App",
+              "group": "RAG AI App",
               "pages": [
                 "examples/ai/rag/run-local",
                 "examples/ai/rag/run-aws"
               ]
             },
             {
-              "group": "Autonomous LLM App",
+              "group": "Autonomous AI App",
               "pages": [
                 "examples/ai/auto/run-local",
                 "examples/ai/auto/run-aws"
               ]
             },
             {
-              "group": "Multimodal LLM App",
+              "group": "Multimodal AI App",
               "pages": [
                 "examples/ai/multimodal/run-local",
                 "examples/ai/multimodal/run-aws"
@@ -217,9 +210,7 @@
                 "examples/ai/junior-de/run-local",
                 "examples/ai/junior-de/run-aws"
               ]
-            },
-            "examples/ai/snowflake-de",
-            "examples/ai/ai-api"
+            }
           ]
         },
         {
@@ -257,7 +248,15 @@
                   "templates/ai-app/run-local",
                   "templates/ai-app/run-aws"
                 ]
-              }
+              },
+              {
+                "group": "Django App",
+                "pages": [
+                  "templates/django-app/run-local",
+                  "templates/django-app/run-aws"
+                ]
+              },
+              "templates/data-platform"
           ]
         },
         {

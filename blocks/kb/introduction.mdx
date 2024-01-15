@@ -2,22 +2,21 @@
 title: Introduction
 ---
 
-A Knowledge Base is a database of information that the LLM can search to improve its responses. They are used to provide additional context to LLMs and make them respond in a context-aware manner.
+Knowledge Base is a database of information that the Assistant can search to improve its responses. This information provides extra context to language models so they respond in a context-aware manner.
 
-Knowledge Bases can be used with RAG or Autonomous Conversations.
+Knowledge Bases can be used with RAG or Autonomous Assistants.
 
-## Example: RAG Conversation
+## Example: RAG Assistant
 
-In this example, we add a Knowledge Base to the `Conversation` and set `add_references_to_prompt=True`. This will search the **Knowledge Base** for information about the `message` and add it to the **User Prompt** before sending it to the LLM.
+To enable RAG, we add a Knowledge Base to the Assistant and set `add_references_to_prompt=True`. This will search the **Knowledge Base** for information about the `message` and add it to the **User Prompt** before sending it to the LLM.
 
-```python rag_conversation.py
-from phi.llm.openai import OpenAIChat
-from phi.conversation import Conversation
+```python rag_assistant.py
+from phi.assistant import Assistant
 from phi.knowledge.pdf import PDFKnowledgeBase
 from phi.vectordb.pgvector import PgVector
 
-rag_conversation = Conversation(
-    # -*- Provide the conversation with a knowledge base
+rag_assistant = Assistant(
+    # -*- Provide the assistant with a knowledge base
     knowledge_base=PDFKnowledgeBase(
         path="data/pdfs",
         vector_db=PgVector(
@@ -30,18 +29,17 @@ rag_conversation = Conversation(
 )
 ```
 
-## Example: Autonomous Conversation
+## Example: Autonomous Assistant
 
-In this example, we add a Knowledge Base to the `Conversation` and set `function_calls=True`. This adds a function for searching the **Knowledge Base** and lets the LLM decide when its needs to access the knowledge base and what search parameters to use.
+To enable Autonomous mode, we add a Knowledge Base to the Assistant and set `tool_calls=True`. This adds a function for searching the **Knowledge Base** and lets the LLM decide when its needs to access the knowledge base and what search parameters to use.
 
-```python auto_conversation.py
-from phi.llm.openai import OpenAIChat
-from phi.conversation import Conversation
+```python auto_assistant.py
+from phi.assistant import Assistant
 from phi.knowledge.pdf import PDFUrlKnowledgeBase
 from phi.vectordb.pgvector import PgVector
 
-auto_conversation = Conversation(
-    # -*- Provide the conversation with a knowledge base
+auto_assistant = Assistant(
+    # -*- Provide the assistant with a knowledge base
     knowledge_base=PDFKnowledgeBase(
         path="data/pdfs",
         vector_db=PgVector(
@@ -49,10 +47,10 @@ auto_conversation = Conversation(
             db_url=db_url,
         ),
     ),
-    # -*- Let the LLM call functions to achieve tasks
-    function_calls=True,
-    # -*- Print the signature of called functions
-    show_function_calls=True,
+    # -*- Let the assistant call tools to achieve tasks
+    tool_calls=True,
+    # -*- Print the signature of tools called
+    show_tools_calls=True,
 )
 ```
 
