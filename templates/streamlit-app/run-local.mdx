@@ -37,7 +37,7 @@ Follow these steps to only run Streamlit without Postgres.
 
 <Accordion title="Run Streamlit without Postgres">
 
-A common use case is to just use Streamlit without the database. In that case, update the `workspace/settings.py` file and set `dev_db_enabled=False`.
+A common use case is to just use Streamlit without the database. In that case, deactivate the database from the `workspace/settings.py` file and update the assistants to not use storage or knowledge base.
 
 <Steps>
   <Step title="Disable database">
@@ -73,6 +73,8 @@ A common use case is to just use Streamlit without the database. In that case, u
         ...
         # storage=pdf_assistant_storage,
         # knowledge_base=pdf_knowledge_base,
+        # This setting adds references from the knowledge_base to the user prompt
+        # add_references_to_prompt=True,
         ...
     )
     ```
@@ -99,6 +101,8 @@ A common use case is to just use Streamlit without the database. In that case, u
         ...
         # storage=website_assistant_storage,
         # knowledge_base=website_knowledge_base,
+        # This setting adds references from the knowledge_base to the user prompt
+        # add_references_to_prompt=True,
         ...
     )
     ```
