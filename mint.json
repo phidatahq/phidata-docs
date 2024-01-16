@@ -228,6 +228,13 @@
           ]
         },
         {
+          "group": "AI API",
+          "pages": [
+            "examples/ai-api/run-local",
+            "examples/ai-api/run-aws"
+          ]
+        },
+        {
           "group": "Django Web App",
           "pages": [
             "examples/web-app/run-local",
@@ -250,10 +257,24 @@
                 ]
               },
               {
+                "group": "AI API",
+                "pages": [
+                  "templates/ai-api/run-local",
+                  "templates/ai-api/run-aws"
+                ]
+              },
+              {
                 "group": "Django App",
                 "pages": [
                   "templates/django-app/run-local",
                   "templates/django-app/run-aws"
+                ]
+              },
+              {
+                "group": "Streamlit App",
+                "pages": [
+                  "templates/streamlit-app/run-local",
+                  "templates/streamlit-app/run-aws"
                 ]
               },
               "templates/data-platform"
