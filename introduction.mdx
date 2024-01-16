@@ -4,19 +4,21 @@ title: Introduction
 
 ## What is phidata?
 
-**Phidata is a toolkit for quickly building AI applications using language models.** It gives you pre-built AI Apps that you can integrate with your product in minutes. Here's how it works:
+**Phidata is a toolkit for building AI applications using Autonomous Assistants.** It provides pre-built templates for AI Apps that you can run in minutes. Here's how it works:
 
 - Create your codebase using a template: `phi ws create`
 - Run your AI App locally: `phi ws up dev:docker`
-- Integrate with your product
+- Integrate with your product/front-end
 - Deploy your AI App to AWS: `phi ws up prd:aws`
 - Customize, monitor and improve
 
 ## Under the hood
 
-Phidata provides a user-friendly **Assistant** interface that enables LLMs to solve tasks by intelligently choosing a course of action using [function calling](https://platform.openai.com/docs/guides/function-calling).
+Phidata provides user-friendly **Assistants** that can achieve any task by intelligently choosing a course of action by calling functions. For example, to answer questions from a document, the assistant calls a function to search the document, synthesize the results and return the answer.
 
-Assistants come with **memory**, **knowledge**, **storage** and **tools** built-in, making it easy to build RAG, Autonomous or Multimodal applications like:
+<img src="/images/assistants-explanation.png" alt="How assistants work" />
+
+Assistants come with built-in **memory**, **knowledge**, **storage** and **tools**, making it easy to build RAG, Autonomous or Multimodal applications like:
 
 - **Knowledge Assistants:** Answer questions from documents (PDFs, text)
 - **Customer Assistants:** Answer customer queries using product descriptions and purchase history.
@@ -47,12 +49,12 @@ You can also build your application using one of the following examples
 
 <Snippet file="examples.mdx" />
 
-## Building AI for your product
+## Building AI for your product?
 
 We've helped many companies build AI for their products, the general workflow is:
 
 1. Train an assistant with proprietary data to perform tasks specific to your product.
-2. Connect to your product to the assistant via an API.
+2. Connect to your product to the assistant via a RestAPI.
 3. Customize, Monitor and Improve the AI.
 
 We also provide dedicated support and development for AI products. [Book a call](https://cal.com/phidata/intro) to get started.

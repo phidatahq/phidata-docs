@@ -8,7 +8,7 @@ Let's learn the basics by building an AI Assistant with a knowledge base, storag
 
 With phidata, we build AI products using **Assistants**.
 
-**Assistants** enable LLMs to solve tasks by intelligently choosing a course of action. They come with built-in **Memory**, **Knowledge**, **Storage** and **Tools**, making it easy to build AI products.
+**Assistants** enable LLMs to solve tasks by intelligently choosing a course of action. They come with built-in **memory**, **knowledge**, **storage** and **tools**, making it easy to build AI products.
 
 ### Simple Assistant
 
@@ -205,19 +205,25 @@ Run `PgVector` on `Docker` using the following steps:
     phi start resources.py
     ```
 
-    **Press Enter** to confirm. Verify container status and view logs on the docker dashboard.
+    **Press Enter** to confirm. You can verify container status on the docker dashboard.
 
   </Step>
 </Steps>
 
 ## RAG Assistant
 
-Retrieval Augmented Generation means providing the LLM with additional information so it responds in a context-aware manner. When a user sends a message, we **"stuff the prompt"** with relevant information to improve response quality.
+Retrieval Augmented Generation means providing the LLM with additional information so it responds in a context-aware manner. When a user sends a message, we **"stuff the prompt with relevant information"** to improve response quality.
 
 Let's test out RAG by building a **PDF Assistant** that helps us read a recipe book.
 
 1. We'll load the knowledge base with the PDF of a recipe book.
 2. Our **PDF Assistant** will respond with the recipes from the knowledge base.
+
+<Tip>
+  A recipe book is a great way to test RAG because it contains images, random
+  fonts and requires the assistant to synthesize the data from the knowledge
+  base.
+</Tip>
 
 <Steps>
   <Step title="Install libraries">
