@@ -25,21 +25,17 @@ If you already have an `ai-app` created, skip the next step.
 
 <Snippet file="serve-ai-app-streamlit.mdx" />
 
-### Vision Assistant
+### Image Assistant
 
 - Open [localhost:8501](http://localhost:8501) to view streamlit apps that you can customize and make your own.
-- Click on **Vision Assistant** in the sidebar
+- Click on **Image Assistant** in the sidebar.
 - Enter a username.
-- Upload an image and ask questions
+- Upload an image of your choice.
 - Click on `Generate Caption`, `Describe Image`, `Identify Brands`, `Identify Items` for examples.
 
-![chat-with-images-local](/images/chat-with-images-local.png)
+![Image assistant](/images/ai-app-image-assistant-local.png)
 
-## How this App works
-
-This streamlit app is defined in the `app/pages/2_Chat_with_Images.py` file and the `Assistants` powering these apps are defined in the `ai/assistants` folder.
-
-Checkout the `ai/assistants/vision.py` file for more information.
+<Snippet file="ai-app-how-this-app-works.mdx" />
 
 ## Serve your App using FastApi
 

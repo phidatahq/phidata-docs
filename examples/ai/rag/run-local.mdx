@@ -10,7 +10,7 @@ Let's build a RAG AI App powered by GPT-4. We'll use PgVector for knowledge and 
 Retrieval Augmented Generation means providing the LLM with additional information along with the question to improve its responses. Here's how it works:
 
 - Without RAG, a user asks the LLM a question and the LLM responds with information from its training data.
-- With RAG, a user asks the LLM a question and we "stuff the prompt" with relevant information from a knowledge base. The LLM then responds in a context-aware manner.
+- With RAG, a user asks the LLM a question and we **"stuff the prompt with relevant information"** from a knowledge base. The LLM then responds in a context-aware manner.
 - Using RAG is like taking an open-book test.
 
 **By the end of this guide have your own RAG AI App.**
@@ -23,17 +23,77 @@ Retrieval Augmented Generation means providing the LLM with additional informati
 
 <Snippet file="serve-ai-app-streamlit.mdx" />
 
-<Snippet file="ai-app-pdf-assistant.mdx" />
+### PDF Assistant
+
+- Open [localhost:8501](http://localhost:8501) to view streamlit apps that you can customize and make your own.
+- Click on **PDF Assistant** in the sidebar
+- Enter a username and wait for the knowledge base to load.
+- Choose the `RAG` Assistant type.
+- Ask "How do I make chicken curry?"
+- Upload PDFs and ask questions
+
+![Chat with pdf](/images/ai-app-pdf-assistant-local.png)
 
 <Snippet file="ai-app-add-data.mdx" />
 
-<Snippet file="ai-app-how-this-app-works.mdx" />
+## How this App works
+
+The streamlit apps are defined in the `app` folder and the `Assistants` powering these apps are defined in the `ai/assistants` folder.
+
+Checkout the `ai/assistants/pdf_rag` file for the RAG PDF Assistant.
 
 <Snippet file="serve-ai-app-fastapi.mdx" />
 
-<Snippet file="ai-app-view-api-endpoints.mdx" />
+### View API Endpoints
 
-<Snippet file="ai-app-build-your-ai-product.mdx" />
+- Open [localhost:8000/docs](http://localhost:8000/docs) to view the API Endpoints.
+- Load the knowledge base using `/v1/assitants/load-knowledge-base`
+- Test the `v1/assitants/chat` endpoint with
+
+```json
+{
+  "message": "How do I make chicken curry?",
+  "assistant": "RAG_PDF"
+}
+```
+
+![Local API Endpoints](/images/ai-app-api-endpoints-local.png)
+
+## Build your AI Product
+
+The `ai-api` comes pre-configured with common endpoints that can be used to build your AI product. The general workflow is:
+
+- Your front-end/product will call the `ai-api` to create Assistant runs.
+- Using the `run_id`, your product with serve chats to its users.
+
+The `ai-api` endpoints are developed in close collaboration with real AI Apps and are a great starting point to build on. For example:
+
+- Call the `/assitants/create` endpoint to create a new run for a user.
+
+```json
+{
+  "user_id": "my-app-user-1",
+  "assistant": "RAG_PDF"
+}
+```
+
+- The response contains a `run_id` that can be used to build a chat interface by calling the `/assitants/chat` endpoint.
+
+```json
+{
+  "message": "how do I make pasta",
+  "stream": true,
+  "run_id": "bef092a7-707c-43a4-902c-9fa7fdfa5ff2",
+  "user_id": "my-app-user-1",
+  "assistant": "RAG_PDF"
+}
+```
+
+These routes are defined the `api/routes` folder and can be customized to your use case.
+
+<Tip>
+  Message us on [discord](https://discord.gg/4MtYHHrgA8) if you need help.
+</Tip>
 
 <Snippet file="ai-app-run-jupyter.mdx" />
 

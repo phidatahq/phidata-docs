@@ -10,37 +10,9 @@ Let's run the **Autonomous AI App** in production on AWS.
 
 <Snippet file="create-aws-resources.mdx" />
 
-## Production Streamlit App
+<Snippet file="ai-app-production-streamlit.mdx" />
 
-**Open the LoadBalancer DNS** provided when creating the Streamlit App
-
-### PDF Assistant
-
-- Enter the `APP_PASSWORD` from the `prd_app_secrets.yml` file (default: `admin`)
-- Click on **PDF Assistant** in the sidebar
-- Enter a username and wait for the knowledge base to load.
-- Choose the `Autonomous` Conversation type.
-- Ask "How do I make chicken curry?"
-- Notice how the LLM first searches the knowledge base and also uses the appropriate search query.
-
-![auto-llm-app-chat-with-pdf-prd](/images/auto-llm-app-chat-with-pdf-prd.png)
-
-## Production FastApi
-
-- **Open the LoadBalancer DNS** + the `/docs` endpoint to view the API Endpoints.
-- Load the knowledge base using `/v1/assitants/load-knowledge-base`
-- Test the `v1/assitants/chat` endpoint with
-
-```json
-{
-  "message": "How do I make chicken curry?",
-  "assistant": "AUTO_PDF"
-}
-```
-
-- Update and integrate with your front-end or product.
-
-![auto-llm-app-fastapi-prd](/images/auto-llm-app-fastapi-prd.png)
+<Snippet file="ai-app-production-fastapi.mdx" />
 
 <Snippet file="ai-app-update-production.mdx" />
 

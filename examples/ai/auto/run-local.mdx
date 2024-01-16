@@ -42,15 +42,15 @@ If you already have an `ai-app` created, skip the next step.
 - Notice how the LLM first searches the knowledge base. It also uses the appropriate search query, which is very useful when the user sends a long 3-4 sentence message and the usual RAG approach fails to retrieve the correct information.
 - Upload PDFs and ask questions
 
-![Chat with pdf](/images/auto-llm-app-chat-with-pdf-local.png)
+![Chat with pdf](/images/ai-app-pdf-assistant-local.png)
 
 <Snippet file="ai-app-add-data.mdx" />
 
 ## How this App works
 
-The streamlit apps are defined in the `app` folder and the `Assistants` powering these apps are defined in the `llm/assistants` folder.
+The streamlit apps are defined in the `app` folder and the `Assistants` powering these apps are defined in the `ai/assistants` folder.
 
-Checkout the `llm/assistants/pdf_auto.py` file for more information.
+Checkout the `ai/assistants/pdf_auto.py` file for the Autonomous PDF Assistant.
 
 ## Add your own tools
 
@@ -73,40 +73,9 @@ Read how to add [tools](/blocks/assistant/tools) to Assistants.
 }
 ```
 
-![auto-llm-app-fastapi-local](/images/auto-llm-app-fastapi-local.png)
+![Local API Endpoints](/images/ai-app-api-endpoints-local.png)
 
-## Build your AI Product
-
-Your AI Api provides common endpoints you can use to build your AI product. These routes are developed in collaboration with real AI Apps and are a great starting point to build on.
-
-For example:
-
-- Call the `/assitants/create` endpoint to create a new run for a user.
-
-```json
-{
-  "user_id": "my-app-user-1",
-  "assistant": "AUTO_PDF"
-}
-```
-
-- The response contains a `run_id` that can be used to build a chat interface by calling the `/assitants/chat` endpoint.
-
-```json
-{
-  "message": "how do I make pasta",
-  "stream": true,
-  "run_id": "bef092a7-707c-43a4-902c-9fa7fdfa5ff2",
-  "user_id": "my-app-user-1",
-  "assistant": "AUTO_PDF"
-}
-```
-
-These routes are defined the `api/routes` folder and can be customized to your use case.
-
-<Tip>
-  Message us on [discord](https://discord.gg/4MtYHHrgA8) if you need help.
-</Tip>
+<Snippet file="ai-app-build-your-ai-product.mdx" />
 
 <Snippet file="ai-app-run-jupyter.mdx" />
 
