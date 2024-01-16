@@ -8,9 +8,9 @@ Let's learn the basics by building an AI Assistant with a knowledge base, storag
 
 With phidata, we build AI products using **Assistants**.
 
-**Assistants** provide a human-like interface to language models. They come with built-in **Memory**, **Knowledge**, **Storage** and **Tools**, making it easy to build any kind of AI product.
+**Assistants** enable LLMs to solve tasks by intelligently choosing a course of action. They come with built-in **Memory**, **Knowledge**, **Storage** and **Tools**, making it easy to build AI products.
 
-### Try it out
+### Simple Assistant
 
 <Steps>
   <Step title="Create a virtual environment">
@@ -89,6 +89,44 @@ With phidata, we build AI products using **Assistants**.
   </Step>
 </Steps>
 
+### Data Assistant
+
+Lets create a Data Assistant that uses DuckDb to analyze data using SQL.
+
+<Steps>
+  <Step title="Create a DuckDbAssistant">
+    Create a file `data_assistant.py` and install duckdb using `pip install duckdb`
+
+    ```python data_assistant.py
+    import json
+    from phi.assistant.duckdb import DuckDbAssistant
+
+    duckdb_assistant = DuckDbAssistant(
+        semantic_model=json.dumps({
+            "tables": [
+                {
+                    "name": "movies",
+                    "description": "Contains information about movies from IMDB.",
+                    "path": "https://phidata-public.s3.amazonaws.com/demo_data/IMDB-Movie-Data.csv",
+                }
+            ]
+        }),
+    )
+
+    duckdb_assistant.print_response("What is the average rating of movies? Show me the SQL.")
+    ```
+
+  </Step>
+  <Step title="Run the assistant">
+    Run the `data_assistant.py` file
+
+    ```bash
+    python data_assistant.py
+    ```
+
+  </Step>
+</Steps>
+
 ### Python Assistant
 
 The `PythonAssistant` can perform virtually any task using python code.
@@ -121,45 +159,6 @@ The `PythonAssistant` can perform virtually any task using python code.
 
     ```bash
     python python_assistant.py
-    ```
-
-  </Step>
-</Steps>
-
-### Data Assistant
-
-The `DuckDbAssistant` can perform data analysis using SQL queries.
-
-<Steps>
-  <Step title="Create a DuckDbAssistant">
-    Create a file `data_assistant.py` and install duckdb using `pip install duckdb`
-
-    ```python data_assistant.py
-    import json
-    from phi.assistant.duckdb import DuckDbAssistant
-
-    duckdb_assistant = DuckDbAssistant(
-        semantic_model=json.dumps({
-            "tables": [
-                {
-                    "name": "movies",
-                    "description": "Contains information about movies from IMDB.",
-                    "path": "https://phidata-public.s3.amazonaws.com/demo_data/IMDB-Movie-Data.csv",
-                }
-            ]
-        }),
-        show_tool_calls=True,
-    )
-
-    duckdb_assistant.print_response("What is the average rating of movies? Show me the SQL.")
-    ```
-
-  </Step>
-  <Step title="Run the assistant">
-    Run the `data_assistant.py` file
-
-    ```bash
-    python data_assistant.py
     ```
 
   </Step>
