@@ -1,15 +1,18 @@
 ## Build your AI Product
 
-Your AI Api provides common endpoints you can use to build your AI product. These routes are developed in collaboration with real AI Apps and are a great starting point to build on.
+The `ai-api` comes pre-configured with common endpoints that can be used to build your AI product. The general workflow is:
 
-For example:
+- Your front-end/product will call the `ai-api` to create Assistant runs.
+- Using the `run_id`, your product with serve chats to its users.
+
+The `ai-api` endpoints are developed in close collaboration with real AI Apps and are a great starting point to build on. For example:
 
 - Call the `/assitants/create` endpoint to create a new run for a user.
 
 ```json
 {
   "user_id": "my-app-user-1",
-  "assistant": "RAG_PDF"
+  "assistant": "AUTO_PDF"
 }
 ```
 
