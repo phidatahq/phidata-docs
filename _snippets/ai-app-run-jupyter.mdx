@@ -1,0 +1,43 @@
+## Optional: Run Jupyterlab
+
+A jupyter notebook is a must have for AI development and your `ai-app` comes with a notebook pre-installed with the required dependencies. To start your notebook:
+
+<Steps>
+  <Step title="Enable Jupyter">
+    Update the `workspace/settings.py` file and set `dev_jupyter_enabled=True`
+
+    ```python workspace/settings.py
+    ...
+    ws_settings = WorkspaceSettings(
+        ...
+        # Uncomment the following line
+        dev_jupyter_enabled=True,
+    ...
+    ```
+
+  </Step>
+  <Step title="Start Jupyter">
+
+    <CodeGroup>
+
+    ```bash terminal
+    phi ws up --group jupyter
+    ```
+
+    ```bash shorthand
+    phi ws up dev:docker:jupyter
+    ```
+
+    </CodeGroup>
+
+    **Press Enter** to confirm and give a few minutes for the image to download (only the first time). Verify container status and view logs on the docker dashboard.
+
+  </Step>
+  <Step title="View JupyterLab UI">
+    - Open [localhost:8888](http://localhost:8888) to view the Jupyterlab UI. Password: **admin**
+    - Play around with cookbooks in the `notebooks` folder.
+
+    ![Jupyter Notebook](/images/ai-app-jupyter-local.png)
+
+  </Step>
+</Steps>

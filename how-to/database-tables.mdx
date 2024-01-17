@@ -54,7 +54,7 @@ from db.tables.user import UsersTable
 Run the alembic command to create a database migration in the dev container:
 
 ```bash
-docker exec -it llm-dev-api alembic -c db/alembic.ini revision --autogenerate -m "Initialize DB"
+docker exec -it ai-api alembic -c db/alembic.ini revision --autogenerate -m "Initialize DB"
 ```
 
 ## Migrate dev database
@@ -62,7 +62,7 @@ docker exec -it llm-dev-api alembic -c db/alembic.ini revision --autogenerate -m
 Run the alembic command to migrate the dev database:
 
 ```bash
-docker exec -it llm-dev-api alembic -c db/alembic.ini upgrade head
+docker exec -it ai-api alembic -c db/alembic.ini upgrade head
 ```
 
 ### Optional: Add test user
@@ -107,7 +107,7 @@ if __name__ == "__main__":
 Run the script to add a test adding a user:
 
 ```bash
-docker exec -it llm-dev-api python db/tables/test_add_user.py
+docker exec -it ai-api python db/tables/test_add_user.py
 ```
 
 ## Migrate production database
@@ -164,9 +164,9 @@ phi ws patch -e prd -i aws -n service
 Another approach is to SSH into the production container to run the migration manually. Your ECS tasks are already enabled with SSH access. Run the alembic command to migrate the production database:
 
 ```bash
-ECS_CLUSTER=llm-prd-cluster
-TASK_ARN=$(aws ecs list-tasks --cluster llm-prd-cluster --query "taskArns[0]" --output text)
-CONTAINER_NAME=llm-prd-api
+ECS_CLUSTER=ai-app-prd-cluster
+TASK_ARN=$(aws ecs list-tasks --cluster ai-app-prd-cluster --query "taskArns[0]" --output text)
+CONTAINER_NAME=ai-api-prd
 
 aws ecs execute-command --cluster $ECS_CLUSTER \
     --task $TASK_ARN \
@@ -188,7 +188,7 @@ These commands have been run and are described for completeness
 The migrations directory was created using:
 
 ```bash
-docker exec -it llm-dev-api cd db && alembic init migrations
+docker exec -it ai-api cd db && alembic init migrations
 ```
 
 - After running the above command, the `db/migrations` directory should be created.

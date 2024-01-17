@@ -2,182 +2,43 @@
 title: Introduction
 ---
 
-OpenAI provides a powerful [Assistants API](https://platform.openai.com/docs/assistants/overview) and phidata provides an easy to use interface for building applications with them.
+**Assistants** enable LLMs to solve tasks by intelligently choosing a course of action using [function calling](https://platform.openai.com/docs/guides/function-calling). They come with built-in **memory**, **knowledge**, **storage** and **tools** built-in, making it easy to build RAG, Autonomous or Multimodal applications.
 
-Assistants can leverage models, run code in a sandboxed environment and retrieve information from a knowledge base.
+A simple assistant looks like:
 
-## Usage
-
-In this example, we create an Assistant `CsvAssistant` to analyze a CSV file.
-
-```python csv_assistant.py
+```python assistant.py
 from phi.assistant import Assistant
-from phi.assistant.file.url import UrlFile
-from phi.assistant.tool import CodeInterpreter
 
-# Load the IMDB dataset from S3
-imdb_movie_data_s3 = UrlFile(url="https://phi-public.s3.amazonaws.com/imdb/IMDB-Movie-Data.csv").get_or_create()
+assistant = Assistant(description="You help people with their health and fitness goals.")
 
-# Create an Assistant
-with Assistant(
-    name="CsvAssistant",
-    tools=[CodeInterpreter],
-    files=[imdb_movie_data_s3],
-    instructions="You are an expert at analyzing CSV data. Whenever you run an analysis, explain each step.",
-) as csv_assistant:
-    # Run the Assistant
-    csv_assistant.print_response("Who is the most popular actor by votes?")
+# -*- Print a response
+assistant.print_response('Share a quick healthy breakfast recipe.')
+
+# -*- Get the response as a string
+response = assistant.run('Share a quick healthy breakfast recipe.', stream=False)
+
+# -*- Get the response as a stream
+response = ""
+for delta in assistant.run('Share a quick healthy breakfast recipe.'):
+    response += delta
 ```
 
-Lets explore more by building a couple of LLM Apps using OpenAI Assistants.
+Under the hood, the description and message are converted into system and user prompts that are sent to the LLM. The prompts can be customized to fit any use case.
 
-<Snippet file="assistant-setup.mdx" />
+## Example
 
-<Snippet file="assistant-openai-key.mdx" />
+<Snippet file="run-assistant-steps.mdx" />
 
-## Create an Assistant
+## More Information
 
-Copy this code to a file `csv_assistant.py`
+Read more about:
 
-```python csv_assistant.py
-from phi.assistant import Assistant
-from phi.assistant.file.url import UrlFile
-from phi.assistant.tool import CodeInterpreter
-
-# Load the IMDB dataset from S3
-imdb_movie_data_s3 = UrlFile(url="https://phi-public.s3.amazonaws.com/imdb/IMDB-Movie-Data.csv").get_or_create()
-
-# Create the Assistant
-with Assistant(
-    name="CsvAssistant",
-    tools=[CodeInterpreter],
-    files=[imdb_movie_data_s3],
-    instructions="You are an expert at analyzing CSV data. Whenever you run an analysis, explain each step.",
-) as csv_assistant:
-    # Run the Assistant
-    csv_assistant.print_response("Who is the most popular actor by votes?")
-```
-
-Run the `csv_assistant.py` file
-
-<CodeGroup>
-
-```bash Mac
-python csv_assistant.py
-```
-
-```bash Windows
-python csv_assistant.py
-```
-
-</CodeGroup>
-
-## Add Files for Retrieval
-
-Assistants can use [Files](https://platform.openai.com/docs/api-reference/files) for retrieval and analysis.
-
-Phidata helps upload different types of files and provides a `get_or_create()` method that ensures files with the same name are not recreated.
-
-Here's how to use a file stored **locally** or on **s3** with the `Retrieval` tool.
-
-```python recipe_assistant.py
-from phi.assistant import Assistant
-from phi.assistant.file.url import UrlFile
-from phi.assistant.file.local import LocalFile
-from phi.assistant.tool import Retrieval
-
-# Load the recipe book from s3
-recipe_book_s3 = UrlFile(url="https://www.family-action.org.uk/content/uploads/2019/07/meals-more-recipes.pdf").get_or_create()
-# Load the recipe book locally
-# recipe_book_local = LocalFile(path="data/pdfs/meals-more-recipes.pdf").get_or_create()
-
-# Create an Assistant
-with Assistant(
-    name="RecipeAssistant",
-    tools=[Retrieval],
-    files=[recipe_book_s3],
-    instructions="Format your answers using Markdown.",
-) as recipe_assistant:
-    # Run the Assistant
-    recipe_assistant.print_response("How do I make chicken tikka salad?", markdown=True)
-```
-
-Run the `recipe_assistant.py` file
-
-<CodeGroup>
-
-```bash Mac
-python recipe_assistant.py
-```
-
-```bash Windows
-python recipe_assistant.py
-```
-
-</CodeGroup>
-
-## Build a mini LLM App
-
-Now let's turn the `CsvAssistant` into a mini LLM App. Update the `csv_assistant.py` file to:
-
-```python csv_assistant.py
-import typer
-from rich.prompt import Prompt
-
-from phi.assistant import Assistant
-from phi.assistant.thread import Thread
-from phi.assistant.file.url import UrlFile
-from phi.assistant.tool import CodeInterpreter
-
-# Load the IMDB dataset from S3
-imdb_movie_data_s3 = UrlFile(url="https://phi-public.s3.amazonaws.com/imdb/IMDB-Movie-Data.csv").get_or_create()
-
-def llm_app():
-    # Create an Assistant
-    with Assistant(
-        name="CsvAssistant",
-        tools=[CodeInterpreter],
-        files=[imdb_movie_data_s3],
-        instructions="You are an expert at analyzing CSV data. Whenever you run an analysis, explain each step.",
-    ) as csv_assistant:
-        thread = Thread()
-        while True:
-            message = Prompt.ask(f"[bold] :sunglasses: User [/bold]")
-            if message in ("exit", "bye"):
-                break
-
-            thread.print_response(
-                message=message, assistant=csv_assistant, current_message_only=True
-            )
-
-if __name__ == "__main__":
-    typer.run(llm_app)
-```
-
-Run the `csv_assistant.py` file.
-
-<CodeGroup>
-
-```bash Mac
-python csv_assistant.py
-```
-
-```bash Windows
-python csv_assistant.py
-```
-
-</CodeGroup>
-
-Ask questions like:
-
-```
-Show me a histogram of ratings.
-```
-
-```
-Show me a time series, choose any column you like.
-```
-
-The Assistant downloads the resulting files which you can click to view.
-
-<Snippet file="discord.mdx" />
+- [RAG Assistants](/blocks/assistant/rag)
+- [Autonomous Assistants](/blocks/assistant/auto)
+- [Assistant Instructions](/blocks/assistant/instructions)
+- [Assistant Memory](/blocks/assistant/memory)
+- [Assistant Storage](/blocks/assistant/storage)
+- [Assistant Tools](/blocks/assistant/tools)
+- [Generating Pydantic models as output](/blocks/assistant/pydantic-output)
+- [Assistant Tasks](/blocks/assistant/tasks)
+- [OpenAI Assistants](/blocks/assistant/openai)

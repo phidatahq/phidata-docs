@@ -1,9 +1,9 @@
 ---
-title: "Build a Multimodal LLM App"
+title: "Build a Multimodal AI App"
 sidebarTitle: "Run locally"
 ---
 
-Let's build a Multimodal LLM App powered by GPT-4V. We'll use PgVector for knowledge and storage and serve the app using Streamlit.
+Let's build a Multimodal AI App powered by GPT-4V. We'll use PgVector for knowledge and storage and serve the app using Streamlit.
 
 ## What is Multimodal?
 
@@ -13,27 +13,29 @@ Multimodal means the LLM can work with images along with text. Historically, lan
 
 <Snippet file="setup.mdx" />
 
-<Snippet file="create-llm-app-codebase.mdx" />
+<Tip>
+
+If you already have an `ai-app` created, skip the next step.
+
+</Tip>
+
+<Snippet file="create-ai-app-codebase.mdx" />
 
 <Snippet file="set-openai-key.mdx" />
 
-<Snippet file="serve-llm-app-streamlit.mdx" />
+<Snippet file="serve-ai-app-streamlit.mdx" />
 
-### Chat with Images
+### Image Assistant
 
 - Open [localhost:8501](http://localhost:8501) to view streamlit apps that you can customize and make your own.
-- Click on **Chat with Images** in the sidebar
+- Click on **Image Assistant** in the sidebar.
 - Enter a username.
-- Upload an image and ask questions
+- Upload an image of your choice.
 - Click on `Generate Caption`, `Describe Image`, `Identify Brands`, `Identify Items` for examples.
 
-![chat-with-images-local](/images/chat-with-images-local.png)
+![Image assistant](/images/ai-app-image-assistant-local.png)
 
-## How this App works
-
-This streamlit app is defined in the `app/pages/2_Chat_with_Images.py` file and the `Conversation` powering these apps are defined in the `llm/conversations/vision.py` file.
-
-Checkout the `llm/conversations/vision.py` file for more information.
+<Snippet file="ai-app-how-this-app-works.mdx" />
 
 ## Serve your App using FastApi
 
@@ -43,15 +45,15 @@ We are working on a set of common endpoints for the Multimodal LLM App.
 
 </Note>
 
-<Snippet file="llm-app-run-jupyter.mdx" />
+<Snippet file="ai-app-run-jupyter.mdx" />
 
-<Snippet file="llm-app-delete-local-resources.mdx" />
+<Snippet file="ai-app-delete-local-resources.mdx" />
 
 ## Next
 
-Congratulations on running your LLM App locally. Next Steps:
+Congratulations on running your AI App locally. Next Steps:
 
-- [Run your LLM App on AWS](/examples/ai/multimodal/run-aws)
+- [Run your AI App on AWS](/examples/ai/multimodal/run-aws)
 - Create a [git repository for your workspace](/how-to/git-repo)
 - Read how to [manage the development application](/how-to/development-app)
 - Read how to [format and validate your code](/how-to/format-and-validate)

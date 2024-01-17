@@ -4,51 +4,57 @@ title: Introduction
 
 ## What is phidata?
 
-Phidata is an [open source](https://github.com/phidatahq/phidata) toolkit for building AI products. It gives you pre-built AI Apps that you can run locally using docker or deploy to AWS.
+**Phidata is a toolkit for building AI applications using Autonomous Assistants.** It provides pre-built templates for AI Apps that you can run in minutes. Here's how it works:
 
-## Use it to build
+- Create your codebase using a template: `phi ws create`
+- Run your AI App locally: `phi ws up dev:docker`
+- Integrate with your product/front-end
+- Deploy your AI App to AWS: `phi ws up prd:aws`
+- Customize, monitor and improve
 
-- **AI Apps** (RAG, autonomous or multimodal applications)
-- **AI Agents** (automate data engineering, python or snowflake tasks)
-- **Rest Apis** (with FastApi, PostgreSQL)
-- **Web Apps** (with Django, PostgreSQL)
-- **Data Platforms** (with Airflow, Superset, Jupyter)
+## Under the hood
 
-## What you get
+Phidata provides user-friendly **Assistants** that can achieve any task by intelligently choosing a course of action using function calling. For example, to answer questions from a document, the assistant calls a function to search the document, synthesize the results and return the answer.
 
-**Production ready codebases** built with:
+<img src="/images/assistants-explanation.png" alt="How assistants work" />
 
-- **Building blocks** like conversations, agents, knowledge bases defined as pydantic objects
-- **Applications** like FastApi, Streamlit, Django, Postgres defined as pydantic objects
-- **Infrastructure** components (docker, AWS) also defined as pydantic objects
+Assistants come with built-in **memory**, **knowledge**, **storage** and **tools**, making it easy to build RAG, Autonomous or Multimodal applications like:
 
-Phidata applications run locally using docker and can be deployed to AWS with 1 command.
+- **Knowledge Assistants:** Answer questions from documents (PDFs, text)
+- **Customer Assistants:** Answer customer queries using product descriptions and purchase history.
+- **Data Assistants:** Analyze data by running SQL queries.
+- **Python Assistants:** Perform tasks by running python code.
+- **Stock Assistants:** Analyze stocks and research companies.
+- **Marketing Assistants:** Provide marketing insights, copywriting and content ideas.
+- **Travel Assistants:** Help plan travel by researching destinations.
+- **Meal Prep Assistants:** Help plan meals by researching recipes and adding ingredients to shopping lists.
 
-## How it works
+## Templates
+
+After building an Assistant, we serve it using **Streamlit**, **FastApi** or **Django** to build an AI application. Instead of wiring tools manually, phidata provides **pre-built** templates that you customise and make your own. Here's how they work:
 
 - Create your codebase using a template: `phi ws create`
 - Run your app locally: `phi ws up dev:docker`
 - Run your app on AWS: `phi ws up prd:aws`
 
-## Advantages
-
-- **Simple:** Application, tools and infrastructure code is written in python
-- **Powerful:** Get a production-ready codebase with 1 command
-- **Production Ready:** Deploy your application to AWS with 1 command
-
-## Its designed for
-
-- Teams building AI products
-- Teams building RestAPI backends
-- Teams building Web Apps with Django
-- Teams building Data Platforms with Airflow, Superset and Jupyter
-
 ## Get started
 
-Follow the [Quickstart](/quickstart/run-local) guide to build a RAG LLM App or checkout one of the examples below
+1. Read the [basics](/basics) guide to learn the basics.
+2. Read the [AI App](/ai-app/run-local) guide to build your own AI App.
+3. Checkout the [building blocks](/blocks/overview) for in-depth guides to building AI products.
+
+You can also build your application using one of the following examples
 
 ## Examples
 
-Build your application using an example
-
 <Snippet file="examples.mdx" />
+
+## Building AI for your product?
+
+We've helped many companies build AI for their products, the general workflow is:
+
+1. Train an assistant with proprietary data to perform tasks specific to your product.
+2. Connect to your product to the assistant via a RestAPI.
+3. Customize, Monitor and Improve the AI.
+
+We also provide dedicated support and development for AI products. [Book a call](https://cal.com/phidata/intro) to get started.

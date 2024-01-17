@@ -2,12 +2,12 @@
 title: LangChain Retriever
 ---
 
-A Conversation showcasing how to use a [LangChain Retriever](https://python.langchain.com/docs/modules/data_connection/retrievers/) as a knowledge base.
+An assistant showcasing how to use a [LangChain Retriever](https://python.langchain.com/docs/modules/data_connection/retrievers/) as a knowledge base.
 
 ## Code
 
 ```python recipe/langchain_retriever.py
-from phi.conversation import Conversation
+from phi.assistant import Assistant
 from phi.knowledge.langchain import LangChainKnowledgeBase
 
 from langchain.embeddings import OpenAIEmbeddings
@@ -30,6 +30,7 @@ def load_vector_store():
     # -*- Embed each chunk and load it into the vector store
     Chroma.from_documents(documents, OpenAIEmbeddings(), persist_directory=str(chroma_db_dir))
 
+
 # -*- Load the vector store
 load_vector_store()
 # -*- Get the vectordb
@@ -40,7 +41,7 @@ retriever = db.as_retriever()
 # -*- Create a knowledge base from the vector store
 knowledge_base = LangChainKnowledgeBase(retriever=retriever)
 
-conv = Conversation(knowledge_base=knowledge_base, debug_mode=True, add_references_to_prompt=True)
+conv = Assistant(knowledge_base=knowledge_base, debug_mode=True, add_references_to_prompt=True)
 conv.print_response("What did the president say about technology?")
 ```
 
@@ -72,4 +73,4 @@ pip install openai langchain chromadb
 
 - View on [Github](https://github.com/phidatahq/ai-cookbook/blob/main/recipe/langchain_retriever.py)
 - Read about the [Langchain Knowledge Base](/blocks/kb/langchain)
-- <Snippet file="discord.mdx" />
+- <Snippet file="message-us-discord.mdx" />

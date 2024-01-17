@@ -1,0 +1,160 @@
+---
+title: Python Assistant
+sidebarTitle: Python
+---
+
+PythonAssistant is a fantastic assistant that can perform virtually any task using python code.
+
+The `PythonAssistant` solves problems by:
+
+1. Breaking down a problem into parts that can be solved by python functions.
+2. Writing a script to solve the problem using python functions.
+3. Running the python script and summarizing the result.
+
+## Usage
+
+In this example, we use the `PythonAssistant` to analyze a CSV file.
+
+```python python_assistant.py
+from phi.assistant.python import PythonAssistant
+from phi.file.local.csv import CsvFile
+
+python_assistant = PythonAssistant(
+    files=[
+        CsvFile(
+            path="https://phidata-public.s3.amazonaws.com/demo_data/IMDB-Movie-Data.csv",
+            description="Contains information about movies from IMDB.",
+        )
+    ],
+    pip_install=True,
+    show_tool_calls=True,
+)
+
+python_assistant.print_response("What is the average rating of movies?")
+```
+
+<Warning>
+
+For security reasons the `PythonAssistant` is required to "save and run" files, meaning it should always save the code it runs and run only the code it has saved in the current session.
+
+</Warning>
+
+## Params
+
+<ResponseField name="files" type="List[File]" default="None">
+  List of Files available for the PythonAssistant.
+</ResponseField>
+<ResponseField name="file_information" type="str" default="None">
+  Provide information about Files as a string.
+</ResponseField>
+<ResponseField
+  name="charting_libraries"
+  type="List[str]"
+  default="['plotly', 'matplotlib', 'seaborn']"
+>
+  List of charting libraries the PythonAssistant can use.
+</ResponseField>
+<ResponseField name="base_dir" type="Path" default=".">
+  Where to save files if needed.
+</ResponseField>
+<ResponseField name="save_and_run" type="bool" default="True">
+  If the PythonAssistant is allowed to save and run python code.
+</ResponseField>
+<ResponseField name="pip_install" type="bool" default="False">
+  If the PythonAssistant is allowed to `pip install` libraries. Disabled by
+  default for security reasons.
+</ResponseField>
+<ResponseField name="run_code" type="bool" default="False">
+  If the PythonAssistant is allowed to run python code directly. Disabled by
+  default for security reasons.
+</ResponseField>
+<ResponseField name="list_files" type="bool" default="False">
+  If the PythonAssistant is allowed to list files.
+</ResponseField>
+<ResponseField name="run_files" type="bool" default="True">
+  If the PythonAssistant is allowed to run files.
+</ResponseField>
+<ResponseField name="read_files" type="bool" default="False">
+  If the PythonAssistant is allowed to read files.
+</ResponseField>
+<ResponseField name="safe_globals" type="dict" default="None">
+  Provide a list of global variables to for the PythonAssistant.
+</ResponseField>
+<ResponseField name="safe_locals" type="dict" default="None">
+  Provide a list of local variables to for the PythonAssistant.
+</ResponseField>
+
+## Example
+
+<Steps>
+  <Step title="Create a virtual environment">
+    Open the `Terminal` and create an `ai` directory with a python virtual environment.
+
+    <CodeGroup>
+
+    ```bash Mac
+    mkdir ai && cd ai
+
+    python3 -m venv aienv
+    source aienv/bin/activate
+    ```
+
+    ```bash Windows
+    mkdir ai; cd ai
+
+    python3 -m venv aienv
+    aienv/scripts/activate
+    ```
+
+    </CodeGroup>
+
+  </Step>
+  <Step title="Install libraries">
+    Install libraries using pip
+
+    <CodeGroup>
+
+    ```bash Mac
+    pip install -U phidata openai pandas
+    ```
+
+    ```bash Windows
+    pip install -U phidata openai pandas
+    ```
+
+    </CodeGroup>
+
+  </Step>
+  <Step title="Create a PythonAssistant">
+    Create a file `python_assistant.py` with the following contents
+
+```python python_assistant.py
+from phi.assistant.python import PythonAssistant
+from phi.file.local.csv import CsvFile
+
+python_assistant = PythonAssistant(
+    files=[
+        CsvFile(
+            path="https://phidata-public.s3.amazonaws.com/demo_data/IMDB-Movie-Data.csv",
+            description="Contains information about movies from IMDB.",
+        )
+    ],
+    pip_install=True,
+    show_tool_calls=True,
+)
+
+python_assistant.print_response("What is the average rating of movies?")
+```
+
+  </Step>
+  <Step title="Run the assistant">
+    Run the `python_assistant.py` file
+
+```bash
+python python_assistant.py
+```
+
+  </Step>
+</Steps>
+
+<Snippet file="message-us-discord.mdx" />

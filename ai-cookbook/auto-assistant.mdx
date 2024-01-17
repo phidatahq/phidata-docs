@@ -1,0 +1,66 @@
+---
+title: Autonomous Assistant
+---
+
+With Autonomous Assistants, the LLM can run functions to:
+
+- Search the knowledge base
+- Search the chat history
+- Achieve other tasks
+
+This in assistant, GPT4 decides **if** it needs to access the knowledge base and what search parameters it needs to query the knowledge base.
+
+## Code
+
+```python recipe/auto_assistant.py
+from phi.assistant import Assistant
+from phi.knowledge.pdf import PDFUrlKnowledgeBase
+from phi.vectordb.pgvector import PgVector
+
+from db.session import db_url
+
+knowledge_base = PDFUrlKnowledgeBase(
+    urls=["https://www.family-action.org.uk/content/uploads/2019/07/meals-more-recipes.pdf"],
+    vector_db=PgVector(collection="recipes", db_url=db_url),
+)
+knowledge_base.load(recreate=False)
+
+assistant = Assistant(
+    knowledge_base=knowledge_base,
+    function_calls=True,
+    show_function_calls=True,
+)
+
+assistant.print_response("How do I make chicken tikka salad?")
+assistant.print_response("What was my last question?")
+```
+
+## Usage
+
+<CodeGroup>
+
+```bash Mac
+python recipe/auto_assistant.py
+```
+
+```bash Windows
+python recipe/auto_assistant.py
+```
+
+</CodeGroup>
+
+<br />
+
+<Accordion title="Required libraries">
+
+```bash
+pip install openai pgvector pypdf psycopg sqlalchemy
+```
+
+</Accordion>
+
+## Information
+
+- View on [Github](https://github.com/phidatahq/ai-cookbook/blob/main/recipe/auto_assistant.py)
+- Read about [Autonomous Assistants](/blocks/assistant/auto)
+- <Snippet file="message-us-discord.mdx" />

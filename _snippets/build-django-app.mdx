@@ -40,12 +40,12 @@ Update the `chat/views.py` file to
 ```python chat/views.py
 from django.shortcuts import render, redirect
 
-from phi.conversation import Conversation
+from phi.assistant import Assistant
 
 def index(request):
     try:
-        # Create a conversation
-        conversation = Conversation()
+        # Create a assistant
+        assistant = Assistant()
         if 'messages' not in request.session:
             request.session['messages'] = []
         if request.method == 'POST':
@@ -55,7 +55,7 @@ def index(request):
             # Set the session as modified
             request.session.modified = True
             # Create a response
-            response = conversation.chat(prompt, stream=False)
+            response = assistant.run(prompt, stream=False)
             # Append the response to the messages
             request.session['messages'].append({"role": "assistant", "content": response})
             # Set the session as modified
@@ -79,7 +79,7 @@ def index(request):
 
 def new_chat(request):
     # -*- Clears the session messages and redirects to the home page -*-
-    request.session.pop('conversation', None)
+    request.session.pop('assistant', None)
     request.session.pop('messages', None)
     return redirect('index')
 ```

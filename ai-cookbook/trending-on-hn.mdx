@@ -2,7 +2,7 @@
 title: Trending on HN
 ---
 
-A Conversation showcasing how to use function calling with LLMs. This conversation has access to a function `get_top_hackernews_stories` that it can call to get top stories from Hacker News, it then summarizes them and returns the result.
+An assistant showcasing how to use function calling with LLMs.This assistant has access to a function `get_top_hackernews_stories` that it can call to get top stories from Hacker News, it then summarizes them and returns the result.
 
 ## Code
 
@@ -10,7 +10,7 @@ A Conversation showcasing how to use function calling with LLMs. This conversati
 import json
 import httpx
 
-from phi.conversation import Conversation
+from phi.assistant import Assistant
 
 
 def get_top_hackernews_stories(num_stories: int = 10) -> str:
@@ -37,11 +37,11 @@ def get_top_hackernews_stories(num_stories: int = 10) -> str:
         stories.append(story)
     return json.dumps(stories)
 
-conversation = Conversation(
+assistant = Assistant(
     tools=[get_top_hackernews_stories],
-    show_function_calls=True
+    show_tool_calls=True
 )
-conversation.print_response("What's trending on hackernews about AI?")
+assistant.print_response("What's trending on hackernews?")
 ```
 
 ## Usage
@@ -71,5 +71,5 @@ pip install openai
 ## Information
 
 - View on [Github](https://github.com/phidatahq/ai-cookbook/blob/main/recipe/trending_on_hn.py)
-- Read about [Tools](/blocks/conversation/tools)
-- <Snippet file="discord.mdx" />
+- Read about [Tools](/blocks/assistant/tools)
+- <Snippet file="message-us-discord.mdx" />

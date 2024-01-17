@@ -31,20 +31,20 @@ knowledge_base = WebsiteKnowledgeBase(
 )
 ```
 
-Then use the `knowledge_base` in a `Conversation`:
+Then use the `knowledge_base` with an `Assistant`:
 
-```python conversation.py
-from phi.conversation import Conversation
+```python assistant.py
+from phi.assistant import Assistant
 from knowledge_base import knowledge_base
 
-conversation = Conversation(
+assistant = Assistant(
     knowledge_base=knowledge_base,
     add_references_to_prompt=True,
 )
 
-conversation.knowledge_base.load(recreate=False)
+assistant.knowledge_base.load(recreate=False)
 
-conversation.print_response("Ask me about something from the knowledge base")
+assistant.print_response("Ask me about something from the knowledge base")
 ```
 
 ## Params

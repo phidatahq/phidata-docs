@@ -1,0 +1,151 @@
+---
+title: RAG Conversations
+sidebarTitle: RAG
+---
+
+Retrieval Augmented Generation means providing the LLM with additional information so it responds in a context-aware manner. When a user sends a message, we **"stuff the prompt"** with relevant information to improve response quality.
+
+To enable **RAG**, add a Knowledge Base to the `Conversation` and set `add_references_to_prompt=True`. This will search the **Knowledge Base** for information about the `message` and add it to the prompt before sending it to the LLM.
+
+## Usage
+
+```python rag_conversation.py
+from phi.conversation import Conversation
+from phi.knowledge.pdf import PDFKnowledgeBase
+from phi.vectordb.pgvector import PgVector
+
+rag_conversation = Conversation(
+    # -*- Provide the conversation with a knowledge base
+    knowledge_base=PDFKnowledgeBase(
+        path="data/pdfs",
+        vector_db=PgVector(
+            collection="pdf_documents",
+            db_url=db_url,
+        ),
+    ),
+    # -*- This setting adds references to the user prompt enabling RAG
+    add_references_to_prompt=True,
+)
+```
+
+## Params
+
+<ResponseField name="knowledge_base" type="KnowledgeBase">
+  The knowledge base to use for this Conversation. For example: The
+  `PDFKnowledgeBase` converts PDFs into vector embeddings and stores them in a
+  vector db. [Read more](/blocks/kb/introduction)
+</ResponseField>
+<ResponseField name="add_references_to_prompt" type="bool">
+  The setting enabled RAG by searching the knowledge base for documents similar
+  to the input `message` and adds them to the user prompt.
+</ResponseField>
+
+## Example
+
+<Steps>
+  <Step title="Create a virtual environment">
+    Open the `Terminal` and create an `ai` directory with a python virtual environment.
+
+    <CodeGroup>
+
+    ```bash Mac
+    mkdir ai && cd ai
+
+    python3 -m venv aienv
+    source aienv/bin/activate
+    ```
+
+    ```bash Windows
+    mkdir ai; cd ai
+
+    python3 -m venv aienv
+    aienv/scripts/activate
+    ```
+
+    </CodeGroup>
+
+  </Step>
+  <Step title="Install libraries">
+    Install libraries using pip
+
+    <CodeGroup>
+
+    ```bash Mac
+    pip install -U phidata openai pgvector pypdf psycopg sqlalchemy
+    ```
+
+    ```bash Windows
+    pip install -U phidata openai pgvector pypdf psycopg sqlalchemy
+    ```
+
+    </CodeGroup>
+
+  </Step>
+  <Step title="Start PgVector">
+    Create a file `resources.py` with the following contents
+
+```python resources.py
+from phi.docker.app.postgres import PgVectorDb
+from phi.docker.resources import DockerResources
+
+# -*- PgVector running on port 5432:5432
+vector_db = PgVectorDb(
+    pg_user="llm",
+    pg_password="llm",
+    pg_database="llm",
+    debug_mode=True,
+)
+
+# -*- DockerResources
+dev_docker_resources = DockerResources(apps=[vector_db])
+```
+
+    Start `resources.py` using:
+
+```bash
+phi start resources.py
+```
+
+  </Step>
+  <Step title="Create a RAG conversation">
+    Create a file `rag_conversation.py` with the following contents
+
+```python rag_conversation.py
+from phi.conversation import Conversation
+from phi.knowledge.pdf import PDFUrlKnowledgeBase
+from phi.vectordb.pgvector import PgVector
+
+from resources import vector_db
+
+# The PDFUrlKnowledgeBase reads PDFs from urls and loads
+# the `llm.recipes` table when`knowledge_base.load()` is called.
+knowledge_base = PDFUrlKnowledgeBase(
+    urls=["https://www.family-action.org.uk/content/uploads/2019/07/meals-more-recipes.pdf"],
+    vector_db=PgVector(
+        collection="recipes",
+        db_url=vector_db.get_db_connection_local(),
+    ),
+)
+knowledge_base.load(recreate=False)
+
+conversation = Conversation(
+    knowledge_base=knowledge_base,
+    # The add_references_to_prompt flag searches the knowledge base
+    # and updates the prompt sent to the LLM.
+    add_references_to_prompt=True,
+)
+
+conversation.print_response('Share a quick recipe for a healthy breakfast.')
+conversation.print_response('How do I make chicken tikka salad?')
+```
+
+  </Step>
+  <Step title="Run the conversation">
+    Run the `rag_conversation.py` file. Give it a few minutes to load the knowledge base and see it respond with recipes from the recipe book.
+
+```bash
+python rag_conversation.py
+```
+
+  </Step>
+</Steps>

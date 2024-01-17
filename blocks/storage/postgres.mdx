@@ -1,22 +1,21 @@
 ---
-title: Postgres Conversation Storage
+title: Postgres Assistant Storage
 sidebarTitle: Postgres
 ---
 
-Phidata supports using PostgreSQL as a storage backend for Conversations using the `PgConversationStorage` class.
+Phidata supports using PostgreSQL as a storage backend for assistant runs using the `PgAssistantStorage` class.
 
 ## Usage
 
-```python conversation.py
-from phi.llm.openai import OpenAIChat
-from phi.conversation import Conversation
-from phi.storage.conversation.postgres import PgConversationStorage
+```python assistant_with_storage.py
+from phi.assistant import Assistant
+from phi.storage.assistant.postgres import PgAssistantStorage
 
-conversation = Conversation(
-    # -*- Add storage to the conversation
-    storage = PgConversationStorage(
-        # Table name: llm.conversations
-        table_name="conversations",
+assistant = Assistant(
+    # -*- Add storage to the assistant
+    storage = PgAssistantStorage(
+        # Table name: ai.assistant_runs
+        table_name="assistant_runs",
         db_url=db_url,
     )
 )
@@ -25,9 +24,9 @@ conversation = Conversation(
 ## Params
 
 <ResponseField name="table_name" type="str">
-  The name of the table to store conversations in.
+  The name of the table to store assistant runs in.
 </ResponseField>
-<ResponseField name="schema" type="str" default="llm">
+<ResponseField name="schema" type="str" default="ai">
   The schema to store the table in.
 </ResponseField>
 <ResponseField name="db_url" type="str">
@@ -87,16 +86,14 @@ from phi.docker.resources import DockerResources
 
 # -*- PgVector running on port 5432:5432
 vector_db = PgVectorDb(
-    pg_user="llm",
-    pg_password="llm",
-    pg_database="llm",
+    pg_user="ai",
+    pg_password="ai",
+    pg_database="ai",
     debug_mode=True,
 )
 
 # -*- DockerResources
-dev_docker_resources = DockerResources(
-    apps=[vector_db],
-)
+dev_docker_resources = DockerResources(apps=[vector_db])
 ```
 
     Start `resources.py` using:
@@ -106,16 +103,15 @@ phi start resources.py
 ```
 
   </Step>
-  <Step title="Create a conversation with storage">
-    Create a file `conversation.py` with the following contents
+  <Step title="Create an assistant with storage">
+    Create a file `recipe_assistant.py` with the following contents
 
-```python conversation.py
+```python recipe_assistant.py
 import typer
 from rich.prompt import Prompt
 from typing import Optional, List
-
-from phi.conversation import Conversation
-from phi.storage.conversation.postgres import PgConversationStorage
+from phi.assistant import Assistant
+from phi.storage.assistant.postgres import PgAssistantStorage
 from phi.knowledge.pdf import PDFUrlKnowledgeBase
 from phi.vectordb.pgvector import PgVector
 
@@ -129,55 +125,59 @@ knowledge_base = PDFUrlKnowledgeBase(
     ),
 )
 
-storage = PgConversationStorage(
-    table_name="recipe_conversations",
+storage = PgAssistantStorage(
+    table_name="recipe_assistant",
     db_url=vector_db.get_db_connection_local(),
 )
 
 
-def llm_app(new: bool = False, user: str = "user"):
-    conversation_id: Optional[str] = None
+def recipe_assistant(new: bool = False, user: str = "user"):
+    run_id: Optional[str] = None
 
     if not new:
-        existing_conversation_ids: List[str] = storage.get_all_conversation_ids(user)
-        if len(existing_conversation_ids) > 0:
-            conversation_id = existing_conversation_ids[0]
+        existing_run_ids: List[str] = storage.get_all_run_ids(user)
+        if len(existing_run_ids) > 0:
+            run_id = existing_run_ids[0]
 
-    conversation = Conversation(
-        user_name=user,
-        id=conversation_id,
+    assistant = Assistant(
+        run_id=run_id,
+        user_id=user,
         knowledge_base=knowledge_base,
         storage=storage,
+        # tool_calls=True adds functions to
+        # search the knowledge base and chat history
+        tool_calls=True,
+        show_tool_calls=True,
+        # Uncomment the following line to use traditional RAG
         # add_references_to_prompt=True,
-        function_calls=True,
-        show_function_calls=True,
     )
-    if conversation_id is None:
-        conversation_id = conversation.id
-        print(f"Started Conversation: {conversation_id}\n")
+    if run_id is None:
+        run_id = assistant.run_id
+        print(f"Started Run: {run_id}\n")
     else:
-        print(f"Continuing Conversation: {conversation_id}\n")
+        print(f"Continuing Run: {run_id}\n")
 
-    # conversation.knowledge_base.load(recreate=False)
+    assistant.knowledge_base.load(recreate=False)
     while True:
         message = Prompt.ask(f"[bold] :sunglasses: {user} [/bold]")
         if message in ("exit", "bye"):
             break
-        conversation.print_response(message)
+        assistant.print_response(message)
 
 
 if __name__ == "__main__":
-    typer.run(llm_app)
+    typer.run(recipe_assistant)
 ```
 
   </Step>
-  <Step title="Run the conversation">
-    Run the `conversation.py` file
-```bash
-python conversation.py
-```
+  <Step title="Run the assistant">
+    Run the `recipe_assistant.py` file
 
-    Now the conversation continues across sessions. Ask a question:
+    ```bash
+    python recipe_assistant.py
+    ```
+
+    Now the assistant continues across sessions. Ask a question:
 
     ```
     How do I make chicken tikka salad?
@@ -190,12 +190,14 @@ python conversation.py
     ```
 
   </Step>
-  <Step title="Start a new conversation">
-    Run the `conversation.py` file with the `--new` flag to start a new conversation.
+  <Step title="Start a new run">
+    Run the `recipe_assistant.py` file with the `--new` flag to start a new run.
+
 ```bash
-python conversation.py --new
+python recipe_assistant.py --new
 ```
+
   </Step>
 </Steps>
 
-<Snippet file="discord.mdx" />
+<Snippet file="message-us-discord.mdx" />

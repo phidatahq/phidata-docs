@@ -52,44 +52,39 @@
       "group": "Documentation",
       "pages": [
           "introduction",
+          "basics",
           {
-            "group": "Quickstart: RAG LLM App",
+            "group": "Build an AI App",
             "pages": [
-              "quickstart/run-local",
-              "quickstart/run-aws"
+              "ai-app/run-local",
+              "ai-app/run-aws"
             ]
           },
-          "basics",
           {
             "group": "Building Blocks",
             "pages": [
               "blocks/overview",
               {
-                "group": "Conversations",
-                "pages": [
-                  "blocks/conversation/introduction",
-                  "blocks/conversation/rag",
-                  "blocks/conversation/auto",
-                  "blocks/conversation/prompts",
-                  "blocks/conversation/memory",
-                  "blocks/conversation/storage",
-                  "blocks/conversation/tools",
-                  "blocks/conversation/pydantic-output",
-                  "blocks/conversation/tasks"
-                ]
-              },
-              {
-                "group": "Agents",
-                "pages": [
-                  "blocks/agent/introduction",
-                  "blocks/agent/duckdb",
-                  "blocks/agent/python"
-                ]
-              },
-              {
                 "group": "Assistants",
                 "pages": [
-                  "blocks/assistant/introduction"
+                  "blocks/assistant/introduction",
+                  "blocks/assistant/rag",
+                  "blocks/assistant/auto",
+                  "blocks/assistant/instructions",
+                  "blocks/assistant/memory",
+                  "blocks/assistant/storage",
+                  "blocks/assistant/tools",
+                  "blocks/assistant/pydantic-output",
+                  "blocks/assistant/tasks",
+                  "blocks/assistant/openai"
+                ]
+              },
+              {
+                "group": "Custom Assistants",
+                "pages": [
+                  "blocks/assistant/custom/introduction",
+                  "blocks/assistant/custom/duckdb",
+                  "blocks/assistant/custom/python"
                 ]
               },
               {
@@ -189,21 +184,21 @@
           "group": "AI Apps",
           "pages": [
             {
-              "group": "RAG LLM App",
+              "group": "RAG AI App",
               "pages": [
                 "examples/ai/rag/run-local",
                 "examples/ai/rag/run-aws"
               ]
             },
             {
-              "group": "Autonomous LLM App",
+              "group": "Autonomous AI App",
               "pages": [
                 "examples/ai/auto/run-local",
                 "examples/ai/auto/run-aws"
               ]
             },
             {
-              "group": "Multimodal LLM App",
+              "group": "Multimodal AI App",
               "pages": [
                 "examples/ai/multimodal/run-local",
                 "examples/ai/multimodal/run-aws"
@@ -215,29 +210,28 @@
                 "examples/ai/junior-de/run-local",
                 "examples/ai/junior-de/run-aws"
               ]
-            },
-            "examples/ai/snowflake-de"
+            }
           ]
         },
         {
           "group": "AI Cookbook",
           "pages": [
             "ai-cookbook/introduction",
-            "ai-cookbook/simple-conversation",
-            "ai-cookbook/rag-conversation",
-            "ai-cookbook/auto-conversation",
-            "ai-cookbook/conversation-w-storage",
+            "ai-cookbook/simple-assistant",
+            "ai-cookbook/rag-assistant",
+            "ai-cookbook/auto-assistant",
+            "ai-cookbook/assistant-w-storage",
             "ai-cookbook/trending-on-hn",
-            "ai-cookbook/movie-generator",
-            "ai-cookbook/short-story-generator",
+            "ai-cookbook/movie-assistant",
+            "ai-cookbook/story-assistant",
             "ai-cookbook/langchain-retriever"
           ]
         },
         {
-          "group": "LLM API",
+          "group": "AI API",
           "pages": [
-            "examples/llm-api/run-local",
-            "examples/llm-api/run-aws"
+            "examples/ai-api/run-local",
+            "examples/ai-api/run-aws"
           ]
         },
         {
@@ -256,17 +250,17 @@
           "group": "Templates",
           "pages": [
               {
-                "group": "LLM App",
+                "group": "AI App",
                 "pages": [
-                  "templates/llm-app/run-local",
-                  "templates/llm-app/run-aws"
+                  "templates/ai-app/run-local",
+                  "templates/ai-app/run-aws"
                 ]
               },
               {
-                "group": "Rest API",
+                "group": "AI API",
                 "pages": [
-                  "templates/api-app/run-local",
-                  "templates/api-app/run-aws"
+                  "templates/ai-api/run-local",
+                  "templates/ai-api/run-aws"
                 ]
               },
               {
@@ -310,7 +304,7 @@
     {
       "group": "Building Blocks",
       "pages": [
-        "reference/blocks/conversation",
+        "reference/blocks/assistant",
         {
           "group": "Agents",
           "pages": [
@@ -337,9 +331,9 @@
         {
           "group": "Storage",
           "pages": [
-            "reference/blocks/storage/conversation/postgres",
-            "reference/blocks/storage/conversation/sqlite",
-            "reference/blocks/storage/conversation/singlestore"
+            "reference/blocks/storage/assistant/postgres",
+            "reference/blocks/storage/assistant/sqlite",
+            "reference/blocks/storage/assistant/singlestore"
           ]
         },
         {

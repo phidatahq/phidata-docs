@@ -1,0 +1,41 @@
+## Create your codebase
+
+Create your codebase using the `ai-app` template
+
+<CodeGroup>
+
+```bash Mac
+phi ws create -t ai-app -n ai-app
+```
+
+```bash Windows
+phi ws create -t ai-app -n ai-app
+```
+
+</CodeGroup>
+
+This will create a folder `ai-app` with the following structure:
+
+```bash
+ai-app                       # root directory for your ai-app
+├── ai                      # directory for AI components
+    ├── assistants          # AI assistants
+    ├── knowledge_base.py   # assistant knowledge base
+    └── storage.py          # assistant storage
+├── api                     # directory for FastApi routes
+├── app                     # directory for Streamlit apps
+├── db                      # directory for database components
+├── notebooks               # directory for Jupyter notebooks
+├── Dockerfile              # Dockerfile for the application
+├── pyproject.toml          # python project definition
+├── requirements.txt        # python dependencies managed by pyproject.toml
+├── scripts                 # directory for helper scripts
+├── tests                   # directory for unit tests
+├── utils                   # directory for shared utilities
+└── workspace               # phidata workspace directory
+    ├── dev_resources.py    # dev resources running locally
+    ├── prd_resources.py    # production resources running on AWS
+    ├── jupyter             # jupyter notebook resources
+    ├── secrets             # directory for storing secrets
+    └── settings.py         # phidata workspace settings
+```

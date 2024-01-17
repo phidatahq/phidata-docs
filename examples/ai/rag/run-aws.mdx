@@ -2,7 +2,7 @@
 title: "Run on AWS"
 ---
 
-Let's run the **RAG LLM App** in production on AWS.
+Let's run the **RAG AI App** in production on AWS.
 
 <Snippet file="aws-setup.mdx" />
 
@@ -14,39 +14,46 @@ Let's run the **RAG LLM App** in production on AWS.
 
 **Open the LoadBalancer DNS** provided when creating the Streamlit App
 
-### Chat with PDF
+### PDF Assistant
 
 - Enter the `APP_PASSWORD` from the `prd_app_secrets.yml` file (default: `admin`)
-- Click on **Chat with PDFs** in the sidebar
+- Click on **PDF Assistant** in the sidebar
 - Enter a username and wait for the knowledge base to load.
-- Choose the `RAG` Conversation type.
+- Choose the `RAG` Assistant type.
 - Ask "How do I make chicken curry?"
 
-![rag-llm-app-chat-with-pdf-prd](/images/rag-llm-app-chat-with-pdf-prd.png)
+![Chat with pdf](/images/ai-app-pdf-assistant-prd.png)
+
+<Tip>
+
+Similarly checkout the Image and Website Assistants.
+
+</Tip>
 
 ## Production FastApi
 
 - **Open the LoadBalancer DNS** + the `/docs` endpoint to view the API Endpoints.
-- Load the knowledge base using `/v1/pdf/conversation/load-knowledge-base`
-- Test the `v1/pdf/conversation/chat` endpoint with
+- Load the knowledge base using `/v1/assitants/load-knowledge-base`
+- Test the `v1/assitants/chat` endpoint with
 
 ```json
 {
-  "message": "How do I make chicken curry?"
+  "message": "How do I make chicken curry?",
+  "assistant": "RAG_PDF"
 }
 ```
 
 - Update and integrate with your front-end or product.
 
-![rag-llm-app-fastapi-prd](/images/rag-llm-app-fastapi-prd.png)
+![API Endpoints](/images/ai-app-api-endpoints-prd.png)
 
-<Snippet file="llm-app-update-production.mdx" />
+<Snippet file="ai-app-update-production.mdx" />
 
-<Snippet file="llm-app-delete-aws-resources.mdx" />
+<Snippet file="ai-app-delete-aws-resources.mdx" />
 
 ## Next
 
-Congratulations on running your LLM App on AWS. Next Steps:
+Congratulations on running your AI App on AWS. Next Steps:
 
 - Create a [git repository for your workspace](/how-to/git-repo)
 - Read how to [manage the production application](/how-to/production-app)

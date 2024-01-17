@@ -2,7 +2,7 @@
 title: "Run on AWS"
 ---
 
-Let's run the **Autonomous LLM App** in production on AWS.
+Let's run the **Autonomous AI App** in production on AWS.
 
 <Snippet file="aws-setup.mdx" />
 
@@ -10,45 +10,17 @@ Let's run the **Autonomous LLM App** in production on AWS.
 
 <Snippet file="create-aws-resources.mdx" />
 
-## Production Streamlit App
+<Snippet file="ai-app-production-streamlit.mdx" />
 
-**Open the LoadBalancer DNS** provided when creating the Streamlit App
+<Snippet file="ai-app-production-fastapi.mdx" />
 
-### Chat with PDF
+<Snippet file="ai-app-update-production.mdx" />
 
-- Enter the `APP_PASSWORD` from the `prd_app_secrets.yml` file (default: `admin`)
-- Click on **Chat with PDFs** in the sidebar
-- Enter a username and wait for the knowledge base to load.
-- Choose the `Autonomous` Conversation type.
-- Ask "How do I make chicken curry?"
-- Notice how the LLM first searches the knowledge base and also uses the appropriate search query.
-
-![auto-llm-app-chat-with-pdf-prd](/images/auto-llm-app-chat-with-pdf-prd.png)
-
-## Production FastApi
-
-- **Open the LoadBalancer DNS** + the `/docs` endpoint to view the API Endpoints.
-- Load the knowledge base using `/v1/pdf/conversation/load-knowledge-base`
-- Test the `v1/pdf/conversation/chat` endpoint with
-
-```json
-{
-  "message": "How do I make chicken curry?",
-  "conversation_type": "AUTO"
-}
-```
-
-- Update and integrate with your front-end or product.
-
-![auto-llm-app-fastapi-prd](/images/auto-llm-app-fastapi-prd.png)
-
-<Snippet file="llm-app-update-production.mdx" />
-
-<Snippet file="llm-app-delete-aws-resources.mdx" />
+<Snippet file="ai-app-delete-aws-resources.mdx" />
 
 ## Next
 
-Congratulations on running your LLM App on AWS. Next Steps:
+Congratulations on running your AI App on AWS. Next Steps:
 
 - Create a [git repository for your workspace](/how-to/git-repo)
 - Read how to [manage the production application](/how-to/production-app)

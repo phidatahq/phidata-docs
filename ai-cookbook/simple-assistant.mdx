@@ -1,0 +1,44 @@
+---
+title: Simple Assistant
+---
+
+A simple assistant that prints a response from GPT4-turbo
+
+## Code
+
+```python recipe/simple_assistant.py
+from phi.assistant import Assistant
+
+assistant = Assistant(description="You help people with their health and fitness goals.")
+assistant.print_response("Share a quick healthy breakfast recipe.")
+```
+
+## Usage
+
+<CodeGroup>
+
+```bash Mac
+python recipe/simple_assistant.py
+```
+
+```bash Windows
+python recipe/simple_assistant.py
+```
+
+</CodeGroup>
+
+<br />
+
+<Accordion title="Required libraries">
+
+```bash
+pip install openai
+```
+
+</Accordion>
+
+## Information
+
+- View on [Github](https://github.com/phidatahq/ai-cookbook/blob/main/recipe/simple_assistant.py)
+- Read about [Assistants](/blocks/assistant/introduction)
+- <Snippet file="message-us-discord.mdx" />
