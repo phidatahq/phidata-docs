@@ -1,29 +1,29 @@
 ---
-title: PostgreSQL Conversation Storage
+title: PostgreSQL Assistant Storage
 sidebarTitle: PostgreSQL
 ---
 
 ## Example
 
-```python conversation.py
+```python assistant.py
 from phi.llm.openai import OpenAIChat
-from phi.conversation import Conversation
-from phi.storage.conversation.postgres import PgConversationStorage
+from phi.assistant import Assistant
+from phi.storage.assistant.postgres import PgAssistantStorage
 
-conversation = Conversation(
-    # -*- Add storage to the conversation
-    storage = PgConversationStorage(
-        # Table name: llm.conversations
-        table_name="conversations",
+assistant = Assistant(
+    # -*- Add storage to the assistant -*-
+    storage = PgAssistantStorage(
+        # Table name: llm.assistant
+        table_name="assistant",
         db_url=db_url,
     )
 )
 ```
 
-## PgConversationStorage Reference
+## PgAssistantStorage Reference
 
 <ResponseField name="table_name" type="str">
-  The name of the table to store conversations in.
+  The name of the table to store assistant conversations in.
 </ResponseField>
 <ResponseField name="schema" type="str" default="llm">
   The schema to store the table in.

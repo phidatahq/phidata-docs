@@ -1,25 +1,29 @@
-<ResponseField name="id" type="str" default="None">
+<ResponseField name="task_id" type="str" default="None">
   Task UUID
 </ResponseField>
-<ResponseField name="name" type="str" default="None">
+<ResponseField name="task_name" type="str" default="None">
   Task name
 </ResponseField>
-<ResponseField name="meta_data" type="dict" default="None">
-  Metadata associated with this task
+<ResponseField name="assistant_memory" type="AssistantMemory" default="None">
+</ResponseField>
+<ResponseField name="run_id" type="str" default="None">
+</ResponseField>
+<ResponseField name="run_message" type="Union" default="None">
+</ResponseField>
+<ResponseField name="run_task_data" type="List" default="None">
+</ResponseField>
+<ResponseField name="output_model" type="Union" default="None">
+ Provide an output model for the responses
+</ResponseField>
+<ResponseField name="parse_output" type="Union" default="None">
+  If True, the output is converted into the output_model (pydantic model or json dict)
+</ResponseField>
+<ResponseField name="output" type="Any" default="None">
+ Final output of this Task
+</ResponseField>
+<ResponseField name="show_output" type="bool" default="True">
+  If True, shows the output of the task in the assistant.run()
 </ResponseField>
 <ResponseField name="debug_mode" type="bool" default="False">
   If True, show debug logs
-</ResponseField>
-<ResponseField name="monitoring" type="bool" default="False">
-  Enable monitoring on phidata.com
-</ResponseField>
-<ResponseField name="conversation_memory" type="ConversationMemory" default="None">
-</ResponseField>
-<ResponseField name="conversation_message" type="Union" default="None">
-</ResponseField>
-<ResponseField name="output" type="Any" default="None">
-</ResponseField>
-<ResponseField name="output_model" type="Union" default="None">
-</ResponseField>
-<ResponseField name="show_output" type="bool" default="True">
 </ResponseField>

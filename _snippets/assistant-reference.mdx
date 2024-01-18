@@ -1,0 +1,154 @@
+<ResponseField name="llm" type="LLM">
+  LLM to use for this conversation
+</ResponseField>
+<ResponseField name="introduction" type="str">
+  Add an introduction (from the LLM) to the chat history
+</ResponseField>
+
+<ResponseField name="user_name" type="str">
+  Name of the user participating in this conversation.
+</ResponseField>
+<ResponseField name="user_type" type="str">
+  Type of the user participating in this conversation.
+</ResponseField>
+
+<ResponseField name="id" type="str">
+  Unique ID that can be used to continue the conversation across sessions.
+</ResponseField>
+<ResponseField name="name" type="str">
+  Conversation name
+</ResponseField>
+<ResponseField name="is_active" type="bool">
+  True if this conversation is active i.e. not ended
+</ResponseField>
+<ResponseField name="meta_data" type="Dict[str, Any]">
+  Metadata associated with this conversation
+</ResponseField>
+<ResponseField name="extra_data" type="Dict[str, Any]">
+  Extra data associated with this conversation
+</ResponseField>
+<ResponseField name="created_at" type="datetime">
+  The timestamp of when this conversation was created in the database
+</ResponseField>
+<ResponseField name="updated_at" type="datetime">
+  The timestamp of when this conversation was updated in the database
+</ResponseField>
+<ResponseField name="monitoring" type="bool">
+  Monitor conversations on phidata.com
+</ResponseField>
+
+<ResponseField name="memory" type="ConversationMemory">
+  Conversation Memory
+</ResponseField> <ResponseField name="add_chat_history_to_prompt" type="bool">
+  Add chat history to the prompt sent to the LLM.
+</ResponseField> <ResponseField name="add_chat_history_to_messages" type="bool">
+  Add chat history to the messages sent to the LLM.
+</ResponseField> <ResponseField name="num_history_messages" type="int">
+  Number of previous messages to add to prompt or messages sent to the LLM.
+</ResponseField>
+
+<ResponseField name="knowledge_base" type="KnowledgeBase">
+  Conversation Knowledge Base
+</ResponseField> <ResponseField name="add_references_to_prompt" type="bool">
+  Add references from the knowledge base to the prompt sent to the LLM.
+</ResponseField>
+
+<ResponseField name="storage" type="ConversationStorage">
+  Conversation Storage
+</ResponseField> <ResponseField name="create_storage" type="bool">
+  Create table if it doesn't exist
+</ResponseField>
+
+<ResponseField name="function_calls" type="bool">
+  Makes the conversation Autonomous by letting the LLM call functions to achieve
+  tasks.
+</ResponseField>
+<ResponseField name="default_functions" type="bool">
+  Add a list of default functions to the LLM
+</ResponseField>
+<ResponseField name="show_function_calls" type="bool">
+  Show function calls in LLM messages.
+</ResponseField>
+<ResponseField name="functions" type="List[Callable]">
+  A list of functions to add to the LLM.
+</ResponseField>
+<ResponseField name="function_registries" type="List[FunctionRegistry]">
+  A list of function registries to add to the LLM.
+</ResponseField>
+
+<ResponseField name="system_prompt" type="str">
+  Provide the system prompt as a string
+</ResponseField>
+<ResponseField name="system_prompt_function" type="Callable[..., Optional[str]]">
+  Function to build the system prompt.
+
+Signature:
+
+```python
+def system_prompt_function(conversation: Conversation) -> str:
+    ...
+```
+
+</ResponseField>
+
+This function is provided the `Conversation` as an argument and should return the system_prompt as a string.
+
+<ResponseField name="use_default_system_prompt" type="bool">
+  If True, the conversation provides a default system prompt
+</ResponseField>
+
+<ResponseField name="user_prompt" type="str">
+  Provide the user prompt as a string. This will ignore the message provided to the chat function
+</ResponseField>
+<ResponseField name="user_prompt_function" type="Callable[..., str]">
+Function to build the user prompt.
+
+Signature:
+
+```python
+def custom_user_prompt_function(
+    conversation: Conversation,
+    message: str,
+    references: Optional[str] = None,
+    chat_history: Optional[str] = None,
+) -> str:
+    ...
+```
+
+This function is provided the `Conversation` object and the input `message` as arguments. It should return the `user_prompt` as a string.
+
+If `add_references_to_prompt` is True, then `references` are also provided as an argument.
+
+If `add_chat_history_to_prompt` is True, then `chat_history` is also provided as an argument.
+
+</ResponseField>
+<ResponseField name="use_default_user_prompt" type="bool">
+If True, the conversation provides a default system user
+</ResponseField>
+
+<ResponseField name="references_function" type="Callable[..., Optional[str]]">
+Function to build references for the default `user_prompt`. This function, if provided, is called when `add_references_to_prompt` is True
+
+Signature:
+
+```python
+def references(conversation: Conversation, query: str) -> Optional[str]:
+    ...
+```
+
+</ResponseField>
+<ResponseField name="chat_history_function" type="Callable[..., Optional[str]]">
+Function to build the chat_history for the default `user_prompt`. This function, if provided, is called when `add_chat_history_to_prompt` is True
+
+Signature:
+
+```python
+def chat_history(conversation: Conversation, query: str) -> Optional[str]:
+    ...
+```
+
+</ResponseField>
+
+<ResponseField name="debug_mode" type="bool">
+  If True, show debug logs
+</ResponseField>

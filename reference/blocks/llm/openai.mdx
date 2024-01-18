@@ -4,15 +4,13 @@ title: OpenAI
 
 ## Example
 
-Use `OpenAIChat` with your `Conversation`, `Agent` or `Task`:
-
 <CodeGroup>
 
-```python Conversation
-from phi.conversation import Conversation
+```python assistant.py
+from phi.assistant import Assistant
 from phi.llm.openai import OpenAIChat
 
-conversation = Conversation(
+assistant = Assistant(
     llm=OpenAIChat(
         model="gpt-4",
         max_tokens=1024,
@@ -21,36 +19,13 @@ conversation = Conversation(
 )
 
 # -*- Print a response
-conversation.print_response('Share a 5 word horror story.')
+assistant.print_response('Share a 5 word horror story.')
 ```
 
-```python Agent
-from phi.agent.python import PythonAgent
-from phi.file.local.csv import CsvFile
-
-python_agent = PythonAgent(
-    llm=OpenAIChat(
-        model="gpt-4",
-        max_tokens=1024,
-        temperature=0.9,
-    ),
-    files=[
-        CsvFile(
-            path="https://phidata-public.s3.amazonaws.com/demo_data/IMDB-Movie-Data.csv",
-            description="Contains information about movies from IMDB.",
-        )
-    ],
-    pip_install=True,
-    show_function_calls=True,
-)
-
-python_agent.print_response("What is the average rating of movies?")
-```
-
-```python Task
+```python LLMTask
 from phi.llm.openai import OpenAIChat
 from phi.task.llm import LLMTask
-from phi.conversation import Conversation
+from phi.assistant import Assistant
 from pydantic import BaseModel, Field
 
 class StoryTheme(BaseModel):
@@ -58,7 +33,7 @@ class StoryTheme(BaseModel):
     genre: str = Field(..., description="This is the genre of the story. If not provided, select horror.")
 
 get_story_theme = LLMTask(
-    llm=OpenAIChat(model="gpt-4"),
+    llm=OpenAIChat(model="gpt-3.5-turbo-1106"),
     system_prompt="Generate a theme for a story.",
     output_model=StoryTheme,
     show_output=False,
@@ -73,8 +48,8 @@ give_story_a_name = LLMTask(
     system_prompt="Give this story a 2 word name. Format output as `Name: {name}`. Don't surround with quotes.",
 )
 
-story_conversation = Conversation(tasks=[get_story_theme, write_story, give_story_a_name])
-story_conversation.cli_app(user="Theme")
+story_assistant = Assistant(tasks=[get_story_theme, write_story, give_story_a_name])
+story_assistant.cli_app(user="Theme")
 ```
 
 </CodeGroup>

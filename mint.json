@@ -306,10 +306,10 @@
       "pages": [
         "reference/blocks/assistant",
         {
-          "group": "Agents",
+          "group": "Custom Assistants",
           "pages": [
-            "reference/blocks/agent/python",
-            "reference/blocks/agent/duckdb"
+            "reference/blocks/assistants/python",
+            "reference/blocks/assistants/duckdb"
           ]
         },
         {
@@ -319,7 +319,6 @@
             "reference/blocks/task/llm"
           ]
         },
-        "reference/blocks/assistant",
         {
           "group": "LLMs",
           "pages": [

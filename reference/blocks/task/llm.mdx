@@ -5,16 +5,10 @@ sidebarTitle: LLM Task
 
 ## Example
 
-In this example, we use 3 `Tasks` to reliably generate short stories for a given `Theme` by:
-
-1. Generate a `setting` and `genre` for a `Theme` using a Pydantic model.
-2. Write a 2 sentence story about the the `setting` and `genre`.
-3. Give the story a `Name`.
-
 ```python story_generator.py
 from phi.llm.openai import OpenAIChat
 from phi.task.llm import LLMTask
-from phi.conversation import Conversation
+from phi.assistant import Assistant
 from pydantic import BaseModel, Field
 
 class StoryTheme(BaseModel):
@@ -36,8 +30,8 @@ give_story_a_name = LLMTask(
     system_prompt="Give this story a 2 word name. Format output as `Name: {name}`. Don't surround with quotes.",
 )
 
-story_conversation = Conversation(tasks=[get_story_theme, write_story, give_story_a_name])
-story_conversation.cli_app(user="Theme")
+story_assistant = Assistant(tasks=[get_story_theme, write_story, give_story_a_name])
+story_assistant.cli_app(user="Theme")
 ```
 
 ## LLMTask Reference
