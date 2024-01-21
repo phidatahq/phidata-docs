@@ -2,4 +2,40 @@
 title: "Run on AWS"
 ---
 
-<Snippet file="coming-soon.mdx" />
+Let's run the **Junior DE** in production on AWS.
+
+<Snippet file="aws-setup.mdx" />
+
+<Snippet file="update-prd-secrets.mdx" />
+
+<Snippet file="create-aws-resources.mdx" />
+
+## Production Junior DE
+
+**Open the LoadBalancer DNS** provided when creating the Streamlit App
+
+### DuckGPT
+
+- Enter the `APP_PASSWORD` from the `prd_app_secrets.yml` file (default: `admin`)
+- Click on **DuckGPT Local** or **DuckGPT S3** and Enter a username.
+- Click on the **Load Tables** button to populate your DuckDb database with sample data.
+- Ask "Which actor has the highest average movie rating?"
+- See your Junior DE work through the problem.
+
+![Junior DE: DuckGPT Production](/images/junior-de-duckgpt-prd.png)
+
+<Snippet file="llm-app-update-production.mdx" />
+
+<Snippet file="llm-app-delete-aws-resources.mdx" />
+
+## Next
+
+Congratulations on running your Junior DE on AWS. Next Steps:
+
+- Create a [git repository for your workspace](/how-to/git-repo)
+- Read how to [manage the production application](/how-to/production-app)
+- Read how to [format and validate your code](/how-to/format-and-validate)
+- Read how to [add python libraries](/how-to/python-libraries)
+- Read how to [add a custom domain and HTTPS](how-to/domain-https)
+- Read how to [implement CI/CD](how-to/ci-cd)
+- Chat with us on [discord](https://discord.gg/4MtYHHrgA8)
