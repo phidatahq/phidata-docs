@@ -5,7 +5,7 @@ sidebarTitle: RAG
 
 Retrieval Augmented Generation means providing the LLM with additional information so it responds in a context-aware manner. When a user sends a message, we **"stuff the prompt"** with relevant information to improve response quality.
 
-To enable **RAG**, add a Knowledge Base to the `Assistant` and set `add_references_to_prompt=True`. This will search the **Knowledge Base** for information about the `message` and add it to the prompt before sending it to the LLM.
+To enable **RAG**, provide the `Assistant` with a Knowledge Base and set `add_references_to_prompt=True`. This will search the **Knowledge Base** for information about the `message` and add it to the prompt before sending it to the LLM.
 
 ## Usage
 
