@@ -6,9 +6,11 @@ Let's learn the basics by building an AI Assistant with a knowledge base, storag
 
 ## Assistants
 
-With phidata, we build AI products using **Assistants**.
+With phidata, we build AI applications using **Assistants**.
 
-**Assistants** enable LLMs to solve tasks by intelligently choosing a course of action. They come with built-in **memory**, **knowledge**, **storage** and **tools**, making it easy to build AI products.
+**Assistants** solve problems by using LLMs to call functions and take actions. They have their own memory, knowledge base and storage making them ideal for building AI products.
+
+![Assistant](/images/assistant.png)
 
 ### Simple Assistant
 
@@ -318,7 +320,7 @@ With the RAG assistant above, the `add_references_to_prompt=True` always adds in
 
 With Autonomous assistants, we let the LLM decide **if** it needs to access the knowledge base and what search parameters it needs to query the knowledge base.
 
-Make the `Assistant` Autonomous by setting `tool_calls=True` - which gives it the ability to search the knowledge base and chat history.
+Make the `Assistant` Autonomous by setting `use_tools=True` - which gives it the ability to search the knowledge base and chat history.
 
 <Steps>
   <Step title="Create an Autonomous Assistant">
@@ -344,7 +346,7 @@ Make the `Assistant` Autonomous by setting `tool_calls=True` - which gives it th
     assistant = Assistant(
         knowledge_base=knowledge_base,
         # add_references_to_prompt=True,
-        tool_calls=True,
+        use_tools=True,
         show_tool_calls=True,
     )
 
@@ -418,9 +420,9 @@ def pdf_assistant(new: bool = False, user: str = "user"):
         user_id=user,
         knowledge_base=knowledge_base,
         storage=storage,
-        # tool_calls=True adds functions to
+        # use_tools=True adds functions to
         # search the knowledge base and chat history
-        tool_calls=True,
+        use_tools=True,
         show_tool_calls=True,
         # Uncomment the following line to use traditional RAG
         # add_references_to_prompt=True,

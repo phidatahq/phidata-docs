@@ -31,7 +31,7 @@ rag_assistant = Assistant(
 
 ## Example: Autonomous Assistant
 
-To enable Autonomous mode, we add a Knowledge Base to the Assistant and set `tool_calls=True`. This adds a function for searching the **Knowledge Base** and lets the LLM decide when its needs to access the knowledge base and what search parameters to use.
+To enable Autonomous mode, we add a Knowledge Base to the Assistant and set `use_tools=True`. This adds a function for searching the **Knowledge Base** and lets the LLM decide when its needs to access the knowledge base and what search parameters to use.
 
 ```python auto_assistant.py
 from phi.assistant import Assistant
@@ -48,7 +48,7 @@ auto_assistant = Assistant(
         ),
     ),
     # -*- Let the assistant call tools to achieve tasks
-    tool_calls=True,
+    use_tools=True,
     # -*- Print the signature of tools called
     show_tools_calls=True,
 )

@@ -5,7 +5,7 @@ sidebarTitle: Autonomous
 
 With Autonomous Assistants, we let the LLM decide **if** it needs to access the knowledge base and what search parameters it needs to query the knowledge base.
 
-Behind the scenes, we provide the `Assistant` with a set of tools the LLM can call to achieve tasks. Make the Assistant Autonomous by setting `tool_calls=True` - which gives it the ability to search the knowledge base and chat history.
+Behind the scenes, we provide the `Assistant` with a set of tools the LLM can call to achieve tasks. Make the Assistant Autonomous by setting `use_tools=True` - which gives it the ability to search the knowledge base and chat history.
 
 ## Usage
 
@@ -29,7 +29,7 @@ knowledge_base = PDFUrlKnowledgeBase(
 assistant = Assistant(
     knowledge_base=knowledge_base,
     # add_references_to_prompt=True,
-    tool_calls=True,
+    use_tools=True,
     show_tool_calls=True,
 )
 
@@ -44,7 +44,7 @@ assistant.print_response('What was my last question?')
   `PDFKnowledgeBase` converts PDFs into vector embeddings and stores them in a
   vector db. [Read more](/blocks/kb/introduction)
 </ResponseField>
-<ResponseField name="tool_calls" type="bool" default="False">
+<ResponseField name="use_tools" type="bool" default="False">
   Makes the assistant `Autonomous` by letting the LLM call tools to achieve
   tasks.
 </ResponseField>
@@ -149,7 +149,7 @@ knowledge_base = PDFUrlKnowledgeBase(
 assistant = Assistant(
     knowledge_base=knowledge_base,
     # add_references_to_prompt=True,
-    tool_calls=True,
+    use_tools=True,
     show_tool_calls=True,
 )
 
