@@ -181,36 +181,45 @@
       "group": "Examples",
       "pages": [
         {
-          "group": "AI Apps",
+          "group": "RAG AI App",
           "pages": [
-            {
-              "group": "RAG AI App",
-              "pages": [
-                "examples/ai/rag/run-local",
-                "examples/ai/rag/run-aws"
-              ]
-            },
-            {
-              "group": "Autonomous AI App",
-              "pages": [
-                "examples/ai/auto/run-local",
-                "examples/ai/auto/run-aws"
-              ]
-            },
-            {
-              "group": "Multimodal AI App",
-              "pages": [
-                "examples/ai/multimodal/run-local",
-                "examples/ai/multimodal/run-aws"
-              ]
-            },
-            {
-              "group": "Junior Data Engineer",
-              "pages": [
-                "examples/ai/junior-de/run-local",
-                "examples/ai/junior-de/run-aws"
-              ]
-            }
+            "examples/rag/run-local",
+            "examples/rag/run-aws"
+          ]
+        },
+        {
+          "group": "Autonomous AI App",
+          "pages": [
+            "examples/auto/run-local",
+            "examples/auto/run-aws"
+          ]
+        },
+        {
+          "group": "Multimodal AI App",
+          "pages": [
+            "examples/multimodal/run-local",
+            "examples/multimodal/run-aws"
+          ]
+        },
+        {
+          "group": "Junior Data Engineer",
+          "pages": [
+            "examples/junior-de/run-local",
+            "examples/junior-de/run-aws"
+          ]
+        },
+        {
+          "group": "AI Api with FastAPI",
+          "pages": [
+            "examples/ai-api/run-local",
+            "examples/ai-api/run-aws"
+          ]
+        },
+        {
+          "group": "Django Web App",
+          "pages": [
+            "examples/web-app/run-local",
+            "examples/web-app/run-aws"
           ]
         },
         {
@@ -225,20 +234,6 @@
             "ai-cookbook/movie-assistant",
             "ai-cookbook/story-assistant",
             "ai-cookbook/langchain-retriever"
-          ]
-        },
-        {
-          "group": "AI API",
-          "pages": [
-            "examples/ai-api/run-local",
-            "examples/ai-api/run-aws"
-          ]
-        },
-        {
-          "group": "Django Web App",
-          "pages": [
-            "examples/web-app/run-local",
-            "examples/web-app/run-aws"
           ]
         }
       ]
