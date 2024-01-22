@@ -10,7 +10,9 @@ title: Introduction
 
 This is a powerful paradigm that allows LLMs to solve complex problems by intelligently choosing their course of action -- similar to how a human would solve a problem.
 
-For example, to answer questions from a database, an Assistant will first call a function to show tables, then describe those tables and finally, run a query to get the answer.
+For example, to answer a customer query, an Assistant might call a function to get the order history, then product information and finally, provide a reasoned response.
+
+Another example, to answer questions from a database, an Assistant will first call a function to show tables, then describe those tables and finally, run a query to get the answer.
 
 ![How assistants work](/images/how-assistants-work.png)
 
@@ -32,6 +34,11 @@ After building an Assistant, we serve it using **Streamlit**, **FastApi** or **D
 - Create your AI App using a template: `phi ws create`
 - Run your app locally: `phi ws up`
 - Run your app on AWS: `phi ws up prd:aws`
+
+## Live Demos
+
+- [Streamlit App](https://demo.aidev.run/) serving a PDF, Image and Website Assistant (password: **admin**)
+- [FastApi App](https://api.aidev.run/docs) serving a PDF Assistant.
 
 ## Get started
 
