@@ -17,7 +17,7 @@ The best part is that it inspects, validates and runs code like a regular engine
 
 ## Create your codebase
 
-Create your codebase using the `junior-de` template pre-configured with [Streamlit](https://streamlit.io/) and [PgVector](https://github.com/pgvector/pgvector).
+Create your codebase using the `junior-de` template
 
 <CodeGroup>
 
@@ -34,12 +34,16 @@ phi ws create -t junior-de -n junior-de
 This will create a folder `junior-de` with the following structure:
 
 ```bash
-junior-de                     # root directory for your Junior DE
+junior-de                     # root directory for your junior-de
+├── ai                      # directory for AI components
+    ├── duckgpt             # directory for the DuckDb DE
+    ├── pygpt               # directory for the Python DE
+    ├── assistants          # AI assistants
+    ├── knowledge_base.py   # assistant knowledge base
+    └── storage.py          # assistant storage
 ├── app                     # directory for Streamlit apps
-├── duckgpt                 # directory for the DuckDb data engineer
-├── pygpt                   # directory for the Python data engineer
+├── db                      # directory for database components
 ├── notebooks               # directory for Jupyter notebooks
-├── data                    # directory for local data files
 ├── Dockerfile              # Dockerfile for the application
 ├── pyproject.toml          # python project definition
 ├── requirements.txt        # python dependencies managed by pyproject.toml
@@ -73,94 +77,61 @@ phi ws up dev:docker
 
 **Press Enter** to confirm and give a few minutes for the image to download (only the first time). Verify container status and view logs on the docker dashboard.
 
-## PyGPT: Automate Data Analysis using Python
-
-- Open [localhost:8501](http://localhost:8501) to access your Junior DE.
-- Your first Junior DE is **PyGPT**, it can write python scripts for processing data, create charts and more. Click on **PyGPT** and enter a username.
-- Ask "Show me revenue per year"
-- Each script that PyGPT created is saved to the `pygpt/op` folder.
-- See your Junior DE work through the problem.
-
-![Junior DE: PyGPT Local](/images/pygpt_local.jpeg)
-
-## Add your data
-
-The data used by `PyGPT` is defined in the `pygpt/csv_files.py` file.
-
-- Add `csv` files to the `data/` folder and then to the `csv_files` list.
-- The more information we can provide about the file, the better the results.
-
-## How PyGPT works
-
-The `Conversation` powering `PyGPT` is defined in the `llm/conversations/pygpt.py` file. You can customize the prompts and adapt the Junior DE to your workflow.
-
-```python llm/conversations/pygpt.py
-...
-    return Conversation(
-        ...
-        agents=[python_agent],;
-        system_prompt=f"""\
-        You are a Data Engineering assistant designed to perform tasks using Python.
-        ...
-    )
-...
-```
-
 ## DuckGPT: Automate Data Analysis using DuckDb
 
-- Your second Junior DE is **DuckGPT** that can write and run SQL queries using DuckDb.
-- Click on **DuckGPT Local** and enter a username.
-- Ask "Show me revenue over time"
+- Open [localhost:8501](http://localhost:8501) to access your Junior DE.
+- Your first Junior DE is **DuckGPT** that can write and run SQL queries using DuckDb.
+- Click on **DuckGPT** and enter a username.
+- Message "Show me revenue over time"
 - See your Junior DE work through the problem.
-- Ask "Save it" to save the query to the `/duckgpt/op` folder.
+- Message "Save it" to save the query to the `ai/duckgpt/scratch` folder.
 
-![Junior DE: DuckGPT Local](/images/duckdb_de_local.jpeg)
+![Junior DE: DuckGPT Local](/images/duckgpt_local.png)
 
 ## Add your data
 
-The data used by local `DuckGPT` is defined in the `duckgpt/local_tables.py` file.
+`DuckGPT` tables are defined in the `ai/duckgpt/knowledge/tables.json` file.
 
-- Add `csv` files to the `data/` folder and then to the `local_tables` list.
-- These tables are created using a `CREATE OR REPLACE TABLE '{name}' AS SELECT * FROM '{path}';` command so can accept any file type supported by DuckDb.
-- You can also define custom data loading operations in the `load_local_tables()` function and click on the **Load All Tables** button to load the DuckDb database manually.
-
-## How DuckGPT works
-
-The `Conversation` powering `DuckGPT` is defined in the `llm/conversations/duckgpt_local.py` file. You can customize the prompts and adapt the Junior DE to your workflow.
-
-```python llm/conversations/duckgpt_local.py
-...
-    return Conversation(
-        ...
-        agents=[duckdb_local_agent],;
-        system_prompt=f"""\
-        You are a Data Engineering assistant designed to answer questions using DuckDb.
-        ...
-    )
-...
-```
-
-## DuckGPT on S3 data
-
-- Click on **DuckGPT S3** and enter a username.
-- Ask "Which actor has the highest average movie rating? ignore those with under 25 moviees and total 1000000 votes."
-- See your Junior DE work through a complex problem.
+- You can add `csv`, `json` or `parquet` files stored locally or on s3.
+- You can also add `txt` files to provide more information to the Assistant.
+- Click the `Update Knowledge Base` to load the knowledge base.
 
 <Note>
 
-The first query takes a few minutes as a lot of data from s3 is loaded into memory. You can pre-load data using the `Load All Tables` button or use your own (smaller) datasets.
+<Snippet file="message-us-discord.mdx" />
 
 </Note>
 
-![Junior DE: DuckGPT S3](/images/junior-de-duckgpt-s3.png)
+## How DuckGPT works
 
-## Add S3 data
+DuckGPT uses the `DuckDbAssistant` defined in the `ai/duckgpt/duckgpt.py` file. You can customize your assistant and adapt the Junior DE to your workflow.
 
-The tables used by S3 `DuckGPT` are defined in the `duckgpt/s3_tables.py` file.
+## PyGPT: Automate Data Analysis using Python
 
-- Add your S3 `tables` and the `relationships` between them. These aren't necessary but help improve the responses of the LLM.
-- These tables are created using a `CREATE OR REPLACE TABLE '{name}' AS SELECT * FROM '{path}';` command so can accept any file type supported by DuckDb.
-- You can also define custom data loading operations in the `load_s3_tables()` function and click on the **Load All Tables** button to load the DuckDb database manually.
+- Your next Junior DE is **PyGPT** that can write python scripts for processing data, create charts and more. Click on **PyGPT**.
+- Message "Show me a chart of revenue per year"
+- Each script that PyGPT creates and runs is saved to the `ai/pygpt/scratch` folder for reference
+- See your Junior DE work through the problem.
+
+![Junior DE: PyGPT Local](/images/pygpt_local.png)
+
+## Add your data
+
+`PyGPT` files are defined in the `ai/pygpt/knowledge/files.json` file.
+
+- You can add `csv`, `json` or `parquet` files stored locally or on s3.
+- You can also add `txt` files to provide more information to the Assistant.
+- Click the `Update Knowledge Base` to load the knowledge base.
+
+<Note>
+
+<Snippet file="message-us-discord.mdx" />
+
+</Note>
+
+## How PyGPT works
+
+PyGPT uses the `PythonAssistant` defined in the `ai/pygpt/pygpt_streamlit.py` file. You can customize your assistant and adapt the Junior DE to your workflow.
 
 ## Optional: Run Jupyterlab
 
@@ -199,7 +170,7 @@ A jupyter notebook is a must have for AI development and your `junior-de` comes 
   </Step>
   <Step title="View JupyterLab UI">
     - Open [localhost:8888](http://localhost:8888) to view the Jupyterlab UI. Password: **admin**
-    - Open `notebooks/local_duckgpt` to run DuckGPT on local data.
+    - Open `notebooks/duckgpt` to play with DuckGPT.
 
     <img
       src="/images/junior-de-jupyter-local.png"
@@ -215,10 +186,9 @@ A jupyter notebook is a must have for AI development and your `junior-de` comes 
 
 Junior DE is a v0 release, meaning there will be plenty of bugs and plenty of upgrades. Here's what we have in the works:
 
-- Add Polars agent.
-- Add Snowflake agent.
+- Add Snowflake Assistant.
 - Ask questions via slack
-- Add Airflow agent.
+- Add Airflow Assistant.
 - Add ability to write and test data pipelines.
 
 Message us on [discord](https://discord.gg/4MtYHHrgA8) if you want to beta-test.
@@ -227,7 +197,7 @@ Message us on [discord](https://discord.gg/4MtYHHrgA8) if you want to beta-test.
 
 Congratulations on running your Junior DE locally. Next Steps:
 
-- [Run your Junior DE on AWS](/examples/ai/rag/run-aws)
+- [Run your Junior DE on AWS](/examples/junior-de/run-aws)
 - Create a [git repository for your workspace](/how-to/git-repo)
 - Read how to [manage the development application](/how-to/development-app)
 - Read how to [format and validate your code](/how-to/format-and-validate)
