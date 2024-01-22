@@ -4,15 +4,19 @@ title: Introduction
 
 ## What is phidata?
 
-**Phidata is a toolkit for building AI Apps using Autonomous Assistants.**
+**Phidata is a toolkit for building applications using AI Assistants.** It provides pre-built templates for AI apps that you can use to get started quickly. Here's how it works:
 
-**Autonomous Assistants** achieve tasks by letting LLMs call functions and take actions.
+- Create your AI App using a template: `phi ws create`
+- Run your app locally: `phi ws up`
+- Deploy your app to AWS: `phi ws up prd:aws`
 
-This is a powerful paradigm that allows LLMs to solve complex problems by intelligently choosing their course of action -- similar to how a human would solve a problem.
+## Under the hood
 
-For example, to answer a customer query, an Assistant might call a function to get the order history, then product information and finally, provide a reasoned response.
+Phidata provides **Assistants** that achieve tasks by letting LLMs call functions and take actions.
 
-Another example, to answer questions from a database, an Assistant will first call a function to show tables, then describe those tables and finally, run a query to get the answer.
+This is a powerful paradigm that allows LLMs to solve complex problems by intelligently choosing a course of action -- similar to how a human would solve a problem.
+
+For example, to answer a question from a proprietary knowlege base, an Assistant will first call a function to search the knowlege base and then systhesize the results to return the answer.
 
 ![How assistants work](/images/how-assistants-work.png)
 
