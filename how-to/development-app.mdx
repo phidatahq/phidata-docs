@@ -42,7 +42,7 @@ Build the development image using:
 phi ws up --env dev --infra docker --type image
 ```
 
-```bash shorthand
+```bash short options
 phi ws up -e dev -i docker -t image
 ```
 
@@ -56,7 +56,7 @@ To `force` rebuild images, use the `--force` or `-f` flag
 phi ws up --env dev --infra docker --type image --force
 ```
 
-```bash shorthand
+```bash short options
 phi ws up -e dev -i docker -t image -f
 ```
 
@@ -74,7 +74,7 @@ Restart all docker containers using:
 phi ws restart --env dev --infra docker --type container
 ```
 
-```bash shorthand
+```bash short options
 phi ws restart -e dev -c docker -t container
 ```
 
@@ -97,6 +97,10 @@ phi ws up --env dev --infra docker --force
 ```
 
 ```bash shorthand
+phi ws up dev:docker -f
+```
+
+```bash short options
 phi ws up -e dev -i docker -f
 ```
 
