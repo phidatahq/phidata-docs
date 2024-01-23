@@ -1,11 +1,13 @@
 ---
 title: Assistant Instructions/Prompts
-sidebarTitle: Instructions
+sidebarTitle: Instructions/Prompts
 ---
 
-The `Assistant` class provides a user-friendly interface to language models but behind the scenes it converts the `description`, `instructions` and `messages` into `system` and `user` prompts.
+The `Assistant` class provides a user-friendly interface to language models but behind the scenes it converts the `instructions` and `messages` into `system` and `user` prompts.
 
-**Use the following params to customize the system and user prompts:**
+## Default System Prompt
+
+The Assistant provides a default system prompt that you can customize using:
 
 <ResponseField name="description" type="str" default="You are a helpful assistant.">
   A description of the Assistant that is added to the system prompt.
@@ -23,9 +25,7 @@ The `Assistant` class provides a user-friendly interface to language models but 
   Provide an output model for the responses. Accepts a pydantic model, list of strings where each string is a key the LLM should return a value for or just a string.
 </ResponseField>
 
-## Default System Prompt
-
-By default, the Assistant creates a default system prompt using the `description`, `instructions`, `extra_instructions`, `markdown` and `output_model` params.
+### Example
 
 You can view the system prompt by setting `debug_mode=True`
 
