@@ -6,7 +6,7 @@ Tools are functions that the Assistant can run to achieve tasks. They are our fa
 
 Assistants have access to a set of default tools like searching the **Knowledge Base** and **Memory** that can be enabled by setting `use_tools=True`, but we highly recommend adding your own tools to explore the possibilities.
 
-Phidata also provides pre-built Tools for specific tasks.
+Phidata also provides pre-built Tools you can attach to your Assistant.
 
 ## Usage
 
@@ -17,12 +17,12 @@ from phi.assistant import Assistant
 from phi.tools.python import PythonTools
 
 assistant = Assistant(tools=[PythonTools()], show_tool_calls=True)
-assistant.print_response("Show me the top 5 hackernews stories")
+assistant.print_response("Summarize the top stories on hackernews")
 ```
 
 ## Create your own Tools
 
-For more control, write your own functions and provide them as tools to an assistant. Creating your own tools is as simple as writing a python function (which you can use the PythonTools to generate). For example:
+For more control, write your own functions and provide them as tools to an assistant. Creating your own tools is as simple as writing a python function. For example:
 
 ```python hn_assistant.py
 import json
@@ -55,11 +55,8 @@ def get_top_hackernews_stories(num_stories: int = 10) -> str:
         stories.append(story)
     return json.dumps(stories)
 
-assistant = Assistant(
-    tools=[get_top_hackernews_stories],
-    show_tool_calls=True
-)
-assistant.print_response("What's trending on hackernews?")
+assistant = Assistant(tools=[get_top_hackernews_stories], show_tool_calls=True)
+assistant.print_response("Summarize the top stories on hackernews?")
 ```
 
 ## Example
@@ -111,7 +108,7 @@ from phi.assistant import Assistant
 from phi.tools.python import PythonTools
 
 assistant = Assistant(tools=[PythonTools()], show_tool_calls=True)
-assistant.print_response("Show me the top 5 hackernews stories")
+assistant.print_response("Summarize the top stories on hackernews")
 ```
 
   </Step>
@@ -157,11 +154,8 @@ def get_top_hackernews_stories(num_stories: int = 10) -> str:
         stories.append(story)
     return json.dumps(stories)
 
-assistant = Assistant(
-    tools=[get_top_hackernews_stories],
-    show_tool_calls=True
-)
-assistant.print_response("What's trending on hackernews?")
+assistant = Assistant(tools=[get_top_hackernews_stories], show_tool_calls=True)
+assistant.print_response("Summarize the top stories on hackernews?")
 ```
 
     Run it:

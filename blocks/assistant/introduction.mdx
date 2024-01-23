@@ -27,7 +27,112 @@ Under the hood, the description and message are converted into system and user p
 
 ## Example
 
-<Snippet file="run-assistant-steps.mdx" />
+<Steps>
+  <Step title="Create a virtual environment">
+    Open the `Terminal` and create an `ai` directory with a python virtual environment.
+
+    <CodeGroup>
+
+    ```bash Mac
+    mkdir ai && cd ai
+
+    python3 -m venv aienv
+    source aienv/bin/activate
+    ```
+
+    ```bash Windows
+    mkdir ai; cd ai
+
+    python3 -m venv aienv
+    aienv/scripts/activate
+    ```
+
+    </CodeGroup>
+
+  </Step>
+  <Step title="Install libraries">
+    Install `phidata` and `openai` using pip
+
+    <CodeGroup>
+
+    ```bash Mac
+    pip install -U phidata openai
+    ```
+
+    ```bash Windows
+    pip install -U phidata openai
+    ```
+
+    </CodeGroup>
+
+  </Step>
+  <Step title="Create an assistant">
+    Create a file `assistant.py` with the following contents
+
+```python assistant.py
+from phi.assistant import Assistant
+
+assistant = Assistant(description="You help people with their health and fitness goals.")
+assistant.print_response("Share a quick healthy breakfast recipe.")
+```
+
+  </Step>
+  <Step title="Run the assistant">
+    Run the `assistant.py` file
+```bash
+python assistant.py
+```
+  </Step>
+
+  <Step title="Let the Assistant call a function">
+    Create a file `hn_assistant.py` with an Assistant that can call a function.
+
+```python hn_assistant.py
+import json
+import httpx
+
+from phi.assistant import Assistant
+
+
+def get_top_hackernews_stories(num_stories: int = 10) -> str:
+    """Use this function to get top stories from Hacker News.
+
+    Args:
+        num_stories (int): Number of stories to return. Defaults to 10.
+
+    Returns:
+        str: JSON string of top stories.
+    """
+
+    # Fetch top story IDs
+    response = httpx.get('https://hacker-news.firebaseio.com/v0/topstories.json')
+    story_ids = response.json()
+
+    # Fetch story details
+    stories = []
+    for story_id in story_ids[:num_stories]:
+        story_response = httpx.get(f'https://hacker-news.firebaseio.com/v0/item/{story_id}.json')
+        story = story_response.json()
+        if "text" in story:
+            story.pop("text", None)
+        stories.append(story)
+    return json.dumps(stories)
+
+assistant = Assistant(tools=[get_top_hackernews_stories], show_tool_calls=True)
+assistant.print_response("Summarize the top stories on hackernews?")
+```
+
+  </Step>
+  <Step title="Run the assistant">
+    Run the `hn_assistant.py` file
+
+```bash
+python hn_assistant.py
+```
+
+  </Step>
+
+</Steps>
 
 ## More Information
 
@@ -35,10 +140,10 @@ Read more about:
 
 - [RAG Assistants](/blocks/assistant/rag)
 - [Autonomous Assistants](/blocks/assistant/auto)
-- [Assistant Instructions/Prompts](/blocks/assistant/instructions)
-- [Assistant Memory](/blocks/assistant/memory)
-- [Assistant Storage](/blocks/assistant/storage)
-- [Assistant Tools](/blocks/assistant/tools)
+- [Instructions/Prompts](/blocks/assistant/instructions)
+- [Memory](/blocks/assistant/memory)
+- [Storage](/blocks/assistant/storage)
+- [Tools](/blocks/assistant/tools)
 - [Generating Pydantic models as output](/blocks/assistant/pydantic-output)
-- [Assistant Tasks](/blocks/assistant/tasks)
+- [Tasks](/blocks/assistant/tasks)
 - [OpenAI Assistants](/blocks/assistant/openai)
