@@ -2,7 +2,7 @@
 title: Basics
 ---
 
-Let's learn the basics by building an AI Assistant with a knowledge base, storage and memory.
+Let's learn the basics by building an AI Assistants with knowledge base, storage and tools.
 
 ## Assistants
 
@@ -86,6 +86,60 @@ With phidata, we build AI applications using **Assistants**.
 
     ```bash
     python assistant.py
+    ```
+
+  </Step>
+</Steps>
+
+### Assistant calling a function
+
+Lets create an Assistant that can call a function to summarize top HackerNews stories.
+
+<Steps>
+  <Step title="Create HackerNews Assistant">
+    Create a file `hn_assistant.py`
+
+    ```python hn_assistant.py
+    import json
+    import httpx
+
+    from phi.assistant import Assistant
+
+
+    def get_top_hackernews_stories(num_stories: int = 10) -> str:
+        """Use this function to get top stories from Hacker News.
+
+        Args:
+            num_stories (int): Number of stories to return. Defaults to 10.
+
+        Returns:
+            str: JSON string of top stories.
+        """
+
+        # Fetch top story IDs
+        response = httpx.get('https://hacker-news.firebaseio.com/v0/topstories.json')
+        story_ids = response.json()
+
+        # Fetch story details
+        stories = []
+        for story_id in story_ids[:num_stories]:
+            story_response = httpx.get(f'https://hacker-news.firebaseio.com/v0/item/{story_id}.json')
+            story = story_response.json()
+            if "text" in story:
+                story.pop("text", None)
+            stories.append(story)
+        return json.dumps(stories)
+
+    assistant = Assistant(tools=[get_top_hackernews_stories], show_tool_calls=True)
+    assistant.print_response("Summarize the top stories on hackernews?")
+    ```
+
+  </Step>
+  <Step title="Run the assistant">
+    Run the `hn_assistant.py` file
+
+    ```bash
+    python hn_assistant.py
     ```
 
   </Step>
@@ -216,7 +270,7 @@ Run `PgVector` on `Docker` using the following steps:
 
 Retrieval Augmented Generation means providing the LLM with additional information so it responds in a context-aware manner. When a user sends a message, we **"stuff the prompt with relevant information"** to improve response quality.
 
-Let's test out RAG by building a **PDF Assistant** that helps us read a recipe book.
+Let's test out RAG by building a **PDF Assistant** that helps us with food recipes.
 
 1. We'll load the knowledge base with the PDF of a recipe book.
 2. Our **PDF Assistant** will respond with the recipes from the knowledge base.
@@ -320,7 +374,7 @@ With the RAG assistant above, the `add_references_to_prompt=True` always adds in
 
 With Autonomous assistants, we let the LLM decide **if** it needs to access the knowledge base and what search parameters it needs to query the knowledge base.
 
-Make the `Assistant` Autonomous by setting `use_tools=True` - which gives it the ability to search the knowledge base and chat history.
+Make the `Assistant` Autonomous by setting `use_tools=True` - which gives it the ability to search the knowledge base and chat history on demand.
 
 <Steps>
   <Step title="Create an Autonomous Assistant">
@@ -356,7 +410,7 @@ Make the `Assistant` Autonomous by setting `use_tools=True` - which gives it the
 
   </Step>
   <Step title="Run the assistant">
-    Run the `auto_assistant.py` file and notice how it searches the knowledge base and chat history when needed.
+    Run the `auto_assistant.py` and notice how it searches the knowledge base and chat history when needed.
 
     <CodeGroup>
 
