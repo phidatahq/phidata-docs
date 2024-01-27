@@ -4,25 +4,26 @@ title: Introduction
 
 ## What is phidata?
 
-**Phidata is a toolkit for building AI applications using LLM function calling.** It provides pre-built templates for AI apps that you can clone & run in minutes. Here's how it works:
+**Phidata is a toolkit for building intelligent AI applications.**
 
-- Create your AI App using a template: `phi ws create`
-- Run your app locally: `phi ws up`
-- Deploy your app to AWS: `phi ws up prd:aws`
+<p className="hidden">
+
+Phidata provides pre-built templates for building intelligent AI applications. AI Engineers can build their own AI App using these templates in 3 steps:
+
+- Create your codebase using: `phi ws create`
+- Run your AI app locally: `phi ws up`
+- Deploy your AI app to AWS: `phi ws up prd:aws`
+
+</p>
+
+It provides a framework for building AI Assistants using function calling - a powerful paradigm that gives LLMs the ability to take actions and dynamically choose their path based on the response,
+just like how humans solve problems. Assistants come with memory, knowledge, storage and tools, making it easy to build intelligent AI applications.
 
 <p className="hidden">"LLM = Large Language Model"</p>
 
-## Under the hood
-
-Phidata provides **Assistants** that achieve tasks by letting LLMs call functions and take actions.
-
-This is a powerful approach that allows LLMs to solve complex problems by running functions and intelligently choosing a course of action based on the response.
-
-For example, to answer a question from a proprietary knowlege base, the Assistant will first run a function to search the knowlege base and then systhesize the results to return the answer.
-
 ![How assistants work](/images/how-assistants-work.png)
 
-Assistants come with built-in memory, knowledge, storage and tools, making it easy to build **RAG**, **Autonomous** or **Multimodal** applications like:
+## Use phidata to build
 
 - **Knowledge Assistants:** Answer questions from documents (PDFs, text)
 - **Data Assistants:** Analyze data by running SQL queries.
@@ -35,18 +36,18 @@ Assistants come with built-in memory, knowledge, storage and tools, making it ea
 
 ## Templates
 
-After building an Assistant, we serve it using **Streamlit**, **FastApi** or **Django** to build an AI application. Instead of wiring tools manually, phidata provides **pre-built** templates for AI Apps that you customise and make your own. Here's how they work:
+After building an Assistant, we serve it using **Streamlit**, **FastApi** or **Django** to build an AI application. Instead of wiring these tools manually, phidata provides **pre-built** templates for AI Apps that you can run locally or deploy to AWS with 1 command. Here's how they work:
 
 - Create your AI App using a template: `phi ws create`
 - Run your app locally: `phi ws up`
 - Run your app on AWS: `phi ws up prd:aws`
 
-## Live Demos
+## Demos
 
 - [Streamlit App](https://demo.aidev.run/) serving a PDF, Image and Website Assistant (password: **admin**)
 - [FastApi App](https://api.aidev.run/docs) serving a PDF Assistant.
 
-## Get started
+## Getting started
 
 1. Read the [basics](/basics) guide to learn the basics.
 2. Read the [AI App](/ai-app/run-local) guide to build your own AI App.
