@@ -1,0 +1,45 @@
+---
+title: Tool Registry
+---
+
+**Tool Registry** is a collection of tools designed to achieve specific tasks.
+
+For example `PythonTools` can be added to an Assistant to enable it to run python code to achieve tasks. The following assistant will write a python script to get top hackernews stories, save it to a file, run it and return the results.
+
+```python python_tools.py
+from phi.assistant import Assistant
+from phi.tools.python import PythonTools
+
+assistant = Assistant(tools=[PythonTools()], show_tool_calls=True)
+assistant.print_response("Summarize the top stories on hackernews")
+```
+
+The following `ToolRegistries` are available to use
+
+<CardGroup cols={2}>
+  <Card title="Python" icon="python" href="/blocks/tools/python">
+    Give your Assistant tools to solve tasks using python.
+  </Card>
+  <Card title="File" icon="file" href="/blocks/tools/file">
+    Give your Assistant tools to read and write files.
+  </Card>
+  <Card title="Shell" icon="terminal" href="/blocks/tools/shell">
+    Give your Assistant tools to run shell commands.
+  </Card>
+  <Card title="DuckDb" icon="duck" href="/blocks/tools/duckdb">
+    Give your Assistant tools to solve SQL tasks using DuckDb.
+  </Card>
+  <Card title="Arxiv" icon="books" href="/blocks/tools/arxiv">
+    Give your Assistant tools to search arXiv papers.
+  </Card>
+  <Card title="Email" icon="envelope" href="/blocks/tools/email">
+    Give your Assistant tools to send emails.
+  </Card>
+  <Card title="Website" icon="globe" href="/blocks/tools/website">
+    Give your Assistant tools to scrape websites.
+  </Card>
+  <Card title="Wikipedia" icon="book" href="/blocks/tools/wikipedia">
+    Give your Assistant tools to search wikipedia.
+  </Card>
+
+</CardGroup>

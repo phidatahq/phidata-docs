@@ -88,6 +88,22 @@
                 ]
               },
               {
+                "group": "Tools",
+                "pages": [
+                  "blocks/tools/introduction",
+                  "blocks/tools/functions",
+                  "blocks/tools/registry",
+                  "blocks/tools/python",
+                  "blocks/tools/file",
+                  "blocks/tools/shell",
+                  "blocks/tools/duckdb",
+                  "blocks/tools/arxiv",
+                  "blocks/tools/email",
+                  "blocks/tools/website",
+                  "blocks/tools/wikipedia"
+                ]
+              },
+              {
                 "group": "Storage",
                 "pages": [
                   "blocks/storage/introduction",
