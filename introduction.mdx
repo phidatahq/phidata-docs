@@ -4,52 +4,133 @@ title: Introduction
 
 ## What is phidata?
 
-**Phidata is a toolkit for building intelligent AI applications.**
+**Phidata is a toolkit for building AI Assistants using function calling.**
+
+Function calling enables LLMs to achieve tasks by calling functions and intelligently choosing their next step based on the response, just like how humans solve problems.
+
+![assistant_intro](/images/assistant_intro.png)
+
+## How it works
+
+- **Step 1:** Create an `Assistant`
+- **Step 2:** Add Tools (functions), Knowledge (vectordb) and Storage (database)
+- **Step 3:** Serve using Streamlit, FastApi or Django to build your AI application
 
 <p className="hidden">
 
-Phidata provides pre-built templates for building intelligent AI applications. AI Engineers can build their own AI App using these templates in 3 steps:
+To make the process simpler, phidata also provides pre-built templates for building AI applications. You can build an AI App using a pre-built template in 3 steps:
 
 - Create your codebase using: `phi ws create`
 - Run your AI app locally: `phi ws up`
 - Deploy your AI app to AWS: `phi ws up prd:aws`
 
+LLM = Large Language Model
+
 </p>
 
-It provides a framework for building AI Assistants using function calling - a powerful paradigm that gives LLMs the ability to take actions and dynamically choose their path based on the response,
-just like how humans solve problems.
+## Quickstart
 
-Assistants come with memory, knowledge, storage and tools, making it easy to build intelligent AI applications.
+<Steps>
+  <Step title="Install phidata">
 
-<p className="hidden">"LLM = Large Language Model"</p>
+    ```bash
+    pip install -U phidata
+    ```
 
-![How assistants work](/images/how-assistants-work.png)
+  </Step>
+  <Step title="Create an Assistant">
+
+    Create a file `assistant.py`
+
+    ```python assistant.py
+    from phi.assistant import Assistant
+
+    assistant = Assistant(description="You help people with their health and fitness goals.")
+    assistant.print_response("Share a quick healthy breakfast recipe.")
+    ```
+
+    Install openai
+
+    ```shell
+    pip install openai
+    ```
+
+    Set the `OPENAI_API_KEY` environment variable.
+
+    <CodeGroup>
+
+    ```bash Mac
+    export OPENAI_API_KEY=sk-***
+    ```
+
+    ```bash Windows
+    setx OPENAI_API_KEY sk-***
+    ```
+
+    </CodeGroup>
+
+    Run the `Assistant`
+
+    ```shell
+    python assistant.py
+    ```
+
+  </Step>
+  <Step title="Add a tool">
+
+    Add the DuckDuckGo tool to let the assistant search the web
+
+    ```python assistant.py
+    from phi.assistant import Assistant
+    from phi.tools.duckduckgo import DuckDuckGo
+
+    assistant = Assistant(tools=[DuckDuckGo()], show_tool_calls=True)
+    assistant.print_response("Whats happening in France?")
+    ```
+
+    Install duckduckgo search
+
+    ```shell
+    pip install duckduckgo-search
+    ```
+
+    Run the `Assistant`
+
+    ```shell
+    python assistant.py
+    ```
+
+  </Step>
+</Steps>
 
 ## Use phidata to build
 
 - **Knowledge Assistants:** Answer questions from documents (PDFs, text)
+- **Research Assistants:** Perform research and summarize findings.
 - **Data Assistants:** Analyze data by running SQL queries.
 - **Python Assistants:** Perform tasks by running python code.
 - **Customer Assistants:** Answer customer queries using product descriptions and purchase history.
-- **Research Assistants:** Perform research and summarize findings.
 - **Marketing Assistants:** Provide marketing insights, copywriting and content ideas.
 - **Travel Assistants:** Help plan travel by researching destinations, flight and hotel prices.
 - **Meal Prep Assistants:** Help plan meals by researching recipes and adding ingredients to shopping lists.
 
+## Demos
+
+- [PDF AI](https://pdf.aidev.run/) that summarizes and answers questions from PDFs.
+- [ArXiv AI](https://arxiv.aidev.run/) that answers questions about ArXiv papers using the ArXiv API.
+- [HackerNews AI](https://hn.aidev.run/) that interacts with the HN API to summarize stories, users, find out what's trending, summarize topics.
+- [Streamlit App](https://demo.aidev.run/) serving a PDF, Image and Website Assistant (password: **admin**)
+- [FastApi App](https://api.aidev.run/docs) serving a PDF Assistant.
+
 ## Templates
 
-After building an Assistant, we serve it using **Streamlit**, **FastApi** or **Django** to build an AI application. Instead of wiring these tools manually, phidata provides **pre-built** templates for AI Apps that you can run locally or deploy to AWS with 1 command. Here's how they work:
+After building an Assistant, serve it using **Streamlit**, **FastApi** or **Django** to build an AI application. Instead of wiring these tools manually, phidata provides **pre-built** templates for AI Apps that you can run locally or deploy to AWS with 1 command. Here's how they work:
 
 - Create your AI App using a template: `phi ws create`
 - Run your app locally: `phi ws up`
 - Run your app on AWS: `phi ws up prd:aws`
 
-## Demos
-
-- [Streamlit App](https://demo.aidev.run/) serving a PDF, Image and Website Assistant (password: **admin**)
-- [FastApi App](https://api.aidev.run/docs) serving a PDF Assistant.
-
-## Getting started
+## Get started
 
 1. Read the [basics](/basics) guide to learn the basics.
 2. Read the [AI App](/ai-app/run-local) guide to build your own AI App.
