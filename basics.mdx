@@ -2,17 +2,13 @@
 title: Basics
 ---
 
-Let's learn the basics by building an AI Assistants with knowledge base, storage and tools.
-
-## Assistants
-
 With phidata, we build AI applications using **Assistants**.
 
-**Assistants** use LLMs to achieve tasks by [calling functions](https://platform.openai.com/docs/guides/function-calling). They come with built-in memory, knowledge base and storage, making it easy to build intelligent AI applications.
+**Assistants** use LLMs to achieve tasks by [calling functions](https://platform.openai.com/docs/guides/function-calling). They come with built-in memory, knowledge and storage, making it easy to build autonomous AI applications.
 
 ![Assistant](/images/assistant.png)
 
-### Simple Assistant
+## Basic Assistant
 
 <Steps>
   <Step title="Create a virtual environment">
@@ -38,7 +34,7 @@ With phidata, we build AI applications using **Assistants**.
 
   </Step>
   <Step title="Install libraries">
-    Install `phidata` and `openai` using pip
+    Install `phidata` and `openai`
 
     <CodeGroup>
 
@@ -91,55 +87,38 @@ With phidata, we build AI applications using **Assistants**.
   </Step>
 </Steps>
 
-### Assistant calling a function
+## Assistant with tools
 
-Lets create an Assistant that can call a function to summarize top HackerNews stories.
+**Tools** are functions that the Assistant can run to achieve tasks.
+
+### Web Search Assistant
+
+Lets create an Assistant that can search the web using DuckDuckGo
 
 <Steps>
-  <Step title="Create HackerNews Assistant">
-    Create a file `hn_assistant.py`
+  <Step title="Create DuckDuckGo Assistant">
+    Create a file `ddg_assistant.py`
 
-    ```python hn_assistant.py
-    import json
-    import httpx
-
+    ```python ddg_assistant.py
     from phi.assistant import Assistant
+    from phi.tools.duckduckgo import DuckDuckGo
 
-
-    def get_top_hackernews_stories(num_stories: int = 10) -> str:
-        """Use this function to get top stories from Hacker News.
-
-        Args:
-            num_stories (int): Number of stories to return. Defaults to 10.
-
-        Returns:
-            str: JSON string of top stories.
-        """
-
-        # Fetch top story IDs
-        response = httpx.get('https://hacker-news.firebaseio.com/v0/topstories.json')
-        story_ids = response.json()
-
-        # Fetch story details
-        stories = []
-        for story_id in story_ids[:num_stories]:
-            story_response = httpx.get(f'https://hacker-news.firebaseio.com/v0/item/{story_id}.json')
-            story = story_response.json()
-            if "text" in story:
-                story.pop("text", None)
-            stories.append(story)
-        return json.dumps(stories)
-
-    assistant = Assistant(tools=[get_top_hackernews_stories], show_tool_calls=True)
-    assistant.print_response("Summarize the top stories on hackernews?")
+    assistant = Assistant(tools=[DuckDuckGo()], show_tool_calls=True)
+    assistant.print_response("Whats happening in France?")
     ```
 
   </Step>
   <Step title="Run the assistant">
-    Run the `hn_assistant.py` file
+    Install duckduckgo search
+
+    ```shell
+    pip install duckduckgo-search
+    ```
+
+    Run the `ddg_assistant.py`
 
     ```bash
-    python hn_assistant.py
+    python ddg_assistant.py
     ```
 
   </Step>
@@ -151,7 +130,7 @@ Lets create a Data Assistant that uses DuckDb to analyze data using SQL.
 
 <Steps>
   <Step title="Create a DuckDbAssistant">
-    Create a file `data_assistant.py` and install duckdb using `pip install duckdb`
+    Create a file `data_assistant.py`
 
     ```python data_assistant.py
     import json
@@ -174,7 +153,13 @@ Lets create a Data Assistant that uses DuckDb to analyze data using SQL.
 
   </Step>
   <Step title="Run the assistant">
-    Run the `data_assistant.py` file
+    Install duckdb
+
+    ```shell
+    pip install duckdb
+    ```
+
+    Run the `data_assistant.py`
 
     ```bash
     python data_assistant.py
@@ -189,7 +174,7 @@ The `PythonAssistant` can perform virtually any task using python code.
 
 <Steps>
   <Step title="Create a PythonAssistant">
-    Create a file `python_assistant.py` and install pandas using `pip install pandas`
+    Create a file `python_assistant.py`
 
     ```python python_assistant.py
     from phi.assistant.python import PythonAssistant
@@ -211,7 +196,13 @@ The `PythonAssistant` can perform virtually any task using python code.
 
   </Step>
   <Step title="Run the assistant">
-    Run the `python_assistant.py` file
+    Install pandas using
+
+    ```
+    pip install pandas
+    ```
+
+    Run the `python_assistant.py`
 
     ```bash
     python python_assistant.py
