@@ -91,7 +91,7 @@ With phidata, we build AI applications using **Assistants**.
 
 **Tools** are functions that the Assistant can run to achieve tasks.
 
-### Web Search Assistant
+### Web Search
 
 Lets create an Assistant that can search the web using DuckDuckGo
 
@@ -124,7 +124,7 @@ Lets create an Assistant that can search the web using DuckDuckGo
   </Step>
 </Steps>
 
-### Data Assistant
+### Data Analysis
 
 Lets create a Data Assistant that uses DuckDb to analyze data using SQL.
 
@@ -215,24 +215,24 @@ The `PythonAssistant` can perform virtually any task using python code.
 
 Knowledge Base is a database of information that the Assistant can search to improve its responses. This information provides extra context to language models so they respond in a context-aware manner.
 
-While any type of storage can act as a knowledge base, vector databases offer the best solution for retrieving relevant results from dense information quickly. Let's use `PgVector` as our vector store as it can also provide long-term storage for our Assistants.
+While any type of storage can act as a knowledge base, vector databases offer the best solution for retrieving relevant results from dense information quickly. Let's use `PgVector2` as our vector store as it can also provide long-term storage for our Assistants.
 
-### Run PgVector
+### Run PgVector2
 
-Run `PgVector` on `Docker` using the following steps:
+Run `PgVector2` on `Docker` using the following steps:
 
 <Steps>
   <Step title="Install Docker">
-    Install [docker desktop](https://docs.docker.com/desktop/install/mac-install/) for running PgVector in a container.
+    Install [docker desktop](https://docs.docker.com/desktop/install/mac-install/) for running PgVector2 in a container.
   </Step>
-  <Step title="Define PgVector as a resource">
+  <Step title="Define PgVector2 as a resource">
     Create a file `resources.py` with the following contents
 
     ```python resources.py
     from phi.docker.app.postgres import PgVectorDb
     from phi.docker.resources import DockerResources
 
-    # -*- PgVector running on port 5432:5432
+    # -*- PgVector2 running on port 5432:5432
     vector_db = PgVectorDb(
         pg_user="ai",
         pg_password="ai",
@@ -245,7 +245,7 @@ Run `PgVector` on `Docker` using the following steps:
     ```
 
   </Step>
-  <Step title="Start PgVector">
+  <Step title="Start PgVector2">
     Start `resources.py` using:
 
     ```bash
@@ -295,7 +295,7 @@ Let's test out RAG by building a **PDF Assistant** that helps us with food recip
     ```python rag_assistant.py
     from phi.assistant import Assistant
     from phi.knowledge.pdf import PDFUrlKnowledgeBase
-    from phi.vectordb.pgvector import PgVector
+    from phi.vectordb.pgvector import PgVector2
 
     from resources import vector_db
 
@@ -303,7 +303,7 @@ Let's test out RAG by building a **PDF Assistant** that helps us with food recip
     # the `ai.recipes` table when`knowledge_base.load()` is called.
     knowledge_base = PDFUrlKnowledgeBase(
         urls=["https://www.family-action.org.uk/content/uploads/2019/07/meals-more-recipes.pdf"],
-        vector_db=PgVector(
+        vector_db=PgVector2(
             collection="recipes",
             db_url=vector_db.get_db_connection_local(),
         ),
@@ -349,7 +349,7 @@ from phi.knowledge.pdf import PDFKnowledgeBase
 ...
 knowledge_base = PDFKnowledgeBase(
     path="data/pdfs",
-    vector_db=PgVector(
+    vector_db=PgVector2(
         collection="pdf_documents",
         db_url=vector_db.get_db_connection_local(),
     ),
@@ -374,13 +374,13 @@ Make the `Assistant` Autonomous by setting `use_tools=True` - which gives it the
     ```python auto_assistant.py
     from phi.assistant import Assistant
     from phi.knowledge.pdf import PDFUrlKnowledgeBase
-    from phi.vectordb.pgvector import PgVector
+    from phi.vectordb.pgvector import PgVector2
 
     from resources import vector_db
 
     knowledge_base = PDFUrlKnowledgeBase(
         urls=["https://www.family-action.org.uk/content/uploads/2019/07/meals-more-recipes.pdf"],
-        vector_db=PgVector(
+        vector_db=PgVector2(
             collection="recipes",
             db_url=vector_db.get_db_connection_local(),
         ),
@@ -434,13 +434,13 @@ from typing import Optional, List
 from phi.assistant import Assistant
 from phi.storage.assistant.postgres import PgAssistantStorage
 from phi.knowledge.pdf import PDFUrlKnowledgeBase
-from phi.vectordb.pgvector import PgVector
+from phi.vectordb.pgvector import PgVector2
 
 from resources import vector_db
 
 knowledge_base = PDFUrlKnowledgeBase(
     urls=["https://www.family-action.org.uk/content/uploads/2019/07/meals-more-recipes.pdf"],
-    vector_db=PgVector(
+    vector_db=PgVector2(
         collection="recipes",
         db_url=vector_db.get_db_connection_local(),
     ),
@@ -538,9 +538,9 @@ if __name__ == "__main__":
   </Step>
 </Steps>
 
-## Stop PgVector
+## Stop PgVector2
 
-Play around and then stop `PgVector` using `phi stop resources.py`
+Play around and then stop `PgVector2` using `phi stop resources.py`
 
 <CodeGroup>
 

@@ -40,19 +40,13 @@ LLM = Large Language Model
   </Step>
   <Step title="Create an Assistant">
 
-    Create a file `assistant.py`
+    Create a file `assistant.py` and install openai using `pip install openai`
 
     ```python assistant.py
     from phi.assistant import Assistant
 
     assistant = Assistant(description="You help people with their health and fitness goals.")
     assistant.print_response("Share a quick healthy breakfast recipe.")
-    ```
-
-    Install openai
-
-    ```shell
-    pip install openai
     ```
 
     Set your `OPENAI_API_KEY`
@@ -103,18 +97,9 @@ LLM = Large Language Model
   </Step>
 </Steps>
 
-## Use phidata to build
-
-- **Knowledge Assistants:** Answer questions from documents (PDFs, text)
-- **Research Assistants:** Perform research and summarize findings.
-- **Data Assistants:** Analyze data by running SQL queries.
-- **Python Assistants:** Perform tasks by running python code.
-- **Customer Assistants:** Answer customer queries using product descriptions and purchase history.
-- **Marketing Assistants:** Provide marketing insights, copywriting and content ideas.
-- **Travel Assistants:** Help plan travel by researching destinations, flight and hotel prices.
-- **Meal Prep Assistants:** Help plan meals by researching recipes and adding ingredients to shopping lists.
-
 ## Demos
+
+Checkout some of these applications showcasing the advantage of function calling:
 
 - [PDF AI](https://pdf.aidev.run/) that summarizes and answers questions from PDFs.
 - [ArXiv AI](https://arxiv.aidev.run/) that answers questions about ArXiv papers using the ArXiv API.
@@ -133,7 +118,7 @@ After building an Assistant, serve it using **Streamlit**, **FastApi** or **Djan
 ## Get started
 
 1. Read the [basics](/basics) guide to learn the basics.
-2. Read the [AI App](/ai-app/run-local) guide to build your own AI App.
+2. Follow the [AI App](/ai-app/run-local) guide to build your own AI App.
 3. Checkout the [building blocks](/blocks/overview) for in-depth guides to building AI products.
 
 ## Examples
@@ -147,7 +132,7 @@ You can also build your application using one of the following examples
 We've helped many companies build AI for their products, the general workflow is:
 
 1. **Train an assistant** with proprietary data to perform tasks specific to your product.
-2. **Connect your product** to your assistant via a RestAPI.
+2. **Connect your product** to the assistant via an API.
 3. **Customize, Monitor and Improve** the AI.
 
 We provide dedicated support and development for AI products. [Book a call](https://cal.com/phidata/intro) to get started.
