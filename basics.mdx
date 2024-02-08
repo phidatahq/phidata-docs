@@ -104,7 +104,7 @@ Lets create an Assistant that can search the web using DuckDuckGo
     from phi.tools.duckduckgo import DuckDuckGo
 
     assistant = Assistant(tools=[DuckDuckGo()], show_tool_calls=True)
-    assistant.print_response("Whats happening in France?")
+    assistant.print_response("Whats happening in France? Summarize top stories with sources.")
     ```
 
   </Step>
@@ -215,17 +215,17 @@ The `PythonAssistant` can perform virtually any task using python code.
 
 Knowledge Base is a database of information that the Assistant can search to improve its responses. This information provides extra context to language models so they respond in a context-aware manner.
 
-While any type of storage can act as a knowledge base, vector databases offer the best solution for retrieving relevant results from dense information quickly. Let's use `PgVector2` as our vector store as it can also provide long-term storage for our Assistants.
+While any type of storage can act as a knowledge base, vector databases offer the best solution for retrieving relevant results from dense information quickly. Let's use `PgVector` as our vector store as it can also provide long-term storage for our Assistants.
 
-### Run PgVector2
+### Run PgVector
 
-Run `PgVector2` on `Docker` using the following steps:
+Run `PgVector` on `Docker` using the following steps:
 
 <Steps>
   <Step title="Install Docker">
-    Install [docker desktop](https://docs.docker.com/desktop/install/mac-install/) for running PgVector2 in a container.
+    Install [docker desktop](https://docs.docker.com/desktop/install/mac-install/) for running PgVector in a container.
   </Step>
-  <Step title="Define PgVector2 as a resource">
+  <Step title="Define PgVector as a resource">
     Create a file `resources.py` with the following contents
 
     ```python resources.py
@@ -245,7 +245,7 @@ Run `PgVector2` on `Docker` using the following steps:
     ```
 
   </Step>
-  <Step title="Start PgVector2">
+  <Step title="Start PgVector">
     Start `resources.py` using:
 
     ```bash
@@ -302,11 +302,8 @@ Let's test out RAG by building a **PDF Assistant** that helps us with food recip
     # The PDFUrlKnowledgeBase reads PDFs from urls and loads
     # the `ai.recipes` table when`knowledge_base.load()` is called.
     knowledge_base = PDFUrlKnowledgeBase(
-        urls=["https://www.family-action.org.uk/content/uploads/2019/07/meals-more-recipes.pdf"],
-        vector_db=PgVector2(
-            collection="recipes",
-            db_url=vector_db.get_db_connection_local(),
-        ),
+        urls=["https://phi-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"],
+        vector_db=PgVector2(collection="recipes", db_url=vector_db.get_db_connection_local()),
     )
     knowledge_base.load(recreate=False)
 
@@ -317,8 +314,7 @@ Let's test out RAG by building a **PDF Assistant** that helps us with food recip
         add_references_to_prompt=True,
     )
 
-    assistant.print_response('Share a quick recipe for a healthy breakfast.')
-    assistant.print_response('How do I make chicken tikka salad?')
+    assistant.print_response("How do I make pad thai?")
     ```
 
   </Step>
@@ -379,11 +375,8 @@ Make the `Assistant` Autonomous by setting `use_tools=True` - which gives it the
     from resources import vector_db
 
     knowledge_base = PDFUrlKnowledgeBase(
-        urls=["https://www.family-action.org.uk/content/uploads/2019/07/meals-more-recipes.pdf"],
-        vector_db=PgVector2(
-            collection="recipes",
-            db_url=vector_db.get_db_connection_local(),
-        ),
+        urls=["https://phi-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"],
+        vector_db=PgVector2(collection="recipes", db_url=vector_db.get_db_connection_local()),
     )
     # Comment out as the knowledge base is already loaded.
     # knowledge_base.load(recreate=False)
@@ -395,8 +388,8 @@ Make the `Assistant` Autonomous by setting `use_tools=True` - which gives it the
         show_tool_calls=True,
     )
 
-    assistant.print_response('How do I make chicken tikka salad?')
-    assistant.print_response('What was my last question?')
+    assistant.print_response("How do I make pad thai?")
+    assistant.print_response("What was my last question?")
     ```
 
   </Step>
@@ -439,12 +432,14 @@ from phi.vectordb.pgvector import PgVector2
 from resources import vector_db
 
 knowledge_base = PDFUrlKnowledgeBase(
-    urls=["https://www.family-action.org.uk/content/uploads/2019/07/meals-more-recipes.pdf"],
+    urls=["https://phi-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"],
     vector_db=PgVector2(
         collection="recipes",
         db_url=vector_db.get_db_connection_local(),
     ),
 )
+# Comment out after first run
+knowledge_base.load(recreate=False)
 
 storage = PgAssistantStorage(
     table_name="pdf_assistant",
@@ -478,7 +473,6 @@ def pdf_assistant(new: bool = False, user: str = "user"):
     else:
         print(f"Continuing Run: {run_id}\n")
 
-    assistant.knowledge_base.load(recreate=False)
     while True:
         message = Prompt.ask(f"[bold] :sunglasses: {user} [/bold]")
         if message in ("exit", "bye"):
@@ -512,7 +506,7 @@ if __name__ == "__main__":
     Now the assistant continues across sessions. Ask a question:
 
     ```
-    How do I make chicken tikka salad?
+    How do I make pad that?
     ```
 
     Then message `bye` to exit, start the app again and ask:
@@ -538,9 +532,9 @@ if __name__ == "__main__":
   </Step>
 </Steps>
 
-## Stop PgVector2
+## Stop PgVector
 
-Play around and then stop `PgVector2` using `phi stop resources.py`
+Play around and then stop `PgVector` using `phi stop resources.py`
 
 <CodeGroup>
 
