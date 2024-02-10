@@ -13,13 +13,13 @@ To enable RAG, we add a Knowledge Base to the Assistant and set `add_references_
 ```python rag_assistant.py
 from phi.assistant import Assistant
 from phi.knowledge.pdf import PDFKnowledgeBase
-from phi.vectordb.pgvector import PgVector
+from phi.vectordb.pgvector import PgVector2
 
 rag_assistant = Assistant(
     # -*- Provide the assistant with a knowledge base
     knowledge_base=PDFKnowledgeBase(
         path="data/pdfs",
-        vector_db=PgVector(
+        vector_db=PgVector2(
             collection="pdf_documents",
             db_url=db_url,
         ),
@@ -36,13 +36,13 @@ To enable Autonomous mode, we add a Knowledge Base to the Assistant and set `use
 ```python auto_assistant.py
 from phi.assistant import Assistant
 from phi.knowledge.pdf import PDFUrlKnowledgeBase
-from phi.vectordb.pgvector import PgVector
+from phi.vectordb.pgvector import PgVector2
 
 auto_assistant = Assistant(
     # -*- Provide the assistant with a knowledge base
     knowledge_base=PDFKnowledgeBase(
         path="data/pdfs",
-        vector_db=PgVector(
+        vector_db=PgVector2(
             collection="pdf_documents",
             db_url=db_url,
         ),

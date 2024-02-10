@@ -88,6 +88,7 @@ AssistantMemory only lasts while the session is active. To provide memory across
     Create a file `assistant_memory.py` with the following contents
 
 ```python assistant_memory.py
+from rich.pretty import pprint
 from phi.assistant import Assistant, AssistantMemory
 
 assistant = Assistant()
@@ -99,10 +100,12 @@ assistant.print_response('Share a 5 word horror story.')
 memory: AssistantMemory = assistant.memory
 
 # -*- Print Chat History
-print(f"Chat History: {memory.chat_history}")
+print("============ Chat History ============")
+pprint(memory.chat_history)
 
 # -*- Print LLM Messages
-print(f"LLM Messages: {memory.llm_messages}")
+print("============ LLM Messages ============")
+pprint(memory.llm_messages)
 ```
 
   </Step>
