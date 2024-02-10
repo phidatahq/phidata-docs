@@ -1,4 +1,4 @@
-## Serve your App using FastApi
+## Optional: Serve your AI using FastApi
 
 Streamlit is great for building micro front-ends but any production application will be built using a front-end framework like [next.js](https://nextjs.org) backed by a RestApi built using [FastApi](https://fastapi.tiangolo.com/).
 
@@ -33,6 +33,21 @@ Your AI App comes ready-to-use with FastApi endpoints.
     </CodeGroup>
 
     **Press Enter** to confirm
+
+  </Step>
+  <Step title="View API Endpoints">
+    - Open [localhost:8000/docs](http://localhost:8000/docs) to view the API Endpoints.
+    - Load the knowledge base using `/v1/assitants/load-knowledge-base`
+    - Test the `v1/assitants/chat` endpoint with
+
+    ```json
+    {
+      "message": "How do I make pad thai?",
+      "assistant": "AUTO_PDF"
+    }
+    ```
+
+    ![Local API Endpoints](/images/ai-app-api-endpoints-local.png)
 
   </Step>
 </Steps>
