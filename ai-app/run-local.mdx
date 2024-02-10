@@ -3,12 +3,19 @@ title: "Build an AI App"
 sidebarTitle: "Run locally"
 ---
 
-To build an AI Application, we serve Assistants using tools like **Streamlit**, **FastApi** or **Django**. Instead of wiring these tools manually, phidata provides **pre-built templates** you can run locally or deploy to AWS. Let's build an AI App serving a **PDF**, **Image** and **Website** Assistant using:
+Let's build an AI App that can:
+
+1. Chat with PDFs (RAG & Autonomous)
+2. Chat with Images
+3. Chat with Websites (RAG & Autonomous)
+
+We'll use:
 
 - **GPT-4** as the LLM.
 - **Streamlit** as the chat interface
-- **FastApi** as a RestAPI
 - **PgVector** for knowledge and storage
+- **Optional: FastApi** for serving our AI App as an API
+- **Optional: Jupyter** for testing our AI in notebooks.
 
 **By the end of this guide you'll have an AI App to customise and make your own.**
 
@@ -31,10 +38,6 @@ To build an AI Application, we serve Assistants using tools like **Streamlit**, 
 <Snippet file="ai-app-how-this-app-works.mdx" />
 
 <Snippet file="serve-ai-app-fastapi.mdx" />
-
-<Snippet file="ai-app-view-api-endpoints.mdx" />
-
-<Snippet file="ai-app-build-your-ai-product.mdx" />
 
 <Snippet file="ai-app-run-jupyter.mdx" />
 

@@ -91,7 +91,6 @@ vector_db = PgVectorDb(
     pg_user="ai",
     pg_password="ai",
     pg_database="ai",
-    debug_mode=True,
 )
 
 # -*- DockerResources
@@ -106,34 +105,37 @@ phi start resources.py
 
   </Step>
   <Step title="Create an assistant with storage">
-    Create a file `recipe_assistant.py` with the following contents
+    Create a file `pdf_assistant.py` with the following contents
 
-```python recipe_assistant.py
+```python pdf_assistant.py
 import typer
 from rich.prompt import Prompt
 from typing import Optional, List
+
 from phi.assistant import Assistant
 from phi.storage.assistant.postgres import PgAssistantStorage
 from phi.knowledge.pdf import PDFUrlKnowledgeBase
-from phi.vectordb.pgvector import PgVector
+from phi.vectordb.pgvector import PgVector2
 
 from resources import vector_db
 
 knowledge_base = PDFUrlKnowledgeBase(
-    urls=["https://www.family-action.org.uk/content/uploads/2019/07/meals-more-recipes.pdf"],
-    vector_db=PgVector(
+    urls=["https://phi-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"],
+    vector_db=PgVector2(
         collection="recipes",
         db_url=vector_db.get_db_connection_local(),
     ),
 )
+# Comment out after first run
+knowledge_base.load(recreate=False)
 
 storage = PgAssistantStorage(
-    table_name="recipe_assistant",
+    table_name="pdf_assistant",
     db_url=vector_db.get_db_connection_local(),
 )
 
 
-def recipe_assistant(new: bool = False, user: str = "user"):
+def pdf_assistant(new: bool = False, user: str = "user"):
     run_id: Optional[str] = None
 
     if not new:
@@ -159,30 +161,29 @@ def recipe_assistant(new: bool = False, user: str = "user"):
     else:
         print(f"Continuing Run: {run_id}\n")
 
-    assistant.knowledge_base.load(recreate=False)
     while True:
         message = Prompt.ask(f"[bold] :sunglasses: {user} [/bold]")
         if message in ("exit", "bye"):
             break
-        assistant.print_response(message)
+        assistant.print_response(message, markdown=True)
 
 
 if __name__ == "__main__":
-    typer.run(recipe_assistant)
+    typer.run(pdf_assistant)
 ```
 
   </Step>
   <Step title="Run the assistant">
-    Run the `recipe_assistant.py` file
+    Run the `pdf_assistant.py` file
 
     ```bash
-    python recipe_assistant.py
+    python pdf_assistant.py
     ```
 
     Now the assistant continues across sessions. Ask a question:
 
     ```
-    How do I make chicken tikka salad?
+    How do I make pad thai?
     ```
 
     Then message `bye` to exit, start the app again and ask:
@@ -193,10 +194,10 @@ if __name__ == "__main__":
 
   </Step>
   <Step title="Start a new run">
-    Run the `recipe_assistant.py` file with the `--new` flag to start a new run.
+    Run the `pdf_assistant.py` file with the `--new` flag to start a new run.
 
 ```bash
-python recipe_assistant.py --new
+python pdf_assistant.py --new
 ```
 
   </Step>

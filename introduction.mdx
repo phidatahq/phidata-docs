@@ -4,57 +4,126 @@ title: Introduction
 
 ## What is phidata?
 
-**Phidata is a toolkit for building AI applications using LLM function calling.** It provides pre-built templates for AI apps that you can clone & run in minutes. Here's how it works:
+**Phidata is a toolkit for building AI Assistants using function calling.**
 
-- Create your AI App using a template: `phi ws create`
-- Run your app locally: `phi ws up`
-- Deploy your app to AWS: `phi ws up prd:aws`
+Function calling enables LLMs to achieve tasks by calling functions and intelligently choosing their next step based on the response, just like how humans solve problems.
 
-<p className="hidden">"LLM = Large Language Model"</p>
+![assistant_intro](/images/assistant_intro.png)
 
-## Under the hood
+## How it works
 
-Phidata provides **Assistants** that achieve tasks by letting LLMs call functions and take actions.
+- **Step 1:** Create an `Assistant`
+- **Step 2:** Add Tools (functions), Knowledge (vectordb) and Storage (database)
+- **Step 3:** Serve using Streamlit, FastApi or Django to build your AI application
 
-This is a powerful approach that allows LLMs to solve complex problems by running functions and intelligently choosing a course of action based on the response.
+<p className="hidden">
 
-For example, to answer a question from a proprietary knowlege base, the Assistant will first run a function to search the knowlege base and then systhesize the results to return the answer.
+To make the process simpler, phidata also provides pre-built templates for building AI applications. You can build an AI App using a pre-built template in 3 steps:
 
-![How assistants work](/images/how-assistants-work.png)
+- Create your codebase using: `phi ws create`
+- Run your AI app locally: `phi ws up`
+- Deploy your AI app to AWS: `phi ws up prd:aws`
 
-Assistants come with built-in memory, knowledge, storage and tools, making it easy to build **RAG**, **Autonomous** or **Multimodal** applications like:
+LLM = Large Language Model
 
-- **Knowledge Assistants:** Answer questions from documents (PDFs, text)
-- **Data Assistants:** Analyze data by running SQL queries.
-- **Python Assistants:** Perform tasks by running python code.
-- **Customer Assistants:** Answer customer queries using product descriptions and purchase history.
-- **Research Assistants:** Perform research and summarize findings.
-- **Marketing Assistants:** Provide marketing insights, copywriting and content ideas.
-- **Travel Assistants:** Help plan travel by researching destinations, flight and hotel prices.
-- **Meal Prep Assistants:** Help plan meals by researching recipes and adding ingredients to shopping lists.
+</p>
 
-## Templates
+## Quickstart
 
-After building an Assistant, we serve it using **Streamlit**, **FastApi** or **Django** to build an AI application. Instead of wiring tools manually, phidata provides **pre-built** templates for AI Apps that you customise and make your own. Here's how they work:
+<Steps>
+  <Step title="Install phidata">
+
+    ```bash
+    pip install -U phidata
+    ```
+
+  </Step>
+  <Step title="Create an Assistant">
+
+    Create a file `assistant.py` and install openai using `pip install openai`
+
+    ```python assistant.py
+    from phi.assistant import Assistant
+
+    assistant = Assistant(description="You help people with their health and fitness goals.")
+    assistant.print_response("Share a quick healthy breakfast recipe.", markdown=True)
+    ```
+
+    Set your `OPENAI_API_KEY`
+
+    <CodeGroup>
+
+    ```bash Mac
+    export OPENAI_API_KEY=sk-***
+    ```
+
+    ```bash Windows
+    setx OPENAI_API_KEY sk-***
+    ```
+
+    </CodeGroup>
+
+    Run the `Assistant`
+
+    ```shell
+    python assistant.py
+    ```
+
+  </Step>
+  <Step title="Add a tool">
+
+    Add the DuckDuckGo tool to let the assistant search the web
+
+    ```python assistant.py
+    from phi.assistant import Assistant
+    from phi.tools.duckduckgo import DuckDuckGo
+
+    assistant = Assistant(tools=[DuckDuckGo()], show_tool_calls=True)
+    assistant.print_response("Whats happening in France?", markdown=True)
+    ```
+
+    Install duckduckgo search
+
+    ```shell
+    pip install duckduckgo-search
+    ```
+
+    Run the `Assistant`
+
+    ```shell
+    python assistant.py
+    ```
+
+  </Step>
+</Steps>
+
+## Demos
+
+Checkout these AI apps showcasing the advantage of function calling:
+
+- [PDF AI](https://pdf.aidev.run/) that summarizes and answers questions from PDFs.
+- [ArXiv AI](https://arxiv.aidev.run/) that answers questions about ArXiv papers using the ArXiv API.
+- [HackerNews AI](https://hn.aidev.run/) that interacts with the HN API to summarize stories, users, find out what's trending, summarize topics.
+- [Streamlit App](https://demo.aidev.run/) serving a PDF, Image and Website Assistant (password: **admin**)
+- [FastApi App](https://api.aidev.run/docs) serving a PDF Assistant.
+
+## AI Applications
+
+After building an Assistant, serve it using **Streamlit**, **FastApi** or **Django** to build your AI application. Instead of wiring tools manually, phidata provides **pre-built** templates for AI Apps that you can run locally or deploy to AWS with 1 command. Here's how they work:
 
 - Create your AI App using a template: `phi ws create`
 - Run your app locally: `phi ws up`
 - Run your app on AWS: `phi ws up prd:aws`
 
-## Live Demos
-
-- [Streamlit App](https://demo.aidev.run/) serving a PDF, Image and Website Assistant (password: **admin**)
-- [FastApi App](https://api.aidev.run/docs) serving a PDF Assistant.
-
 ## Get started
 
 1. Read the [basics](/basics) guide to learn the basics.
-2. Read the [AI App](/ai-app/run-local) guide to build your own AI App.
+2. Follow the [AI App](/ai-app/run-local) guide to build your own AI App.
 3. Checkout the [building blocks](/blocks/overview) for in-depth guides to building AI products.
 
-You can also build your application using one of the following examples
-
 ## Examples
+
+You can also build an AI App using the following examples
 
 <Snippet file="examples.mdx" />
 
@@ -63,7 +132,7 @@ You can also build your application using one of the following examples
 We've helped many companies build AI for their products, the general workflow is:
 
 1. **Train an assistant** with proprietary data to perform tasks specific to your product.
-2. **Connect your product** to your assistant via a RestAPI.
+2. **Connect your product** to the assistant via an API.
 3. **Customize, Monitor and Improve** the AI.
 
 We provide dedicated support and development for AI products. [Book a call](https://cal.com/phidata/intro) to get started.

@@ -2,17 +2,15 @@
 title: Basics
 ---
 
-Let's learn the basics by building an AI Assistants with knowledge base, storage and tools.
-
-## Assistants
-
 With phidata, we build AI applications using **Assistants**.
 
-**Assistants** use LLMs to solve problems by calling functions. They have their own memory, knowledge base and storage, making them ideal for building AI products.
+**Assistants** use LLMs to achieve tasks by [calling functions](https://platform.openai.com/docs/guides/function-calling). They come with built-in memory, knowledge and storage, making it easy to build autonomous AI applications.
 
 ![Assistant](/images/assistant.png)
 
-### Simple Assistant
+## Basic Assistant
+
+Lets build a very simple Assistant that provides us with a healthy breakfast recipe.
 
 <Steps>
   <Step title="Create a virtual environment">
@@ -38,7 +36,7 @@ With phidata, we build AI applications using **Assistants**.
 
   </Step>
   <Step title="Install libraries">
-    Install `phidata` and `openai` using pip
+    Install `phidata` and `openai`
 
     <CodeGroup>
 
@@ -60,7 +58,7 @@ With phidata, we build AI applications using **Assistants**.
     from phi.assistant import Assistant
 
     assistant = Assistant(description="You help people with their health and fitness goals.")
-    assistant.print_response("Share a quick healthy breakfast recipe.")
+    assistant.print_response("Share a quick healthy breakfast recipe.", markdown=True)
     ```
 
   </Step>
@@ -91,67 +89,50 @@ With phidata, we build AI applications using **Assistants**.
   </Step>
 </Steps>
 
-### Assistant calling a function
+## Assistant with tools
 
-Lets create an Assistant that can call a function to summarize top HackerNews stories.
+Things get interesting when we provide our Assistant with tools. Tools are **functions** that the Assistant can run to achieve tasks. Eg: searching the web, running SQL, sending an email.
+
+### Web Search
+
+Lets create an Assistant that can search the web using DuckDuckGo
 
 <Steps>
-  <Step title="Create HackerNews Assistant">
-    Create a file `hn_assistant.py`
+  <Step title="Create DuckDuckGo Assistant">
+    Create a file `ddg_assistant.py`
 
-    ```python hn_assistant.py
-    import json
-    import httpx
-
+    ```python ddg_assistant.py
     from phi.assistant import Assistant
+    from phi.tools.duckduckgo import DuckDuckGo
 
-
-    def get_top_hackernews_stories(num_stories: int = 10) -> str:
-        """Use this function to get top stories from Hacker News.
-
-        Args:
-            num_stories (int): Number of stories to return. Defaults to 10.
-
-        Returns:
-            str: JSON string of top stories.
-        """
-
-        # Fetch top story IDs
-        response = httpx.get('https://hacker-news.firebaseio.com/v0/topstories.json')
-        story_ids = response.json()
-
-        # Fetch story details
-        stories = []
-        for story_id in story_ids[:num_stories]:
-            story_response = httpx.get(f'https://hacker-news.firebaseio.com/v0/item/{story_id}.json')
-            story = story_response.json()
-            if "text" in story:
-                story.pop("text", None)
-            stories.append(story)
-        return json.dumps(stories)
-
-    assistant = Assistant(tools=[get_top_hackernews_stories], show_tool_calls=True)
-    assistant.print_response("Summarize the top stories on hackernews?")
+    assistant = Assistant(tools=[DuckDuckGo()], show_tool_calls=True)
+    assistant.print_response("Whats happening in France? Summarize top stories with sources.")
     ```
 
   </Step>
   <Step title="Run the assistant">
-    Run the `hn_assistant.py` file
+    Install duckduckgo search
+
+    ```shell
+    pip install duckduckgo-search
+    ```
+
+    Run the `ddg_assistant.py`
 
     ```bash
-    python hn_assistant.py
+    python ddg_assistant.py
     ```
 
   </Step>
 </Steps>
 
-### Data Assistant
+### Data Analysis
 
 Lets create a Data Assistant that uses DuckDb to analyze data using SQL.
 
 <Steps>
   <Step title="Create a DuckDbAssistant">
-    Create a file `data_assistant.py` and install duckdb using `pip install duckdb`
+    Create a file `data_assistant.py`
 
     ```python data_assistant.py
     import json
@@ -169,12 +150,18 @@ Lets create a Data Assistant that uses DuckDb to analyze data using SQL.
         }),
     )
 
-    duckdb_assistant.print_response("What is the average rating of movies? Show me the SQL.")
+    duckdb_assistant.print_response("What is the average rating of movies? Show me the SQL.", markdown=True)
     ```
 
   </Step>
   <Step title="Run the assistant">
-    Run the `data_assistant.py` file
+    Install duckdb
+
+    ```shell
+    pip install duckdb
+    ```
+
+    Run the `data_assistant.py`
 
     ```bash
     python data_assistant.py
@@ -189,7 +176,7 @@ The `PythonAssistant` can perform virtually any task using python code.
 
 <Steps>
   <Step title="Create a PythonAssistant">
-    Create a file `python_assistant.py` and install pandas using `pip install pandas`
+    Create a file `python_assistant.py`
 
     ```python python_assistant.py
     from phi.assistant.python import PythonAssistant
@@ -206,12 +193,18 @@ The `PythonAssistant` can perform virtually any task using python code.
         show_tool_calls=True,
     )
 
-    python_assistant.print_response("What is the average rating of movies?")
+    python_assistant.print_response("What is the average rating of movies?", markdown=True)
     ```
 
   </Step>
   <Step title="Run the assistant">
-    Run the `python_assistant.py` file
+    Install pandas using
+
+    ```
+    pip install pandas
+    ```
+
+    Run the `python_assistant.py`
 
     ```bash
     python python_assistant.py
@@ -241,12 +234,11 @@ Run `PgVector` on `Docker` using the following steps:
     from phi.docker.app.postgres import PgVectorDb
     from phi.docker.resources import DockerResources
 
-    # -*- PgVector running on port 5432:5432
+    # -*- PgVector2 running on port 5432:5432
     vector_db = PgVectorDb(
         pg_user="ai",
         pg_password="ai",
         pg_database="ai",
-        debug_mode=True,
     )
 
     # -*- DockerResources
@@ -304,18 +296,15 @@ Let's test out RAG by building a **PDF Assistant** that helps us with food recip
     ```python rag_assistant.py
     from phi.assistant import Assistant
     from phi.knowledge.pdf import PDFUrlKnowledgeBase
-    from phi.vectordb.pgvector import PgVector
+    from phi.vectordb.pgvector import PgVector2
 
     from resources import vector_db
 
     # The PDFUrlKnowledgeBase reads PDFs from urls and loads
     # the `ai.recipes` table when`knowledge_base.load()` is called.
     knowledge_base = PDFUrlKnowledgeBase(
-        urls=["https://www.family-action.org.uk/content/uploads/2019/07/meals-more-recipes.pdf"],
-        vector_db=PgVector(
-            collection="recipes",
-            db_url=vector_db.get_db_connection_local(),
-        ),
+        urls=["https://phi-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"],
+        vector_db=PgVector2(collection="recipes", db_url=vector_db.get_db_connection_local()),
     )
     knowledge_base.load(recreate=False)
 
@@ -326,8 +315,7 @@ Let's test out RAG by building a **PDF Assistant** that helps us with food recip
         add_references_to_prompt=True,
     )
 
-    assistant.print_response('Share a quick recipe for a healthy breakfast.')
-    assistant.print_response('How do I make chicken tikka salad?')
+    assistant.print_response("How do I make pad thai?", markdown=True)
     ```
 
   </Step>
@@ -358,7 +346,7 @@ from phi.knowledge.pdf import PDFKnowledgeBase
 ...
 knowledge_base = PDFKnowledgeBase(
     path="data/pdfs",
-    vector_db=PgVector(
+    vector_db=PgVector2(
         collection="pdf_documents",
         db_url=vector_db.get_db_connection_local(),
     ),
@@ -383,16 +371,13 @@ Make the `Assistant` Autonomous by setting `use_tools=True` - which gives it the
     ```python auto_assistant.py
     from phi.assistant import Assistant
     from phi.knowledge.pdf import PDFUrlKnowledgeBase
-    from phi.vectordb.pgvector import PgVector
+    from phi.vectordb.pgvector import PgVector2
 
     from resources import vector_db
 
     knowledge_base = PDFUrlKnowledgeBase(
-        urls=["https://www.family-action.org.uk/content/uploads/2019/07/meals-more-recipes.pdf"],
-        vector_db=PgVector(
-            collection="recipes",
-            db_url=vector_db.get_db_connection_local(),
-        ),
+        urls=["https://phi-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"],
+        vector_db=PgVector2(collection="recipes", db_url=vector_db.get_db_connection_local()),
     )
     # Comment out as the knowledge base is already loaded.
     # knowledge_base.load(recreate=False)
@@ -404,8 +389,8 @@ Make the `Assistant` Autonomous by setting `use_tools=True` - which gives it the
         show_tool_calls=True,
     )
 
-    assistant.print_response('How do I make chicken tikka salad?')
-    assistant.print_response('What was my last question?')
+    assistant.print_response("How do I make pad thai?", markdown=True)
+    assistant.print_response("What was my last question?", markdown=True)
     ```
 
   </Step>
@@ -429,7 +414,24 @@ Make the `Assistant` Autonomous by setting `use_tools=True` - which gives it the
 
 ## Storage & Memory
 
-Every `Assistant` comes with built-in memory but it only lasts while the session is active. To provide long-term memory we use a `Storage` backend like `PostgreSQL`.
+Every `Assistant` comes with built-in memory but it only lasts while the session is active. You can add long-term memory to Assistants using a `Storage` backend like `PostgreSQL`.
+
+```python assistant_with_storage.py
+from phi.storage.assistant.postgres import PgAssistantStorage
+
+from resources import vector_db
+
+storage = PgAssistantStorage(
+    table_name="assistant_storage",
+    db_url=vector_db.get_db_connection_local(),
+)
+
+assistant = Assistant(storage=storage)
+```
+
+## Build a PDF Assistant
+
+Lets wrap up by building an Assistant that can read PDFs, store them in a knowledge base and continue conversations across sessions using a storage backend.
 
 <Steps>
   <Step title="Create a PDF Assistant with Knowledge and Storage">
@@ -443,17 +445,19 @@ from typing import Optional, List
 from phi.assistant import Assistant
 from phi.storage.assistant.postgres import PgAssistantStorage
 from phi.knowledge.pdf import PDFUrlKnowledgeBase
-from phi.vectordb.pgvector import PgVector
+from phi.vectordb.pgvector import PgVector2
 
 from resources import vector_db
 
 knowledge_base = PDFUrlKnowledgeBase(
-    urls=["https://www.family-action.org.uk/content/uploads/2019/07/meals-more-recipes.pdf"],
-    vector_db=PgVector(
+    urls=["https://phi-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"],
+    vector_db=PgVector2(
         collection="recipes",
         db_url=vector_db.get_db_connection_local(),
     ),
 )
+# Comment out after first run
+knowledge_base.load(recreate=False)
 
 storage = PgAssistantStorage(
     table_name="pdf_assistant",
@@ -487,12 +491,11 @@ def pdf_assistant(new: bool = False, user: str = "user"):
     else:
         print(f"Continuing Run: {run_id}\n")
 
-    assistant.knowledge_base.load(recreate=False)
     while True:
         message = Prompt.ask(f"[bold] :sunglasses: {user} [/bold]")
         if message in ("exit", "bye"):
             break
-        assistant.print_response(message)
+        assistant.print_response(message, markdown=True)
 
 
 if __name__ == "__main__":
@@ -521,7 +524,7 @@ if __name__ == "__main__":
     Now the assistant continues across sessions. Ask a question:
 
     ```
-    How do I make chicken tikka salad?
+    How do I make pad that?
     ```
 
     Then message `bye` to exit, start the app again and ask:

@@ -45,6 +45,11 @@
       "name": "Github",
       "icon": "github",
       "url": "https://github.com/phidatahq/phidata"
+    },
+    {
+      "name": "FAQs",
+      "icon": "books",
+      "url": "faq"
     }
   ],
   "navigation": [
@@ -88,6 +93,22 @@
                 ]
               },
               {
+                "group": "Tools",
+                "pages": [
+                  "blocks/tools/introduction",
+                  "blocks/tools/functions",
+                  "blocks/tools/registry",
+                  "blocks/tools/python",
+                  "blocks/tools/file",
+                  "blocks/tools/shell",
+                  "blocks/tools/duckdb",
+                  "blocks/tools/arxiv",
+                  "blocks/tools/email",
+                  "blocks/tools/website",
+                  "blocks/tools/wikipedia"
+                ]
+              },
+              {
                 "group": "Storage",
                 "pages": [
                   "blocks/storage/introduction",
@@ -103,6 +124,7 @@
                   "blocks/kb/pdf",
                   "blocks/kb/pdf-url",
                   "blocks/kb/text",
+                  "blocks/kb/docx",
                   "blocks/kb/json",
                   "blocks/kb/website",
                   "blocks/kb/wikipedia",
@@ -126,8 +148,10 @@
                 "pages": [
                   "blocks/llm/introduction",
                   "blocks/llm/openai",
-                  "blocks/llm/aws"
-
+                  "blocks/llm/aws",
+                  "blocks/llm/ollama",
+                  "blocks/llm/together",
+                  "blocks/llm/anyscale"
                 ]
               },
               {
@@ -387,6 +411,12 @@
             "reference/cli/ws/setup"
           ]
         }
+      ]
+    },
+    {
+      "group": "Frequently Asked Questions",
+      "pages": [
+        "faq/could-not-connect-to-docker"
       ]
     }
   ],

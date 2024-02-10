@@ -66,7 +66,7 @@ phi ws up -e prd -i docker -t image -f
 
 </CodeGroup>
 
-Because the only production resources are docker images, you can also use:
+Because the only docker resources in the production env are docker images, you can also use:
 
 <CodeGroup>
 
@@ -85,6 +85,8 @@ phi ws up prd:docker -f
 To use ECR, **create the image repo and authenticate with ECR** before pushing images.
 
 **1. Create the image repository in ECR**
+
+The repo name should match the `ws_name`. Meaning if you're using the default workspace name, the repo name would be `ai`.
 
 <img src="/images/create-ecr-image.png" alt="create-ecr-image" />
 
