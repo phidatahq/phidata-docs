@@ -124,6 +124,7 @@
                   "blocks/kb/pdf",
                   "blocks/kb/pdf-url",
                   "blocks/kb/text",
+                  "blocks/kb/docx",
                   "blocks/kb/json",
                   "blocks/kb/website",
                   "blocks/kb/wikipedia",
@@ -147,8 +148,10 @@
                 "pages": [
                   "blocks/llm/introduction",
                   "blocks/llm/openai",
-                  "blocks/llm/aws"
-
+                  "blocks/llm/aws",
+                  "blocks/llm/ollama",
+                  "blocks/llm/together",
+                  "blocks/llm/anyscale"
                 ]
               },
               {
