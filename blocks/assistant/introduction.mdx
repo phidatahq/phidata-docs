@@ -12,7 +12,7 @@ from phi.assistant import Assistant
 assistant = Assistant(description="You help people with their health and fitness goals.")
 
 # -*- Print a response
-assistant.print_response('Share a quick healthy breakfast recipe.')
+assistant.print_response('Share a quick healthy breakfast recipe.', markdown=True)
 
 # -*- Get the response as a string
 response = assistant.run('Share a quick healthy breakfast recipe.', stream=False)
@@ -69,69 +69,59 @@ Under the hood, the description and message are converted into system and user p
   <Step title="Create an assistant">
     Create a file `assistant.py` with the following contents
 
-```python assistant.py
-from phi.assistant import Assistant
+    ```python assistant.py
+    from phi.assistant import Assistant
 
-assistant = Assistant(description="You help people with their health and fitness goals.")
-assistant.print_response("Share a quick healthy breakfast recipe.")
-```
+    assistant = Assistant(description="You help people with their health and fitness goals.")
+    assistant.print_response("Share a quick healthy breakfast recipe.", markdown=True)
+    ```
 
-  </Step>
-  <Step title="Run the assistant">
-    Run the `assistant.py` file
-```bash
-python assistant.py
-```
-  </Step>
+    Set your `OPENAI_API_KEY`
 
-  <Step title="Let the Assistant call a function">
-    Create a file `hn_assistant.py` with an Assistant that can call a function.
+    <CodeGroup>
 
-```python hn_assistant.py
-import json
-import httpx
+    ```bash Mac
+    export OPENAI_API_KEY=sk-***
+    ```
 
-from phi.assistant import Assistant
+    ```bash Windows
+    setx OPENAI_API_KEY sk-***
+    ```
 
+    </CodeGroup>
 
-def get_top_hackernews_stories(num_stories: int = 10) -> str:
-    """Use this function to get top stories from Hacker News.
+    Run the `Assistant`
 
-    Args:
-        num_stories (int): Number of stories to return. Defaults to 10.
-
-    Returns:
-        str: JSON string of top stories.
-    """
-
-    # Fetch top story IDs
-    response = httpx.get('https://hacker-news.firebaseio.com/v0/topstories.json')
-    story_ids = response.json()
-
-    # Fetch story details
-    stories = []
-    for story_id in story_ids[:num_stories]:
-        story_response = httpx.get(f'https://hacker-news.firebaseio.com/v0/item/{story_id}.json')
-        story = story_response.json()
-        if "text" in story:
-            story.pop("text", None)
-        stories.append(story)
-    return json.dumps(stories)
-
-assistant = Assistant(tools=[get_top_hackernews_stories], show_tool_calls=True)
-assistant.print_response("Summarize the top stories on hackernews?")
-```
+    ```shell
+    python assistant.py
+    ```
 
   </Step>
-  <Step title="Run the assistant">
-    Run the `hn_assistant.py` file
+  <Step title="Let it search the web">
 
-```bash
-python hn_assistant.py
-```
+    Add the DuckDuckGo tool to let the assistant search the web
+
+    ```python assistant.py
+    from phi.assistant import Assistant
+    from phi.tools.duckduckgo import DuckDuckGo
+
+    assistant = Assistant(tools=[DuckDuckGo()], show_tool_calls=True)
+    assistant.print_response("Whats happening in France?", markdown=True)
+    ```
+
+    Install duckduckgo search
+
+    ```shell
+    pip install duckduckgo-search
+    ```
+
+    Run the `Assistant`
+
+    ```shell
+    python assistant.py
+    ```
 
   </Step>
-
 </Steps>
 
 ## More Information
