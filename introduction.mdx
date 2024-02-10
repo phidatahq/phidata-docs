@@ -46,7 +46,7 @@ LLM = Large Language Model
     from phi.assistant import Assistant
 
     assistant = Assistant(description="You help people with their health and fitness goals.")
-    assistant.print_response("Share a quick healthy breakfast recipe.")
+    assistant.print_response("Share a quick healthy breakfast recipe.", markdown=True)
     ```
 
     Set your `OPENAI_API_KEY`
@@ -79,7 +79,7 @@ LLM = Large Language Model
     from phi.tools.duckduckgo import DuckDuckGo
 
     assistant = Assistant(tools=[DuckDuckGo()], show_tool_calls=True)
-    assistant.print_response("Whats happening in France?")
+    assistant.print_response("Whats happening in France?", markdown=True)
     ```
 
     Install duckduckgo search

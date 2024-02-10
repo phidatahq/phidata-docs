@@ -17,25 +17,24 @@ phi ws create -t ai-app -n ai-app
 This will create a folder `ai-app` with the following structure:
 
 ```bash
-ai-app                       # root directory for your ai-app
-├── ai                      # directory for AI components
-    ├── assistants          # AI assistants
-    ├── knowledge_base.py   # assistant knowledge base
-    └── storage.py          # assistant storage
-├── api                     # directory for FastApi routes
-├── app                     # directory for Streamlit apps
-├── db                      # directory for database components
-├── notebooks               # directory for Jupyter notebooks
+ai-app                        # root directory of your ai-app
+├── ai                      # AI components
+    ├── assistants          # AI Assistants
+    ├── knowledge_base.py   # Knowledge bases
+    └── storage.py          # Storage
+├── app                     # Streamlit apps
+├── api                     # FastApi routes
+├── db                      # database tables
+├── notebooks               # Jupyter notebooks
 ├── Dockerfile              # Dockerfile for the application
 ├── pyproject.toml          # python project definition
-├── requirements.txt        # python dependencies managed by pyproject.toml
-├── scripts                 # directory for helper scripts
-├── tests                   # directory for unit tests
-├── utils                   # directory for shared utilities
+├── requirements.txt        # python dependencies generated using pyproject.toml
+├── scripts                 # helper scripts
+├── utils                   # shared utilities
 └── workspace               # phidata workspace directory
     ├── dev_resources.py    # dev resources running locally
     ├── prd_resources.py    # production resources running on AWS
     ├── jupyter             # jupyter notebook resources
-    ├── secrets             # directory for storing secrets
+    ├── secrets             # storing secrets
     └── settings.py         # phidata workspace settings
 ```

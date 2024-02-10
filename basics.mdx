@@ -10,6 +10,8 @@ With phidata, we build AI applications using **Assistants**.
 
 ## Basic Assistant
 
+Lets build a very simple Assistant that provides us with a healthy breakfast recipe.
+
 <Steps>
   <Step title="Create a virtual environment">
     Open the `Terminal` and create an `ai` directory with a python virtual environment.
@@ -56,7 +58,7 @@ With phidata, we build AI applications using **Assistants**.
     from phi.assistant import Assistant
 
     assistant = Assistant(description="You help people with their health and fitness goals.")
-    assistant.print_response("Share a quick healthy breakfast recipe.")
+    assistant.print_response("Share a quick healthy breakfast recipe.", markdown=True)
     ```
 
   </Step>
@@ -89,7 +91,7 @@ With phidata, we build AI applications using **Assistants**.
 
 ## Assistant with tools
 
-**Tools** are functions that the Assistant can run to achieve tasks.
+Things get interesting when we provide our Assistant with tools. Tools are **functions** that the Assistant can run to achieve tasks. Eg: searching the web, running SQL, sending an email.
 
 ### Web Search
 
@@ -148,7 +150,7 @@ Lets create a Data Assistant that uses DuckDb to analyze data using SQL.
         }),
     )
 
-    duckdb_assistant.print_response("What is the average rating of movies? Show me the SQL.")
+    duckdb_assistant.print_response("What is the average rating of movies? Show me the SQL.", markdown=True)
     ```
 
   </Step>
@@ -191,7 +193,7 @@ The `PythonAssistant` can perform virtually any task using python code.
         show_tool_calls=True,
     )
 
-    python_assistant.print_response("What is the average rating of movies?")
+    python_assistant.print_response("What is the average rating of movies?", markdown=True)
     ```
 
   </Step>
@@ -314,7 +316,7 @@ Let's test out RAG by building a **PDF Assistant** that helps us with food recip
         add_references_to_prompt=True,
     )
 
-    assistant.print_response("How do I make pad thai?")
+    assistant.print_response("How do I make pad thai?", markdown=True)
     ```
 
   </Step>
@@ -388,8 +390,8 @@ Make the `Assistant` Autonomous by setting `use_tools=True` - which gives it the
         show_tool_calls=True,
     )
 
-    assistant.print_response("How do I make pad thai?")
-    assistant.print_response("What was my last question?")
+    assistant.print_response("How do I make pad thai?", markdown=True)
+    assistant.print_response("What was my last question?", markdown=True)
     ```
 
   </Step>
@@ -413,7 +415,24 @@ Make the `Assistant` Autonomous by setting `use_tools=True` - which gives it the
 
 ## Storage & Memory
 
-Every `Assistant` comes with built-in memory but it only lasts while the session is active. To provide long-term memory we use a `Storage` backend like `PostgreSQL`.
+Every `Assistant` comes with built-in memory but it only lasts while the session is active. You can add long-term memory to Assistants using a `Storage` backend like `PostgreSQL`.
+
+```python assistant_with_storage.py
+from phi.storage.assistant.postgres import PgAssistantStorage
+
+from resources import vector_db
+
+storage = PgAssistantStorage(
+    table_name="assistant_storage",
+    db_url=vector_db.get_db_connection_local(),
+)
+
+assistant = Assistant(storage=storage)
+```
+
+## Build a PDF Assistant
+
+Lets wrap up by building an Assistant that can read PDFs, store them in a knowledge base and continue conversations across sessions using a storage backend.
 
 <Steps>
   <Step title="Create a PDF Assistant with Knowledge and Storage">
@@ -477,7 +496,7 @@ def pdf_assistant(new: bool = False, user: str = "user"):
         message = Prompt.ask(f"[bold] :sunglasses: {user} [/bold]")
         if message in ("exit", "bye"):
             break
-        assistant.print_response(message)
+        assistant.print_response(message, markdown=True)
 
 
 if __name__ == "__main__":

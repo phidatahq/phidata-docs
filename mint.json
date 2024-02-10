@@ -45,6 +45,11 @@
       "name": "Github",
       "icon": "github",
       "url": "https://github.com/phidatahq/phidata"
+    },
+    {
+      "name": "FAQs",
+      "icon": "books",
+      "url": "faq"
     }
   ],
   "navigation": [
@@ -403,6 +408,12 @@
             "reference/cli/ws/setup"
           ]
         }
+      ]
+    },
+    {
+      "group": "Frequently Asked Questions",
+      "pages": [
+        "faq/could-not-connect-to-docker"
       ]
     }
   ],
