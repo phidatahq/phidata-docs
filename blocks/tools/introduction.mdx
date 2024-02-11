@@ -2,9 +2,11 @@
 title: Introduction
 ---
 
-Tools are functions that the Assistant can run to achieve tasks. They enable LLMs to "take an action" and choose their path based on the response, solving problems in a human-like manner.
+Tools are functions that the Assistant can run to achieve tasks.
 
-For example, to build a text-to-SQL assistant, we can provide tools to view and describe tables, search the knowledge base for context and finally, inspect and run queries to get the answer. This allows the text-to-SQL assistant to work through the problem in an intelligent manner.
+They enable LLMs to "take actions" by calling functions and intelligently choose their path based on the response, solving problems in a human-like manner.
+
+For example, to build a text-to-SQL assistant, we can provide tools to view and describe tables, search the knowledge base for context and run queries after inspecting them. This allows the text-to-SQL assistant to work through the problem in an intelligent manner.
 
 Assistants have access to a set of default tools like searching the **Knowledge Base** and **Memory** that can be enabled by setting `use_tools=True`.
 
@@ -13,13 +15,13 @@ For example the `auto_assistant` will can search its knowledge base or chat hist
 ```python auto_assistant.py
 from phi.assistant import Assistant
 from phi.knowledge.pdf import PDFUrlKnowledgeBase
-from phi.vectordb.pgvector import PgVector
+from phi.vectordb.pgvector import PgVector2
 
 from resources import vector_db
 
 knowledge_base = PDFUrlKnowledgeBase(
-    urls=["https://www.family-action.org.uk/content/uploads/2019/07/meals-more-recipes.pdf"],
-    vector_db=PgVector(
+    urls=["https://phi-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"],
+    vector_db=PgVector2(
         collection="recipes",
         db_url=vector_db.get_db_connection_local(),
     ),
@@ -34,7 +36,7 @@ auto_assistant = Assistant(
 )
 
 # will call `search_knowledge_base` to generate this response
-auto_assistant.print_response('How do I make chicken tikka salad?')
+auto_assistant.print_response('How do I make pad thai?')
 # will call `get_chat_history` to generate this response
 auto_assistant.print_response('What was my last question?')
 ```
@@ -76,7 +78,7 @@ The following fields allow the `Assistant` to use tools
 
 </ResponseField>
 <ResponseField name="update_knowledge_base" type="bool" default="False">
-  If use_tools is True and update_knowledge_base is True, then `add_to_knowledge_base` tool is added that allows the LLM to update the knowledge base.
+  If use_tools is True and update_knowledge_base is True, then a `add_to_knowledge_base` tool is added that allows the LLM to update the knowledge base.
 </ResponseField>
 <ResponseField name="read_tool_call_history" type="bool" default="False">
   If use_tools is True and read_tool_call_history is True, then `get_tool_call_history` tool is added that allows the LLM to get the tool call history.

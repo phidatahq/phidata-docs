@@ -19,7 +19,7 @@ from resources import vector_db
 # The PDFUrlKnowledgeBase reads PDFs from urls and loads
 # the `ai.recipes` table when`knowledge_base.load()` is called.
 knowledge_base = PDFUrlKnowledgeBase(
-    urls=["https://www.family-action.org.uk/content/uploads/2019/07/meals-more-recipes.pdf"],
+    urls=["https://phi-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"],
     vector_db=PgVector(
         collection="recipes",
         db_url=vector_db.get_db_connection_local(),
@@ -34,8 +34,7 @@ assistant = Assistant(
     add_references_to_prompt=True,
 )
 
-assistant.print_response('Share a quick recipe for a healthy breakfast.')
-assistant.print_response('How do I make chicken tikka salad?')
+assistant.print_response("How do I make pad thai?", markdown=True)
 ```
 
 ## Params
@@ -94,21 +93,20 @@ assistant.print_response('How do I make chicken tikka salad?')
   <Step title="Start PgVector">
     Create a file `resources.py` with the following contents
 
-```python resources.py
-from phi.docker.app.postgres import PgVectorDb
-from phi.docker.resources import DockerResources
+    ```python resources.py
+    from phi.docker.app.postgres import PgVectorDb
+    from phi.docker.resources import DockerResources
 
-# -*- PgVector running on port 5432:5432
-vector_db = PgVectorDb(
-    pg_user="ai",
-    pg_password="ai",
-    pg_database="ai",
-    debug_mode=True,
-)
+    # -*- PgVector running on port 5432:5432
+    vector_db = PgVectorDb(
+        pg_user="ai",
+        pg_password="ai",
+        pg_database="ai",
+    )
 
-# -*- DockerResources
-dev_docker_resources = DockerResources(apps=[vector_db])
-```
+    # -*- DockerResources
+    dev_docker_resources = DockerResources(apps=[vector_db])
+    ```
 
     Start `resources.py` using:
 
@@ -120,42 +118,41 @@ phi start resources.py
   <Step title="Create a RAG Assistant">
     Create a file `rag_assistant.py` with the following contents
 
-```python rag_assistant.py
-from phi.assistant import Assistant
-from phi.knowledge.pdf import PDFUrlKnowledgeBase
-from phi.vectordb.pgvector import PgVector
+    ```python rag_assistant.py
+    from phi.assistant import Assistant
+    from phi.knowledge.pdf import PDFUrlKnowledgeBase
+    from phi.vectordb.pgvector import PgVector2
 
-from resources import vector_db
+    from resources import vector_db
 
-# The PDFUrlKnowledgeBase reads PDFs from urls and loads
-# the `ai.recipes` table when`knowledge_base.load()` is called.
-knowledge_base = PDFUrlKnowledgeBase(
-    urls=["https://www.family-action.org.uk/content/uploads/2019/07/meals-more-recipes.pdf"],
-    vector_db=PgVector(
-        collection="recipes",
-        db_url=vector_db.get_db_connection_local(),
-    ),
-)
-knowledge_base.load(recreate=False)
+    # The PDFUrlKnowledgeBase reads PDFs from urls and loads
+    # the `ai.recipes` table when`knowledge_base.load()` is called.
+    knowledge_base = PDFUrlKnowledgeBase(
+        urls=["https://phi-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"],
+        vector_db=PgVector2(
+            collection="recipes",
+            db_url=vector_db.get_db_connection_local(),
+        ),
+    )
+    knowledge_base.load(recreate=False)
 
-assistant = Assistant(
-    knowledge_base=knowledge_base,
-    # The add_references_to_prompt flag searches the knowledge base
-    # and updates the prompt sent to the LLM.
-    add_references_to_prompt=True,
-)
+    assistant = Assistant(
+        knowledge_base=knowledge_base,
+        # The add_references_to_prompt flag searches the knowledge base
+        # and updates the prompt sent to the LLM.
+        add_references_to_prompt=True,
+    )
 
-assistant.print_response('Share a quick recipe for a healthy breakfast.')
-assistant.print_response('How do I make chicken tikka salad?')
-```
+    assistant.print_response("How do I make pad thai?", markdown=True)
+    ```
 
   </Step>
   <Step title="Run the assistant">
     Run the `rag_assistant.py` file. Give it a few minutes to load the knowledge base and see it respond with recipes from the recipe book.
 
-```bash
-python rag_assistant.py
-```
+    ```bash
+    python rag_assistant.py
+    ```
 
   </Step>
 </Steps>

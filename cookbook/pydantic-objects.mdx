@@ -1,12 +1,13 @@
 ---
 title: Movie Assistant
+sidebarTitle: Pydantic Objects
 ---
 
 An assistant showcasing how to generate pydantic objects with LLMs. This assistant will generate a `MovieScript` given a theme.
 
 ## Code
 
-```python recipe/movie_assistant.py
+```python cookbook/assistant/pydantic_model.py
 from typing import List
 from pydantic import BaseModel, Field
 from rich.pretty import pprint
@@ -16,7 +17,9 @@ from phi.assistant import Assistant
 class MovieScript(BaseModel):
     setting: str = Field(..., description="Provide a nice setting for a blockbuster movie.")
     ending: str = Field(..., description="Ending of the movie. If not available, provide a happy ending.")
-    genre: str = Field(..., description="Genre of the movie. If not available, select action, thriller or romantic comedy.")
+    genre: str = Field(
+        ..., description="Genre of the movie. If not available, select action, thriller or romantic comedy."
+    )
     name: str = Field(..., description="Give a name to this movie")
     characters: List[str] = Field(..., description="Name of characters for this movie.")
     storyline: str = Field(..., description="3 sentence storyline for the movie. Make it exciting!")
@@ -32,30 +35,35 @@ pprint(movie_assistant.run("New York"))
 
 ## Usage
 
-<CodeGroup>
+<Steps>
+  <Step title="Install libraries">
 
-```bash Mac
-python recipe/movie_assistant.py
-```
+    ```bash
+    pip install openai
+    ```
 
-```bash Windows
-python recipe/movie_assistant.py
-```
+  </Step>
 
-</CodeGroup>
+  <Step title="Run the assistant">
 
-<br />
+    <CodeGroup>
 
-<Accordion title="Required libraries">
+    ```bash Mac
+    python cookbook/assistant/pydantic_model.py
+    ```
 
-```bash
-pip install openai
-```
+    ```bash Windows
+    python cookbook/assistant/pydantic_model.py
+    ```
 
-</Accordion>
+    </CodeGroup>
+
+  </Step>
+
+</Steps>
 
 ## Information
 
-- View on [Github](https://github.com/phidatahq/ai-cookbook/blob/main/recipe/movie_assistant.py)
+- View on [Github](https://github.com/phidatahq/phidata/blob/main/cookbook/assistant/pydantic_model.py)
 - Read about [Pydantic outputs with LLMs](/blocks/assistant/pydantic-output)
 - <Snippet file="message-us-discord.mdx" />

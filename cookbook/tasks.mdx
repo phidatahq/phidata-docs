@@ -1,20 +1,26 @@
 ---
 title: Short story generator
+sidebarTitle: Tasks
 ---
 
 An assistant showcasing how to chain `Tasks` to generate reliable outputs from LLMs. This assistant will generate a short story given a theme.
 
 ## Code
 
-```python recipe/story_assistant.py
+```python cookbook/assistant/tasks.py
 from phi.llm.openai import OpenAIChat
 from phi.task.llm import LLMTask
 from phi.assistant import Assistant
 from pydantic import BaseModel, Field
 
+
 class StoryTheme(BaseModel):
-    setting: str = Field(..., description="This is the context of the story. If not available, provide a random setting.",)
+    setting: str = Field(
+        ...,
+        description="This is the context of the story. If not available, provide a random setting.",
+    )
     genre: str = Field(..., description="This is the genre of the story. If not provided, select horror.")
+
 
 get_story_theme = LLMTask(
     system_prompt="Generate a theme for a story.",
@@ -31,24 +37,30 @@ give_story_a_name = LLMTask(
     system_prompt="Give this story a 2 word name. Format output as `Name: {name}`. Don't surround with quotes.",
 )
 
-story_assistant = Assistant(tasks=[get_story_theme, write_story, give_story_a_name])
-story_assistant.cli_app(user="Theme")
+story_generator = Assistant(tasks=[get_story_theme, write_story, give_story_a_name])
+story_generator.cli_app(user="Theme", markdown=True)
 ```
 
 ## Usage
 
 <Steps>
+  <Step title="Install libraries">
+
+    ```bash
+    pip install openai
+    ```
+
+  </Step>
   <Step title="Run the assistant">
-    Run the `story_assistant.py` file
 
     <CodeGroup>
 
     ```bash Mac
-    python recipe/story_assistant.py
+    python cookbook/assistant/tasks.py
     ```
 
     ```bash Windows
-    python recipe/story_assistant.py
+    python cookbook/assistant/tasks.py
     ```
 
     </CodeGroup>
@@ -71,18 +83,8 @@ story_assistant.cli_app(user="Theme")
   </Step>
 </Steps>
 
-<br />
-
-<Accordion title="Required libraries">
-
-```bash
-pip install openai
-```
-
-</Accordion>
-
 ## Information
 
-- View on [Github](https://github.com/phidatahq/ai-cookbook/blob/main/recipe/story_assistant.py)
+- View on [Github](https://github.com/phidatahq/phidata/blob/main/cookbook/assistant/tasks.py)
 - Read about [Tasks](/blocks/assistant/tasks)
 - <Snippet file="message-us-discord.mdx" />

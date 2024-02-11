@@ -1,0 +1,87 @@
+---
+title: Autonomous Assistant
+---
+
+With Autonomous Assistants, the LLM can run functions to:
+
+- Search the knowledge base
+- Search the chat history
+- Achieve other tasks
+
+This in assistant, GPT4 decides **if** it needs to access the knowledge base and what search parameters it needs to query the knowledge base.
+
+## Code
+
+```python cookbook/auto/assistant.py
+from phi.assistant import Assistant
+from phi.knowledge.pdf import PDFUrlKnowledgeBase
+from phi.vectordb.pgvector import PgVector2
+
+from resources import vector_db  # type: ignore
+
+knowledge_base = PDFUrlKnowledgeBase(
+    urls=["https://phi-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"],
+    vector_db=PgVector2(collection="recipes", db_url=vector_db.get_db_connection_local()),
+)
+knowledge_base.load(recreate=False)
+
+assistant = Assistant(
+    knowledge_base=knowledge_base,
+    use_tools=True,
+    show_tool_calls=True,
+)
+
+assistant.print_response("How do I make pad thai?")
+assistant.print_response("What was my last question?")
+```
+
+## Usage
+
+<Steps>
+  <Step title="Start PgVector">
+
+    ```bash
+    phi start cookbook/auto/resources.py -y
+    ```
+
+  </Step>
+
+  <Step title="Install libraries">
+
+    ```bash
+    pip install -U pgvector pypdf psycopg sqlalchemy
+    ```
+
+  </Step>
+
+  <Step title="Run the assistant">
+
+    <CodeGroup>
+
+    ```bash Mac
+    python cookbook/auto/assistant.py
+    ```
+
+    ```bash Windows
+    python cookbook/auto/assistant.py
+    ```
+
+    </CodeGroup>
+
+  </Step>
+
+  <Step title="Stop PgVector">
+
+    ```bash
+    phi stop cookbook/auto/resources.py -y
+    ```
+
+  </Step>
+
+</Steps>
+
+## Information
+
+- View on [Github](https://github.com/phidatahq/phidata/tree/main/cookbook/auto)
+- Read about [Autonomous Assistants](/blocks/assistant/auto)
+- <Snippet file="message-us-discord.mdx" />
