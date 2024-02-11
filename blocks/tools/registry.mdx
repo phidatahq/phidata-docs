@@ -2,17 +2,7 @@
 title: Tool Registry
 ---
 
-**Tool Registry** is a collection of tools designed to achieve specific tasks.
-
-For example `PythonTools` can be added to an Assistant to enable it to run python code to achieve tasks. The following assistant will write a python script to get top hackernews stories, save it to a file, run it and return the results.
-
-```python python_tools.py
-from phi.assistant import Assistant
-from phi.tools.python import PythonTools
-
-assistant = Assistant(tools=[PythonTools()], show_tool_calls=True)
-assistant.print_response("Summarize the top stories on hackernews")
-```
+A **Tool Registry** is a collection of functions that can be added to an Assistant. The functions in a tool registry work together to provide a better development experience.
 
 The following `ToolRegistries` are available to use
 

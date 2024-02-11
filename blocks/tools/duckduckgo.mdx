@@ -1,7 +1,29 @@
 ---
 title: DuckDuckGo
 sidebarTitle: DuckDuckGo
-description: This guide is in the works
 ---
+
+`DuckDuckGo` enables an Assistant to search the web for information.
+
+## Functions
+
+<ResponseField name="duckduckgo_search">
+  Use this function to search DuckDuckGo for a query.
+</ResponseField>
+<ResponseField name="duckduckgo_news">
+  Use this function to get the latest news from DuckDuckGo.
+</ResponseField>
+
+## Example
+
+The following assistant will search DuckDuckGo for the latest news from France and summarize the results.
+
+```python cookbook/tools/duckduckgo.py
+from phi.assistant import Assistant
+from phi.tools.duckduckgo import DuckDuckGo
+
+assistant = Assistant(tools=[DuckDuckGo()], show_tool_calls=True)
+assistant.print_response("Whats happening in France? Summarize top stories with sources.")
+```
 
 <Snippet file="message-us-discord.mdx" />
