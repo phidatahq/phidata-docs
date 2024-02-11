@@ -6,7 +6,7 @@ An assistant showcasing how to use a [LangChain Retriever](https://python.langch
 
 ## Code
 
-```python recipe/langchain_retriever.py
+```python cookbook/assistant/langchain_retriever.py
 from phi.assistant import Assistant
 from phi.knowledge.langchain import LangChainKnowledgeBase
 
@@ -42,35 +42,40 @@ retriever = db.as_retriever()
 knowledge_base = LangChainKnowledgeBase(retriever=retriever)
 
 conv = Assistant(knowledge_base=knowledge_base, debug_mode=True, add_references_to_prompt=True)
-conv.print_response("What did the president say about technology?")
+conv.print_response("What did the president say about technology?", markdown=True)
 ```
 
 ## Usage
 
-<CodeGroup>
+<Steps>
+  <Step title="Install libraries">
 
-```bash Mac
-python recipe/langchain_retriever.py
-```
+    ```bash
+    pip install openai langchain chromadb
+    ```
 
-```bash Windows
-python recipe/langchain_retriever.py
-```
+  </Step>
 
-</CodeGroup>
+  <Step title="Run the assistant">
 
-<br />
+    <CodeGroup>
 
-<Accordion title="Required libraries">
+    ```bash Mac
+    python cookbook/assistant/langchain_retriever.py
+    ```
 
-```bash
-pip install openai langchain chromadb
-```
+    ```bash Windows
+    python cookbook/assistant/langchain_retriever.py
+    ```
 
-</Accordion>
+    </CodeGroup>
+
+  </Step>
+
+</Steps>
 
 ## Information
 
-- View on [Github](https://github.com/phidatahq/ai-cookbook/blob/main/recipe/langchain_retriever.py)
+- View on [Github](https://github.com/phidatahq/phidata/blob/main/cookbook/assistant/langchain_retriever.py)
 - Read about the [Langchain Knowledge Base](/blocks/kb/langchain)
 - <Snippet file="message-us-discord.mdx" />

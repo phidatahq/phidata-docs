@@ -1,12 +1,15 @@
 ---
-title: Assistant with Storage
+title: PDF Assistant with Storage
 ---
 
-Store assistant runs in PostgreSQL to provide long-term memory across sessions.
+Create an Assistant that can
+
+- Read PDFs and store them in a knowledge base
+- Store the runs in PostgreSQL to provide long-term memory across sessions
 
 ## Code
 
-```python recipe/assistant_with_storage.py
+```python cookbook/pdf/assistant.py
 import typer
 from rich.prompt import Prompt
 from typing import Optional, List
@@ -14,19 +17,21 @@ from typing import Optional, List
 from phi.assistant import Assistant
 from phi.storage.assistant.postgres import PgAssistantStorage
 from phi.knowledge.pdf import PDFUrlKnowledgeBase
-from phi.vectordb.pgvector import PgVector
+from phi.vectordb.pgvector import PgVector2
 
-from db.session import db_url
+from resources import vector_db  # type: ignore
 
 knowledge_base = PDFUrlKnowledgeBase(
-    urls=["https://www.family-action.org.uk/content/uploads/2019/07/meals-more-recipes.pdf"],
-    vector_db=PgVector(collection="recipes", db_url=db_url),
+    urls=["https://phi-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"],
+    vector_db=PgVector2(collection="recipes", db_url=vector_db.get_db_connection_local()),
 )
+# Comment out after first run
+knowledge_base.load(recreate=False)
 
-storage = PgAssistantStorage(table_name="recipe_assistant", db_url=db_url)
+storage = PgAssistantStorage(table_name="pdf_assistant", db_url=vector_db.get_db_connection_local())
 
 
-def recipe_assistant(new: bool = False, user: str = "user"):
+def pdf_assistant(new: bool = False, user: str = "user"):
     run_id: Optional[str] = None
 
     if not new:
@@ -39,7 +44,7 @@ def recipe_assistant(new: bool = False, user: str = "user"):
         user_id=user,
         knowledge_base=knowledge_base,
         storage=storage,
-        # use_tools=True adds functions to
+        # tool_calls=True adds functions to
         # search the knowledge base and chat history
         use_tools=True,
         show_tool_calls=True,
@@ -52,39 +57,53 @@ def recipe_assistant(new: bool = False, user: str = "user"):
     else:
         print(f"Continuing Run: {run_id}\n")
 
-    assistant.knowledge_base.load(recreate=False)
     while True:
         message = Prompt.ask(f"[bold] :sunglasses: {user} [/bold]")
         if message in ("exit", "bye"):
             break
-        assistant.print_response(message)
+        assistant.print_response(message, markdown=True)
 
 
 if __name__ == "__main__":
-    typer.run(recipe_assistant)
+    typer.run(pdf_assistant)
 ```
 
 ## Usage
 
 <Steps>
+  <Step title="Start PgVector">
+
+    ```bash
+    phi start cookbook/rag/resources.py -y
+    ```
+
+  </Step>
+
+  <Step title="Install libraries">
+
+    ```bash
+    pip install -U pgvector pypdf psycopg sqlalchemy
+    ```
+
+  </Step>
+
   <Step title="Run the assistant">
-    Run the `assistant_with_storage.py` file
 
     <CodeGroup>
 
     ```bash Mac
-    python recipe/assistant_with_storage.py
+    python cookbook/pdf/assistant.py
     ```
 
     ```bash Windows
-    python recipe/assistant_with_storage.py
+    python cookbook/pdf/assistant.py
     ```
     </CodeGroup>
 
     Now the assistant continues across sessions. Ask a question:
 
     ```
-    How do I make chicken tikka salad?
+    How do I make pad thai?
     ```
 
     Then message `bye` to exit, start the app again and ask:
@@ -97,25 +116,22 @@ if __name__ == "__main__":
   <Step title="Start a new run">
     Run the `assistant_with_storage.py` file with the `--new` flag to start a new run.
 
-```bash
-python assistant_with_storage.py --new
-```
+    ```bash
+    python assistant_with_storage.py --new
+    ```
+
+  </Step>
+  <Step title="Stop PgVector">
+
+    ```bash
+    phi stop cookbook/rag/resources.py -y
+    ```
 
   </Step>
 </Steps>
 
-<br />
-
-<Accordion title="Required libraries">
-
-```bash
-pip install openai pgvector pypdf psycopg sqlalchemy
-```
-
-</Accordion>
-
 ## Information
 
-- View on [Github](https://github.com/phidatahq/ai-cookbook/blob/main/recipe/assistant_with_storage.py)
+- View on [Github](https://github.com/phidatahq/phidata/tree/main/cookbook/pdf)
 - Read about [Assistant Storage](/blocks/assistant/storage)
 - <Snippet file="message-us-discord.mdx" />

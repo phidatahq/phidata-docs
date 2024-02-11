@@ -250,17 +250,17 @@
           ]
         },
         {
-          "group": "AI Cookbook",
+          "group": "Cookbook",
           "pages": [
-            "ai-cookbook/introduction",
-            "ai-cookbook/simple-assistant",
-            "ai-cookbook/rag-assistant",
-            "ai-cookbook/auto-assistant",
-            "ai-cookbook/assistant-w-storage",
-            "ai-cookbook/trending-on-hn",
-            "ai-cookbook/movie-assistant",
-            "ai-cookbook/story-assistant",
-            "ai-cookbook/langchain-retriever"
+            "cookbook/introduction",
+            "cookbook/simple-assistant",
+            "cookbook/rag-assistant",
+            "cookbook/auto-assistant",
+            "cookbook/pdf-assistant-w-storage",
+            "cookbook/trending-on-hn",
+            "cookbook/pydantic-objects",
+            "cookbook/tasks",
+            "cookbook/langchain-retriever"
           ]
         }
       ]
