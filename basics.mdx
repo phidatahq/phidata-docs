@@ -280,14 +280,20 @@ Let's test out RAG by building a **PDF Assistant** that helps us with food recip
     <CodeGroup>
 
     ```bash Mac
-    pip install -U pgvector pypdf psycopg-binary sqlalchemy
+    pip install -U pgvector pypdf psycopg sqlalchemy
     ```
 
     ```bash Windows
-    pip install -U pgvector pypdf psycopg-binary sqlalchemy
+    pip install -U pgvector pypdf psycopg sqlalchemy
     ```
 
     </CodeGroup>
+
+    <br />
+
+    <Tip>
+    Depending on your system, please install `psycopg-binary` instead of `pysopg`
+    </Tip>
 
   </Step>
   <Step title="Create a RAG Assistant">
