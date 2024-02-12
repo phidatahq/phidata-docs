@@ -4,4 +4,27 @@ sidebarTitle: Wikipedia
 description: This guide is in the works
 ---
 
+`Wikipedia` enables an Assistant to search wikipedia a website and add its contents to the knowledge base.
+
+## Functions
+
+<ResponseField name="search_wikipedia_and_update_knowledge_base">
+  This function searches wikipedia for a topic, adds the results to the knowledge base and returns them.
+</ResponseField>
+<ResponseField name="search_wikipedia">
+  Searches Wikipedia for a query.
+</ResponseField>
+
+## Example
+
+The following assistant will run seach wikipedia for "ai" and print the response.
+
+```python cookbook/tools/wikipedia.py
+from phi.assistant import Assistant
+from phi.tools.wikipedia import WikipediaTools
+
+assistant = Assistant(tools=[WikipediaTools()], show_tool_calls=True)
+assistant.print_response("Search wikipedia for 'ai'")
+```
+
 <Snippet file="message-us-discord.mdx" />
