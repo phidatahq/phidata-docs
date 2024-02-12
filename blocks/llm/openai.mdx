@@ -39,7 +39,7 @@ assistant = Assistant(
 )
 
 # -*- Print a response
-assistant.print_response('Share a 5 word horror story.')
+assistant.print_response('Share a 5 word horror story.', markdown=True)
 ```
 
 ```python LLMTask
@@ -69,15 +69,22 @@ give_story_a_name = LLMTask(
 )
 
 story_assistant = Assistant(tasks=[get_story_theme, write_story, give_story_a_name])
-story_assistant.cli_app(user="Theme")
+story_assistant.cli_app(user="Theme", markdown=True)
 ```
 
 </CodeGroup>
 
 ## Params
 
+For more information, please refer to the [OpenAI docs](https://platform.openai.com/docs/api-reference/chat/create) as well.
+
 <ResponseField name="model" type="str">
   OpenAI model ID.
+</ResponseField>
+<ResponseField name="seed" type="int">
+  If specified, openai system will make a best effort to sample
+  deterministically, such that repeated requests with the same `seed` and
+  parameters should return the same result.
 </ResponseField>
 <ResponseField name="max_tokens" type="int">
   The maximum number of tokens to generate in the chat completion.
@@ -92,14 +99,17 @@ story_assistant.cli_app(user="Theme")
   their existing frequency in the text so far, decreasing the model's likelihood
   to repeat the same line verbatim.
 </ResponseField>
+<ResponseField name="response_format" type="Dict[str, Any]">
+  An object specifying the format that the model must output.
+  Setting to `{ "type": "json_object" }` enables JSON mode, which guarantees the message the model generates is valid JSON.
+</ResponseField>
+<ResponseField name="frequency_penalty" type="float">
+  Number between -2.0 and 2.0. Positive values penalize new tokens based on their existing frequency in the text so far, decreasing the model's likelihood to repeat the same line verbatim.
+</ResponseField>
 <ResponseField name="presence_penalty" type="float">
   Number between -2.0 and 2.0. Positive values penalize new tokens based on
   whether they appear in the text so far, increasing the model's likelihood to
   talk about new topics.
-</ResponseField>
-<ResponseField name="top_p" type="float">
-  An alternative to sampling with temperature, called nucleus sampling, where
-  the model considers the results of the tokens with top_p probability mass.
 </ResponseField>
 <ResponseField name="stop" type="List[str]">
   Up to 4 sequences where the API will stop generating further tokens.
@@ -108,11 +118,36 @@ story_assistant.cli_app(user="Theme")
   A unique identifier representing your end-user, which can help OpenAI to
   monitor and detect abuse.
 </ResponseField>
-<ResponseField name="headers" type="Dict[str, Any]">
-  Headers added to the OpenAI request.
+<ResponseField name="top_p" type="float">
+  An alternative to sampling with temperature, called nucleus sampling, where
+  the model considers the results of the tokens with top_p probability mass.
 </ResponseField>
 <ResponseField name="logit_bias" type="Any">
   Modify the likelihood of specified tokens appearing in the completion. Accepts
   a json object that maps tokens (specified by their token ID in the tokenizer)
   to an associated bias value from -100 to 100.
+</ResponseField>
+<ResponseField name="headers" type="Dict[str, Any]">
+  Headers added to the OpenAI request.
+</ResponseField>
+<ResponseField name="api_key" type="str">
+  OpenAI API Key
+</ResponseField>
+<ResponseField name="organization" type="str">
+  OpenAI organization
+</ResponseField>
+<ResponseField name="base_url" type="str">
+  OpenAI Base URL
+</ResponseField>
+<ResponseField name="client_kwargs" type="Dict[str, Any]">
+  Additional `kwargs` added when creating the `OpenAI()` client.
+</ResponseField>
+<ResponseField name="openai_client" type="OpenAI">
+  Provide your own OpenAI() client to use
+</ResponseField>
+<ResponseField name="phi_proxy" type="bool" default="True">
+  Phidata provides a proxy for OpenAI models, if `phi_proxy=True` and api_key is not provided, your requests are routed through the phidata proxy.
+
+This allows you to use the `phi` library without providing an API key.
+
 </ResponseField>
