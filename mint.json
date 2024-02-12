@@ -150,6 +150,7 @@
                 "pages": [
                   "blocks/llm/introduction",
                   "blocks/llm/openai",
+                  "blocks/llm/openai-like",
                   "blocks/llm/ollama",
                   "blocks/llm/aws",
                   "blocks/llm/together",

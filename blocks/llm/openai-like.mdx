@@ -1,0 +1,42 @@
+---
+title: OpenAI Like
+---
+
+Many providers now support the OpenAI API format, use the `OpenAILike` LLM to access them
+
+## Usage
+
+<CodeGroup>
+
+```python assistant.py
+from os import getenv
+from phi.assistant import Assistant
+from phi.llm.openai.like import OpenAILike
+
+assistant = Assistant(
+    llm=OpenAILike(
+        model="mistralai/Mixtral-8x7B-Instruct-v0.1",
+        api_key=getenv("TOGETHER_API_KEY"),
+        base_url="https://api.together.xyz/v1",
+    )
+)
+
+# -*- Print a response
+assistant.print_response('Share a 2 sentence horror story.', markdown=True)
+```
+
+</CodeGroup>
+
+## Params
+
+<ResponseField name="model" type="str">
+  Model name
+</ResponseField>
+<ResponseField name="api_key" type="str">
+  API Key
+</ResponseField>
+<ResponseField name="base_url" type="str">
+  Base URL
+</ResponseField>
+
+`OpenAILike` also support all other params of [OpenAIChat](/blocks/llm/openai#params)
