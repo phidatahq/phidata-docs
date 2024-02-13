@@ -5,16 +5,15 @@ sidebarTitle: PostgreSQL
 
 ## Example
 
-```python assistant.py
-from phi.llm.openai import OpenAIChat
+```python assistant_with_storage.py
 from phi.assistant import Assistant
 from phi.storage.assistant.postgres import PgAssistantStorage
 
 assistant = Assistant(
-    # -*- Add storage to the assistant -*-
+    # -*- Add storage to the assistant
     storage = PgAssistantStorage(
-        # Table name: llm.assistant
-        table_name="assistant",
+        # Table name: ai.assistant_runs
+        table_name="assistant_runs",
         db_url=db_url,
     )
 )
@@ -33,4 +32,7 @@ assistant = Assistant(
 </ResponseField>
 <ResponseField name="db_engine" type="Engine">
   The database engine to use.
+</ResponseField>
+<ResponseField name="metadata" type="MetaData">
+  The metadata to use.
 </ResponseField>
