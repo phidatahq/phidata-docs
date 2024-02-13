@@ -1,4 +1,4 @@
-<ResponseField name="llm" type="LLM" default="OpenAIChat()" required>
+<ResponseField name="llm" type="LLM">
   LLM to use for this Assistant
 </ResponseField>
 <ResponseField name="introduction" type="str">
@@ -28,7 +28,7 @@
   Metadata associated the user participating in this run
 </ResponseField>
 
-<ResponseField name="memory" type="AssistantMemory" default="AssistantMemory()" required>
+<ResponseField name="memory" type="AssistantMemory" default="AssistantMemory()">
   Assistant Memory
 </ResponseField>
 <ResponseField name="add_chat_history_to_messages" type="bool" default="False">
@@ -48,13 +48,12 @@
   Enable RAG by adding references from the knowledge base to the prompt.
 </ResponseField>
 
-<ResponseField name="storage" type="AssistantStorage" required>
+<ResponseField name="storage" type="AssistantStorage">
   Assistant Storage
 </ResponseField>
-<ResponseField name="db_row" type="AssistantRun" required>
+<ResponseField name="db_row" type="AssistantRun">
   AssistantRun from the database: DO NOT SET MANUALLY
 </ResponseField>
-
 <ResponseField name="tools" type="List[Union[Tool, ToolRegistry, Callable, Dict, Function]]">
  A list of tools provided to the LLM. Tools are functions the model may generate JSON inputs for.
  If you provide a dict, it is not called by the model.
@@ -109,15 +108,30 @@ def system_prompt_function(assistant: Assistant) -> str:
 <ResponseField name="instructions" type="List[str]">
   List of instructions for the default system prompt
 </ResponseField>
-<ResponseField name="extra_instructions" type="bool" default="True">
+<ResponseField name="extra_instructions" type="List[str]">
   List of extra_instructions for the default system prompt
   Use these when you want to use the default prompt but also add some extra instructions
+</ResponseField>
+<ResponseField name="add_to_system_prompt" type="str">
+  Add a string to the end of the default system prompt
+</ResponseField>
+<ResponseField name="add_knowledge_base_instructions" type="bool" default="True">
+  If True, add instructions for using the knowledge base to the default system prompt if knowledge base is provided
+</ResponseField>
+<ResponseField name="prevent_hallucinations" type="bool" default="False">
+  If True, add instructions for letting the user know that the assistant does not know the answer
+</ResponseField>
+<ResponseField name="prevent_prompt_injection" type="bool" default="False">
+  If True, add instructions to prevent prompt injection attacks
+</ResponseField>
+<ResponseField name="limit_tool_access" type="bool" default="True">
+  If True, add instructions for limiting tool access to the default system prompt if tools are provided
 </ResponseField>
 <ResponseField name="add_datetime_to_instructions" type="bool" default="False">
   If True, add the current datetime to the prompt to give the assistant a sense of time
   This allows for relative times like "tomorrow" to be used in the prompt
 </ResponseField>
-<ResponseField name="markdown" type="bool" default="True">
+<ResponseField name="markdown" type="bool" default="False">
   If markdown=true, formats the output using markdown
 </ResponseField>
 
@@ -157,6 +171,9 @@ def references(assistant: Assistant, query: str) -> Optional[str]:
 ```
 
 </ResponseField>
+<ResponseField name="references_format" type="Literal['json', 'yaml']" default="json">
+  Format of the references
+</ResponseField>
 <ResponseField name="chat_history_function" type="Callable[..., Optional[str]]">
 Function to build the chat_history for the default `user_prompt`. This function, if provided, is called when `add_chat_history_to_prompt` is True
 
@@ -180,7 +197,7 @@ def chat_history(assistant: Assistant) -> str:
   Final LLM response i.e. the final output of this assistant
 </ResponseField>
 
-<ResponseField name="tasks" type="List">
+<ResponseField name="tasks" type="[List[Task]]">
   Tasks allow the Assistant to generate a response using a list of tasks If
   tasks is None or empty, a single default LLM task is created for this
   assistant
