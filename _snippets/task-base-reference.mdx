@@ -1,24 +1,29 @@
-<ResponseField name="task_id" type="str" default="None">
+<ResponseField name="task_id" type="str">
   Task UUID
 </ResponseField>
-<ResponseField name="task_name" type="str" default="None">
+<ResponseField name="task_name" type="str">
   Task name
 </ResponseField>
-<ResponseField name="assistant_memory" type="AssistantMemory" default="None">
+
+<ResponseField name="assistant_name" type="str">
 </ResponseField>
-<ResponseField name="run_id" type="str" default="None">
+<ResponseField name="assistant_memory" type="AssistantMemory">
 </ResponseField>
-<ResponseField name="run_message" type="Union" default="None">
+
+<ResponseField name="run_id" type="str">
 </ResponseField>
-<ResponseField name="run_task_data" type="List" default="None">
+<ResponseField name="run_message" type="Union">
 </ResponseField>
-<ResponseField name="output_model" type="Union" default="None">
+<ResponseField name="run_task_data" type="List">
+</ResponseField>
+
+<ResponseField name="output_model" type="Union">
  Provide an output model for the responses
 </ResponseField>
-<ResponseField name="parse_output" type="Union" default="None">
+<ResponseField name="parse_output" type="Union">
   If True, the output is converted into the output_model (pydantic model or json dict)
 </ResponseField>
-<ResponseField name="output" type="Any" default="None">
+<ResponseField name="output" type="Any">
  Final output of this Task
 </ResponseField>
 <ResponseField name="show_output" type="bool" default="True">
