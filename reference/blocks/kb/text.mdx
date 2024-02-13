@@ -13,14 +13,14 @@ Install `textract` if needed using [this guide](/how-to/python-libraries)
 
 ```python knowledge_base.py
 from phi.knowledge.text import TextKnowledgeBase
-from phi.vectordb.pgvector import PgVector
+from phi.vectordb.pgvector import PgVector2
 
 from resources import vector_db
 
 knowledge_base = TextKnowledgeBase(
     path="data/docs",
-    # Table name: llm.text_documents
-    vector_db=PgVector(
+    # Table name: ai.text_documents
+    vector_db=PgVector2(
         collection="text_documents",
         db_url=vector_db.get_db_connection_local(),
     ),
@@ -31,31 +31,18 @@ knowledge_base = TextKnowledgeBase(
 
 <ResponseField name="path" type="Union[str, Path]">
   Path to text files.
-
 Can point to a single docx file or a directory of docx files.
-
 </ResponseField>
 <ResponseField name="formats" type="List[str]">
   Formats accepted by this knowledge base.
-
-Default: `[".doc", ".docx"]`
-
-</ResponseField>
-<ResponseField name="vector_db" type="VectorDb">
-  Vector Database for the Knowledge Base.
+Default: `[".txt"]`
 </ResponseField>
 <ResponseField name="reader" type="TextReader">
   A `TextReader` that converts the text files into `Documents` for the vector database.
 </ResponseField>
-<ResponseField name="num_documents" type="int">
-  Number of documents to return on search. (default: `5`)
-</ResponseField>
-<ResponseField name="optimize_on" type="int">
-  Number of documents to optimize the vector db on.
-</ResponseField>
 
-## KnowledgeBase Reference
+## AssistantKnowledge Reference
 
-`TextKnowledgeBase` is a subclass of the `KnowledgeBase` class and has access to the same params
+`TextKnowledgeBase` is a subclass of the `AssistantKnowledge` class and has access to the same params
 
 <Snippet file="kb-base-reference.mdx" />
