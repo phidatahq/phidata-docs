@@ -13,14 +13,14 @@ Install `wikipedia` if needed using [this guide](/how-to/python-libraries)
 
 ```python knowledge_base.py
 from phi.knowledge.wikipedia import WikipediaKnowledgeBase
-from phi.vectordb.pgvector import PgVector
+from phi.vectordb.pgvector import PgVector2
 
 from resources import vector_db
 
 knowledge_base = WikipediaKnowledgeBase(
     topics=["Manchester United", "Real Madrid"],
-    # Table name: llm.wikipedia_documents
-    vector_db=PgVector(
+    # Table name: ai.wikipedia_documents
+    vector_db=PgVector2(
         collection="wikipedia_documents",
         db_url=vector_db.get_db_connection_local(),
     ),
@@ -32,22 +32,9 @@ knowledge_base = WikipediaKnowledgeBase(
 <ResponseField name="topics" type="List[str]">
   Topics to read
 </ResponseField>
-<ResponseField name="vector_db" type="VectorDb">
-  Vector Database for the Knowledge Base.
-</ResponseField>
-<ResponseField name="reader" type="WikipediaReader">
-  A `WikipediaReader` that reads the topics and converts them into `Documents`
-  for the vector database.
-</ResponseField>
-<ResponseField name="num_documents" type="int">
-  Number of documents to return on search. (default: `5`)
-</ResponseField>
-<ResponseField name="optimize_on" type="int">
-  Number of documents to optimize the vector db on.
-</ResponseField>
 
-## KnowledgeBase Reference
+## AssistantKnowledge Reference
 
-`WikipediaKnowledgeBase` is a subclass of the `KnowledgeBase` class and has access to the same params
+`WikipediaKnowledgeBase` is a subclass of the `AssistantKnowledge` class and has access to the same params
 
 <Snippet file="kb-base-reference.mdx" />

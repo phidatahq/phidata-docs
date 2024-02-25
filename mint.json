@@ -363,20 +363,24 @@
           "group": "Knowledge Base",
           "pages": [
             "reference/blocks/kb/base",
+            "reference/blocks/kb/arxiv",
+            "reference/blocks/kb/combined",
+            "reference/blocks/kb/docx",
+            "reference/blocks/kb/json",
+            "reference/blocks/kb/langchain",            
             "reference/blocks/kb/pdf",
             "reference/blocks/kb/pdf-url",
             "reference/blocks/kb/text",
-            "reference/blocks/kb/json",
             "reference/blocks/kb/website",
-            "reference/blocks/kb/arxiv",
-            "reference/blocks/kb/combined",
-            "reference/blocks/kb/langchain"
+            "reference/blocks/kb/wikipedia"
+            
           ]
         },
         {
           "group": "VectorDbs",
           "pages": [
             "reference/blocks/vectordb/pgvector",
+            "reference/blocks/vectordb/pgvector2",
             "reference/blocks/vectordb/singlestore",
             "reference/blocks/vectordb/qdrant"
           ]

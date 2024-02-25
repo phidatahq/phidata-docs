@@ -3,7 +3,7 @@ title: Shell Tools
 sidebarTitle: Shell
 ---
 
-`Shell` enables an Assistant to interact with the shell.
+`ShellTools` enables an Assistant to interact with the shell.
 
 ## Functions
 
@@ -17,7 +17,7 @@ The following assistant will run a shell command and show contents of the curren
 
 ```python cookbook/tools/shell.py
 from phi.assistant import Assistant
-from phi.tools.python import ShellTools
+from phi.tools.shell import ShellTools
 
 assistant = Assistant(tools=[ShellTools()], show_tool_calls=True)
 assistant.print_response("Show me the contents of the current directory")

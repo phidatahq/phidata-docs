@@ -25,24 +25,15 @@ knowledge_base = JSONKnowledgeBase(
 
 <ResponseField name="path" type="Union[str, Path]">
   Path to `JSON` files.
-Can point to a single JSON file or a directory of JSON files.
-</ResponseField>
-<ResponseField name="vector_db" type="VectorDb">
-  Vector Database for the Knowledge Base.
+  Can point to a single JSON file or a directory of JSON files.
 </ResponseField>
 <ResponseField name="reader" type="JSONReader">
   A `JSONReader` that converts the `JSON` files into `Documents` for the vector database.
 </ResponseField>
-<ResponseField name="num_documents" type="int">
-  Number of documents to return on search. (default: `5`)
-</ResponseField>
-<ResponseField name="optimize_on" type="int">
-  Number of documents to optimize the vector db on.
-</ResponseField>
 
-## KnowledgeBase Reference
+## AssistantKnowledge Reference
 
-`JSONKnowledgeBase` is a subclass of the `KnowledgeBase` class and has access to the same params
+`JSONKnowledgeBase` is a subclass of the `AssistantKnowledge` class and has access to the same params
 
 <Snippet file="kb-base-reference.mdx" />
 

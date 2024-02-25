@@ -42,19 +42,22 @@ conv.print_response("What did the president say about technology?")
 
 ## LangChainKnowledgeBase Reference
 
-<ResponseField name="retriever" type="Any" default="None">
+<ResponseField name="loader" type="Callable">
   LangChain retriever.
 </ResponseField>
-<ResponseField name="vectorstore" type="Any" default="None">
+<ResponseField name="vectorstore" type="Any">
   LangChain vector store used to create a retriever.
 </ResponseField>
-<ResponseField name="search_kwargs" type="dict" default="None">
+<ResponseField name="search_kwargs" type="dict" >
   Search kwargs when creating a retriever using the langchain vector store.
 </ResponseField>
+<ResponseField name="retriever" type="Any">
+  LangChain retriever.
+</ResponseField>
 
-## KnowledgeBase Reference
+## AssistantKnowledge Reference
 
-`LangChainKnowledgeBase` is a subclass of the `KnowledgeBase` class and has access to the same params
+`LangChainKnowledgeBase` is a subclass of the `AssistantKnowledge` class and has access to the same params
 
 <Snippet file="kb-base-reference.mdx" />
 

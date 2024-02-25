@@ -32,23 +32,14 @@ knowledge_base = PDFUrlKnowledgeBase(
 <ResponseField name="urls" type="List[str]">
   URLs for `PDF` files.
 </ResponseField>
-<ResponseField name="vector_db" type="VectorDb">
-  Vector Database for the Knowledge Base.
-</ResponseField>
 <ResponseField name="reader" type="PDFUrlReader">
   A `PDFUrlReader` that converts the `PDFs` into `Documents` for the vector
   database.
 </ResponseField>
-<ResponseField name="num_documents" type="int">
-  Number of documents to return on search. (default: `5`)
-</ResponseField>
-<ResponseField name="optimize_on" type="int">
-  Number of documents to optimize the vector db on.
-</ResponseField>
 
-## KnowledgeBase Reference
+## AssistantKnowledge Reference
 
-`PDFUrlKnowledgeBase` is a subclass of the `KnowledgeBase` class and has access to the same params
+`PDFUrlKnowledgeBase` is a subclass of the `AssistantKnowledge` class and has access to the same params
 
 <Snippet file="kb-base-reference.mdx" />
 
