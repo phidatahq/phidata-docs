@@ -97,7 +97,7 @@
                 "pages": [
                   "blocks/tools/introduction",
                   "blocks/tools/functions",
-                  "blocks/tools/registry",
+                  "blocks/tools/toolkits",
                   "blocks/tools/duckduckgo",
                   "blocks/tools/python",
                   "blocks/tools/file",

@@ -3,16 +3,7 @@ title: DuckDuckGo
 sidebarTitle: DuckDuckGo
 ---
 
-`DuckDuckGo` enables an Assistant to search the web for information.
-
-## Functions
-
-<ResponseField name="duckduckgo_search">
-  Use this function to search DuckDuckGo for a query.
-</ResponseField>
-<ResponseField name="duckduckgo_news">
-  Use this function to get the latest news from DuckDuckGo.
-</ResponseField>
+**DuckDuckGo** enables an Assistant to search the web for information.
 
 ## Example
 
@@ -25,5 +16,14 @@ from phi.tools.duckduckgo import DuckDuckGo
 assistant = Assistant(tools=[DuckDuckGo()], show_tool_calls=True)
 assistant.print_response("Whats happening in France? Summarize top stories with sources.")
 ```
+
+## Functions in Toolkit
+
+<ResponseField name="duckduckgo_search">
+  Use this function to search DuckDuckGo for a query.
+</ResponseField>
+<ResponseField name="duckduckgo_news">
+  Use this function to get the latest news from DuckDuckGo.
+</ResponseField>
 
 <Snippet file="message-us-discord.mdx" />
