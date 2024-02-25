@@ -380,6 +380,7 @@
           "group": "VectorDbs",
           "pages": [
             "reference/blocks/vectordb/pgvector",
+            "reference/blocks/vectordb/pgvector2",
             "reference/blocks/vectordb/singlestore",
             "reference/blocks/vectordb/qdrant"
           ]
