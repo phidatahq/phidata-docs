@@ -5,7 +5,19 @@ sidebarTitle: Python
 
 `PythonTools` enable an Assistant to write and run python code.
 
-## Functions
+## Example
+
+The following assistant will write a python script that creates the fibonacci series, saves it to a file, runs it and returns the result.
+
+```python cookbook/tools/python.py
+from phi.assistant import Assistant
+from phi.tools.python import PythonTools
+
+assistant = Assistant(tools=[PythonTools()], show_tool_calls=True)
+assistant.print_response("Write a python script for fibonacci series and display the result till the 10th number")
+```
+
+## Functions in Toolkit
 
 <ResponseField name="save_to_file_and_run">
   This function saves Python code to a file called `file_name` and then runs it.
@@ -33,17 +45,5 @@ sidebarTitle: Python
   This function installs a package using pip in the current environment.
   If successful, returns a success message. If failed, returns an error message.
 </ResponseField>
-
-## Example
-
-The following assistant will write a python script that creates the fibonacci series, saves it to a file, runs it and returns the result.
-
-```python cookbook/tools/python.py
-from phi.assistant import Assistant
-from phi.tools.python import PythonTools
-
-assistant = Assistant(tools=[PythonTools()], show_tool_calls=True)
-assistant.print_response("Write a python script for fibonacci series and display the result till the 10th number")
-```
 
 <Snippet file="message-us-discord.mdx" />
