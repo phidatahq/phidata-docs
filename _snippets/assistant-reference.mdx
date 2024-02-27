@@ -68,12 +68,19 @@
  Maximum number of tool calls allowed.
 </ResponseField>
 <ResponseField name="tool_choice" type="Union[str, Dict[str, Any]]">
- Controls which (if any) tool is called by the model.
- "none" means the model will not call a tool and instead generates a message.
- "auto" means the model can pick between generating a message or calling a tool.
- Specifying a particular function via `{"type: "function", "function": {"name": "my_function"}}`
- forces the model to call that tool.
- "none" is the default when no tools are present. "auto" is the default if tools are present.
+  Controls which (if any) tool is called by the model.
+  - "none" means the model will not call a tool and instead generates a message.
+  - "auto" means the model can pick between generating a message or calling a tool.
+  - Specifying a particular function via
+  ```
+  {
+    "type: "function",
+    "function": {"name": "my_function"}
+  }
+  ```
+  forces the model to call that tool.
+
+  "none" is the default when no tools are present. "auto" is the default if tools are present.
 </ResponseField>
 <ResponseField name="update_knowledge_base" type="bool" default="False">
  If use_tools is True and update_knowledge_base is True,

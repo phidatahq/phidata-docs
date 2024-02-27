@@ -45,11 +45,8 @@ auto_assistant.print_response('What was my last question?')
 
 The following fields allow the `Assistant` to use tools
 
-<ResponseField
-  name="tools"
-  type="List[Union[Tool, ToolRegistry, Callable, Dict, Function]]"
->
-  A list of tools provided to the LLM.
+<ResponseField name="tools" type="List[Union[Tool, ToolRegistry, Callable, Dict, Function]]">
+ A list of tools provided to the LLM.
 </ResponseField>
 <ResponseField name="use_tools" type="bool" default="False">
   Makes the assistant `Autonomous` by letting the LLM use tools to achieve
@@ -74,8 +71,7 @@ The following fields allow the `Assistant` to use tools
   ```
   forces the model to call that tool.
 
-"none" is the default when no tools are present. "auto" is the default if tools are present.
-
+  "none" is the default when no tools are present. "auto" is the default if tools are present.
 </ResponseField>
 <ResponseField name="update_knowledge_base" type="bool" default="False">
   If use_tools is True and update_knowledge_base is True, then a `add_to_knowledge_base` tool is added that allows the LLM to update the knowledge base.
