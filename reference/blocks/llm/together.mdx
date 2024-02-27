@@ -1,0 +1,37 @@
+---
+title: Together
+---
+
+## Example
+
+<CodeGroup>
+
+```python assistant.py
+from phi.assistant import Assistant
+from phi.llm.together import Together
+
+assistant = Assistant(
+    llm=Together(model="mistralai/Mixtral-8x7B-Instruct-v0.1"),
+    description="You help people with their health and fitness goals.",
+)
+assistant.print_response("Share a quick healthy breakfast recipe.", markdown=True)
+```
+
+</CodeGroup>
+
+## Together Reference
+
+<ResponseField name="name" type="str" default="Together">
+</ResponseField>
+<ResponseField name="model" type="str" default="mistralai/Mixtral-8x7B-Instruct-v0.1">
+</ResponseField>
+<ResponseField name="api_key" type="str">
+</ResponseField>
+<ResponseField name="base_url" type="str">
+</ResponseField>
+
+## LLM Reference
+
+`Together` is a subclass of the `LLM` class and has access to the same params
+
+<Snippet file="llm-base-reference.mdx" />
