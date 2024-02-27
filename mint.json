@@ -349,7 +349,7 @@
             "reference/blocks/llm/base",
             "reference/blocks/llm/openai",
             "reference/blocks/llm/aws",
-            "reference/blocks/llm/together"
+            "reference/blocks/llm/together",
             "reference/blocks/llm/ollama"
           ]
         },
@@ -369,13 +369,13 @@
             "reference/blocks/kb/combined",
             "reference/blocks/kb/docx",
             "reference/blocks/kb/json",
-            "reference/blocks/kb/langchain",            
+            "reference/blocks/kb/langchain",
             "reference/blocks/kb/pdf",
             "reference/blocks/kb/pdf-url",
             "reference/blocks/kb/text",
             "reference/blocks/kb/website",
             "reference/blocks/kb/wikipedia"
-            
+
           ]
         },
         {
