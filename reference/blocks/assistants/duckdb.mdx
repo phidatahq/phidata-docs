@@ -27,9 +27,24 @@ duckdb_assistant.print_response("What is the average rating of movies?")
 
 ## DuckDbAssistant Params
 
+<ResponseField name="name" type="str" default="DuckDbAssistant">
+  Name of the assistant.
+</ResponseField>
 <ResponseField name="semantic_model" type="str" default="None">
   Semantic model for the assistant. Use the to describe the available tables, their
   description, data path and relations between tables.
+</ResponseField>
+<ResponseField name="add_chat_history_to_messages" type="bool" default="True">
+  If the chat history should be added to the messages.
+</ResponseField>
+<ResponseField name="num_history_messages" type="int" default="6">
+  Number of history messages to add to the response.
+</ResponseField>
+<ResponseField name="followups" type="bool" default="False">
+  If the DuckDbAssistant is allowed to run followup queries.
+</ResponseField>
+<ResponseField name="read_tool_call_history" type="bool" default="True">
+  If the DuckDbAssistant is allowed to read the tool call history.
 </ResponseField>
 <ResponseField name="db_path" type="str" default="None">
   Path to the DuckDb database file.
@@ -37,14 +52,14 @@ duckdb_assistant.print_response("What is the average rating of movies?")
 <ResponseField name="connection" type="DuckDBPyConnection" default="None">
   Provide an existing duckdb connection.
 </ResponseField>
+<ResponseField name="init_commands" type="List[str]" default="None">
+  Commands ran when the duckdb connection is initialized.
+</ResponseField>
 <ResponseField name="read_only" type="bool" default="False">
   If the database is read-only.
 </ResponseField>
 <ResponseField name="config" type="dict" default="None">
   database config used to initialize the duckdb connection.
-</ResponseField>
-<ResponseField name="init_commands" type="List[str]" default="None">
-  Commands ran when the duckdb connection is initialized.
 </ResponseField>
 <ResponseField name="run_queries" type="bool" default="True">
   If the DuckDbAssistant is allowed to run queries.

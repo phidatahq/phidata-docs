@@ -89,9 +89,17 @@ story_assistant.cli_app(user="Theme")
  If use_tools is True and read_tool_call_history is True,
  then a tool is added that allows the LLM to get the tool call history.
 </ResponseField>
+<ResponseField name="format_messages" type="bool" default="True">
+ If True, phidata will add the system prompt, references, and chat history
+ If False, the input messages are sent to the LLM as is
+</ResponseField>
+
 
 <ResponseField name="system_prompt" type="str">
   Provide the system prompt as a string
+</ResponseField>
+<ResponseField name="system_prompt_template" type="PromptTemplate">
+  Provide the system prompt as a PromptTemplate
 </ResponseField>
 <ResponseField name="system_prompt_function" type="Callable[..., Optional[str]]">
   Provide the system prompt as a function. This function is provided the "Assistant object" as an argument
@@ -130,7 +138,7 @@ def system_prompt_function(assistant: Assistant) -> str:
 <ResponseField name="prevent_prompt_injection" type="bool" default="False">
   If True, add instructions to prevent prompt injection attacks
 </ResponseField>
-<ResponseField name="limit_tool_access" type="bool" default="True">
+<ResponseField name="limit_tool_access" type="bool" default="False">
   If True, add instructions to prevent prompt injection attacks
 </ResponseField>
 <ResponseField name="add_datetime_to_instructions" type="bool" default="False">
@@ -143,6 +151,9 @@ def system_prompt_function(assistant: Assistant) -> str:
 
 <ResponseField name="user_prompt" type="Union[List[Dict], str]">
   Provides the user prompt as a string. Note: this will ignore the input message provided to the run function
+</ResponseField>
+<ResponseField name="user_prompt_template" type="PromptTemplate">
+  Provides the user prompt as a PromptTemplate
 </ResponseField>
 <ResponseField name="user_prompt_function" type="Callable[..., str]">
   Provides the user prompt as a function. This function is provided the "Assistant object" and the "Input message" as arguments

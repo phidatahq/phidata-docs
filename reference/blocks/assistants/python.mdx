@@ -25,6 +25,9 @@ python_assistant.print_response("What is the average rating of movies?")
 
 ## PythonAssistant Params
 
+<ResponseField name="name" type="str" default="PythonAssistant">
+  Name of the PythonAssistant.
+</ResponseField>
 <ResponseField name="files" type="List[File]" default="None">
   List of Files available for the PythonAssistant.
 </ResponseField>
@@ -37,6 +40,12 @@ python_assistant.print_response("What is the average rating of movies?")
   default="['plotly', 'matplotlib', 'seaborn']"
 >
   List of charting libraries the PythonAssistant can use.
+</ResponseField>
+<ResponseField name="followups" type="bool" default="False">
+  If the PythonAssistant is allowed to ask follow-up questions.
+</ResponseField>
+<ResponseField name="read_tool_call_history" type="bool" default="True">
+  If the DuckDbAssistant is allowed to read the tool call history.
 </ResponseField>
 <ResponseField name="base_dir" type="Path" default=".">
   Where to save files if needed.
