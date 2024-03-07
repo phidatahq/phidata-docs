@@ -19,40 +19,11 @@ assistant.print_response("Share a quick healthy breakfast recipe.", markdown=Tru
 
 </CodeGroup>
 
-## Ollama Reference
+## Ollama Params
 
-<ResponseField name="name" type="str" default="Ollama">
-  Name for this LLM. Note: This is not sent to the LLM API.
-</ResponseField>
-<ResponseField name="model" type="str" default="llama2">
-  ID of the model to use.
-</ResponseField>
-<ResponseField name="host" type="str">
-</ResponseField>
-<ResponseField name="timeout" type="Any">
-</ResponseField>
-<ResponseField name="format" type="str">
- The format to return a response in. Currently the only accepted value is json
-</ResponseField>
-<ResponseField name="options" type="Any">
-  Additional model parameters such as temperature
-</ResponseField>
-<ResponseField name="keep_alive" type="Union[float, str]">
-   Controls how long the model will stay loaded into memory following the request.
-</ResponseField>
-<ResponseField name="function_call_limit" type="int" default="10">
-  Maximum number of function calls allowed across all iterations.
-</ResponseField>
-<ResponseField name="deactivate_tools_after_use" type="bool" default="False">
-  Deactivate tool calls by turning off JSON mode after 1 tool call
-</ResponseField>
-<ResponseField name="add_user_message_after_tool_call" type="bool" default="True">
-  After a tool call is run, add the user message as a reminder to the LLM
-</ResponseField>
-<ResponseField name="ollama_client" type="OllamaClient">
-</ResponseField>
+<Snippet file = "llm-ollama-reference.mdx"/>
 
-## LLM Reference
+## LLM Params
 
 `Ollama` is a subclass of the `LLM` class and has access to the same params
 
