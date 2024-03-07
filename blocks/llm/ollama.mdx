@@ -1,6 +1,5 @@
 ---
 title: Ollama
-description: This guide is in the works
 ---
 
 [Ollama](https://ollama.com) is a fantastic tool for running LLMs locally. Install [ollama](https://ollama.com) and run a model using
@@ -8,7 +7,7 @@ description: This guide is in the works
 <CodeGroup>
 
 ```bash run model
-ollama run llama2
+ollama run openhermes
 ```
 
 ```bash serve
@@ -38,28 +37,4 @@ assistant.print_response("Share a quick healthy breakfast recipe.", markdown=Tru
 
 ## Params
 
-<ResponseField name="model" type="str">
-  Model name
-</ResponseField>
-<ResponseField name="host" type="str">
-  Host url
-</ResponseField>
-<ResponseField name="format" type="str" default="">
-  Response format, `""` or `"json"`
-</ResponseField>
-<ResponseField name="timeout" type="Any" default="None">
-  Timeout for requests
-</ResponseField>
-<ResponseField name="options" type="Dict[str, Any]" default="None">
-  Dictionary of options to send with the request, example: `{temperature: 0.1, stop: ['\n']}`
-</ResponseField>
-<ResponseField name="keep_alive" type="Union[float, str]" default="None">
-</ResponseField>
-<ResponseField name="client_kwargs" type="Dict[str, Any]" default="None">
-  Additional `{key: value}` dict sent when initalizing the `Ollama()` client.
-</ResponseField>
-<ResponseField name="ollama_client" type="ollama.Client()" default="None">
-  Provide your own `ollama.Client()`
-</ResponseField>
-
-<Snippet file="message-us-discord.mdx" />
+<Snippet file = "llm-ollama-reference.mdx"/>

@@ -34,7 +34,7 @@ story_assistant = Assistant(tasks=[get_story_theme, write_story, give_story_a_na
 story_assistant.cli_app(user="Theme")
 ```
 
-## LLMTask Reference
+## LLMTask Params
 
 <ResponseField name="llm" type="LLM">
   LLM to use for this task
@@ -192,7 +192,7 @@ def chat_history(assistant: Assistant) -> str:
 
 </ResponseField>
 
-## Task Reference
+## Task Params
 
 `LLMTask` is a subclass of the `Task` class and has access to the same params
 
