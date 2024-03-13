@@ -141,8 +141,8 @@
                 "pages": [
                   "blocks/vectordb/introduction",
                   "blocks/vectordb/pgvector",
-                  "blocks/vectordb/singlestore"
-
+                  "blocks/vectordb/singlestore",
+                  "blocks/vectordb/lancedb"
                 ]
               },
               {
@@ -384,7 +384,8 @@
             "reference/blocks/vectordb/pgvector",
             "reference/blocks/vectordb/pgvector2",
             "reference/blocks/vectordb/singlestore",
-            "reference/blocks/vectordb/qdrant"
+            "reference/blocks/vectordb/qdrant",
+            "reference/blocks/vectordb/lancedb"
           ]
         }
       ]
@@ -404,7 +405,6 @@
             "reference/cli/phi/config",
             "reference/cli/phi/set",
             "reference/cli/phi/reset"
-
           ]
         },
         {
