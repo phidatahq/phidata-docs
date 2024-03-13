@@ -347,6 +347,7 @@
           "group": "LLMs",
           "pages": [
             "reference/blocks/llm/base",
+            "reference/blocks/llm/anyscale",
             "reference/blocks/llm/openai",
             "reference/blocks/llm/aws",
             "reference/blocks/llm/together",
