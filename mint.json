@@ -350,7 +350,8 @@
             "reference/blocks/llm/openai",
             "reference/blocks/llm/aws",
             "reference/blocks/llm/together",
-            "reference/blocks/llm/ollama"
+            "reference/blocks/llm/ollama",
+            "reference/blocks/llm/groq"
           ]
         },
         {
