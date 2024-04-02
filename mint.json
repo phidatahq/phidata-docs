@@ -154,7 +154,14 @@
                   "blocks/llm/ollama",
                   "blocks/llm/aws",
                   "blocks/llm/together",
-                  "blocks/llm/anyscale"
+                  "blocks/llm/anyscale",
+                  "blocks/llm/fireworks",
+                  "blocks/llm/mistral",
+                  "blocks/llm/groq",
+                  "blocks/llm/gemini",
+                  "blocks/llm/azure",
+                  "blocks/llm/claude",
+                  "blocks/llm/cohere"
                 ]
               },
               {
