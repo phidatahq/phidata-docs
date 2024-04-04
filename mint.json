@@ -56,160 +56,155 @@
     {
       "group": "Documentation",
       "pages": [
-          "introduction",
-          "basics",
-          {
-            "group": "Build an AI App",
-            "pages": [
-              "ai-app/run-local",
-              "ai-app/run-aws"
-            ]
-          },
-          {
-            "group": "Building Blocks",
-            "pages": [
-              "blocks/overview",
-              {
-                "group": "Assistants",
-                "pages": [
-                  "blocks/assistant/introduction",
-                  "blocks/assistant/rag",
-                  "blocks/assistant/auto",
-                  "blocks/assistant/instructions",
-                  "blocks/assistant/memory",
-                  "blocks/assistant/storage",
-                  "blocks/assistant/tools",
-                  "blocks/assistant/pydantic-output",
-                  "blocks/assistant/tasks",
-                  "blocks/assistant/openai"
-                ]
-              },
-              {
-                "group": "Custom Assistants",
-                "pages": [
-                  "blocks/assistant/custom/introduction",
-                  "blocks/assistant/custom/duckdb",
-                  "blocks/assistant/custom/python"
-                ]
-              },
-              {
-                "group": "Tools",
-                "pages": [
-                  "blocks/tools/introduction",
-                  "blocks/tools/functions",
-                  "blocks/tools/toolkits",
-                  "blocks/tools/duckduckgo",
-                  "blocks/tools/python",
-                  "blocks/tools/file",
-                  "blocks/tools/shell",
-                  "blocks/tools/duckdb",
-                  "blocks/tools/arxiv",
-                  "blocks/tools/email",
-                  "blocks/tools/website",
-                  "blocks/tools/wikipedia",
-                  "blocks/tools/tavily"
-                ]
-              },
-              {
-                "group": "Storage",
-                "pages": [
-                  "blocks/storage/introduction",
-                  "blocks/storage/postgres",
-                  "blocks/storage/singlestore"
-
-                ]
-              },
-              {
-                "group": "Knowledge Base",
-                "pages": [
-                  "blocks/kb/introduction",
-                  "blocks/kb/pdf",
-                  "blocks/kb/pdf-url",
-                  "blocks/kb/text",
-                  "blocks/kb/docx",
-                  "blocks/kb/json",
-                  "blocks/kb/website",
-                  "blocks/kb/wikipedia",
-                  "blocks/kb/arxiv",
-                  "blocks/kb/combined",
-                  "blocks/kb/langchain",
-                  "blocks/kb/manual"
-                ]
-              },
-              {
-                "group": "VectorDbs",
-                "pages": [
-                  "blocks/vectordb/introduction",
-                  "blocks/vectordb/pgvector",
-                  "blocks/vectordb/singlestore"
-
-                ]
-              },
-              {
-                "group": "LLMs",
-                "pages": [
-                  "blocks/llm/introduction",
-                  "blocks/llm/openai",
-                  "blocks/llm/openai-like",
-                  "blocks/llm/ollama",
-                  "blocks/llm/aws",
-                  "blocks/llm/together",
-                  "blocks/llm/anyscale",
-                  "blocks/llm/fireworks",
-                  "blocks/llm/mistral",
-                  "blocks/llm/groq",
-                  "blocks/llm/gemini",
-                  "blocks/llm/azure",
-                  "blocks/llm/claude",
-                  "blocks/llm/cohere"
-                ]
-              },
-              {
-                "group": "Apps",
-                "pages": [
-                  "blocks/app/introduction",
-                  "blocks/app/examples",
-                  "blocks/app/features"
-                ]
-              },
-              {
-                "group": "Resources",
-                "pages": [
-                  "blocks/resource/introduction",
-                  "blocks/resource/docker",
-                  "blocks/resource/aws",
-                  "blocks/resource/k8s"
-                ]
-              },
-              {
-                "group": "Workspace",
-                "pages": [
-                  "blocks/workspace/introduction",
-                  "blocks/workspace/resources",
-                  "blocks/workspace/settings"
-                ]
-              }
-            ]
-          },
-          {
-            "group": "How to",
-            "pages": [
-                "how-to/install",
-                "how-to/development-app",
-                "how-to/production-app",
-                "how-to/workspace-settings",
-                "how-to/git-repo",
-                "how-to/new-users",
-                "how-to/python-libraries",
-                "how-to/secrets",
-                "how-to/env-vars",
-                "how-to/database-tables",
-                "how-to/format-and-validate",
-                "how-to/ci-cd",
-                "how-to/domain-https",
-                "how-to/ssh-access"
-            ]
-          }
+        "introduction",
+        "basics",
+        {
+          "group": "Build an AI App",
+          "pages": ["ai-app/run-local", "ai-app/run-aws"]
+        },
+        {
+          "group": "Building Blocks",
+          "pages": [
+            "blocks/overview",
+            {
+              "group": "Assistants",
+              "pages": [
+                "blocks/assistant/introduction",
+                "blocks/assistant/rag",
+                "blocks/assistant/auto",
+                "blocks/assistant/instructions",
+                "blocks/assistant/memory",
+                "blocks/assistant/storage",
+                "blocks/assistant/tools",
+                "blocks/assistant/pydantic-output",
+                "blocks/assistant/tasks",
+                "blocks/assistant/openai"
+              ]
+            },
+            {
+              "group": "Custom Assistants",
+              "pages": [
+                "blocks/assistant/custom/introduction",
+                "blocks/assistant/custom/duckdb",
+                "blocks/assistant/custom/python"
+              ]
+            },
+            {
+              "group": "Tools",
+              "pages": [
+                "blocks/tools/introduction",
+                "blocks/tools/functions",
+                "blocks/tools/toolkits",
+                "blocks/tools/duckduckgo",
+                "blocks/tools/python",
+                "blocks/tools/file",
+                "blocks/tools/shell",
+                "blocks/tools/duckdb",
+                "blocks/tools/arxiv",
+                "blocks/tools/email",
+                "blocks/tools/website",
+                "blocks/tools/wikipedia",
+                "blocks/tools/tavily"
+              ]
+            },
+            {
+              "group": "Storage",
+              "pages": [
+                "blocks/storage/introduction",
+                "blocks/storage/postgres",
+                "blocks/storage/singlestore"
+              ]
+            },
+            {
+              "group": "Knowledge Base",
+              "pages": [
+                "blocks/kb/introduction",
+                "blocks/kb/pdf",
+                "blocks/kb/pdf-url",
+                "blocks/kb/text",
+                "blocks/kb/docx",
+                "blocks/kb/json",
+                "blocks/kb/website",
+                "blocks/kb/wikipedia",
+                "blocks/kb/arxiv",
+                "blocks/kb/combined",
+                "blocks/kb/langchain",
+                "blocks/kb/manual"
+              ]
+            },
+            {
+              "group": "VectorDbs",
+              "pages": [
+                "blocks/vectordb/introduction",
+                "blocks/vectordb/pgvector",
+                "blocks/vectordb/singlestore"
+              ]
+            },
+            {
+              "group": "LLMs",
+              "pages": [
+                "blocks/llm/introduction",
+                "blocks/llm/openai",
+                "blocks/llm/openai-like",
+                "blocks/llm/ollama",
+                "blocks/llm/aws",
+                "blocks/llm/together",
+                "blocks/llm/anyscale",
+                "blocks/llm/fireworks",
+                "blocks/llm/mistral",
+                "blocks/llm/groq",
+                "blocks/llm/gemini",
+                "blocks/llm/azure",
+                "blocks/llm/claude",
+                "blocks/llm/cohere"
+              ]
+            },
+            {
+              "group": "Apps",
+              "pages": [
+                "blocks/app/introduction",
+                "blocks/app/examples",
+                "blocks/app/features"
+              ]
+            },
+            {
+              "group": "Resources",
+              "pages": [
+                "blocks/resource/introduction",
+                "blocks/resource/docker",
+                "blocks/resource/aws",
+                "blocks/resource/k8s"
+              ]
+            },
+            {
+              "group": "Workspace",
+              "pages": [
+                "blocks/workspace/introduction",
+                "blocks/workspace/resources",
+                "blocks/workspace/settings"
+              ]
+            }
+          ]
+        },
+        {
+          "group": "How to",
+          "pages": [
+            "how-to/install",
+            "how-to/development-app",
+            "how-to/production-app",
+            "how-to/workspace-settings",
+            "how-to/git-repo",
+            "how-to/new-users",
+            "how-to/python-libraries",
+            "how-to/secrets",
+            "how-to/env-vars",
+            "how-to/database-tables",
+            "how-to/format-and-validate",
+            "how-to/ci-cd",
+            "how-to/domain-https",
+            "how-to/ssh-access"
+          ]
+        }
       ]
     },
     {
@@ -217,17 +212,11 @@
       "pages": [
         {
           "group": "RAG AI App",
-          "pages": [
-            "examples/rag/run-local",
-            "examples/rag/run-aws"
-          ]
+          "pages": ["examples/rag/run-local", "examples/rag/run-aws"]
         },
         {
           "group": "Autonomous AI App",
-          "pages": [
-            "examples/auto/run-local",
-            "examples/auto/run-aws"
-          ]
+          "pages": ["examples/auto/run-local", "examples/auto/run-aws"]
         },
         {
           "group": "Multimodal AI App",
@@ -245,17 +234,11 @@
         },
         {
           "group": "AI Api with FastAPI",
-          "pages": [
-            "examples/ai-api/run-local",
-            "examples/ai-api/run-aws"
-          ]
+          "pages": ["examples/ai-api/run-local", "examples/ai-api/run-aws"]
         },
         {
           "group": "Django Web App",
-          "pages": [
-            "examples/web-app/run-local",
-            "examples/web-app/run-aws"
-          ]
+          "pages": ["examples/web-app/run-local", "examples/web-app/run-aws"]
         },
         {
           "group": "Cookbook",
@@ -279,56 +262,49 @@
         {
           "group": "Templates",
           "pages": [
-              {
-                "group": "AI App",
-                "pages": [
-                  "templates/ai-app/run-local",
-                  "templates/ai-app/run-aws"
-                ]
-              },
-              {
-                "group": "AI API",
-                "pages": [
-                  "templates/ai-api/run-local",
-                  "templates/ai-api/run-aws"
-                ]
-              },
-              {
-                "group": "Django App",
-                "pages": [
-                  "templates/django-app/run-local",
-                  "templates/django-app/run-aws"
-                ]
-              },
-              {
-                "group": "Streamlit App",
-                "pages": [
-                  "templates/streamlit-app/run-local",
-                  "templates/streamlit-app/run-aws"
-                ]
-              },
-              "templates/junior-de",
-              "templates/data-platform"
+            {
+              "group": "AI App",
+              "pages": [
+                "templates/ai-app/run-local",
+                "templates/ai-app/run-aws"
+              ]
+            },
+            {
+              "group": "AI API",
+              "pages": [
+                "templates/ai-api/run-local",
+                "templates/ai-api/run-aws"
+              ]
+            },
+            {
+              "group": "Django App",
+              "pages": [
+                "templates/django-app/run-local",
+                "templates/django-app/run-aws"
+              ]
+            },
+            {
+              "group": "Streamlit App",
+              "pages": [
+                "templates/streamlit-app/run-local",
+                "templates/streamlit-app/run-aws"
+              ]
+            },
+            "templates/junior-de",
+            "templates/data-platform"
           ]
         },
         {
           "group": "Apps",
-          "pages": [
-              "apps/postgres"
-          ]
+          "pages": ["apps/postgres"]
         },
         {
           "group": "Docker",
-          "pages": [
-              "docker/container"
-          ]
+          "pages": ["docker/container"]
         },
         {
           "group": "AWS",
-          "pages": [
-              "aws/ecs",
-              "aws/rds"
-          ]
+          "pages": ["aws/ecs", "aws/rds"]
         }
       ]
     },
@@ -345,10 +321,7 @@
         },
         {
           "group": "Tasks",
-          "pages": [
-            "reference/blocks/task/base",
-            "reference/blocks/task/llm"
-          ]
+          "pages": ["reference/blocks/task/base", "reference/blocks/task/llm"]
         },
         {
           "group": "LLMs",
@@ -357,7 +330,12 @@
             "reference/blocks/llm/openai",
             "reference/blocks/llm/aws",
             "reference/blocks/llm/together",
-            "reference/blocks/llm/ollama"
+            "reference/blocks/llm/ollama",
+            "reference/blocks/llm/fireworks",
+            "reference/blocks/llm/mistral",
+            "reference/blocks/llm/gemini",
+            "reference/blocks/llm/azure",
+            "reference/blocks/llm/claude"
           ]
         },
         {
@@ -382,7 +360,6 @@
             "reference/blocks/kb/text",
             "reference/blocks/kb/website",
             "reference/blocks/kb/wikipedia"
-
           ]
         },
         {
@@ -411,7 +388,6 @@
             "reference/cli/phi/config",
             "reference/cli/phi/set",
             "reference/cli/phi/reset"
-
           ]
         },
         {
@@ -431,9 +407,7 @@
     },
     {
       "group": "Frequently Asked Questions",
-      "pages": [
-        "faq/could-not-connect-to-docker"
-      ]
+      "pages": ["faq/could-not-connect-to-docker"]
     }
   ],
   "footerSocials": {

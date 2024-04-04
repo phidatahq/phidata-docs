@@ -2,25 +2,7 @@
 title: Mistral
 ---
 
-## Authentication
-
-Set your `MISTRAL_API_KEY` environment variable.
-
-<CodeGroup>
-
-```bash Mac
-export MISTRAL_API_KEY=***
-```
-
-```bash Windows
-setx MISTRAL_API_KEY ***
-```
-
-</CodeGroup>
-
-## Usage
-
-Use `Mistral` with your `Assistant`:
+## Example
 
 <CodeGroup>
 
@@ -37,7 +19,7 @@ assistant.print_response("Share a quick healthy breakfast recipe.", markdown=Tru
 
 </CodeGroup>
 
-## Params
+## Mistral Params
 
 <ResponseField name="name" type="str" default="Mistral"></ResponseField>
 <ResponseField
@@ -61,3 +43,9 @@ assistant.print_response("Share a quick healthy breakfast recipe.", markdown=Tru
 <ResponseField name="max_retries" type="int"></ResponseField>
 <ResponseField name="timeout" type="int"></ResponseField>
 <ResponseField name="mistral_client" type="MistralClient"></ResponseField>
+
+## LLM Params
+
+`Mistral` is a subclass of the `LLM` class and has access to the same params
+
+<Snippet file="llm-base-reference.mdx" />

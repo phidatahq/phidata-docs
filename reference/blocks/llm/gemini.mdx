@@ -2,20 +2,7 @@
 title: Gemini
 ---
 
-## Prerequisites
-
-1. [Install](https://cloud.google.com/sdk/docs/install) the Google Cloud SDK
-2. [Create a Google Cloud project](https://cloud.google.com/resource-manager/docs/creating-managing-projects)
-3. [Enable the AI Platform API](https://console.cloud.google.com/flows/enableapi?apiid=aiplatform.googleapis.com)
-4. [Authenticate](https://cloud.google.com/sdk/docs/initializing) with Google Cloud
-
-```shell
-gcloud auth application-default login
-```
-
-## Usage
-
-Use `Gemini` with your `Assistant`:
+## Example
 
 <CodeGroup>
 
@@ -36,7 +23,7 @@ assistant.print_response("Share a quick healthy breakfast recipe.", markdown=Tru
 
 </CodeGroup>
 
-## Params
+## Gemini Params
 
 <ResponseField name="name" type="str" default="Gemini"></ResponseField>
 <ResponseField
@@ -51,3 +38,9 @@ assistant.print_response("Share a quick healthy breakfast recipe.", markdown=Tru
   type="List[FunctionDeclaration]"
 ></ResponseField>
 <ResponseField name="generative_model" type="GenerativeModel"></ResponseField>
+
+## LLM Params
+
+`Gemini` is a subclass of the `LLM` class and has access to the same params
+
+<Snippet file="llm-base-reference.mdx" />

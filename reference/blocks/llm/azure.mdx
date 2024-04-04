@@ -2,33 +2,7 @@
 title: Azure
 ---
 
-## Authentication
-
-Set your `AZURE_OPENAI_API_KEY` and `AZURE_OPENAI_ENDPOINT` environment variables.
-
-<CodeGroup>
-
-```bash Mac
-export AZURE_OPENAI_API_KEY=***
-export AZURE_OPENAI_ENDPOINT=***
-# Optional:
-# export AZURE_OPENAI_API_VERSION=***
-# export AZURE_DEPLOYMENT=***
-```
-
-```bash Windows
-setx AZURE_OPENAI_API_KEY ***
-setx AZURE_OPENAI_ENDPOINT ***
-# Optional:
-# setx AZURE_OPENAI_API_VERSION ***
-# setx AZURE_DEPLOYMENT ***
-```
-
-</CodeGroup>
-
-## Usage
-
-Use `AzureOpenAIChat` with your `Assistant`:
+## Example
 
 <CodeGroup>
 
@@ -45,7 +19,7 @@ assistant.print_response("Share a quick healthy breakfast recipe.", markdown=Tru
 
 </CodeGroup>
 
-## Params
+## Azure Params
 
 <ResponseField name="name" type="str" default="AzureOpenAIChat"></ResponseField>
 <ResponseField name="model" type="str" required="true"></ResponseField>
@@ -60,3 +34,9 @@ assistant.print_response("Share a quick healthy breakfast recipe.", markdown=Tru
 <ResponseField name="azure_ad_token" type="str"></ResponseField>
 <ResponseField name="azure_ad_token_provider" type="str"></ResponseField>
 <ResponseField name="openai_client" type="AzureOpenAIClient"></ResponseField>
+
+## LLM Params
+
+`Azure` is a subclass of the `LLM` class and has access to the same params
+
+<Snippet file="llm-base-reference.mdx" />

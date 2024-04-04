@@ -1,28 +1,8 @@
 ---
-title: Anthropic Claude
+title: Claude
 ---
 
-Claude is a family of foundational AI models by Anthropic that can be used in a variety of applications.
-
-## Authentication
-
-Set your `ANTHROPIC_API_KEY` environment. You can get one [from Anthropic here](https://anthropic.com/).
-
-<CodeGroup>
-
-```bash Mac
-export ANTHROPIC_API_KEY=***
-```
-
-```bash Windows
-setx ANTHROPIC_API_KEY ***
-```
-
-</CodeGroup>
-
-## Usage
-
-Use `Claude` with your `Assistant`:
+## Example
 
 <CodeGroup>
 
@@ -31,17 +11,15 @@ from phi.assistant import Assistant
 from phi.llm.anthropic import Claude
 
 assistant = Assistant(
-    llm=Claude(
-        model="claude-3-opus-20240229",
-        max_tokens=1024,
-    )
+    llm=Claude(model="claude-3-opus-20240229"),
+    description="You help people with their health and fitness goals.",
 )
-
-# -*- Print a response
-assistant.print_response('Share a 5 word horror story.', markdown=True)
+assistant.print_response("Share a quick healthy breakfast recipe.", markdown=True)
 ```
 
-## Params
+</CodeGroup>
+
+## Claude Params
 
 <ResponseField name="name" type="str" default="Claude"></ResponseField>
 <ResponseField
@@ -59,4 +37,8 @@ assistant.print_response('Share a 5 word horror story.', markdown=True)
 <ResponseField name="base_url" type="str"></ResponseField>
 <ResponseField name="anthropic_client" type="AnthropicClient"></ResponseField>
 
-</CodeGroup>
+## LLM Params
+
+`Claude` is a subclass of the `LLM` class and has access to the same params
+
+<Snippet file="llm-base-reference.mdx" />

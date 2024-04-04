@@ -3,20 +3,23 @@ title: Aws Bedrock
 sidebarTitle: AWS Bedrock
 ---
 
-## AWS Bedrock Reference
+## AWS Bedrock Params
 
-<ResponseField name="name" type="str" default="AwsBedrock">
-</ResponseField>
-<ResponseField name="model" type="str" default="anthropic.claude-v2">
-</ResponseField>
-<ResponseField name="aws_region" type="str" default="None">
-</ResponseField>
-<ResponseField name="aws_profile" type="str" default="None">
-</ResponseField>
-<ResponseField name="aws_client" type="AwsApiClient" default="None">
-</ResponseField>
+<ResponseField name="name" type="str" default="AwsBedrock"></ResponseField>
+<ResponseField
+  name="model"
+  type="str"
+  default="anthropic.claude-v2"
+></ResponseField>
+<ResponseField name="aws_region" type="str" default="None"></ResponseField>
+<ResponseField name="aws_profile" type="str" default="None"></ResponseField>
+<ResponseField
+  name="aws_client"
+  type="AwsApiClient"
+  default="None"
+></ResponseField>
 
-## LLM Reference
+## LLM Params
 
 `AwsBedrock` is a subclass of the `LLM` class and has access to the same params
 

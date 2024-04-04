@@ -1,6 +1,53 @@
 ---
 title: Anyscale
-description: This guide is in the works
 ---
 
-<Snippet file="message-us-discord.mdx" />
+## Authentication
+
+Set your `ANYSCALE_API_KEY` environment variable. You can get one [from Anyscale here](https://app.endpoints.anyscale.com/).
+
+<CodeGroup>
+
+```bash Mac
+export ANYSCALE_API_KEY=***
+```
+
+```bash Windows
+setx ANYSCALE_API_KEY ***
+```
+
+</CodeGroup>
+
+## Usage
+
+Use `Anyscale` with your `Assistant`:
+
+<CodeGroup>
+
+```python assistant.py
+from phi.assistant import Assistant
+from phi.llm.anyscale import Anyscale
+
+assistant = Assistant(
+    llm=Anyscale(model="mistralai/Mixtral-8x7B-Instruct-v0.1"),
+    description="You help people with their health and fitness goals.",
+)
+assistant.print_response("Share a quick healthy breakfast recipe.", markdown=True)
+```
+
+</CodeGroup>
+
+## Params
+
+<ResponseField name="name" type="str" default="Anyscale"></ResponseField>
+<ResponseField
+  name="model"
+  type="str"
+  default="mistralai/Mixtral-8x7B-Instruct-v0.1"
+></ResponseField>
+<ResponseField name="api_key" type="str"></ResponseField>
+<ResponseField
+  name="base_url"
+  type="str"
+  default="https://api.endpoints.anyscale.com/v1"
+></ResponseField>
