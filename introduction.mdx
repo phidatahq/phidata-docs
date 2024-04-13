@@ -34,11 +34,37 @@ LLM = Large Language Model
 ## Example
 
 <Steps>
+  <Step title="Create a virtual environment">
+    Open the `Terminal` and create a python virtual environment.
+
+    <CodeGroup>
+
+    ```bash Mac
+    python3 -m venv ~/.venvs/aienv
+    source ~/.venvs/aienv/bin/activate
+    ```
+
+    ```bash Windows
+    python3 -m venv aienv
+    aienv/scripts/activate
+    ```
+
+    </CodeGroup>
+
+  </Step>
   <Step title="Install phidata">
 
-    ```bash
+    <CodeGroup>
+
+    ```bash Mac
     pip install -U phidata
     ```
+
+    ```bash Windows
+    pip install -U phidata
+    ```
+
+    </CodeGroup>
 
   </Step>
   <Step title="Create an Assistant">
