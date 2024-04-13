@@ -1,12 +1,21 @@
 ---
-title: Introduction
+title: What is phidata?
+sidebarTitle: Introduction
+mode: "wide"
 ---
 
-## What is phidata?
+**Phidata is a framework for building AI Assistants with memory, knowledge and tools.**
 
-**Phidata is a toolkit for building AI Assistants using function calling.**
+## Why use phidata
 
-Function calling enables LLMs to achieve tasks by calling functions and intelligently choosing their next step based on the response, just like how humans solve problems.
+**Problem:** LLMs have limited business context and cannot take actions.<br />
+**Solution:** Add memory, knowledge and tools to turn them into AI Assistants.
+- **Memory:** Enables LLMs to have long-term conversations by storing chat history in a database.
+- **Knowledge:** Provides LLMs with relevant business context by storing information in a vector database.
+- **Tools:** Enable LLMs to take actions like pulling data from an API, sending emails or querying a database.
+
+**Memory** & **knowledge** make LLMs smarter while **tools** make them Autonomous. <br />
+Together they enable us to build useful AI Assistants that can achieve any task.
 
 ![assistant_intro](/images/assistant_intro.png)
 
@@ -18,17 +27,11 @@ Function calling enables LLMs to achieve tasks by calling functions and intellig
 
 <p className="hidden">
 
-To make the process simpler, phidata also provides pre-built templates for building AI applications. You can build an AI App using a pre-built template in 3 steps:
-
-- Create your codebase using: `phi ws create`
-- Run your AI app locally: `phi ws up`
-- Deploy your AI app to AWS: `phi ws up prd:aws`
-
 LLM = Large Language Model
 
 </p>
 
-## Quickstart
+## Example
 
 <Steps>
   <Step title="Install phidata">
@@ -40,16 +43,20 @@ LLM = Large Language Model
   </Step>
   <Step title="Create an Assistant">
 
-    Create a file `assistant.py` and install openai using `pip install openai`
+    Create a file `assistant.py` with an Assistant that can search the web using DuckDuckGo.
 
     ```python assistant.py
     from phi.assistant import Assistant
+    from phi.tools.duckduckgo import DuckDuckGo
 
-    assistant = Assistant(description="You help people with their health and fitness goals.")
-    assistant.print_response("Share a quick healthy breakfast recipe.", markdown=True)
+    assistant = Assistant(tools=[DuckDuckGo()], show_tool_calls=True)
+    assistant.print_response("Whats happening in France?", markdown=True)
     ```
 
-    Set your `OPENAI_API_KEY`
+  </Step>
+  <Step title="Run the Assistant">
+
+    Set your `OPENAI_API_KEY` (you can get one from [here](https://platform.openai.com/account/api-keys))
 
     <CodeGroup>
 
@@ -63,32 +70,13 @@ LLM = Large Language Model
 
     </CodeGroup>
 
-    Run the `Assistant`
+    Install `openai` & `duckduckgo`
 
     ```shell
-    python assistant.py
+    pip install openai duckduckgo-search
     ```
 
-  </Step>
-  <Step title="Add a tool">
-
-    Add the DuckDuckGo tool to let the assistant search the web
-
-    ```python assistant.py
-    from phi.assistant import Assistant
-    from phi.tools.duckduckgo import DuckDuckGo
-
-    assistant = Assistant(tools=[DuckDuckGo()], show_tool_calls=True)
-    assistant.print_response("Whats happening in France?", markdown=True)
-    ```
-
-    Install duckduckgo search
-
-    ```shell
-    pip install duckduckgo-search
-    ```
-
-    Run the `Assistant`
+    Run the Assistant
 
     ```shell
     python assistant.py
@@ -99,40 +87,24 @@ LLM = Large Language Model
 
 ## Demos
 
-Checkout these AI apps showcasing the advantage of function calling:
+Checkout the following AI Applications built using phidata:
 
-- [PDF AI](https://pdf.aidev.run/) that summarizes and answers questions from PDFs.
-- [ArXiv AI](https://arxiv.aidev.run/) that answers questions about ArXiv papers using the ArXiv API.
-- [HackerNews AI](https://hn.aidev.run/) that interacts with the HN API to summarize stories, users, find out what's trending, summarize topics.
-- [Streamlit App](https://demo.aidev.run/) serving a PDF, Image and Website Assistant (password: **admin**)
-- [FastApi App](https://api.aidev.run/docs) serving a PDF Assistant.
+- [PDF AI](https://pdf.aidev.run/) summarizes and answers questions from PDFs.
+- [ArXiv AI](https://arxiv.aidev.run/) answers questions about ArXiv papers using the ArXiv API.
+- [HackerNews AI](https://hn.aidev.run/) summarize stories, users and shares what's new on HackerNews.
 
-## AI Applications
+## Next Steps
 
-After building an Assistant, serve it using **Streamlit**, **FastApi** or **Django** to build your AI application. Instead of wiring tools manually, phidata provides **pre-built** templates for AI Apps that you can run locally or deploy to AWS with 1 command. Here's how they work:
-
-- Create your AI App using a template: `phi ws create`
-- Run your app locally: `phi ws up`
-- Run your app on AWS: `phi ws up prd:aws`
-
-## Get started
-
-1. Read the [basics](/basics) guide to learn the basics.
-2. Follow the [AI App](/ai-app/run-local) guide to build your own AI App.
-3. Checkout the [building blocks](/blocks/overview) for in-depth guides to building AI products.
-
-## Examples
-
-You can also build an AI App using the following examples
-
-<Snippet file="examples.mdx" />
+1. Read the [basics](/basics) to learn more about phidata.
+2. Read about [Assistants](/assistants/introduction) and how to customize them.
+3. Checkout the [cookbook](/examples/cookbook) for in-depth examples and code.
 
 ## Building AI for your product?
 
 We've helped many companies build AI for their products, the general workflow is:
 
-1. **Train an assistant** with proprietary data to perform tasks specific to your product.
-2. **Connect your product** to the assistant via an API.
-3. **Customize, Monitor and Improve** the AI.
+1. **Build an Assistant** with proprietary data to perform tasks specific to your product.
+2. **Connect your product** to the Assistant via an API.
+3. **Customize, Monitor and Improve** your AI product.
 
-We provide dedicated support and development for AI products. [Book a call](https://cal.com/phidata/intro) to get started.
+We also provide dedicated support and development, [book a call](https://cal.com/phidata/intro) for more information.
