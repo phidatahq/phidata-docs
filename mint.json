@@ -73,13 +73,20 @@
           {
             "group": "LLMs",
             "pages": [
-              "llm/introduction",
-              "llm/openai",
-              "llm/openai-like",
-              "llm/ollama",
-              "llm/aws",
-              "llm/together",
-              "llm/anyscale"
+              "llms/introduction",
+              "llms/openai",
+              "llms/openai-like",
+              "llms/ollama",
+              "llms/aws",
+              "llms/together",
+              "llms/anyscale",
+              "llms/fireworks",
+              "llms/mistral",
+              "llms/groq",
+              "llms/gemini",
+              "llms/azure",
+              "llms/claude",
+              "llms/cohere"
             ]
           },
           {

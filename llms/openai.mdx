@@ -1,0 +1,145 @@
+---
+title: OpenAI
+---
+
+The GPT models are the best in class LLMs and used by default by the `Assistant`.
+
+## Authentication
+
+Set your `OPENAI_API_KEY` environment variable. You can get one [from OpenAI here](https://platform.openai.com/account/api-keys).
+
+<CodeGroup>
+
+```bash Mac
+export OPENAI_API_KEY=sk-***
+```
+
+```bash Windows
+setx OPENAI_API_KEY sk-***
+```
+
+</CodeGroup>
+
+## Example
+
+Use `OpenAIChat` with your `Assistant` or `LLMTask`:
+
+<CodeGroup>
+
+```python assistant.py
+from phi.assistant import Assistant
+from phi.llm.openai import OpenAIChat
+
+assistant = Assistant(
+    llm=OpenAIChat(model="gpt-4-turbo", max_tokens=500, temperature=0.3),
+    description="You provide 15 minute healthy recipes.",
+)
+assistant.print_response("Share a breakfast recipe.", markdown=True)
+```
+
+```python tasks.py
+from phi.llm.openai import OpenAIChat
+from phi.task.llm import LLMTask
+from phi.assistant import Assistant
+from pydantic import BaseModel, Field
+
+
+class StoryTheme(BaseModel):
+    setting: str = Field(..., description="This is the context of the story. If not available, provide a random setting.")
+    genre: str = Field(..., description="This is the genre of the story. If not provided, select horror.")
+
+
+get_story_theme = LLMTask(
+    llm=OpenAIChat(model="gpt-3.5-turbo"),
+    system_prompt="Generate a theme for a story.",
+    output_model=StoryTheme,
+    show_output=False,
+)
+
+write_story = LLMTask(
+    llm=OpenAIChat(model="gpt-4-turbo"),
+    system_prompt="Write a 2 sentence story for a given theme. It should be less than 30 words.",
+)
+
+give_story_a_name = LLMTask(
+    llm=OpenAIChat(model="gpt-4-turbo"),
+    system_prompt="Give this story a 2 word name. Format output as `Name: {name}`. Don't surround with quotes.",
+)
+
+story_generator = Assistant(tasks=[get_story_theme, write_story, give_story_a_name])
+story_generator.print_response("New York 1 million years from now", markdown=True)
+```
+
+</CodeGroup>
+
+## Params
+
+For more information, please refer to the [OpenAI docs](https://platform.openai.com/docs/api-reference/chat/create) as well.
+
+<ResponseField name="model" type="str" default="gpt-4-turbo">
+  OpenAI model ID.
+</ResponseField>
+<ResponseField name="seed" type="int">
+  If specified, openai system will make a best effort to sample
+  deterministically, such that repeated requests with the same `seed` and
+  parameters should return the same result.
+</ResponseField>
+<ResponseField name="max_tokens" type="int">
+  The maximum number of tokens to generate in the chat completion.
+</ResponseField>
+<ResponseField name="temperature" type="float">
+  What sampling temperature to use, between 0 and 2. Higher values like 0.8 will
+  make the output more random, while lower values like 0.2 will make it more
+  focused and deterministic.
+</ResponseField>
+<ResponseField name="frequency_penalty" type="float">
+  Number between -2.0 and 2.0. Positive values penalize new tokens based on
+  their existing frequency in the text so far, decreasing the model's likelihood
+  to repeat the same line verbatim.
+</ResponseField>
+<ResponseField name="response_format" type="Dict[str, Any]">
+  An object specifying the format that the model must output.
+  Setting to `{ "type": "json_object" }` enables JSON mode, which guarantees the message the model generates is valid JSON.
+</ResponseField>
+<ResponseField name="frequency_penalty" type="float">
+  Number between -2.0 and 2.0. Positive values penalize new tokens based on their existing frequency in the text so far, decreasing the model's likelihood to repeat the same line verbatim.
+</ResponseField>
+<ResponseField name="presence_penalty" type="float">
+  Number between -2.0 and 2.0. Positive values penalize new tokens based on
+  whether they appear in the text so far, increasing the model's likelihood to
+  talk about new topics.
+</ResponseField>
+<ResponseField name="stop" type="List[str]">
+  Up to 4 sequences where the API will stop generating further tokens.
+</ResponseField>
+<ResponseField name="user" type="str">
+  A unique identifier representing your end-user, which can help OpenAI to
+  monitor and detect abuse.
+</ResponseField>
+<ResponseField name="top_p" type="float">
+  An alternative to sampling with temperature, called nucleus sampling, where
+  the model considers the results of the tokens with top_p probability mass.
+</ResponseField>
+<ResponseField name="logit_bias" type="Any">
+  Modify the likelihood of specified tokens appearing in the completion. Accepts
+  a json object that maps tokens (specified by their token ID in the tokenizer)
+  to an associated bias value from -100 to 100.
+</ResponseField>
+<ResponseField name="headers" type="Dict[str, Any]">
+  Headers added to the OpenAI request.
+</ResponseField>
+<ResponseField name="api_key" type="str">
+  OpenAI API Key
+</ResponseField>
+<ResponseField name="organization" type="str">
+  OpenAI organization
+</ResponseField>
+<ResponseField name="base_url" type="str">
+  OpenAI Base URL
+</ResponseField>
+<ResponseField name="client_params" type="Dict[str, Any]">
+  Additional key word argumens used when creating the `OpenAI()` client.
+</ResponseField>
+<ResponseField name="openai_client" type="OpenAI">
+  Provide your own OpenAI() client to use
+</ResponseField>

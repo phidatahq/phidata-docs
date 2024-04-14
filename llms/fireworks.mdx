@@ -1,0 +1,53 @@
+---
+title: Fireworks
+---
+
+## Authentication
+
+Set your `FIREWORKS_API_KEY` environment variable.
+
+<CodeGroup>
+
+```bash Mac
+export FIREWORKS_API_KEY=***
+```
+
+```bash Windows
+setx FIREWORKS_API_KEY ***
+```
+
+</CodeGroup>
+
+## Usage
+
+Use `Fireworks` with your `Assistant`:
+
+<CodeGroup>
+
+```python assistant.py
+from phi.assistant import Assistant
+from phi.llm.fireworks import Fireworks
+
+assistant = Assistant(
+    llm=Fireworks(model="accounts/fireworks/models/firefunction-v1"),
+    description="You help people with their health and fitness goals.",
+)
+assistant.print_response("Share a quick healthy breakfast recipe.", markdown=True)
+```
+
+</CodeGroup>
+
+## Params
+
+<ResponseField name="name" type="str" default="Fireworks"></ResponseField>
+<ResponseField
+  name="model"
+  type="str"
+  default="accounts/fireworks/models/firefunction-v1"
+></ResponseField>
+<ResponseField name="api_key" type="str"></ResponseField>
+<ResponseField
+  name="base_url"
+  type="str"
+  default="https://api.fireworks.ai/inference/v1"
+></ResponseField>
