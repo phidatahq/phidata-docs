@@ -1,0 +1,241 @@
+---
+title: Knowledge
+---
+
+To provide LLMs with business context, we store information in a vector database that the Assistant can search to improve its responses. This information provides extra context to language models so they respond in a context-aware manner. The general syntax is:
+
+```python
+from phi.assistant import Assistant, AssistantKnowledge
+
+# Create knowledge base
+knowledge_base = AssistantKnowledge(vector_db=...)
+
+# Add information to the knowledge base
+knowledge_base.load_text("The sky is blue")
+
+# Add the knowledge base to the Assistant
+assistant = Assistant(knowledge_base=knowledge_base)
+```
+
+## Vector Databases
+
+While any type of storage can act as a knowledge base, vector databases offer the best solution for retrieving relevant results from dense information quickly.
+
+**Our goal is to search relevant information from a knowledge base quickly**, here's how vector databases are used with LLMs:
+
+<Steps>
+  <Step title="Chunk the information">
+    We break down our knowledge into small chunks to ensure our search query matches only relevant results.
+  </Step>
+  <Step title="Load the knowledge base">
+    We convert these chunks into embedding vectors and store them in a vector database.
+  </Step>
+  <Step title="Search the knowledge base">
+    When the user sends a message, we convert the input message into an embedding and "search" for nearest neighbors in the vector database.
+  </Step>
+</Steps>
+
+## Example: Assistant with a PDF Knowledge Base
+
+Let's build an **Assistant** that answers questions from a PDF.
+
+1. We'll load our knowledge base with the PDF of a recipe book.
+2. Our **Assistant** will respond with the recipes from the knowledge base.
+
+### Step 1: Run PgVector
+
+Let's use `PgVector` as our vector db as it can also provide storage for our Assistants.
+
+<Steps>
+  <Step title="Install Docker">
+    Install [docker desktop](https://docs.docker.com/desktop/install/mac-install/) for running PgVector in a container.
+  </Step>
+  <Step title="Define PgVector as a resource">
+    Create a file `resources.py` with the following contents
+
+    ```python resources.py
+    from phi.docker.app.postgres import PgVectorDb
+
+    # -*- Run PgVector on port 5532 as port 5432 may be in use.
+    vector_db = PgVectorDb(
+        pg_user="ai",
+        pg_password="ai",
+        pg_database="ai",
+        host_port=5532,
+    )
+    ```
+
+  </Step>
+  <Step title="Start PgVector">
+    Start `resources.py` using:
+
+    ```bash
+    phi start resources.py
+    ```
+
+    **Press Enter** to confirm. You can verify container status on the docker dashboard.
+
+  </Step>
+</Steps>
+
+<Note>
+You may run PgVector any way you like, using `docker-compose` or `docker run` directly.
+</Note>
+
+### Step 2: RAG Assistant
+
+Retrieval Augmented Generation means **"stuffing the prompt with relevant information"** to improve LLM responses. This is a 2 step process:
+1. Retrieve relevant information from a vector database.
+2. Augment the prompt to provide context to the LLM.
+
+<Steps>
+  <Step title="Install libraries">
+    Install the required libraries using pip
+
+    <CodeGroup>
+
+    ```bash Mac
+    pip install -U pgvector pypdf "psycopg[binary]" sqlalchemy
+    ```
+
+    ```bash Windows
+    pip install -U pgvector pypdf "psycopg[binary]" sqlalchemy
+    ```
+
+    </CodeGroup>
+
+  </Step>
+  <Step title="Create a RAG Assistant">
+    Create a file `rag_assistant.py` with the following contents
+
+    ```python rag_assistant.py
+    from phi.assistant import Assistant
+    from phi.knowledge.pdf import PDFUrlKnowledgeBase
+    from phi.vectordb.pgvector import PgVector2
+
+    from resources import vector_db
+
+    knowledge_base = PDFUrlKnowledgeBase(
+        # Read PDF from this URL
+        urls=["https://phi-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"],
+        # Store embeddings in the `ai.recipes` table
+        vector_db=PgVector2(
+            collection="recipes",
+            db_url=vector_db.get_db_connection_local()
+        ),
+    )
+    # Load the knowledge base
+    knowledge_base.load(recreate=False)
+
+    assistant = Assistant(
+        knowledge_base=knowledge_base,
+        # The add_references_to_prompt will update the prompt with references from the knowledge base.
+        add_references_to_prompt=True,
+    )
+    assistant.print_response("How do I make pad thai?", markdown=True)
+    ```
+
+  </Step>
+  <Step title="Run the Assistant">
+    Run the Assistant (it takes a few seconds to load the knowledge base).
+
+    <CodeGroup>
+
+    ```bash Mac
+    python rag_assistant.py
+    ```
+
+    ```bash Windows
+    python rag_assistant.py
+    ```
+
+    </CodeGroup>
+
+  </Step>
+</Steps>
+
+<Note>
+The Assistant by default uses the `OpenAI` LLM and Embeddings.
+</Note>
+
+<Accordion title="How to use local PDFs" icon="file-pdf" iconType="duotone">
+If you want to use local PDFs, use a `PDFKnowledgeBase` instead
+
+```python assistant.py
+from phi.knowledge.pdf import PDFKnowledgeBase
+
+...
+knowledge_base = PDFKnowledgeBase(
+    path="data/pdfs",
+    vector_db=PgVector2(
+        collection="pdf_documents",
+        db_url=vector_db.get_db_connection_local(),
+    ),
+)
+...
+```
+
+</Accordion>
+
+### Step 3: Autonomous Assistant
+
+With the RAG assistant above, the `add_references_to_prompt=True` always adds information from the knowledge base to the prompt, regardless of whether it is relevant to the question.
+
+With Autonomous assistants, we let the LLM decide **if** it needs to access the knowledge base and what search parameters it needs to query the knowledge base.
+
+Make the `Assistant` Autonomous by setting the `search_knowledge` and `read_chat_history` flags, giving it tools to search the knowledge base and chat history on demand.
+
+<Steps>
+  <Step title="Create an Autonomous Assistant">
+    Create a file `auto_assistant.py` with the following contents
+
+    ```python auto_assistant.py
+    from phi.assistant import Assistant
+    from phi.knowledge.pdf import PDFUrlKnowledgeBase
+    from phi.vectordb.pgvector import PgVector2
+
+    from resources import vector_db
+
+    knowledge_base = PDFUrlKnowledgeBase(
+        urls=["https://phi-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"],
+        vector_db=PgVector2(
+            collection="recipes",
+            db_url=vector_db.get_db_connection_local()
+        ),
+    )
+    # Comment out as the knowledge base is already loaded.
+    # knowledge_base.load(recreate=False)
+
+    assistant = Assistant(
+        knowledge_base=knowledge_base,
+        # Show tool calls in the response
+        show_tool_calls=True,
+        # Enable the assistant to search the knowledge base
+        search_knowledge=True,
+        # Enable the assistant to read the chat history
+        read_chat_history=True,
+    )
+    assistant.print_response("How do I make pad thai?", markdown=True)
+    assistant.print_response("What was my last question?", markdown=True)
+    ```
+
+  </Step>
+  <Step title="Run the assistant">
+    Run the Assistant
+
+    <CodeGroup>
+
+    ```bash Mac
+    python auto_assistant.py
+    ```
+
+    ```bash Windows
+    python auto_assistant.py
+    ```
+
+    </CodeGroup>
+
+    > Notice how it searches the knowledge base and chat history when needed
+
+  </Step>
+</Steps>

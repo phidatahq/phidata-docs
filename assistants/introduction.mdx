@@ -1,0 +1,69 @@
+---
+title: Introduction
+---
+
+**Assistants** are a wrapper around LLMs but with extensions like memory, knowledge and tools.
+
+A simple assistant looks like:
+
+```python assistant.py
+from phi.assistant import Assistant
+from phi.llm.openai import OpenAIChat
+
+assistant = Assistant(
+    llm=OpenAIChat(model="gpt-3.5-turbo"),
+    description="You help people with their health and fitness goals.",
+    instructions=["Recipes should be under 5 ingredients"],
+    debug_mode=True,
+)
+
+# -*- Print the response in markdown format
+assistant.print_response("Share a breakfast recipe.", markdown=True)
+```
+
+Under the hood, the description and instructions are converted into the system prompt and the input is passed as the user prompt.
+
+`debug_mode=True` prints the prompts sent to the LLM, here's how they look like:
+
+```js
+DEBUG    ============== system ==============
+DEBUG    You help people with their health and fitness goals.
+         YOU MUST FOLLOW THESE INSTRUCTIONS CAREFULLY.
+         <instructions>
+         1. Recipes should be under 5 ingredients.
+         2. Use markdown to format your answers.
+         </instructions>
+DEBUG    ============== user ==============
+DEBUG    Share a breakfast recipe.
+DEBUG    Time to generate response: 1.8701s
+DEBUG    Estimated completion tokens: 113
+```
+
+## Return response as a variable
+
+Use the `Assistant.run()` function to return the LLM response as a variable.
+
+```python
+# -*- Get the response as a stream
+response = ""
+for delta in assistant.run('Share a breakfast recipe.'):
+    response += delta
+```
+
+By default `stream=True`, set `stream=False` to return as a string.
+
+```python
+# -*- Get the response as a string
+response = assistant.run('Share a breakfast recipe.', stream=False)
+```
+
+## Manually set the system prompt
+
+You can manually set the system prompt using the `system_prompt` variable. The `description` and `instructions` only provide a formatting benefit. Learn more in the [instructions](/assistants/instructions) guide.
+
+```python
+from phi.assistant import Assistant
+
+assistant = Assistant(system_prompt="Share a 2 sentence story about")
+assistant.print_response("Love in the year 12000.")
+```

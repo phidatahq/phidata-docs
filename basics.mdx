@@ -71,7 +71,7 @@ Let's create an Assistant that can search the web using DuckDuckGo.
 
   </Step>
   <Step title="Run the Assistant">
-    The `Assistant` by default uses the OpenAI LLM, set your `OPENAI_API_KEY`
+    Assistants use `OpenAI` by default. Set your `OPENAI_API_KEY`.
 
     <CodeGroup>
 
@@ -193,9 +193,9 @@ The `PythonAssistant` will create a file to achieve this task, please delete thi
 
 ## Assistants with Knowledge
 
-To provide LLMs with business context, we store information in a vector database that the Assistant can search to improve its responses. By adding this extra context to the prompt, LLMs are able to respond in a context-aware manner.
+To provide LLMs with business context, we store information in a vector database that the Assistant can search to improve its responses. This information provides extra context to language models so they respond in a context-aware manner.
 
-While any type of storage can act as a knowledge base, vector databases offer the best solution for retrieving relevant results from dense information quickly. Let's use `PgVector` as our vector store as it can also provide long-term storage for our Assistants.
+Let's use `PgVector` as our vector store as it can also provide storage for our Assistants.
 
 ### Run PgVector
 
@@ -234,7 +234,7 @@ Run `PgVector` on `Docker` using the following steps:
 </Steps>
 
 <Note>
-You can run PgVector any way you like, using `docker-compose` or `docker run` directly.
+You may run PgVector any way you like, using `docker-compose` or `docker run` directly.
 </Note>
 
 ### RAG Assistant
@@ -243,7 +243,7 @@ Retrieval Augmented Generation means **"stuffing the prompt with relevant inform
 1. Retrieve relevant information from a vector database.
 2. Augment the prompt to provide context to the LLM.
 
-Let's test out RAG by building a **PDF Assistant** that helps us with food recipes.
+Let's build a **PDF Assistant** that helps us with food recipes using RAG.
 
 1. We'll load the knowledge base (vector db) with a recipe book PDF.
 2. Our **PDF Assistant** will respond with the recipes from the knowledge base.
@@ -406,7 +406,7 @@ Every `Assistant` comes with built-in memory but it only lasts while the session
 
 We can easily add long-term memory to Assistants using a storage backend, for example:
 
-```python assistant_with_storage.py
+```python storage.py
 from phi.storage.assistant.postgres import PgAssistantStorage
 
 from resources import vector_db
@@ -550,13 +550,13 @@ phi stop resources.py
 ## Next
 
 Congratulations on building an AI Assistant with memory, knowledge and tools. You can serve this Assistant in production using `FastApi`, `Streamlit` or `Django`. Read more about:
-- [Assistants](assistants/introduction)
-- [Tools](tools/introduction)
-- [Knowledge](knowledge/introduction)
-- [Storage](storage/introduction)
+- [Assistants](/assistants/introduction)
+- [Tools](/tools/introduction)
+- [Knowledge](/knowledge/introduction)
+- [Storage](/storage/introduction)
 
 Or Checkout the following examples:
-- [SQL Assistant](examples/use-cases/sql)
-- [Research Assistant](examples/use-cases/research)
+- [SQL Assistant](/examples/use-cases/sql)
+- [Research Assistant](/examples/use-cases/research)
 
 If you need help, reach out to us on [Discord](https://discord.com/invite/4MtYHHrgA8).

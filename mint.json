@@ -61,12 +61,13 @@
           {
             "group": "Assistants",
             "pages": [
-              "blocks/assistant/introduction",
-              "blocks/assistant/instructions",
-              "blocks/assistant/tools",
-              "blocks/assistant/knowledge",
-              "blocks/assistant/memory",
-              "blocks/assistant/storage"
+              "assistants/introduction",
+              "assistants/instructions",
+              "assistants/tools",
+              "assistants/knowledge",
+              "assistants/memory",
+              "assistants/storage",
+              "assistants/structured-output"
             ]
           },
           {
