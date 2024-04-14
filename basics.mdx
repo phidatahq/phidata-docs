@@ -2,7 +2,7 @@
 title: Basics
 ---
 
-Phidata enables us to build AI Assistants with memory, knowledge and tools.
+**Assistant = LLM + memory + knowledge + tools**
 
 - **Memory:** Stores chat history in a database.
 - **Knowledge:** Stores business context in a vector database.
@@ -55,7 +55,7 @@ Tools are **functions** that an Assistant can run to achieve tasks like searchin
 
 ### Web Search
 
-Lets create an Assistant that can search the web using DuckDuckGo
+Let's create an Assistant that can search the web using DuckDuckGo.
 
 <Steps>
   <Step title="Create Web Search Assistant">
@@ -102,7 +102,7 @@ Lets create an Assistant that can search the web using DuckDuckGo
 
 ### Data Analysis
 
-Lets create an Assistant that can analyze data using DuckDb.
+Let's create an Assistant that can analyze data using DuckDb.
 
 <Steps>
   <Step title="Create a DuckDbAssistant">
@@ -146,7 +146,7 @@ Lets create an Assistant that can analyze data using DuckDb.
 
 ### Python Assistant
 
-Lets create an Assistant that can write and run python code to perform virtually any task.
+Let's create an Assistant that can write and run python code to perform virtually any task.
 
 <Steps>
   <Step title="Create a PythonAssistant">
@@ -188,12 +188,12 @@ Lets create an Assistant that can write and run python code to perform virtually
 </Steps>
 
 <Note>
-The `PythonAssistant` will create a file to achieve this task, check it out.
+The `PythonAssistant` will create a file to achieve this task, please delete this file.
 </Note>
 
 ## Assistants with Knowledge
 
-To provide LLMs with business context, we store information in a vector database that the Assistant can search to improve its responses. By providing this additional context to the LLM, they respond in a context-aware manner.
+To provide LLMs with business context, we store information in a vector database that the Assistant can search to improve its responses. By adding this extra context to the prompt, LLMs are able to respond in a context-aware manner.
 
 While any type of storage can act as a knowledge base, vector databases offer the best solution for retrieving relevant results from dense information quickly. Let's use `PgVector` as our vector store as it can also provide long-term storage for our Assistants.
 
@@ -239,11 +239,13 @@ You can run PgVector any way you like, using `docker-compose` or `docker run` di
 
 ### RAG Assistant
 
-Retrieval Augmented Generation means providing the LLM with additional information so it responds in a context-aware manner. When a user sends a message, we **"stuff the prompt with relevant information"** to improve response quality.
+Retrieval Augmented Generation means **"stuffing the prompt with relevant information"** to improve LLM responses. This is a 2 step process:
+1. Retrieve relevant information from a vector database.
+2. Augment the prompt to provide context to the LLM.
 
 Let's test out RAG by building a **PDF Assistant** that helps us with food recipes.
 
-1. We'll load the knowledge base with the PDF of a recipe book.
+1. We'll load the knowledge base (vector db) with a recipe book PDF.
 2. Our **PDF Assistant** will respond with the recipes from the knowledge base.
 
 <Steps>
@@ -274,7 +276,7 @@ Let's test out RAG by building a **PDF Assistant** that helps us with food recip
     from resources import vector_db
 
     knowledge_base = PDFUrlKnowledgeBase(
-        # Read PDFs from URLs
+        # Read PDF from this URL
         urls=["https://phi-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"],
         # Store embeddings in the `ai.recipes` table
         vector_db=PgVector2(
@@ -295,7 +297,7 @@ Let's test out RAG by building a **PDF Assistant** that helps us with food recip
 
   </Step>
   <Step title="Run the Assistant">
-    Run the Assistant
+    Run the Assistant (it takes a few seconds to load the knowledge base).
 
     <CodeGroup>
 
@@ -308,8 +310,6 @@ Let's test out RAG by building a **PDF Assistant** that helps us with food recip
     ```
 
     </CodeGroup>
-
-    > Give a few minutes to load the knowledge base
 
   </Step>
 </Steps>
@@ -343,7 +343,7 @@ With the RAG assistant above, the `add_references_to_prompt=True` always adds in
 
 With Autonomous assistants, we let the LLM decide **if** it needs to access the knowledge base and what search parameters it needs to query the knowledge base.
 
-Make the `Assistant` Autonomous by setting `search_knowledge=True` and `read_chat_history=True`,giving it tools to search the knowledge base and chat history on demand.
+Make the `Assistant` Autonomous by setting the `search_knowledge` and `read_chat_history` flags, giving it tools to search the knowledge base and chat history on demand.
 
 <Steps>
   <Step title="Create an Autonomous Assistant">
@@ -402,7 +402,9 @@ Make the `Assistant` Autonomous by setting `search_knowledge=True` and `read_cha
 
 ## Memory & Storage
 
-Every `Assistant` comes with built-in memory but it only lasts while the session is active. We can add long-term memory to Assistants using a database like `PostgreSQL`. For example:
+Every `Assistant` comes with built-in memory but it only lasts while the session is active. To continue conversations across sessions, we need to store the chat history in a database like PostgreSQL.
+
+We can easily add long-term memory to Assistants using a storage backend, for example:
 
 ```python assistant_with_storage.py
 from phi.storage.assistant.postgres import PgAssistantStorage
@@ -421,12 +423,7 @@ assistant = Assistant(storage=storage)
 
 ## Assistant with Memory, Knowledge and Tools
 
-Lets wrap up by building an Assistant that can read PDFs, store them in a knowledge base and continue conversations across sessions using a storage backend.
-
-<Steps>
-  <Step title="Create a PDF Assistant with Knowledge and Storage">
-
-    Create a file `pdf_assistant.py` with the following contents
+Lets wrap up by building an Assistant that can read PDFs, store them in a knowledge base and continue conversations across sessions. Create a file `pdf_assistant.py`
 
 ```python pdf_assistant.py
 import typer
@@ -492,53 +489,47 @@ if __name__ == "__main__":
     typer.run(pdf_assistant)
 ```
 
-  </Step>
-  <Step title="Run the Assistant">
-    Run the Assistant
+**Run the Assistant**
 
-    <CodeGroup>
+<CodeGroup>
 
-    ```bash Mac
-    python pdf_assistant.py
-    ```
+```bash Mac
+python pdf_assistant.py
+```
 
-    ```bash Windows
-    python pdf_assistant.py
-    ```
+```bash Windows
+python pdf_assistant.py
+```
 
-    </CodeGroup>
+</CodeGroup>
 
-  </Step>
-  <Step title="Ask Questions">
+**Ask Questions**
 
-    Now the assistant continues across sessions. Ask a question:
+Now the assistant continues across sessions. Ask a question:
 
-    ```
-    How do I make pad that?
-    ```
+```
+How do I make pad that?
+```
 
-    Then message `bye` to exit, start the app again and ask:
+Then message `bye` to exit, start the app again and ask:
 
-    ```
-    What was my last message?
-    ```
+```
+What was my last message?
+```
 
-    Run the `pdf_assistant.py` file with the `--new` flag to start a new run.
+Run the `pdf_assistant.py` file with the `--new` flag to start a new run.
 
-    <CodeGroup>
+<CodeGroup>
 
-    ```bash Mac
-    python pdf_assistant.py --new
-    ```
+```bash Mac
+python pdf_assistant.py --new
+```
 
-    ```bash Windows
-    python pdf_assistant.py --new
-    ```
+```bash Windows
+python pdf_assistant.py --new
+```
 
-    </CodeGroup>
-
-  </Step>
-</Steps>
+</CodeGroup>
 
 ## Stop PgVector
 
@@ -563,5 +554,9 @@ Congratulations on building an AI Assistant with memory, knowledge and tools. Yo
 - [Tools](tools/introduction)
 - [Knowledge](knowledge/introduction)
 - [Storage](storage/introduction)
+
+Or Checkout the following examples:
+- [SQL Assistant](examples/use-cases/sql)
+- [Research Assistant](examples/use-cases/research)
 
 If you need help, reach out to us on [Discord](https://discord.com/invite/4MtYHHrgA8).
