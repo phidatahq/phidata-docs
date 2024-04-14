@@ -12,15 +12,15 @@
 
 <ResponseField name="run_id" type="str">
 </ResponseField>
-<ResponseField name="run_message" type="Union">
+<ResponseField name="run_message" type="Union[List, Dict, str]">
 </ResponseField>
-<ResponseField name="run_task_data" type="List">
+<ResponseField name="run_task_data" type="List[Dict[str, Any]]">
 </ResponseField>
 
-<ResponseField name="output_model" type="Union">
+<ResponseField name="output_model" type="Union[str, List, Type[BaseModel]]">
  Provide an output model for the responses
 </ResponseField>
-<ResponseField name="parse_output" type="Union">
+<ResponseField name="parse_output" type="bool" default="True">
   If True, the output is converted into the output_model (pydantic model or json dict)
 </ResponseField>
 <ResponseField name="output" type="Any">
