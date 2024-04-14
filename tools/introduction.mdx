@@ -1,0 +1,63 @@
+---
+title: Introduction
+---
+
+Tools are **functions** that an Assistant can run to achieve tasks like searching the web, running SQL, sending an email and calling APIs. **Tools make LLMs autonomous**.
+
+You can use any python function as a tool or use a pre-built **Toolkit**. The general syntax is:
+
+```python
+from phi.assistant import Assistant
+
+assistant = Assistant(
+    # Add functions or Toolkits
+    tools=[...],
+    # Show tool calls in LLM response.
+    show_tool_calls=True
+)
+```
+
+Read more about:
+- [Available Toolkits](/tools/toolkits)
+- [Using functions as tools](/tools/functions)
+
+## Params
+
+The following fields allow an `Assistant` to use tools
+
+<ResponseField name="tools" type="List[Union[Tool, Toolkit, Callable, Dict, Function]">
+ A list of tools provided to the LLM.
+</ResponseField>
+<ResponseField name="show_tool_calls" type="bool" default="False">
+  Print the signature of the tool calls in the LLM response.
+</ResponseField>
+<ResponseField name="tool_call_limit" type="int">
+  Maximum number of tool calls allowed.
+</ResponseField>
+<ResponseField name="tool_choice" type="Union[str, Dict[str, Any]]">
+  Controls which (if any) tool is called by the model.
+  - "none" means the model will not call a tool and instead generates a message.
+  - "auto" means the model can pick between generating a message or calling a tool.
+  - Specifying a particular function via
+  ```
+  {
+    "type: "function",
+    "function": {"name": "my_function"}
+  }
+  ```
+  forces the model to call that tool.
+
+  "none" is the default when no tools are present. "auto" is the default if tools are present.
+</ResponseField>
+<ResponseField name="read_chat_history" type="bool" default="False">
+  Add a tool that allows the LLM to get the chat history.
+</ResponseField>
+<ResponseField name="search_knowledge" type="bool" default="False">
+  Add a tool that allows the LLM to search the knowledge base.
+</ResponseField>
+<ResponseField name="update_knoupdate_knowledgewledge_base" type="bool" default="False">
+  Add a tool that allows the LLM to update the knowledge base.
+</ResponseField>
+<ResponseField name="read_tool_call_history" type="bool" default="False">
+  Add a tool is added that allows the LLM to get the tool call history.
+</ResponseField>

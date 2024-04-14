@@ -1,0 +1,29 @@
+---
+title: Arxiv Tools
+sidebarTitle: Arxiv
+---
+
+`ArxivTools` enables an Assistant to search for papers on Arxiv.
+
+## Example
+
+The following assistant will run seach arXiv for "language models" and print the response.
+
+```python cookbook/tools/arxiv.py
+from phi.assistant import Assistant
+from phi.tools.arxiv import ArxivTools
+
+assistant = Assistant(tools=[ArxivTools()], show_tool_calls=True)
+assistant.print_response("Search arxiv for 'language models'")
+```
+
+## Functions in Toolkit
+
+<ResponseField name="search_arxiv_and_update_knowledge_base">
+  This function searches arXiv for a topic, adds the results to the knowledge base and returns them.
+</ResponseField>
+<ResponseField name="search_arxiv">
+  Searches arXiv for a query.
+</ResponseField>
+
+<Snippet file="message-us-discord.mdx" />

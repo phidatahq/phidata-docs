@@ -92,19 +92,20 @@
           {
             "group": "Tools",
             "pages": [
-              "blocks/tools/introduction",
-              "blocks/tools/functions",
-              "blocks/tools/toolkits",
-              "blocks/tools/duckduckgo",
-              "blocks/tools/python",
-              "blocks/tools/file",
-              "blocks/tools/shell",
-              "blocks/tools/duckdb",
-              "blocks/tools/arxiv",
-              "blocks/tools/email",
-              "blocks/tools/website",
-              "blocks/tools/wikipedia",
-              "blocks/tools/tavily"
+              "tools/introduction",
+              "tools/functions",
+              "tools/toolkits",
+              "tools/custom-toolkits",
+              "tools/duckduckgo",
+              "tools/python",
+              "tools/file",
+              "tools/shell",
+              "tools/duckdb",
+              "tools/arxiv",
+              "tools/email",
+              "tools/website",
+              "tools/wikipedia",
+              "tools/tavily"
             ]
           },
           {

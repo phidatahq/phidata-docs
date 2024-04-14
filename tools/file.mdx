@@ -1,0 +1,29 @@
+---
+title: File Tools
+---
+
+**FileTools** enable an Assistant to read and write files on the local file system.
+
+## Example
+
+The following assistant will generate an answer and save it in a file.
+
+```python cookbook/tools/file_tools.py
+from phi.assistant import Assistant
+from phi.tools.file import FileTools
+
+assistant = Assistant(tools=[FileTools()], show_tool_calls=True)
+assistant.print_response("What is the most advanced LLM currently? Save the answer to a file.", markdown=True)
+```
+
+## Functions in Toolkit
+
+<ResponseField name="save_file">
+  Saves the contents to a file called `file_name` and returns the file name if successful.
+</ResponseField>
+<ResponseField name="read_file">
+  Reads the contents of the file `file_name` and returns the contents if successful.
+</ResponseField>
+<ResponseField name="list_files">
+  Returns a list of files in the base directory
+</ResponseField>
