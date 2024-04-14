@@ -1,0 +1,51 @@
+---
+title: Environment variables
+---
+
+Environment variables can be added to resources using the `env_vars` parameter or the `env_file` parameter pointing to a `yaml` file. Examples
+
+```python dev_resources.py
+dev_fastapi = FastApi(
+    ...
+    env_vars={
+        "RUNTIME_ENV": "dev",
+        # Get the OpenAI API key from the local environment
+        "OPENAI_API_KEY": getenv("OPENAI_API_KEY"),
+        # Database configuration
+        "DB_HOST": dev_db.get_db_host(),
+        "DB_PORT": dev_db.get_db_port(),
+        "DB_USER": dev_db.get_db_user(),
+        "DB_PASS": dev_db.get_db_password(),
+        "DB_DATABASE": dev_db.get_db_database(),
+        # Wait for database to be available before starting the application
+        "WAIT_FOR_DB": ws_settings.dev_db_enabled,
+        # Migrate database on startup using alembic
+        # "MIGRATE_DB": ws_settings.prd_db_enabled,
+    },
+    ...
+)
+```
+
+```python prd_resources.py
+prd_fastapi = FastApi(
+    ...
+    env_vars={
+        "RUNTIME_ENV": "prd",
+        # Get the OpenAI API key from the local environment
+        "OPENAI_API_KEY": getenv("OPENAI_API_KEY"),
+        # Database configuration
+        "DB_HOST": AwsReference(prd_db.get_db_endpoint),
+        "DB_PORT": AwsReference(prd_db.get_db_port),
+        "DB_USER": AwsReference(prd_db.get_master_username),
+        "DB_PASS": AwsReference(prd_db.get_master_user_password),
+        "DB_DATABASE": AwsReference(prd_db.get_db_name),
+        # Wait for database to be available before starting the application
+        "WAIT_FOR_DB": ws_settings.prd_db_enabled,
+        # Migrate database on startup using alembic
+        # "MIGRATE_DB": ws_settings.prd_db_enabled,
+    },
+    ...
+)
+```
+
+The apps in your templates are already configured to read environment variables.

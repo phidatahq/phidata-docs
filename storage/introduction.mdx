@@ -1,0 +1,29 @@
+---
+title: Introduction
+---
+
+Assistants come with built-in memory but it only lasts while the session is active. To continue conversations across sessions, we store Assistant runs in a database table.
+
+Storage is a necessary component when building user facing AI products as any production application will require users to be able to "continue" their conversation with the AI.
+
+The general syntax for adding storage to an Assistant looks like:
+
+```python storage.py
+from phi.storage.assistant.postgres import PgAssistantStorage
+
+# Create a storage backend using the Postgres database
+storage = PgAssistantStorage(
+    # store runs in the ai.assistant_runs table
+    table_name="assistant_runs",
+    # db_url: Postgres database URL
+    db_url=db_url,
+)
+
+# Add storage to the Assistant
+assistant = Assistant(storage=storage)
+```
+
+The following databases are supported as a storage backend:
+
+- [PostgreSQL](/storage/postgres)
+- [SingleStore](/storage/singlestore)

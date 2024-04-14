@@ -1,0 +1,209 @@
+---
+title: Database Tables
+---
+
+Phidata templates come pre-configured with [SqlAlchemy](https://www.sqlalchemy.org/) and [alembic](https://alembic.sqlalchemy.org/en/latest/) to manage databases. The general workflow to add a table is:
+
+1. Add table definition to the `db/tables` directory.
+2. Import the table class in the `db/tables/__init__.py` file.
+3. Create a database migration.
+4. Run database migration.
+
+## Table Definition
+
+Let's create a `UsersTable`, copy the following code to `db/tables/user.py`
+
+```python db/tables/user.py
+from datetime import datetime
+from typing import Optional
+
+from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy.sql.expression import text
+from sqlalchemy.types import BigInteger, DateTime, String
+
+from db.tables.base import Base
+
+
+class UsersTable(Base):
+    """Table for storing user data."""
+
+    __tablename__ = "dim_users"
+
+    id_user: Mapped[int] = mapped_column(
+        BigInteger, primary_key=True, autoincrement=True, nullable=False, index=True
+    )
+    email: Mapped[str] = mapped_column(String)
+    is_active: Mapped[bool] = mapped_column(default=True)
+    created_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), server_default=text("now()")
+    )
+    updated_at: Mapped[Optional[datetime]] = mapped_column(
+        DateTime(timezone=True), onupdate=text("now()")
+    )
+```
+
+Update the `db/tables/__init__.py` file:
+
+```python db/tables/__init__.py
+from db.tables.base import Base
+from db.tables.user import UsersTable
+```
+
+## Creat a database revision
+
+Run the alembic command to create a database migration in the dev container:
+
+```bash
+docker exec -it ai-api alembic -c db/alembic.ini revision --autogenerate -m "Initialize DB"
+```
+
+## Migrate dev database
+
+Run the alembic command to migrate the dev database:
+
+```bash
+docker exec -it ai-api alembic -c db/alembic.ini upgrade head
+```
+
+### Optional: Add test user
+
+Now lets's add a test user. Copy the following code to `db/tables/test_add_user.py`
+
+```python db/tables/test_add_user.py
+from typing import Optional
+from sqlalchemy.orm import Session
+
+from db.session import SessionLocal
+from db.tables.user import UsersTable
+from utils.log import logger
+
+
+def create_user(db_session: Session, email: str) -> UsersTable:
+    """Create a new user."""
+    new_user = UsersTable(email=email)
+    db_session.add(new_user)
+    return new_user
+
+
+def get_user(db_session: Session, email: str) -> Optional[UsersTable]:
+    """Get a user by email."""
+    return db_session.query(UsersTable).filter(UsersTable.email == email).first()
+
+
+if __name__ == "__main__":
+    test_user_email = "test@test.com"
+    with SessionLocal() as sess, sess.begin():
+        logger.info(f"Creating user: {test_user_email}")
+        create_user(db_session=sess, email=test_user_email)
+        logger.info(f"Getting user: {test_user_email}")
+        user = get_user(db_session=sess, email=test_user_email)
+        if user:
+            logger.info(f"User created: {user.id_user}")
+        else:
+            logger.info(f"User not found: {test_user_email}")
+
+```
+
+Run the script to add a test adding a user:
+
+```bash
+docker exec -it ai-api python db/tables/test_add_user.py
+```
+
+## Migrate production database
+
+We recommended migrating the production database by setting the environment variable `MIGRATE_DB = True` and restarting the production service. This runs `alembic -c db/alembic.ini upgrade head` from the entrypoint script at container startup.
+
+### Update the `workspace/prd_resources.py` file
+
+```python workspace/prd_resources.py
+...
+# -*- Build container environment
+container_env = {
+    ...
+    # Migrate database on startup using alembic
+    "MIGRATE_DB": ws_settings.prd_db_enabled,
+}
+...
+```
+
+### Update the ECS Task Definition
+
+Because we updated the Environment Variables, we need to update the Task Definition:
+
+<CodeGroup>
+
+```bash terminal
+phi ws patch --env prd --infra aws --name td
+```
+
+```bash shorthand
+phi ws patch -e prd -i aws -n td
+```
+
+</CodeGroup>
+
+### Update the ECS Service
+
+After updating the task definition, redeploy the production application:
+
+<CodeGroup>
+
+```bash terminal
+phi ws patch --env prd --infra aws --name service
+```
+
+```bash shorthand
+phi ws patch -e prd -i aws -n service
+```
+
+</CodeGroup>
+
+## Manually migrate prodution database
+
+Another approach is to SSH into the production container to run the migration manually. Your ECS tasks are already enabled with SSH access. Run the alembic command to migrate the production database:
+
+```bash
+ECS_CLUSTER=ai-app-prd-cluster
+TASK_ARN=$(aws ecs list-tasks --cluster ai-app-prd-cluster --query "taskArns[0]" --output text)
+CONTAINER_NAME=ai-api-prd
+
+aws ecs execute-command --cluster $ECS_CLUSTER \
+    --task $TASK_ARN \
+    --container $CONTAINER_NAME \
+    --interactive \
+    --command "alembic -c db/alembic.ini upgrade head"
+```
+
+---
+
+## How the migrations directory was created
+
+<Note>
+
+These commands have been run and are described for completeness
+
+</Note>
+
+The migrations directory was created using:
+
+```bash
+docker exec -it ai-api cd db && alembic init migrations
+```
+
+- After running the above command, the `db/migrations` directory should be created.
+- Update `alembic.ini`
+  - set `script_location = db/migrations`
+  - uncomment `black` hook in `[post_write_hooks]`
+- Update `db/migrations/env.py` file following [this link](https://alembic.sqlalchemy.org/en/latest/autogenerate.html)
+- Add the following function to `configure` to only include tables in the target_metadata
+
+```python db/migrations/env.py
+# -*- Only include tables that are in the target_metadata
+def include_name(name, type_, parent_names):
+    if type_ == "table":
+        return name in target_metadata.tables
+    else:
+        return True
+...
+```

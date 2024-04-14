@@ -1,0 +1,139 @@
+---
+title: Setup workspace for new users
+sidebarTitle: "Add New Users"
+---
+
+Follow these steps to setup an existing workspace:
+
+<Steps>
+
+<Step title="Clone git repository">
+Clone the git repo and `cd` into the workspace directory
+
+<CodeGroup>
+
+```bash Mac
+git clone https://github.com/[YOUR_GIT_REPO].git
+
+cd your_workspace_directory
+```
+
+```bash Windows
+git clone https://github.com/[YOUR_GIT_REPO].git
+
+cd your_workspace_directory
+```
+
+</CodeGroup>
+
+</Step>
+<Step title="Create and activate a virtual env">
+
+<CodeGroup>
+
+```bash Mac
+python3 -m venv aienv
+source aienv/bin/activate
+```
+
+```bash Windows
+python3 -m venv aienv
+aienv/scripts/activate
+```
+
+</CodeGroup>
+
+</Step>
+<Step title="Install phidata">
+
+<CodeGroup>
+
+```bash Mac
+pip install -U phidata
+```
+
+```bash Windows
+pip install -U phidata
+```
+
+</CodeGroup>
+
+</Step>
+<Step title="Setup workspace">
+
+<CodeGroup>
+
+```bash Mac
+phi ws setup
+```
+
+```bash Windows
+phi ws setup
+```
+
+</CodeGroup>
+
+</Step>
+<Step title="Copy secrets">
+
+Copy `workspace/example_secrets` to `workspace/secrets`
+
+<CodeGroup>
+
+```bash Mac
+cp -r workspace/example_secrets workspace/secrets
+```
+
+```bash Windows
+cp -r workspace/example_secrets workspace/secrets
+```
+
+</CodeGroup>
+
+</Step>
+<Step title="Start workspace">
+
+<Note>
+
+Install [docker desktop](https://docs.docker.com/desktop/install/mac-install/) if needed.
+
+</Note>
+
+<CodeGroup>
+
+```bash terminal
+phi ws up
+```
+
+```bash full options
+phi ws up --env dev --infra docker
+```
+
+```bash shorthand
+phi ws up dev:docker
+```
+
+</CodeGroup>
+
+</Step>
+<Step title="Stop workspace">
+
+<CodeGroup>
+
+```bash terminal
+phi ws down
+```
+
+```bash full options
+phi ws down --env dev --infra docker
+```
+
+```bash shorthand
+phi ws down dev:docker
+```
+
+</CodeGroup>
+
+</Step>
+
+</Steps>

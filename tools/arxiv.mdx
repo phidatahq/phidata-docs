@@ -1,20 +1,19 @@
 ---
 title: Arxiv Tools
-sidebarTitle: Arxiv
 ---
 
-`ArxivTools` enables an Assistant to search for papers on Arxiv.
+**ArxivTools** enable an Assistant to search for papers on Arxiv.
 
 ## Example
 
 The following assistant will run seach arXiv for "language models" and print the response.
 
-```python cookbook/tools/arxiv.py
+```python cookbook/tools/arxiv_tools.py
 from phi.assistant import Assistant
 from phi.tools.arxiv import ArxivTools
 
 assistant = Assistant(tools=[ArxivTools()], show_tool_calls=True)
-assistant.print_response("Search arxiv for 'language models'")
+assistant.print_response("Search arxiv for 'language models'", markdown=True)
 ```
 
 ## Functions in Toolkit
@@ -25,5 +24,3 @@ assistant.print_response("Search arxiv for 'language models'")
 <ResponseField name="search_arxiv">
   Searches arXiv for a query.
 </ResponseField>
-
-<Snippet file="message-us-discord.mdx" />

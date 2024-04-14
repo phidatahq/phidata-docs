@@ -1,0 +1,38 @@
+---
+title: Combined KnowledgeBase
+sidebarTitle: Combined
+---
+
+## Example
+
+```python knowledge_base.py
+from phi.knowledge.combined import CombinedKnowledgeBase
+from phi.vectordb.pgvector import PgVector
+
+from resources import vector_db
+
+knowledge_base = CombinedKnowledgeBase(
+    sources=[
+        url_pdf_knowledge_base,
+        website_knowledge_base,
+        local_pdf_knowledge_base,
+    ],
+    vector_db=PgVector(
+        # Table name: llm.combined_documents
+        collection="combined_documents",
+        db_url=vector_db.get_db_connection_local(),
+    ),
+)
+```
+
+## CombinedKnowledgeBase Params
+
+<ResponseField name="sources" type="List[AssistantKnowledge]">
+  List of knowledge bases.
+</ResponseField>
+
+## AssistantKnowledge Params
+
+`CombinedKnowledgeBase` is a subclass of the `AssistantKnowledge` class and has access to the same params
+
+<Snippet file="kb-base-reference.mdx" />

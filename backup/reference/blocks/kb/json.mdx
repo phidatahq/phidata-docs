@@ -1,0 +1,39 @@
+---
+title: JSON KnowledgeBase
+sidebarTitle: JSON
+---
+
+## Example
+
+```python knowledge_base.py
+from phi.knowledge.json import JSONKnowledgeBase
+from phi.vectordb.pgvector import PgVector
+
+from resources import vector_db
+
+knowledge_base = JSONKnowledgeBase(
+    path="data/json",
+    # Table name: llm.json_documents
+    vector_db=PgVector(
+        collection="json_documents",
+        db_url=vector_db.get_db_connection_local(),
+    ),
+)
+```
+
+## JSONKnowledgeBase Params
+
+<ResponseField name="path" type="Union[str, Path]">
+  Path to `JSON` files.
+  Can point to a single JSON file or a directory of JSON files.
+</ResponseField>
+<ResponseField name="reader" type="JSONReader">
+  A `JSONReader` that converts the `JSON` files into `Documents` for the vector database.
+</ResponseField>
+
+## AssistantKnowledge Params
+
+`JSONKnowledgeBase` is a subclass of the `AssistantKnowledge` class and has access to the same params
+
+<Snippet file="kb-base-reference.mdx" />
+

@@ -1,0 +1,98 @@
+---
+title: Install & Setup
+---
+
+## Install phidata
+
+We highly recommend:
+
+- Installing `phidata` using `pip` in a python virtual environment.
+- Creating an `ai` directory for your ai workspaces
+
+<Steps>
+  <Step title="Create a virtual environment">
+    Open the `Terminal` and create an `ai` directory with a python virtual environment.
+
+    <CodeGroup>
+
+    ```bash Mac
+    mkdir ai && cd ai
+
+    python3 -m venv aienv
+    source aienv/bin/activate
+    ```
+
+    ```bash Windows
+    mkdir ai; cd ai
+
+    python3 -m venv aienv
+    aienv/scripts/activate
+    ```
+
+    </CodeGroup>
+
+  </Step>
+  <Step title="Install phidata">
+    Install `phidata` using pip
+
+    <CodeGroup>
+
+    ```bash Mac
+    pip install -U phidata
+    ```
+
+    ```bash Windows
+    pip install -U phidata
+    ```
+
+    </CodeGroup>
+
+  </Step>
+  <Step title="Install docker">
+    Install [docker desktop](https://docs.docker.com/desktop/install/mac-install/) to run apps locally
+  </Step>
+</Steps>
+
+<br />
+
+<Note>
+
+If you encounter errors, try updating pip using `python -m pip install --upgrade pip`
+
+</Note>
+
+---
+
+## Upgrade phidata
+
+To upgrade `phidata`, run this in your virtual environment
+
+```bash
+pip install -U phidata --no-cache-dir
+```
+
+---
+
+## Setup workspace
+
+If you have an existing `phidata` workspace, set it up using
+
+```bash
+phi ws setup
+```
+
+---
+
+## Reset phidata
+
+To reset the phidata config, run
+
+```bash
+phi init -r
+```
+
+<Note>
+
+This does not delete any physical data
+
+</Note>

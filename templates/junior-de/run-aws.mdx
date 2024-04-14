@@ -1,0 +1,41 @@
+---
+title: "Run on AWS"
+---
+
+Let's run the **Junior DE** in production on AWS.
+
+<Snippet file="aws-setup.mdx" />
+
+<Snippet file="update-prd-secrets.mdx" />
+
+<Snippet file="create-aws-resources.mdx" />
+
+## Production Junior DE
+
+**Open the LoadBalancer DNS** provided when creating the Streamlit App
+
+### DuckGPT
+
+- Enter the `APP_PASSWORD` from the `prd_app_secrets.yml` file (default: `admin`)
+- Click on **DuckGPT** and Enter a username.
+- Message "Show me revenue over time"
+- See your Junior DE work through the problem.
+
+![Junior DE: DuckGPT Production](/images/duckgpt_local.png)
+
+<Snippet file="ai-app-update-production.mdx" />
+
+<Snippet file="ai-app-delete-aws-resources.mdx" />
+
+## Next
+
+Congratulations on running your Junior DE on AWS. Next Steps:
+
+- Read how to [update workspace settings](/templates/how-to/workspace-settings)
+- Read how to [create a git repository for your workspace](/templates/how-to/git-repo)
+- Read how to [manage the production application](/templates/how-to/production-app)
+- Read how to [format and validate your code](/templates/how-to/format-and-validate)
+- Read how to [add python libraries](/templates/how-to/python-libraries)
+- Read how to [add a custom domain and HTTPS](/templates/how-to/domain-https)
+- Read how to [implement CI/CD](/templates/how-to/ci-cd)
+- Chat with us on [discord](https://discord.gg/4MtYHHrgA8)
