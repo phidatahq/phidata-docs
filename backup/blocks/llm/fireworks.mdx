@@ -1,35 +1,35 @@
 ---
-title: Anyscale
+title: Fireworks
 ---
 
 ## Authentication
 
-Set your `ANYSCALE_API_KEY` environment variable. You can get one [from Anyscale here](https://app.endpoints.anyscale.com/).
+Set your `FIREWORKS_API_KEY` environment variable.
 
 <CodeGroup>
 
 ```bash Mac
-export ANYSCALE_API_KEY=***
+export FIREWORKS_API_KEY=***
 ```
 
 ```bash Windows
-setx ANYSCALE_API_KEY ***
+setx FIREWORKS_API_KEY ***
 ```
 
 </CodeGroup>
 
 ## Usage
 
-Use `Anyscale` with your `Assistant`:
+Use `Fireworks` with your `Assistant`:
 
 <CodeGroup>
 
 ```python assistant.py
 from phi.assistant import Assistant
-from phi.llm.anyscale import Anyscale
+from phi.llm.fireworks import Fireworks
 
 assistant = Assistant(
-    llm=Anyscale(model="mistralai/Mixtral-8x7B-Instruct-v0.1"),
+    llm=Fireworks(model="accounts/fireworks/models/firefunction-v1"),
     description="You help people with their health and fitness goals.",
 )
 assistant.print_response("Share a quick healthy breakfast recipe.", markdown=True)
@@ -39,15 +39,15 @@ assistant.print_response("Share a quick healthy breakfast recipe.", markdown=Tru
 
 ## Params
 
-<ResponseField name="name" type="str" default="Anyscale"></ResponseField>
+<ResponseField name="name" type="str" default="Fireworks"></ResponseField>
 <ResponseField
   name="model"
   type="str"
-  default="mistralai/Mixtral-8x7B-Instruct-v0.1"
+  default="accounts/fireworks/models/firefunction-v1"
 ></ResponseField>
 <ResponseField name="api_key" type="str"></ResponseField>
 <ResponseField
   name="base_url"
   type="str"
-  default="https://api.endpoints.anyscale.com/v1"
+  default="https://api.fireworks.ai/inference/v1"
 ></ResponseField>
