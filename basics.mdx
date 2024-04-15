@@ -192,49 +192,25 @@ The `PythonAssistant` will create a file to achieve this task, please delete thi
 
 ## Assistant with Knowledge
 
-To provide LLMs with business context, we store information in a vector database that the Assistant can search to improve its responses. This information provides extra context to language models so they respond in a context-aware manner.
+To provide LLMs with business context, we store information in a vector database that the Assistant can search to improve its responses. This information provides extra context to the LLM so it can respond in a context-aware manner.
 
-Let's use `PgVector` as our vector store as it can also provide storage for our Assistants.
+Let's use **PgVector** as our vector store as it can also provide storage for our Assistants.
 
 ### Run PgVector
 
-Run `PgVector` on `Docker` using the following steps:
+Install [docker desktop](https://docs.docker.com/desktop/install/mac-install/) and run **PgVector** on port **5532** using:
 
-<Steps>
-  <Step title="Install Docker">
-    Install [docker desktop](https://docs.docker.com/desktop/install/mac-install/) for running PgVector in a container.
-  </Step>
-  <Step title="Define PgVector as a resource">
-    Create a file `resources.py` with the following contents
-
-    ```python resources.py
-    from phi.docker.app.postgres import PgVectorDb
-
-    # -*- Run PgVector on port 5532 as port 5432 may be in use.
-    vector_db = PgVectorDb(
-        pg_user="ai",
-        pg_password="ai",
-        pg_database="ai",
-        host_port=5532,
-    )
-    ```
-
-  </Step>
-  <Step title="Start PgVector">
-    Start `resources.py` using:
-
-    ```bash
-    phi start resources.py
-    ```
-
-    **Press Enter** to confirm. You can verify container status on the docker dashboard.
-
-  </Step>
-</Steps>
-
-<Note>
-You may run PgVector any way you like, using `docker-compose` or `docker run` directly.
-</Note>
+```bash
+docker run -d \
+  -e POSTGRES_DB=ai \
+  -e POSTGRES_USER=ai \
+  -e POSTGRES_PASSWORD=ai \
+  -e PGDATA=/var/lib/postgresql/data/pgdata \
+  -v pgvolume:/var/lib/postgresql/data \
+  -p 5532:5432 \
+  --name pgvector \
+  phidata/pgvector:16
+```
 
 ### RAG Assistant
 
@@ -280,7 +256,7 @@ Let's build a **PDF Assistant** that helps us with food recipes using RAG.
         # Store embeddings in the `ai.recipes` table
         vector_db=PgVector2(
             collection="recipes",
-            db_url=vector_db.get_db_connection_local()
+            db_url="postgresql+psycopg://ai:ai@localhost:5532/ai",
         ),
     )
     # Load the knowledge base
@@ -353,13 +329,11 @@ Make the `Assistant` Autonomous by setting the `search_knowledge` and `read_chat
     from phi.knowledge.pdf import PDFUrlKnowledgeBase
     from phi.vectordb.pgvector import PgVector2
 
-    from resources import vector_db
-
     knowledge_base = PDFUrlKnowledgeBase(
         urls=["https://phi-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"],
         vector_db=PgVector2(
             collection="recipes",
-            db_url=vector_db.get_db_connection_local()
+            db_url="postgresql+psycopg://ai:ai@localhost:5532/ai",
         ),
     )
     # Comment out as the knowledge base is already loaded.
@@ -408,13 +382,8 @@ We can easily add long-term memory to Assistants using a storage backend, for ex
 ```python storage.py
 from phi.storage.assistant.postgres import PgAssistantStorage
 
-from resources import vector_db
-
 # Create a storage backend using the Postgres database
-storage = PgAssistantStorage(
-    table_name="assistant_storage",
-    db_url=vector_db.get_db_connection_local(),
-)
+storage = PgAssistantStorage(table_name="assistant_storage", db_url=db_url)
 
 # Add storage to Assistant
 assistant = Assistant(storage=storage)
@@ -433,22 +402,16 @@ from phi.storage.assistant.postgres import PgAssistantStorage
 from phi.knowledge.pdf import PDFUrlKnowledgeBase
 from phi.vectordb.pgvector import PgVector2
 
-from resources import vector_db
+db_url = "postgresql+psycopg://ai:ai@localhost:5532/ai"
 
 knowledge_base = PDFUrlKnowledgeBase(
     urls=["https://phi-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"],
-    vector_db=PgVector2(
-        collection="recipes",
-        db_url=vector_db.get_db_connection_local(),
-    ),
+    vector_db=PgVector2(collection="recipes", db_url=db_url),
 )
 # Comment out after first run
 knowledge_base.load()
 
-storage = PgAssistantStorage(
-    table_name="pdf_assistant",
-    db_url=vector_db.get_db_connection_local(),
-)
+storage = PgAssistantStorage(table_name="pdf_assistant", db_url=db_url)
 
 
 def pdf_assistant(new: bool = False, user: str = "user"):
