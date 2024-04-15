@@ -109,15 +109,6 @@
             ]
           },
           {
-            "group": "Storage",
-            "pages": [
-              "storage/introduction",
-              "storage/postgres",
-              "storage/singlestore"
-
-            ]
-          },
-          {
             "group": "Knowledge",
             "pages": [
               "knowledge/introduction",
@@ -140,6 +131,15 @@
               "vectordb/introduction",
               "vectordb/pgvector",
               "vectordb/singlestore"
+
+            ]
+          },
+          {
+            "group": "Storage",
+            "pages": [
+              "storage/introduction",
+              "storage/postgres",
+              "storage/singlestore"
 
             ]
           },

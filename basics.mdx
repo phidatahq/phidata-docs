@@ -1,14 +1,13 @@
 ---
 title: Basics
 ---
-
 **Assistant = LLM + memory + knowledge + tools**
 
-- **Memory:** Stores chat history in a database.
+- **Memory:** Stores chat history, summaries, facts in a database.
 - **Knowledge:** Stores business context in a vector database.
-- **Tools:** Lets LLMs take actions like calling APIs, sending emails or querying a database.
+- **Tools:** Let LLMs take actions like calling APIs, sending emails or querying a database.
 
-Let's work through a few examples to get the hang of this.
+Let's work through a few examples
 
 ## Install & Setup
 
@@ -49,7 +48,7 @@ Let's work through a few examples to get the hang of this.
   </Step>
 </Steps>
 
-## Assistants with Tools
+## Assistant with Tools
 
 Tools are **functions** that an Assistant can run to achieve tasks like searching the web, running SQL, sending an email, calling APIs.
 
@@ -191,7 +190,7 @@ Let's create an Assistant that can write and run python code to perform virtuall
 The `PythonAssistant` will create a file to achieve this task, please delete this file.
 </Note>
 
-## Assistants with Knowledge
+## Assistant with Knowledge
 
 To provide LLMs with business context, we store information in a vector database that the Assistant can search to improve its responses. This information provides extra context to language models so they respond in a context-aware manner.
 
@@ -549,7 +548,7 @@ phi stop resources.py
 
 ## Next
 
-Congratulations on building an AI Assistant with memory, knowledge and tools. You can serve this Assistant in production using `FastApi`, `Streamlit` or `Django`. Read more about:
+Congratulations on building an AI Assistant with memory, knowledge and tools. You can serve this Assistant using `FastApi`, `Streamlit` or `Django`. Read more about:
 - [Assistants](/assistants/introduction)
 - [Tools](/tools/introduction)
 - [Knowledge](/knowledge/introduction)
