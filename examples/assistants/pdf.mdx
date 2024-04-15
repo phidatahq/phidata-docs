@@ -7,28 +7,25 @@ Create an Assistant that can
 - Read PDFs and store them in a knowledge base
 - Store the runs in PostgreSQL to provide long-term memory across sessions
 
-## Code
-
-```python cookbook/pdf/assistant.py
+```python cookbook/assistants/pdf_assistant.py
 import typer
 from rich.prompt import Prompt
 from typing import Optional, List
-
 from phi.assistant import Assistant
 from phi.storage.assistant.postgres import PgAssistantStorage
 from phi.knowledge.pdf import PDFUrlKnowledgeBase
 from phi.vectordb.pgvector import PgVector2
 
-from resources import vector_db  # type: ignore
+db_url = "postgresql+psycopg://ai:ai@localhost:5532/ai"
 
 knowledge_base = PDFUrlKnowledgeBase(
     urls=["https://phi-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"],
-    vector_db=PgVector2(collection="recipes", db_url=vector_db.get_db_connection_local()),
+    vector_db=PgVector2(collection="recipes", db_url=db_url),
 )
 # Comment out after first run
-knowledge_base.load(recreate=False)
+knowledge_base.load()
 
-storage = PgAssistantStorage(table_name="pdf_assistant", db_url=vector_db.get_db_connection_local())
+storage = PgAssistantStorage(table_name="pdf_assistant", db_url=db_url)
 
 
 def pdf_assistant(new: bool = False, user: str = "user"):
@@ -44,12 +41,12 @@ def pdf_assistant(new: bool = False, user: str = "user"):
         user_id=user,
         knowledge_base=knowledge_base,
         storage=storage,
-        # tool_calls=True adds functions to
-        # search the knowledge base and chat history
-        use_tools=True,
+        # Show tool calls in the response
         show_tool_calls=True,
-        # Uncomment the following line to use traditional RAG
-        # add_references_to_prompt=True,
+        # Enable the assistant to search the knowledge base
+        search_knowledge=True,
+        # Enable the assistant to read the chat history
+        read_chat_history=True,
     )
     if run_id is None:
         run_id = assistant.run_id
@@ -57,11 +54,7 @@ def pdf_assistant(new: bool = False, user: str = "user"):
     else:
         print(f"Continuing Run: {run_id}\n")
 
-    while True:
-        message = Prompt.ask(f"[bold] :sunglasses: {user} [/bold]")
-        if message in ("exit", "bye"):
-            break
-        assistant.print_response(message, markdown=True)
+    assistant.cli_app(markdown=True)
 
 
 if __name__ == "__main__":
@@ -71,18 +64,16 @@ if __name__ == "__main__":
 ## Usage
 
 <Steps>
-  <Step title="Start PgVector">
+  <Step title="Run PgVector">
 
-    ```bash
-    phi start cookbook/rag/resources.py -y
-    ```
+    <Snippet file="run-pgvector.mdx" />
 
   </Step>
 
   <Step title="Install libraries">
 
     ```bash
-    pip install -U pgvector pypdf psycopg sqlalchemy
+    pip install -U pgvector pypdf "psycopg[binary]" sqlalchemy openai
     ```
 
   </Step>
@@ -92,11 +83,11 @@ if __name__ == "__main__":
     <CodeGroup>
 
     ```bash Mac
-    python cookbook/pdf/assistant.py
+    python cookbook/assistants/pdf_assistant.py
     ```
 
     ```bash Windows
-    python cookbook/pdf/assistant.py
+    python cookbook/assistants/pdf_assistant.py
     ```
     </CodeGroup>
 
@@ -132,6 +123,5 @@ if __name__ == "__main__":
 
 ## Information
 
-- View on [Github](https://github.com/phidatahq/phidata/tree/main/cookbook/pdf)
-- Read about [Assistant Storage](/blocks/assistant/storage)
-- <Snippet file="message-us-discord.mdx" />
+- View on [Github](https://github.com/phidatahq/phidata/tree/main/cookbook/assistants/pdf_assistant.py)
+- Read about [Assistant Storage](/assistants/storage)

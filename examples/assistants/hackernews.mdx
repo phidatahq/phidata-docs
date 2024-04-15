@@ -1,12 +1,10 @@
 ---
-title: Trending on HN
+title: Hackernews Assistant
 ---
 
-An assistant showcasing how to use function calling with LLMs.This assistant has access to a function `get_top_hackernews_stories` that it can call to get top stories from Hacker News, it then summarizes them and returns the result.
+An assistant showcasing how to use function calling with LLMs. This assistant has access to a function `get_top_hackernews_stories` that it can call to get top stories from Hacker News.
 
-## Code
-
-```python cookbook/assistant/hackernews.py
+```python cookbook/assistants/hackernews.py
 import json
 import httpx
 
@@ -58,11 +56,11 @@ assistant.print_response("Summarize the top stories on hackernews?", markdown=Tr
     <CodeGroup>
 
     ```bash Mac
-    python cookbook/assistant/hackernews.py
+    python cookbook/assistants/hackernews.py
     ```
 
     ```bash Windows
-    python cookbook/assistant/hackernews.py
+    python cookbook/assistants/hackernews.py
     ```
 
     </CodeGroup>
@@ -73,6 +71,5 @@ assistant.print_response("Summarize the top stories on hackernews?", markdown=Tr
 
 ## Information
 
-- View on [Github](https://github.com/phidatahq/phidata/blob/main/cookbook/assistant/hackernews.py)
-- Read about [Tools](/blocks/assistant/tools)
-- <Snippet file="message-us-discord.mdx" />
+- View on [Github](https://github.com/phidatahq/phidata/blob/main/cookbook/assistants/hackernews.py)
+- Read about [Tools](/assistants/tools)

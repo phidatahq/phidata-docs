@@ -2,7 +2,7 @@
 title: Knowledge
 ---
 
-Knowledge Base is a database of information that the Assistant can use to improve its responses. This information is stored in a vector database and provides LLMs with business context, which makes them respond in a context-aware manner. The general syntax is:
+Knowledge Base is a database of information that the Assistant can search to improve its responses. This information is stored in a vector database and provides LLMs with business context, which makes them respond in a context-aware manner. The general syntax is:
 
 ```python
 from phi.assistant import Assistant, AssistantKnowledge
@@ -25,10 +25,10 @@ While any type of storage can act as a knowledge base, vector databases offer th
 
 <Steps>
   <Step title="Chunk the information">
-    We break down our knowledge into small chunks to ensure our search query matches only relevant results.
+    Break down the knowledge into smaller chunks to ensure our search query matches only relevant results.
   </Step>
   <Step title="Load the knowledge base">
-    We convert these chunks into embedding vectors and store them in a vector database.
+    Convert the chunks into embedding vectors and store them in a vector database.
   </Step>
   <Step title="Search the knowledge base">
     When the user sends a message, we convert the input message into an embedding and "search" for nearest neighbors in the vector database.
@@ -40,53 +40,33 @@ While any type of storage can act as a knowledge base, vector databases offer th
 Let's build an **Assistant** that answers questions from a PDF.
 
 1. We'll load our knowledge base with the PDF of a recipe book.
-2. Our **Assistant** will respond with the recipes from the knowledge base.
+2. Our **Assistant** will respond with recipes from the knowledge base.
 
 ### Step 1: Run PgVector
 
 Let's use `PgVector` as our vector db as it can also provide storage for our Assistants.
 
-<Steps>
-  <Step title="Install Docker">
-    Install [docker desktop](https://docs.docker.com/desktop/install/mac-install/) for running PgVector in a container.
-  </Step>
-  <Step title="Define PgVector as a resource">
-    Create a file `resources.py` with the following contents
+Install [docker desktop](https://docs.docker.com/desktop/install/mac-install/) and run **PgVector** on port **5532** using:
 
-    ```python resources.py
-    from phi.docker.app.postgres import PgVectorDb
-
-    # -*- Run PgVector on port 5532 as port 5432 may be in use.
-    vector_db = PgVectorDb(
-        pg_user="ai",
-        pg_password="ai",
-        pg_database="ai",
-        host_port=5532,
-    )
-    ```
-
-  </Step>
-  <Step title="Start PgVector">
-    Start `resources.py` using:
-
-    ```bash
-    phi start resources.py
-    ```
-
-    **Press Enter** to confirm. You can verify container status on the docker dashboard.
-
-  </Step>
-</Steps>
-
-<Note>
-You may run PgVector any way you like, using `docker-compose` or `docker run` directly.
-</Note>
+```bash
+docker run -d \
+  -e POSTGRES_DB=ai \
+  -e POSTGRES_USER=ai \
+  -e POSTGRES_PASSWORD=ai \
+  -e PGDATA=/var/lib/postgresql/data/pgdata \
+  -v pgvolume:/var/lib/postgresql/data \
+  -p 5532:5432 \
+  --name pgvector \
+  phidata/pgvector:16
+```
 
 ### Step 2: RAG Assistant
 
 Retrieval Augmented Generation means **"stuffing the prompt with relevant information"** to improve LLM responses. This is a 2 step process:
 1. Retrieve relevant information from a vector database.
 2. Augment the prompt to provide context to the LLM.
+
+Let's build a **PDF Assistant** that helps us with food recipes using RAG.
 
 <Steps>
   <Step title="Install libraries">
@@ -121,7 +101,7 @@ Retrieval Augmented Generation means **"stuffing the prompt with relevant inform
         # Store embeddings in the `ai.recipes` table
         vector_db=PgVector2(
             collection="recipes",
-            db_url=vector_db.get_db_connection_local()
+            db_url="postgresql+psycopg://ai:ai@localhost:5532/ai",
         ),
     )
     # Load the knowledge base
@@ -151,12 +131,14 @@ Retrieval Augmented Generation means **"stuffing the prompt with relevant inform
 
     </CodeGroup>
 
+    <br />
+
+    <Note>
+    The Assistant uses the `OpenAI` LLM and Embeddings by default.
+    </Note>
+
   </Step>
 </Steps>
-
-<Note>
-The Assistant by default uses the `OpenAI` LLM and Embeddings.
-</Note>
 
 <Accordion title="How to use local PDFs" icon="file-pdf" iconType="duotone">
 If you want to use local PDFs, use a `PDFKnowledgeBase` instead
@@ -194,13 +176,11 @@ Make the `Assistant` Autonomous by setting the `search_knowledge` and `read_chat
     from phi.knowledge.pdf import PDFUrlKnowledgeBase
     from phi.vectordb.pgvector import PgVector2
 
-    from resources import vector_db
-
     knowledge_base = PDFUrlKnowledgeBase(
         urls=["https://phi-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"],
         vector_db=PgVector2(
             collection="recipes",
-            db_url=vector_db.get_db_connection_local()
+            db_url="postgresql+psycopg://ai:ai@localhost:5532/ai",
         ),
     )
     # Comment out as the knowledge base is already loaded.

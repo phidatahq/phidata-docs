@@ -1,0 +1,104 @@
+---
+title: Workspace Settings
+sidebarTitle: Settings
+---
+
+The `WorkspaceSettings` object, usually defined in the `workspace/settings.py` file is used to defines common settings used by your workspace apps and resources.
+
+Its not mandatory and doesn't serve any other purpose except to hold configuration used by workspace apps and resources. The values in the `WorkspaceSettings` object can also be set using Environment variables or a `.env` file.
+
+## Example
+
+An example `WorkspaceSettings` used by the `llm-app` template. View this file on [github](https://github.com/phidatahq/llm-app/blob/main/workspace/settings.py)
+
+```python workspace/settings.py
+from pathlib import Path
+
+from phi.workspace.settings import WorkspaceSettings
+
+#
+# -*- Define workspace settings using a WorkspaceSettings object
+# these values can also be set using environment variables or a .env file
+#
+ws_settings = WorkspaceSettings(
+    # Workspace name: used for naming resources
+    ws_name="ai",
+    # Path to the workspace root
+    ws_root=Path(__file__).parent.parent.resolve(),
+    # -*- Dev settings
+    dev_env="dev",
+    # -*- Dev Apps
+    dev_app_enabled=True,
+    dev_api_enabled=True,
+    dev_db_enabled=True,
+    # dev_jupyter_enabled=True,
+    # -*- Production settings
+    prd_env="prd",
+    # -*- Production Apps
+    prd_app_enabled=True,
+    prd_api_enabled=True,
+    prd_db_enabled=True,
+    # -*- AWS settings
+    # Region for AWS resources
+    aws_region="us-east-1",
+    # Availability Zones for AWS resources
+    aws_az1="us-east-1a",
+    aws_az2="us-east-1b",
+    # Subnet IDs in the aws_region
+    # subnet_ids=["subnet-xyz", "subnet-xyz"],
+    #
+    # -*- Image Settings
+    #
+    # Default repository for images
+    image_repo="phidata"
+    # Build images locally
+    build_images=False
+    # Push images after building
+    push_images=False
+    # Skip cache when building images
+    skip_image_cache=False
+    # Force pull images in FROM
+    force_pull_images=False
+)
+```
+
+## Usage
+
+Use the workspace settings to
+
+- Name resources
+- Get the workspace root path using `ws_settings.ws_root`
+
+```python dev_resources.py
+...
+# -*- Streamlit running on port 8501:8501
+dev_streamlit = Streamlit(
+    name=f"{ws_settings.dev_key}-app",
+    enabled=ws_settings.dev_app_enabled,
+    ...
+    # Read secrets from secrets/dev_app_secrets.yml
+    secrets_file=ws_settings.ws_root.joinpath("workspace/secrets/dev_app_secrets.yml")
+)
+```
+
+- Hold AWS constants like `availability zone` and `subnets`
+
+```python prd_resources.py
+# -*- FastApi running on ECS
+prd_fastapi = FastApi(
+    name=f"{ws_settings.prd_key}-api",
+    enabled=ws_settings.prd_api_enabled,
+    ...
+    subnets=ws_settings.subnet_ids,
+    ...
+)
+
+# -*- RDS Database Instance
+prd_db = DbInstance(
+    name=f"{ws_settings.prd_key}-db",
+    enabled=ws_settings.prd_db_enabled,
+    ...
+    availability_zone=ws_settings.aws_az1,
+    ...
+)
+```

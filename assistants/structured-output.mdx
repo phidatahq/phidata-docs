@@ -2,7 +2,7 @@
 title: Structured Output
 ---
 
-One of our favorite LLM features is generating structured data (i.e. a pydantic model) from information. Use this feature to extract features, generate movie scripts, produce fake data etc.
+One of our favorite LLM features is generating structured data (i.e. a pydantic model) from text. Use this feature to extract features, generate movie scripts, produce fake data etc.
 
 ## Example
 
@@ -28,14 +28,17 @@ movie_assistant = Assistant(
 )
 
 pprint(movie_assistant.run("New York"))
+```
 
-# ======== OUTPUT ========
-# MovieScript(
-# │   setting='A bustling and vibrant New York City',
-# │   ending='The protagonist saves the city and reconciles with their estranged family.',
-# │   genre='action',
-# │   name='City Pulse',
-# │   characters=['Alex Mercer', 'Nina Castillo', 'Detective Mike Johnson'],
-# │   storyline='In the heart of New York City, a former cop turned vigilante, Alex Mercer, teams up with a street-smart activist, Nina Castillo, to take down a corrupt political figure who threatens to destroy the city. As they navigate through the intricate web of power and deception, they uncover shocking truths that push them to the brink of their abilities. With time running out, they must race against the clock to save New York and confront their own demons.'
-# )
+The output is an object of the `MovieScript` class, here's how it looks:
+
+```python
+MovieScript(
+│   setting='A bustling and vibrant New York City',
+│   ending='The protagonist saves the city and reconciles with their estranged family.',
+│   genre='action',
+│   name='City Pulse',
+│   characters=['Alex Mercer', 'Nina Castillo', 'Detective Mike Johnson'],
+│   storyline='In the heart of New York City, a former cop turned vigilante, Alex Mercer, teams up with a street-smart activist, Nina Castillo, to take down a corrupt political figure who threatens to destroy the city. As they navigate through the intricate web of power and deception, they uncover shocking truths that push them to the brink of their abilities. With time running out, they must race against the clock to save New York and confront their own demons.'
+)
 ```

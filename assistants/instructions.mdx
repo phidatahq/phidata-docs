@@ -44,7 +44,7 @@ DEBUG    Estimated completion tokens: 40
 
 In most cases, the user prompt is simply the input `message` sent to the Assistant.
 
-If `add_references_to_prompt=True`, the user prompt is updated to include:
+If a `knowledge_base` is provided and `add_references_to_prompt=True`, the user prompt is updated to include:
 
 ```python
 user_prompt += f"""Use this information from the knowledge base if it helps:
@@ -54,7 +54,7 @@ user_prompt += f"""Use this information from the knowledge base if it helps:
 """
 ```
 
-If `add_chat_history_to_prompt=True`, the user prompt is updated to include:
+If `add_chat_history_to_prompt=True`, the user prompt is updated to include messages from the chat history. The number of messages can by set using `num_history_messages`:
 
 ```python
 user_prompt += f"""Use the following chat history to reference past messages:
@@ -133,4 +133,18 @@ The system prompt can be customized using:
 </ResponseField>
 <ResponseField name="parse_output" type="bool" default="True">
   If True, the output is converted into the output_model (pydantic model or json dict). Otherwise returned as is.
+</ResponseField>
+
+## Customize the User Prompt
+
+The user prompt can be customized using:
+
+<ResponseField name="add_references_to_prompt" type="bool" default="False">
+  Enable RAG by adding references from the knowledge base to the prompt.
+</ResponseField>
+<ResponseField name="add_chat_history_to_prompt" type="bool" default="False">
+  Adds the formatted chat history to the user prompt.
+</ResponseField>
+<ResponseField name="num_history_messages" type="int" default="6">
+  Number of previous messages to add to the prompt or messages.
 </ResponseField>

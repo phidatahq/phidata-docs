@@ -1,0 +1,103 @@
+---
+title: Introduction
+---
+
+Resources are the infrastructure components for your application. Similar to [Apps](/templates/apps/introduction), we define them as python classes and create using `phi start` or `phi ws up`.
+
+## Examples
+
+- **Local Resources**: Docker containers and images
+- **Cloud Resources**: RDS database, S3 bucket, ECS services, task definitions, security groups
+- **Kubernetes Resources**: Services, deployments
+
+<CodeGroup>
+
+```python Docker Container
+from phi.docker.resource.container import DockerContainer
+
+whoami = DockerContainer(
+    name='whoami',
+    image='traefik/whoami',
+    ports={'80': 8080},
+)
+```
+
+```python Docker Image
+from phi.docker.resource.image import DockerImage
+
+dev_image = DockerImage(
+    name="repo/image",
+    tag="latest",
+    push_image=True,,
+)
+```
+
+```python S3 Bucket
+from phi.aws.resource.s3 import S3Bucket
+
+# -*- S3 bucket called my-bucket
+prd_bucket = S3Bucket(name="my-bucket")
+```
+
+```python Secret
+from pathlib import Path
+from phi.aws.resource.secret import SecretsManager
+
+# -*- Secret called my-secret
+my_secret = SecretsManager(
+    name="my-secret",
+    # Read secret variables from my_secrets.yml
+    secret_files=[Path('my_secrets.yml')],
+)
+```
+
+```python RDS Database
+from pathlib import Path
+from phi.aws.resource.secret import SecretsManager
+
+# -*- Database Secret
+db_secret = SecretsManager(
+    name="my-db-secret",
+    # Read secret variables from db_secrets.yml
+    secret_files=[Path('db_secrets.yml')],
+)
+
+# -*- Database Subnet Group
+db_subnet_group = DbSubnetGroup(name="my-db-sg")
+
+# -*- Database Instance
+db = DbInstance(
+    name="my-db",
+    db_name="llm",
+    port=5423,
+    engine="postgres",
+    engine_version="16.1",
+    allocated_storage=64,
+    db_instance_class="db.t4g.medium",
+    db_subnet_group=db_subnet_group,
+    availability_zone="us-east-1a",
+    publicly_accessible=True,
+    aws_secret=db_secret,
+)
+```
+
+</CodeGroup>
+
+<br />
+
+<Tip>
+
+Each Resource is a pydantic object providing input and type validation.
+
+</Tip>
+
+## Motivation
+
+Resources provide the **"Infrastructure Layer"** for our AI products. The software we write needs to be served by an Application, which in turn needs to run on an Infrastructure Resoure.
+
+Defining **Applications as Code** and **Infrastructure as Code** allows us completely write our application as python code - providing numerous benefits like re-usability, version control, unit testing, formatting.
+
+Phidata currently provides:
+
+- [Docker Resources](/templates/resources/docker/introduction)
+- [AWS Resources](/templates/resources/aws/introduction)

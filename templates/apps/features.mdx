@@ -1,0 +1,39 @@
+---
+title: Features
+---
+
+## Install requirements on startup
+
+Apps can install requirements on container startup. Update the `Jupyter` app to:
+
+```python resources.py
+...
+# -*- Jupyter running on port 8888:8888
+jupyter = Jupyter(
+    mount_workspace=True,
+    install_requirements=True,
+    requirements_file="requirements.txt",
+    env_vars={"OPENAI_API_KEY": getenv("OPENAI_API_KEY")},
+)
+...
+```
+
+Create a `requirements.txt` file in the same directory
+
+```python requirements.txt
+openai
+```
+
+## Patch resources
+
+<CodeGroup>
+
+```bash terminal
+phi patch resources.py -y
+```
+
+```bash full options
+phi patch resources.py --yes
+```
+
+</CodeGroup>

@@ -2,7 +2,9 @@
 title: Introduction
 ---
 
-**Assistants** add memory, knowledge and tools to LLMs. A basic assistant looks like:
+**Assistants** add memory, knowledge and tools to LLMs.
+
+We **"prompt"** them using `description` and `instructions`, for example:
 
 ```python assistant.py
 from phi.assistant import Assistant
@@ -19,9 +21,7 @@ assistant = Assistant(
 assistant.print_response("Share a breakfast recipe.", markdown=True)
 ```
 
-Under the hood, the description and instructions are converted into the system prompt and the input is passed as the user prompt.
-
-`debug_mode=True` prints the prompts sent to the LLM, here's how they look like:
+Under the hood, the description and instructions are converted into the system prompt and the input is passed as the user prompt. Use `debug_mode=True` to print the underlying prompts sent to the LLM, here's how they look like:
 
 ```js
 DEBUG    ============== system ==============
@@ -53,6 +53,30 @@ By default `stream=True`, set `stream=False` to return as a string.
 ```python
 # -*- Get the response as a string
 response = assistant.run('Share a breakfast recipe.', stream=False)
+```
+
+## Run the Assistant as a CLI app
+
+Run the Assistant as a command line application using `assistant.cli_app()`
+
+```python
+from phi.assistant import Assistant
+from phi.tools.duckduckgo import DuckDuckGo
+
+assistant = Assistant(tools=[DuckDuckGo()], show_tool_calls=True, read_chat_history=True)
+assistant.cli_app(markdown=True)
+```
+
+Ask
+
+```
+Whats happening in france?
+```
+
+Then ask:
+
+```
+Summarize the last response
 ```
 
 ## Manually set the system prompt

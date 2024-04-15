@@ -1,6 +1,90 @@
 ---
 title: Cookbook
-description: This guide is in the works
 ---
 
-<Snippet file="message-us-discord.mdx" />
+The [phidata cookbook](https://github.com/phidatahq/phidata/tree/main/cookbook) contains in-depth examples code, from basic assistants, function calling, structured output to advanced fine-tuning and evaluations.
+
+You can run each recipe individually or clone the [phidata](https://github.com/phidatahq/phidata) repo and run it from there.
+
+## Setup
+
+<Steps>
+  <Step title="Fork & clone the phidata repo">
+
+    <Tip>
+
+    We recommend forking the [phidata](https://github.com/phidatahq/phidata) repo first so you can customize the cookbooks.
+
+    </Tip>
+
+    Fork & clone the [phidata](https://github.com/phidatahq/phidata) repo
+
+    ```bash
+    git clone https://github.com/phidatahq/phidata
+    ```
+
+    `cd` into the `phidata` directory
+
+    ```bash
+    cd phidata
+    ```
+
+  </Step>
+  <Step title="Create a virtual environment">
+    Create a virtual environment with the required libraries and install the project in editable mode. You can use a helper script or run these steps manually.
+
+    <CodeGroup>
+
+    ```bash Mac
+    ./scripts/create_venv.sh
+    source phienv/bin/activate
+    ```
+
+    ```bash Manual (Mac)
+    python3 -m venv phienv
+    source phienv/bin/activate
+
+    pip install -r requirements.txt
+    pip install --editable .
+    ```
+
+    ```bash Windows
+    python3 -m venv phienv
+    phienv/scripts/activate
+
+    pip install -r requirements.txt
+    pip install --editable .
+    ```
+    </CodeGroup>
+
+  </Step>
+  <Step title="Run a recipe">
+
+    Set your `OPENAI_API_KEY`
+
+    <CodeGroup>
+
+    ```bash Mac
+    export OPENAI_API_KEY=sk-***
+    ```
+
+    ```bash Windows
+    setx OPENAI_API_KEY sk-***
+    ```
+
+    </CodeGroup>
+
+    Install `openai` and `duckduckgo-search`
+
+    ```bash
+    pip install openai duckduckgo-search
+    ```
+
+    Run the `assistants/web_search.py` recipe
+
+    ```bash
+    python cookbook/assistants/web_search.py
+    ```
+
+  </Step>
+</Steps>

@@ -67,7 +67,8 @@
               "assistants/knowledge",
               "assistants/memory",
               "assistants/storage",
-              "assistants/structured-output"
+              "assistants/structured-output",
+              "assistants/tasks"
             ]
           },
           {
@@ -142,12 +143,6 @@
               "storage/singlestore"
 
             ]
-          },
-          {
-            "group": "How To",
-            "pages": [
-              "how-to/install"
-            ]
           }
       ]
     },
@@ -158,27 +153,61 @@
         {
           "group": "Assistants",
           "pages": [
-            "examples/assistants/basic"
-          ]
-        },
-        {
-          "group": "Use Cases",
-          "pages": [
-            "examples/use-case/sql"
-          ]
-        },
-        {
-          "group": "Integrations",
-          "pages": [
-            "examples/integrations/pgvector"
+            "examples/assistants/basic",
+            "examples/assistants/rag",
+            "examples/assistants/auto",
+            "examples/assistants/pdf",
+            "examples/assistants/hackernews",
+            "examples/assistants/structured-output",
+            "examples/assistants/tasks",
+            "examples/assistants/langchain-retriever",
+            "examples/assistants/python",
+            "examples/assistants/data-analyst",
+            "examples/assistants/vision"
           ]
         },
         {
           "group": "Assistant Teams",
           "pages": [
-            "examples/teams/research"
+            "examples/teams/research",
+            "examples/teams/journalist",
+            "examples/teams/investment",
+            "examples/teams/hackernews"
+          ]
+        },
+        {
+          "group": "Use Cases",
+          "pages": [
+            "examples/use-case/sql",
+            "examples/use-case/worldbuilding"
+          ]
+        },
+        {
+          "group": "Integrations",
+          "pages": [
+            "examples/integrations/pgvector",
+            "examples/integrations/singlestore",
+            "examples/integrations/lancedb",
+            "examples/integrations/pinecone"
+          ]
+        },
+        {
+          "group": "Tools",
+          "pages": [
+            "examples/tools/arxiv",
+            "examples/tools/duckdb",
+            "examples/tools/duckduckgo",
+            "examples/tools/file",
+            "examples/tools/python",
+            "examples/tools/shell"
           ]
         }
+      ]
+    },
+    {
+      "group": "How To",
+      "pages": [
+        "how-to/install"
       ]
     },
     {
@@ -219,23 +248,70 @@
             "templates/junior-de/run-local",
             "templates/junior-de/run-aws"
           ]
+        }
+      ]
+    },
+    {
+      "group": "How to",
+      "pages": [
+        {
+          "group": "Manage Application",
+          "pages": [
+            "templates/how-to/development-app",
+            "templates/how-to/production-app",
+            "templates/how-to/python-libraries",
+            "templates/how-to/secrets",
+            "templates/how-to/env-vars",
+            "templates/how-to/database-tables",
+            "templates/how-to/ci-cd",
+            "templates/how-to/domain-https",
+            "templates/how-to/ssh-access"
+          ]
         },
         {
-          "group": "How to",
+          "group": "Manage Workspace",
           "pages": [
-              "templates/how-to/development-app",
-              "templates/how-to/production-app",
-              "templates/how-to/workspace-settings",
-              "templates/how-to/git-repo",
-              "templates/how-to/new-users",
-              "templates/how-to/python-libraries",
-              "templates/how-to/secrets",
-              "templates/how-to/env-vars",
-              "templates/how-to/database-tables",
-              "templates/how-to/format-and-validate",
-              "templates/how-to/ci-cd",
-              "templates/how-to/domain-https",
-              "templates/how-to/ssh-access"
+            "templates/how-to/workspace-settings",
+            "templates/how-to/git-repo",
+            "templates/how-to/new-users",
+            "templates/how-to/format-and-validate"
+          ]
+        }
+      ]
+    },
+    {
+      "group": "Workspace",
+      "pages": [
+        "templates/workspace/introduction",
+        "templates/workspace/settings",
+        "templates/workspace/resources"
+      ]
+    },
+    {
+      "group": "Apps",
+      "pages": [
+        "templates/apps/introduction",
+        "templates/apps/examples",
+        "templates/apps/features"
+      ]
+    },
+    {
+      "group": "Resources",
+      "pages": [
+        "templates/resources/introduction",
+        {
+          "group": "Docker",
+          "pages": [
+              "templates/resources/docker/introduction",
+              "templates/resources/docker/container"
+          ]
+        },
+        {
+          "group": "AWS",
+          "pages": [
+              "templates/resources/aws/introduction",
+              "templates/resources/aws/ecs",
+              "templates/resources/aws/rds"
           ]
         }
       ]

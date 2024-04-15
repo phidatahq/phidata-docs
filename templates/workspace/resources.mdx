@@ -1,0 +1,139 @@
+---
+title: Workspace Resources
+sidebarTitle: Resources
+---
+
+The `workspace` directory in a codebase contains the resources that are created/deleted using `phi ws up`/`phi ws down`.
+
+Any `.py` file in the `workspace` containing a `DockerResources`, `AwsResources` or `K8sResources` object can be used to define the workspace resources.
+
+To add your own resources, just create a python file, define resources and add them to a `DockerResources`, `AwsResources` or `K8sResources` object.
+
+## Example
+
+### DockerResources
+
+```python workspace/dev_resources.py
+from phi.docker.app.fastapi import FastApi
+from phi.docker.app.postgres import PgVectorDb
+from phi.docker.app.streamlit import Streamlit
+from phi.docker.resources import DockerResources
+
+#
+# -*- Resources for the Development Environment
+#
+
+# -*- Dev image
+dev_image = DockerImage(
+    ...
+)
+
+# -*- Dev database running on port 5432:5432
+dev_db = PgVectorDb(
+    ...
+)
+
+# -*- Streamlit running on port 8501:8501
+dev_streamlit = Streamlit(
+    ...
+)
+
+# -*- FastApi running on port 8000:8000
+dev_fastapi = FastApi(
+    ...
+)
+
+# -*- Dev DockerResources
+dev_docker_resources = DockerResources(
+    env=ws_settings.dev_env,
+    network=ws_settings.ws_name,
+    apps=[dev_db, dev_streamlit, dev_fastapi, dev_jupyter_app],
+)
+```
+
+### AwsResources
+
+```python workspace/prd_resources.py
+from phi.aws.app.fastapi import FastApi
+from phi.aws.app.streamlit import Streamlit
+from phi.aws.resources import AwsResources
+from phi.aws.resource.ecs import EcsCluster
+from phi.aws.resource.ec2 import SecurityGroup, InboundRule
+from phi.aws.resource.rds import DbInstance, DbSubnetGroup
+from phi.aws.resource.reference import AwsReference
+from phi.aws.resource.s3 import S3Bucket
+from phi.aws.resource.secret import SecretsManager
+from phi.docker.resources import DockerResources
+from phi.docker.resource.image import DockerImage
+
+#
+# -*- Resources for the Production Environment
+#
+
+# -*- Production image
+prd_image = DockerImage(
+    ...
+)
+
+# -*- S3 bucket for production data
+prd_bucket = S3Bucket(
+    ...
+)
+
+# -*- Secrets for production application
+prd_secret = SecretsManager(
+    ...
+)
+# -*- Secrets for production database
+prd_db_secret = SecretsManager(
+    ...
+)
+
+# -*- Security Group for the load balancer
+prd_lb_sg = SecurityGroup(
+    ...
+)
+# -*- Security Group for the application
+prd_sg = SecurityGroup(
+    ...
+)
+# -*- Security Group for the database
+prd_db_port = 5432
+prd_db_sg = SecurityGroup(
+    ...
+)
+
+# -*- RDS Database Subnet Group
+prd_db_subnet_group = DbSubnetGroup(
+    ...
+)
+
+# -*- RDS Database Instance
+prd_db = DbInstance(
+    ...
+)
+
+# -*- Streamlit running on ECS
+prd_streamlit = Streamlit(
+    ...
+)
+
+# -*- FastApi running on ECS
+prd_fastapi = FastApi(
+    ...
+)
+
+# -*- Production DockerResources
+prd_docker_resources = DockerResources(
+    env=ws_settings.prd_env,
+    network=ws_settings.ws_name,
+    resources=[prd_image],
+)
+
+# -*- Production AwsResources
+prd_aws_resources = AwsResources(
+    env=ws_settings.prd_env,
+    apps=[prd_streamlit, prd_fastapi],
+    resources=[prd_lb_sg, prd_sg, prd_db_sg, prd_secret, prd_db_secret, prd_db_subnet_group, prd_db, prd_bucket],
+)
+```

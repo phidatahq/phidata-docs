@@ -1,13 +1,10 @@
 ---
-title: Movie Assistant
-sidebarTitle: Pydantic Objects
+title: Structured Output
 ---
 
 An assistant showcasing how to generate pydantic objects with LLMs. This assistant will generate a `MovieScript` given a theme.
 
-## Code
-
-```python cookbook/assistant/pydantic_model.py
+```python cookbook/assistants/movie_assistant.py
 from typing import List
 from pydantic import BaseModel, Field
 from rich.pretty import pprint
@@ -26,7 +23,7 @@ class MovieScript(BaseModel):
 
 
 movie_assistant = Assistant(
-    description="You help people write movie ideas.",
+    description="You help write movie scripts.",
     output_model=MovieScript,
 )
 
@@ -49,11 +46,11 @@ pprint(movie_assistant.run("New York"))
     <CodeGroup>
 
     ```bash Mac
-    python cookbook/assistant/pydantic_model.py
+    python cookbook/assistants/movie_assistant.py
     ```
 
     ```bash Windows
-    python cookbook/assistant/pydantic_model.py
+    python cookbook/assistants/movie_assistant.py
     ```
 
     </CodeGroup>
@@ -64,6 +61,5 @@ pprint(movie_assistant.run("New York"))
 
 ## Information
 
-- View on [Github](https://github.com/phidatahq/phidata/blob/main/cookbook/assistant/pydantic_model.py)
-- Read about [Pydantic outputs with LLMs](/blocks/assistant/pydantic-output)
-- <Snippet file="message-us-discord.mdx" />
+- View on [Github](https://github.com/phidatahq/phidata/blob/main/cookbook/assistants/movie_assistant.py)
+- Read about generating [structured output from LLMs](/assistants/structured-output)

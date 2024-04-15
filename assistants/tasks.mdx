@@ -1,13 +1,21 @@
 ---
-title: Short story generator
+title: Assistant Tasks
 sidebarTitle: Tasks
 ---
 
-An assistant showcasing how to chain `Tasks` to generate reliable outputs from LLMs. This assistant will generate a short story given a theme.
+Tasks allow us to chain LLM responses and build complex worfklows.
 
-## Code
+In general, Assistants follow the **Input -> Output** pattern and Tasks allows us to achieve **Input -> Output 1 -> ... -> Final Output** by chaining the LLM outputs together.
 
-```python cookbook/assistant/tasks.py
+## Example
+
+In this example, we use 3 **Tasks** to reliably generate short stories for a given **Theme** by:
+
+1. Generate a **setting** and **genre** for **Theme** using a Pydantic model.
+2. Write a 2 sentence story about the the **setting** and **genre**.
+3. Give the story a **Name**
+
+```python story_generator.py
 from phi.llm.openai import OpenAIChat
 from phi.task.llm import LLMTask
 from phi.assistant import Assistant
@@ -40,51 +48,3 @@ give_story_a_name = LLMTask(
 story_generator = Assistant(tasks=[get_story_theme, write_story, give_story_a_name])
 story_generator.cli_app(user="Theme", markdown=True)
 ```
-
-## Usage
-
-<Steps>
-  <Step title="Install libraries">
-
-    ```bash
-    pip install openai
-    ```
-
-  </Step>
-  <Step title="Run the assistant">
-
-    <CodeGroup>
-
-    ```bash Mac
-    python cookbook/assistant/tasks.py
-    ```
-
-    ```bash Windows
-    python cookbook/assistant/tasks.py
-    ```
-
-    </CodeGroup>
-
-  </Step>
-  <Step title="Generate short stories">
-    Test short stories for the following themes:
-    ```
-    Drag race in 2090 New York
-    ```
-
-    ```
-    Love in 1800s Punjab
-    ```
-
-    ```
-    Christmas in London year 15000AD
-    ```
-
-  </Step>
-</Steps>
-
-## Information
-
-- View on [Github](https://github.com/phidatahq/phidata/blob/main/cookbook/assistant/tasks.py)
-- Read about [Tasks](/blocks/assistant/tasks)
-- <Snippet file="message-us-discord.mdx" />

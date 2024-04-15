@@ -2,7 +2,7 @@
 title: Storage
 ---
 
-Assistants come with built-in memory but it only lasts while the session is active. To continue conversations across sessions, we store Assistant runs in a database table.
+Assistants come with built-in memory but it only lasts while the session is active. To continue conversations across sessions, we store Assistant runs in a database like PostgreSQL.
 
 Storage is a necessary component when building user facing AI products as any production application will require users to be able to "continue" their conversation with the AI.
 
@@ -76,30 +76,23 @@ assistant = Assistant(storage=storage)
 
   </Step>
   <Step title="Run PgVector">
-    Create a file `resources.py` with the following contents
 
-    ```python resources.py
-    from phi.docker.app.postgres import PgVectorDb
-
-    # -*- Run PgVector on port 5532 as port 5432 may be in use.
-    vector_db = PgVectorDb(
-        pg_user="ai",
-        pg_password="ai",
-        pg_database="ai",
-        host_port=5532,
-    )
-    ```
-
-    Start `resources.py` using:
+    Install [docker desktop](https://docs.docker.com/desktop/install/mac-install/) and run **PgVector** on port **5532** using:
 
     ```bash
-    phi start resources.py
+    docker run -d \
+      -e POSTGRES_DB=ai \
+      -e POSTGRES_USER=ai \
+      -e POSTGRES_PASSWORD=ai \
+      -e PGDATA=/var/lib/postgresql/data/pgdata \
+      -v pgvolume:/var/lib/postgresql/data \
+      -p 5532:5432 \
+      --name pgvector \
+      phidata/pgvector:16
     ```
 
-    **Press Enter** to confirm. You can verify container status on the docker dashboard.
-
   </Step>
-  <Step title="Create an assistant with storage">
+  <Step title="Create an Assistant with Storage">
     Create a file `pdf_assistant.py` with the following contents
 
     ```python pdf_assistant.py
@@ -111,22 +104,16 @@ assistant = Assistant(storage=storage)
     from phi.knowledge.pdf import PDFUrlKnowledgeBase
     from phi.vectordb.pgvector import PgVector2
 
-    from resources import vector_db
+    db_url = "postgresql+psycopg://ai:ai@localhost:5532/ai"
 
     knowledge_base = PDFUrlKnowledgeBase(
         urls=["https://phi-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"],
-        vector_db=PgVector2(
-            collection="recipes",
-            db_url=vector_db.get_db_connection_local(),
-        ),
+        vector_db=PgVector2(collection="recipes", db_url=db_url),
     )
     # Comment out after first run
     knowledge_base.load()
 
-    storage = PgAssistantStorage(
-        table_name="pdf_assistant",
-        db_url=vector_db.get_db_connection_local(),
-    )
+    storage = PgAssistantStorage(table_name="pdf_assistant", db_url=db_url)
 
 
     def pdf_assistant(new: bool = False, user: str = "user"):
@@ -155,17 +142,13 @@ assistant = Assistant(storage=storage)
         else:
             print(f"Continuing Run: {run_id}\n")
 
-        while True:
-            message = Prompt.ask(f"[bold] :sunglasses: {user} [/bold]")
-            if message in ("exit", "bye"):
-                break
-            assistant.print_response(message, markdown=True)
+        # Runs the assistant as a cli app
+        assistant.cli_app(markdown=True)
 
 
     if __name__ == "__main__":
         typer.run(pdf_assistant)
     ```
-
   </Step>
   <Step title="Run the assistant">
     Run the `pdf_assistant.py` file
@@ -196,5 +179,3 @@ assistant = Assistant(storage=storage)
 
   </Step>
 </Steps>
-
-<Snippet file="message-us-discord.mdx" />

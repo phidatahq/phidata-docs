@@ -52,7 +52,7 @@ Let's work through a few examples
 
 Tools are **functions** that an Assistant can run to achieve tasks like searching the web, running SQL, sending an email, calling APIs.
 
-### Web Search
+### Example: Web Search
 
 Let's create an Assistant that can search the web using DuckDuckGo.
 
@@ -99,102 +99,9 @@ Let's create an Assistant that can search the web using DuckDuckGo.
   </Step>
 </Steps>
 
-### Data Analysis
-
-Let's create an Assistant that can analyze data using DuckDb.
-
-<Steps>
-  <Step title="Create a DuckDbAssistant">
-    Create a file `data_analyst.py`
-
-    ```python data_analyst.py
-    import json
-    from phi.assistant.duckdb import DuckDbAssistant
-
-    data_analyst = DuckDbAssistant(
-        semantic_model=json.dumps({
-            "tables": [
-                {
-                    "name": "movies",
-                    "description": "Contains information about movies from IMDB.",
-                    "path": "https://phidata-public.s3.amazonaws.com/demo_data/IMDB-Movie-Data.csv",
-                }
-            ]
-        }),
-    )
-
-    data_analyst.print_response("What is the average rating of movies? Show me the SQL.", markdown=True)
-    ```
-
-  </Step>
-  <Step title="Run the Assistant">
-    Install duckdb
-
-    ```shell
-    pip install duckdb
-    ```
-
-    Run the Assistant
-
-    ```bash
-    python data_analyst.py
-    ```
-
-  </Step>
-</Steps>
-
-### Python Assistant
-
-Let's create an Assistant that can write and run python code to perform virtually any task.
-
-<Steps>
-  <Step title="Create a PythonAssistant">
-    Create a file `python_assistant.py`
-
-    ```python python_assistant.py
-    from phi.assistant.python import PythonAssistant
-    from phi.file.local.csv import CsvFile
-
-    python_assistant = PythonAssistant(
-        files=[
-            CsvFile(
-                path="https://phidata-public.s3.amazonaws.com/demo_data/IMDB-Movie-Data.csv",
-                description="Contains information about movies from IMDB.",
-            )
-        ],
-        pip_install=True,
-        show_tool_calls=True,
-    )
-
-    python_assistant.print_response("What is the average rating of movies?", markdown=True)
-    ```
-
-  </Step>
-  <Step title="Run the Assistant">
-    Install pandas
-
-    ```
-    pip install pandas
-    ```
-
-    Run the Assistant
-
-    ```bash
-    python python_assistant.py
-    ```
-
-  </Step>
-</Steps>
-
-<Note>
-The `PythonAssistant` will create a file to achieve this task, please delete this file.
-</Note>
-
 ## Assistant with Knowledge
 
-To provide LLMs with business context, we store information in a vector database that the Assistant can search to improve its responses. This information provides extra context to the LLM so it can respond in a context-aware manner.
-
-Let's use **PgVector** as our vector store as it can also provide storage for our Assistants.
+To provide LLMs with business context, we store information in a vector database that the Assistant can search to improve its responses. Let's use **PgVector** as our vector store as it can also provide storage for our Assistants.
 
 ### Run PgVector
 
@@ -219,9 +126,6 @@ Retrieval Augmented Generation means **"stuffing the prompt with relevant inform
 2. Augment the prompt to provide context to the LLM.
 
 Let's build a **PDF Assistant** that helps us with food recipes using RAG.
-
-1. We'll load the knowledge base (vector db) with a recipe book PDF.
-2. Our **PDF Assistant** will respond with the recipes from the knowledge base.
 
 <Steps>
   <Step title="Install libraries">
@@ -286,12 +190,14 @@ Let's build a **PDF Assistant** that helps us with food recipes using RAG.
 
     </CodeGroup>
 
+    <br />
+
+    <Note>
+    The Assistant uses the `OpenAI` LLM and Embeddings by default.
+    </Note>
+
   </Step>
 </Steps>
-
-<Note>
-The Assistant by default uses the `OpenAI` LLM and Embeddings.
-</Note>
 
 <Accordion title="How to use local PDFs" icon="file-pdf" iconType="duotone">
 If you want to use local PDFs, use a `PDFKnowledgeBase` instead
@@ -373,25 +279,13 @@ Make the `Assistant` Autonomous by setting the `search_knowledge` and `read_chat
   </Step>
 </Steps>
 
-## Memory & Storage
+## Assistant with Memory, Knowledge & Tools
 
-Every `Assistant` comes with built-in memory but it only lasts while the session is active. To continue conversations across sessions, we need to store the chat history in a database like PostgreSQL.
+Assistants comes with built-in memory but it only lasts while the session is active. To continue conversations across sessions, we can store chat history in a database like PostgreSQL.
 
-We can easily add long-term memory to Assistants using a storage backend, for example:
+Lets wrap up by building an Assistant that can read PDFs, store them in a knowledge base and continue conversations across sessions by storing chat history in a database.
 
-```python storage.py
-from phi.storage.assistant.postgres import PgAssistantStorage
-
-# Create a storage backend using the Postgres database
-storage = PgAssistantStorage(table_name="assistant_storage", db_url=db_url)
-
-# Add storage to Assistant
-assistant = Assistant(storage=storage)
-```
-
-## Assistant with Memory, Knowledge and Tools
-
-Lets wrap up by building an Assistant that can read PDFs, store them in a knowledge base and continue conversations across sessions. Create a file `pdf_assistant.py`
+Create a file `pdf_assistant.py`
 
 ```python pdf_assistant.py
 import typer
@@ -440,11 +334,8 @@ def pdf_assistant(new: bool = False, user: str = "user"):
     else:
         print(f"Continuing Run: {run_id}\n")
 
-    while True:
-        message = Prompt.ask(f"[bold] :sunglasses: {user} [/bold]")
-        if message in ("exit", "bye"):
-            break
-        assistant.print_response(message, markdown=True)
+    # Runs the assistant as a cli app
+    assistant.cli_app(markdown=True)
 
 
 if __name__ == "__main__":
@@ -467,7 +358,7 @@ python pdf_assistant.py
 
 **Ask Questions**
 
-Now the assistant continues across sessions. Ask a question:
+Now the conversation continues across sessions. Ask a question:
 
 ```
 How do I make pad that?
@@ -489,22 +380,6 @@ python pdf_assistant.py --new
 
 ```bash Windows
 python pdf_assistant.py --new
-```
-
-</CodeGroup>
-
-## Stop PgVector
-
-Play around and then stop `PgVector` using `phi stop resources.py`
-
-<CodeGroup>
-
-```bash Mac
-phi stop resources.py
-```
-
-```bash Windows
-phi stop resources.py
 ```
 
 </CodeGroup>

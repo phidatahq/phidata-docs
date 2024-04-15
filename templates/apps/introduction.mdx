@@ -1,0 +1,61 @@
+---
+title: Introduction
+---
+
+Apps are tools like `FastApi`, `PgVector`, `Streamlit`, `Jupyter`, `Django` that we define as python classes and run using `phi start` or `phi ws up`.
+
+When running Apps using phidata, think of them as infrastructure as code but at a higher level of abstraction. Instead of defining containers, volumes etc. we define the application we want to run. We run **Applications as Code** instead of Infrastructure as Code.
+
+The same `App` can run on docker, AWS (ECS) or Kubernetes (EKS). The App creates the underlying resources like LoadBalancers, Services, Deployments. As the underlying resources become more complex, the concept of Apps become more appealing.
+
+## Example
+
+Lets run a Jupyter notebook and PgVector on docker.
+
+Copy the following contents to a file `resources.py` and run `phi start resources.py`
+
+```python resources.py
+from phi.docker.app.jupyter import Jupyter
+from phi.docker.app.postgres import PgVectorDb
+from phi.docker.resources import DockerResources
+
+# -*- PgVector running on port 5432:5432
+vector_db = PgVectorDb(pg_user="ai", pg_password="ai", pg_database="ai")
+
+# -*- Jupyter running on port 8888:8888
+jupyter = Jupyter(mount_workspace=True)
+
+# -*- DockerResources
+dev_docker_resources = DockerResources(apps=[vector_db, jupyter])
+```
+
+- Each App is a pydantic object providing input and type validation.
+- Note how the `mount_workspace` automatically mounts the directory
+- Note how `PgVectorDb` sets the required settings and creates the volume.
+
+While this is a simple example, these concepts become very powerful for complex applications.
+
+## Motivation
+
+Apps provide the **"Application Layer"** for our AI products.
+
+The software we write needs to be served by an Application, and this Application needs to **run the same** locally for development and in the cloud for production. By defining **Applications as Code**, we bring the benefits of **Infrastructure as Code** to the software layer.
+
+Defining **Applications as Code** also allows us to package "software systems" into templates. Meaning every phidata template can run locally using docker or on AWS with 1 command.
+
+Finally, defining **Applications as python objects** means we can import them in our code like regular objects making the following code possible:
+
+```python
+from resources import vector_db
+
+db_url=vector_db.get_db_connection_local()
+```
+
+Checkout some example apps you can run on docker:
+
+- [PgVector](/blocks/app/examples/pgvector)
+- [Jupyter](/blocks/app/examples/jupyter)
+
+Defining **Applications as Code** offers many benefits, such as:
+
+- [Install requirements on startup](/blocks/app/features#install-requirements-on-startup)

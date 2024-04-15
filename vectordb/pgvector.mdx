@@ -8,36 +8,16 @@ It runs locally on docker and is provided as a resilient service by major cloud 
 
 ## Run PgVector
 
-We provide a way to run PgVector locally using docker as a phidata resource, this is purely so we can create volumes, set env variables and initialize the extension. You may run PgVector any way you like, using `docker-compose` or `docker run` directly.
+Install [docker desktop](https://docs.docker.com/desktop/install/mac-install/) and run **PgVector** on port **5532** using:
 
-<Steps>
-  <Step title="Install Docker">
-    Install [docker desktop](https://docs.docker.com/desktop/install/mac-install/) for running PgVector in a container.
-  </Step>
-  <Step title="Define PgVector as a resource">
-    Create a file `resources.py` with the following contents
-
-    ```python resources.py
-    from phi.docker.app.postgres import PgVectorDb
-
-    # -*- Run PgVector on port 5532 as port 5432 may be in use.
-    vector_db = PgVectorDb(
-        pg_user="ai",
-        pg_password="ai",
-        pg_database="ai",
-        host_port=5532,
-    )
-    ```
-
-  </Step>
-  <Step title="Start PgVector">
-    Start `resources.py` using:
-
-    ```bash
-    phi start resources.py
-    ```
-
-    **Press Enter** to confirm. You can verify container status on the docker dashboard.
-
-  </Step>
-</Steps>
+```bash
+docker run -d \
+  -e POSTGRES_DB=ai \
+  -e POSTGRES_USER=ai \
+  -e POSTGRES_PASSWORD=ai \
+  -e PGDATA=/var/lib/postgresql/data/pgdata \
+  -v pgvolume:/var/lib/postgresql/data \
+  -p 5532:5432 \
+  --name pgvector \
+  phidata/pgvector:16
+```

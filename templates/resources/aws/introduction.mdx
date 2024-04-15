@@ -1,0 +1,62 @@
+---
+title: AWS Resources
+sidebarTitle: AWS
+---
+
+AWS Resources enable us to create AWS services as pydantic objects, completing our vision of writing software, application and infrastructure code entirely in python.
+
+## Examples
+
+### S3 Bucket
+
+Copy the following code to a file `resources.py` and run `phi start resources.py` to create a bucket called `my-bucket-885`.
+
+<CodeGroup>
+
+```python resources.py
+from phi.aws.resource.s3 import S3Bucket
+
+# -*- S3 bucket called my-bucket-885
+prd_bucket = S3Bucket(name="my-bucket-885")
+```
+
+</CodeGroup>
+
+Make sure to delete the bucket using `phi stop resources.py`
+
+### Secret Manager
+
+Copy the following code to a file `resources.py` and run `phi start resources.py` to create a secret called `my-secret`.
+
+<CodeGroup>
+
+```python resources.py
+import json
+from phi.aws.resource.secret import SecretsManager
+
+# -*- Secret called my-secret
+prd_secret = SecretsManager(
+    name="my-secret",
+    secret_string=json.dumps({"mysecretkey": "mysecretvalue"}),
+    # Read secret variables from my_secrets.yml
+    # secret_files=[Path('my_secrets.yml')],
+)
+```
+
+</CodeGroup>
+
+Read the secret in another file called `read_my_secret.py`
+
+<CodeGroup>
+
+```python read_my_secret.py
+from resources import my_secret
+
+print(my_secret.get_secret_value("mysecretkey"))
+```
+
+</CodeGroup>
+
+Run this file using `python read_my_secret.py`.
+
+Delete the secret using `phi stop resources.py`

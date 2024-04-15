@@ -2,16 +2,16 @@
 title: Introduction
 ---
 
-Vector databases enable us to store information as embeddings and search for the "results similar" to our input query using. These results are then provided to the LLM as context so it can respond in a context-aware manner using Retrieval Augmented Generation (**RAG**). Here’s how vector databases are used as a knowledge base for AI products:
+Vector databases enable us to store information as embeddings and search for the "results similar" to our input query using. These results are then provided to the LLM as context so it can respond in a context-aware manner using Retrieval Augmented Generation (**RAG**).
 
 **Our goal is to search relevant information from a knowledge base quickly**, here's how vector databases are used with LLMs:
 
 <Steps>
   <Step title="Chunk the information">
-    We break down our knowledge into small chunks to ensure our search query matches only relevant results.
+   Break down the knowledge into smaller chunks to ensure our search query matches only relevant results.
   </Step>
   <Step title="Load the knowledge base">
-    We convert these chunks into embedding vectors and store them in a vector database.
+    Convert the chunks into embedding vectors and store them in a vector database.
   </Step>
   <Step title="Search the knowledge base">
     When the user sends a message, we convert the input message into an embedding and "search" for nearest neighbors in the vector database.

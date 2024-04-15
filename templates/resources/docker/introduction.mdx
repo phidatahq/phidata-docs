@@ -1,0 +1,94 @@
+---
+title: Docker
+---
+
+[Docker](https://docs.docker.com/get-started/overview/) is a game-changing technology that enables us to run applications locally. We package our [Apps](/blocks/app) into **Containers** that include everything needed to run the application
+
+## Docker Resources
+
+Phidata enables us to define docker resources as pydantic objects so we can build our application layer purely in python. In most cases you will not be creating the **Docker Resources** directly, instead we'll use [Apps](/blocks/app) to create the resources for us.
+
+<Accordion title="difference from docker-compose">
+
+Docker Compose is more mature and defines resources as a "yaml configuration" whereas phidata allows us to define resources as "python objects".
+
+We still love docker-compose, just want to elevate the experience. With phidata we rarely define the resources directly, instead we use Apps to create the resources for us.
+
+</Accordion>
+
+### Benefits
+
+- Define containers and images as pydantic objects with input and type validation.
+- Allows re-use and testing of resources.
+- Import them in software layer like regular python objects.
+- Package multiple resources into [Apps](/blocks/app) so we can define **"Applications as Code"**.
+- Enable AI features that interact with the resource from python code.
+
+## Container
+
+The `DockerContainer` class defines a container, for example use the following code to define a container running the [whoami](https://github.com/traefik/whoami) image. Start it using `phi start resources.py`
+
+```python resources.py
+from phi.docker.resource.container import DockerContainer
+
+whoami = DockerContainer(
+    name='whoami',
+    image='traefik/whoami',
+    ports={'80': 80},
+)
+```
+
+Test it by opening [http://localhost:80](http://localhost:80) or using:
+
+```bash
+curl -X POST http://localhost:80
+```
+
+The same can be defined as an `App`:
+
+```python resources.py
+from phi.docker.app.whoami import Whoami
+
+whoami = Whoami()
+```
+
+Stop resources using `phi stop resources.py`
+
+## Image
+
+The `DockerImage` class defines an image, for example use the following code create your own python image and run it in a container. Build it using `phi start resources.py`
+
+<CodeGroup>
+
+```python resources.py
+from phi.docker.resource.container import DockerContainer
+from phi.docker.resource.image import DockerImage
+
+python_image = DockerImage(
+    name="my/python",
+    tag="3.11",
+    path=".",
+    # push_image=True,
+)
+
+python_container = DockerContainer(
+    name='python',
+    image=python_image.get_image_str(),
+)
+```
+
+```docker Dockerfile
+FROM phidata/python:3.11.5
+
+CMD ["chill"]
+```
+
+</CodeGroup>
+
+<br />
+
+<Note>
+
+Make sure to add the `Dockerfile` in the current directory.
+
+</Note>

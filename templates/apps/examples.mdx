@@ -1,0 +1,69 @@
+---
+title: Examples
+---
+
+<Snippet file="run-pgvector-docker.mdx" />
+
+## Run Jupyter on Docker
+
+A jupyter notebook is a must have for AI development. Update the `resources.py` file to:
+
+```python resources.py
+from os import getenv
+
+from phi.docker.app.jupyter import Jupyter
+from phi.docker.app.postgres import PgVectorDb
+from phi.docker.resources import DockerResources
+
+# -*- PgVector running on port 5432:5432
+vector_db = PgVectorDb(
+    pg_user="ai",
+    pg_password="ai",
+    pg_database="ai",
+    debug_mode=True,
+)
+
+# -*- Jupyter running on port 8888:8888
+jupyter = Jupyter(
+    mount_workspace=True,
+    env_vars={"OPENAI_API_KEY": getenv("OPENAI_API_KEY")},
+)
+
+# -*- DockerResources
+dev_docker_resources = DockerResources(
+    apps=[vector_db, jupyter],
+)
+```
+
+Start resources using:
+
+<CodeGroup>
+
+```bash Mac
+phi start resources.py
+```
+
+```bash Windows
+phi start resources.py
+```
+
+</CodeGroup>
+
+### View Jupyterlab UI
+
+- Open [localhost:8888](http://localhost:8888) to view the Jupyterlab UI. Password: **admin**
+- The directory is automatically mounted in the notebook.
+
+## Stop resources
+
+<CodeGroup>
+
+```bash Mac
+phi stop resources.py
+```
+
+```bash Windows
+phi stop resources.py
+```
+
+</CodeGroup>
