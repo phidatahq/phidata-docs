@@ -50,100 +50,97 @@
   "navigation": [
     {
       "group": "Getting Started",
-      "pages": [
-          "introduction",
-          "basics"
-      ]
+      "pages": ["introduction", "basics"]
     },
     {
       "group": "Documentation",
       "pages": [
-          {
-            "group": "Assistants",
-            "pages": [
-              "assistants/introduction",
-              "assistants/instructions",
-              "assistants/tools",
-              "assistants/knowledge",
-              "assistants/memory",
-              "assistants/storage",
-              "assistants/structured-output",
-              "assistants/tasks"
-            ]
-          },
-          {
-            "group": "LLMs",
-            "pages": [
-              "llms/introduction",
-              "llms/openai",
-              "llms/openai-like",
-              "llms/ollama",
-              "llms/aws",
-              "llms/together",
-              "llms/anyscale",
-              "llms/fireworks",
-              "llms/mistral",
-              "llms/groq",
-              "llms/gemini",
-              "llms/azure",
-              "llms/claude",
-              "llms/cohere"
-            ]
-          },
-          {
-            "group": "Tools",
-            "pages": [
-              "tools/introduction",
-              "tools/functions",
-              "tools/toolkits",
-              "tools/custom-toolkits",
-              "tools/duckduckgo",
-              "tools/python",
-              "tools/file",
-              "tools/shell",
-              "tools/duckdb",
-              "tools/arxiv",
-              "tools/email",
-              "tools/website",
-              "tools/wikipedia",
-              "tools/tavily"
-            ]
-          },
-          {
-            "group": "Knowledge",
-            "pages": [
-              "knowledge/introduction",
-              "knowledge/pdf",
-              "knowledge/pdf-url",
-              "knowledge/text",
-              "knowledge/docx",
-              "knowledge/json",
-              "knowledge/website",
-              "knowledge/wikipedia",
-              "knowledge/arxiv",
-              "knowledge/combined",
-              "knowledge/langchain",
-              "knowledge/manual"
-            ]
-          },
-          {
-            "group": "VectorDbs",
-            "pages": [
-              "vectordb/introduction",
-              "vectordb/pgvector",
-              "vectordb/singlestore"
-
-            ]
-          },
-          {
-            "group": "Storage",
-            "pages": [
-              "storage/introduction",
-              "storage/postgres",
-              "storage/singlestore"
-
-            ]
-          }
+        {
+          "group": "Assistants",
+          "pages": [
+            "assistants/introduction",
+            "assistants/instructions",
+            "assistants/tools",
+            "assistants/knowledge",
+            "assistants/memory",
+            "assistants/storage",
+            "assistants/structured-output",
+            "assistants/tasks"
+          ]
+        },
+        {
+          "group": "LLMs",
+          "pages": [
+            "llms/introduction",
+            "llms/openai",
+            "llms/openai-like",
+            "llms/ollama",
+            "llms/aws",
+            "llms/together",
+            "llms/anyscale",
+            "llms/fireworks",
+            "llms/mistral",
+            "llms/groq",
+            "llms/gemini",
+            "llms/azure",
+            "llms/claude",
+            "llms/cohere"
+          ]
+        },
+        {
+          "group": "Tools",
+          "pages": [
+            "tools/introduction",
+            "tools/functions",
+            "tools/toolkits",
+            "tools/custom-toolkits",
+            "tools/duckduckgo",
+            "tools/python",
+            "tools/file",
+            "tools/shell",
+            "tools/duckdb",
+            "tools/arxiv",
+            "tools/email",
+            "tools/website",
+            "tools/wikipedia",
+            "tools/tavily"
+          ]
+        },
+        {
+          "group": "Knowledge",
+          "pages": [
+            "knowledge/introduction",
+            "knowledge/pdf",
+            "knowledge/pdf-url",
+            "knowledge/text",
+            "knowledge/docx",
+            "knowledge/json",
+            "knowledge/website",
+            "knowledge/wikipedia",
+            "knowledge/arxiv",
+            "knowledge/combined",
+            "knowledge/langchain",
+            "knowledge/manual"
+          ]
+        },
+        {
+          "group": "VectorDbs",
+          "pages": [
+            "vectordb/introduction",
+            "vectordb/pgvector",
+            "vectordb/singlestore",
+            "vectordb/pinecone",
+            "vectordb/lancedb"
+          ]
+        },
+        {
+          "group": "Storage",
+          "pages": [
+            "storage/introduction",
+            "storage/postgres",
+            "storage/singlestore"
+          ]
+        }
       ]
     },
     {
@@ -177,10 +174,7 @@
         },
         {
           "group": "Use Cases",
-          "pages": [
-            "examples/use-case/sql",
-            "examples/use-case/worldbuilding"
-          ]
+          "pages": ["examples/use-case/sql", "examples/use-case/worldbuilding"]
         },
         {
           "group": "Integrations",
@@ -206,9 +200,7 @@
     },
     {
       "group": "How To",
-      "pages": [
-        "how-to/install"
-      ]
+      "pages": ["how-to/install"]
     },
     {
       "group": "Templates",
@@ -216,17 +208,11 @@
         "templates/introduction",
         {
           "group": "AI App",
-          "pages": [
-            "templates/ai-app/run-local",
-            "templates/ai-app/run-aws"
-          ]
+          "pages": ["templates/ai-app/run-local", "templates/ai-app/run-aws"]
         },
         {
           "group": "AI API",
-          "pages": [
-            "templates/ai-api/run-local",
-            "templates/ai-api/run-aws"
-          ]
+          "pages": ["templates/ai-api/run-local", "templates/ai-api/run-aws"]
         },
         {
           "group": "Streamlit App",
@@ -302,16 +288,16 @@
         {
           "group": "Docker",
           "pages": [
-              "templates/resources/docker/introduction",
-              "templates/resources/docker/container"
+            "templates/resources/docker/introduction",
+            "templates/resources/docker/container"
           ]
         },
         {
           "group": "AWS",
           "pages": [
-              "templates/resources/aws/introduction",
-              "templates/resources/aws/ecs",
-              "templates/resources/aws/rds"
+            "templates/resources/aws/introduction",
+            "templates/resources/aws/ecs",
+            "templates/resources/aws/rds"
           ]
         }
       ]
@@ -329,10 +315,7 @@
         },
         {
           "group": "Tasks",
-          "pages": [
-            "reference/blocks/task/base",
-            "reference/blocks/task/llm"
-          ]
+          "pages": ["reference/blocks/task/base", "reference/blocks/task/llm"]
         },
         {
           "group": "LLMs",
@@ -366,7 +349,6 @@
             "reference/blocks/kb/text",
             "reference/blocks/kb/website",
             "reference/blocks/kb/wikipedia"
-
           ]
         },
         {
@@ -394,7 +376,6 @@
             "reference/cli/phi/config",
             "reference/cli/phi/set",
             "reference/cli/phi/reset"
-
           ]
         },
         {
@@ -414,9 +395,7 @@
     },
     {
       "group": "FAQs",
-      "pages": [
-        "faq/could-not-connect-to-docker"
-      ]
+      "pages": ["faq/could-not-connect-to-docker"]
     }
   ],
   "footerSocials": {
