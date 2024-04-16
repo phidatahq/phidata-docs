@@ -2,7 +2,7 @@
 title: Basic Assistant
 ---
 
-The basic assistant just generates a response from GPT-3.5
+The basic assistant simply generates a response from GPT-3.5, showcasing how to use `description` and `instructions`.
 
 ```python cookbook/assistants/basic.py
 from phi.assistant import Assistant
@@ -20,10 +20,12 @@ assistant.print_response("Share a breakfast recipe.", markdown=True)
 ## Usage
 
 <Steps>
+  <Snippet file="create-venv-step.mdx" />
+
   <Step title="Install libraries">
 
     ```bash
-    pip install openai
+    pip install openai phidata
     ```
 
   </Step>

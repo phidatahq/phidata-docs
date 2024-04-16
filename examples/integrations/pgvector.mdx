@@ -4,7 +4,7 @@ title: PgVector
 
 The PgVector Assistant uses PgVector as Knowledge Base and Storage for the Assistant.
 
-```python
+```python cookbook/integrations/pgvector.py
 from phi.assistant import Assistant
 from phi.storage.assistant.postgres import PgAssistantStorage
 from phi.knowledge.pdf import PDFUrlKnowledgeBase
@@ -39,27 +39,15 @@ assistant.cli_app()
 ## Usage
 
 <Steps>
+  <Snippet file="create-venv-step.mdx" />
+
+  <Snippet file="run-pgvector-step.mdx" />
+
 
   <Step title="Install libraries">
 
     ```bash
-    pip install -U pgvector pypdf "psycopg[binary]" sqlalchemy
-    ```
-
-  </Step>
-  
-  <Step title="Run PgVector">
-
-    ```bash
-    docker run -d \
-    -e POSTGRES_DB=ai \
-    -e POSTGRES_USER=ai \
-    -e POSTGRES_PASSWORD=ai \
-    -e PGDATA=/var/lib/postgresql/data/pgdata \
-    -v pgvolume:/var/lib/postgresql/data \
-    -p 5532:5432 \
-    --name pgvector \
-    phidata/pgvector:16
+    pip install -U pgvector pypdf "psycopg[binary]" sqlalchemy phidata
     ```
 
   </Step>

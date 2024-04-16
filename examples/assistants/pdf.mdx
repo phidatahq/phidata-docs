@@ -64,16 +64,14 @@ if __name__ == "__main__":
 ## Usage
 
 <Steps>
-  <Step title="Run PgVector">
+  <Snippet file="create-venv-step.mdx" />
 
-    <Snippet file="run-pgvector.mdx" />
-
-  </Step>
+  <Snippet file="run-pgvector-step.mdx" />
 
   <Step title="Install libraries">
 
     ```bash
-    pip install -U pgvector pypdf "psycopg[binary]" sqlalchemy openai
+    pip install -U pgvector pypdf "psycopg[binary]" sqlalchemy openai phidata
     ```
 
   </Step>
