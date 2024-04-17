@@ -1,0 +1,51 @@
+---
+title: Anyscale
+---
+
+## Example
+
+```python cookbook/llms/anyscale/assistant.py
+from phi.assistant import Assistant
+from phi.llm.anyscale import Anyscale
+
+assistant = Assistant(
+    llm=Anyscale(model="mistralai/Mixtral-8x7B-Instruct-v0.1"),
+    description="You help people with their health and fitness goals.",
+)
+assistant.print_response("Share a 2 sentence quick and healthy breakfast recipe.", markdown=True)
+```
+
+## Usage
+
+<Steps>
+  <Snippet file="create-venv-step.mdx" />
+
+  <Step title="Install libraries">
+
+    ```bash
+    pip install -U openai phidata
+    ```
+
+  </Step>
+
+  <Step title="Export `ANYSCALE_API_KEY`">
+
+    ```bash
+    export ANYSCALE_API_KEY=xxx
+    ```
+
+  </Step>
+
+  <Step title="Run Anyscale Assistant">
+
+    ```bash
+    python cookbook/llms/anyscale/assistant.py
+    ```
+
+  </Step>
+
+  </Steps>
+
+## Information
+
+- View on [Github](https://github.com/phidatahq/phidata/tree/main/cookbook/llms/anyscale/assistant.py)
