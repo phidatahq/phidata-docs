@@ -12,28 +12,23 @@ from phi.vectordb.pgvector import PgVector2
 
 db_url = "postgresql+psycopg://ai:ai@localhost:5532/ai"
 
-knowledge_base = PDFUrlKnowledgeBase(
-    urls=["https://phi-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"],
-    vector_db=PgVector2(collection="recipes", db_url=db_url),
+assistant = Assistant(
+    storage=PgAssistantStorage(table_name="recipe_assistant", db_url=db_url),
+    knowledge_base=PDFUrlKnowledgeBase(
+        urls=["https://phi-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"],
+        vector_db=PgVector2(collection="recipe_documents", db_url=db_url),
+    ),
+    # Show tool calls in the response
+    show_tool_calls=True,
+    # Enable the assistant to search the knowledge base
+    search_knowledge=True,
+    # Enable the assistant to read the chat history
+    read_chat_history=True,
 )
 # Comment out after first run
-knowledge_base.load(recreate=False)
+assistant.knowledge_base.load(recreate=False)  # type: ignore
 
-storage = PgAssistantStorage(table_name="pdf_assistant", db_url=db_url)
-
-
-assistant = Assistant(
-    knowledge_base=knowledge_base,
-    storage=storage,
-    # tool_calls=True adds functions to
-    # search the knowledge base and chat history
-    use_tools=True,
-    show_tool_calls=True,
-    # Uncomment the following line to use traditional RAG
-    # add_references_to_prompt=True,
-)
-
-assistant.cli_app()
+assistant.print_response("How do I make pad thai?", markdown=True)
 ```
 
 ## Usage
@@ -42,7 +37,6 @@ assistant.cli_app()
   <Snippet file="create-venv-step.mdx" />
 
   <Snippet file="run-pgvector-step.mdx" />
-
 
   <Step title="Install libraries">
 

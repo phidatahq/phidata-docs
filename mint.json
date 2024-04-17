@@ -199,6 +199,12 @@
             "examples/tools/python",
             "examples/tools/shell"
           ]
+        },
+        {
+          "group": "LLMs",
+          "pages": [
+            "examples/llms/openai"
+          ]
         }
       ]
     },
