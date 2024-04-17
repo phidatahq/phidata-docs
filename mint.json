@@ -174,7 +174,11 @@
         },
         {
           "group": "Use Cases",
-          "pages": ["examples/use-case/sql", "examples/use-case/worldbuilding"]
+          "pages": [
+            "examples/use-case/sql",
+            "examples/use-case/worldbuilding",
+            "examples/use-case/arxiv-research"
+          ]
         },
         {
           "group": "Integrations",

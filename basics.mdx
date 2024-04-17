@@ -1,6 +1,6 @@
 ---
 title: Basics
-description: "Phidata adds memory, knowledge and tools to LLMs"
+description: "Phidata is a framework for building AI Assistants with memory, knowledge and tools."
 ---
 
 - **Memory:** Stores chat history, summaries, facts in a database.
@@ -54,20 +54,31 @@ Let's work through a few examples
 
 Tools are **functions** that an Assistant can run to achieve tasks like searching the web, running SQL, sending an email, calling APIs.
 
-### Example: Web Search
+### Example: Research Assistant
 
-Let's create an Assistant that can search the web using DuckDuckGo.
+Let's create an Assistant that prepares a research report by searching the web.
 
 <Steps>
-  <Step title="Create Web Search Assistant">
-    Create a file `web_search.py`
+  <Step title="Create Research Assistant">
+    Create a file `research.py`
 
-    ```python web_search.py
+    ```python research.py
     from phi.assistant import Assistant
     from phi.tools.duckduckgo import DuckDuckGo
+    from phi.tools.newspaper4k import Newspaper4k
 
-    assistant = Assistant(tools=[DuckDuckGo()], show_tool_calls=True)
-    assistant.print_response("Whats happening in France?", markdown=True)
+    assistant = Assistant(
+        tools=[DuckDuckGo(), Newspaper4k()],
+        show_tool_calls=True,
+        description="You are a senior NYT researcher writing an article on a topic.",
+        instructions=[
+            "For the provided topic, search for the top 3 links.",
+            "Then read each URL and extract the article text, if a URL isn't available, ignore and let it be.",
+            "Analyse and prepare an NYT worthy article based on the information.",
+        ],
+        add_datetime_to_instructions=True,
+    )
+    assistant.print_response("Latest developments in AI", markdown=True)
     ```
 
   </Step>
@@ -86,16 +97,16 @@ Let's create an Assistant that can search the web using DuckDuckGo.
 
     </CodeGroup>
 
-    Install `openai` & `duckduckgo`
+    Install libraries
 
     ```shell
-    pip install openai duckduckgo-search
+    pip install openai duckduckgo-search newspaper4k lxml_html_clean
     ```
 
     Run the Assistant
 
     ```shell
-    python web_search.py
+    python research.py
     ```
 
   </Step>
@@ -388,7 +399,12 @@ python pdf_assistant.py --new
 
 ## Next
 
-Congratulations on building an AI Assistant with memory, knowledge and tools. You can serve this Assistant using `FastApi`, `Streamlit` or `Django`. Read more about:
+Congratulations on building an AI Assistant with memory, knowledge and tools. You can serve this Assistant using `FastApi`, `Streamlit` or `Django`. Here's the architecture we just built:
+
+![Assistant](/images/assistant.png)
+
+Continue your journey by learning about:
+
 - [Assistants](/assistants/introduction)
 - [Tools](/tools/introduction)
 - [Knowledge](/knowledge/introduction)
@@ -396,6 +412,6 @@ Congratulations on building an AI Assistant with memory, knowledge and tools. Yo
 
 Or Checkout the following examples:
 - [SQL Assistant](/examples/use-cases/sql)
-- [Research Assistant](/examples/use-cases/research)
+- [ArXiv Research Assistant](/examples/use-cases/arxiv-research)
 
 If you need help, reach out to us on [Discord](https://discord.com/invite/4MtYHHrgA8).
