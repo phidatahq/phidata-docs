@@ -203,7 +203,17 @@
         {
           "group": "LLMs",
           "pages": [
-            "examples/llms/openai"
+            "examples/llms/openai",
+            "examples/llms/anyscale",
+            "examples/llms/azure",
+            "examples/llms/claude",
+            "examples/llms/cohere",
+            "examples/llms/fireworks",
+            "examples/llms/gemini",
+            "examples/llms/groq",
+            "examples/llms/mistral",
+            "examples/llms/ollama",
+            "examples/llms/together"
           ]
         }
       ]
