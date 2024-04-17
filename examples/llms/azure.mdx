@@ -1,0 +1,52 @@
+---
+title: Azure
+---
+
+## Example
+
+```python cookbook/llms/azure/assistant.py
+from phi.assistant import Assistant
+from phi.llm.azure import AzureOpenAIChat
+
+assistant = Assistant(
+    llm=AzureOpenAIChat(model="gpt-35-turbo"),
+    description="You help people with their health and fitness goals.",
+)
+assistant.print_response("Share a 2 sentence quick and healthy breakfast recipe.", markdown=True)
+```
+
+## Usage
+
+<Steps>
+  <Snippet file="create-venv-step.mdx" />
+
+  <Step title="Install libraries">
+
+    ```bash
+    pip install -U openai phidata
+    ```
+
+  </Step>
+
+  <Step title="Export `AZURE_OPENAI_API_KEY` and `AZURE_OPENAI_ENDPOINT`">
+
+    ```bash
+    export AZURE_OPENAI_API_KEY=xxx
+    export AZURE_OPENAI_ENDPOINT=xxx
+    ```
+
+  </Step>
+
+  <Step title="Run azure Assistant">
+
+    ```bash
+    python cookbook/llms/azure/assistant.py
+    ```
+
+  </Step>
+
+  </Steps>
+
+## Information
+
+- View on [Github](https://github.com/phidatahq/phidata/tree/main/cookbook/llms/azure_openai/assistant.py)

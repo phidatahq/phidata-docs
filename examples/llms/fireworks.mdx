@@ -1,0 +1,53 @@
+---
+title: Fireworks
+---
+
+## Example
+
+```python cookbook/llms/fireworks/assistant.py
+from phi.assistant import Assistant
+from phi.llm.fireworks import Fireworks
+from phi.tools.duckduckgo import DuckDuckGo
+
+assistant = Assistant(
+    llm=Fireworks(),
+    tools=[DuckDuckGo()],
+    show_tool_calls=True
+)
+assistant.print_response("Whats happening in France?", markdown=True, stream=False)
+```
+
+## Usage
+
+<Steps>
+  <Snippet file="create-venv-step.mdx" />
+
+  <Step title="Install libraries">
+
+    ```bash
+    pip install -U fireworks duckduckgo-search phidata
+    ```
+
+  </Step>
+
+  <Step title="Export `FIREWORKS_API_KEY`">
+
+    ```bash
+    export FIREWORKS_API_KEY=xxx
+    ```
+
+  </Step>
+
+  <Step title="Run fireworks Assistant">
+
+    ```bash
+    python cookbook/llms/fireworks/assistant.py
+    ```
+
+  </Step>
+
+  </Steps>
+
+## Information
+
+- View on [Github](https://github.com/phidatahq/phidata/tree/main/cookbook/llms/fireworks/assistant.py)
