@@ -28,8 +28,11 @@ assistant.print_response("Share a quick healthy breakfast recipe.", markdown=Tru
   default="mistralai/Mixtral-8x7B-Instruct-v0.1"
 ></ResponseField>
 <ResponseField name="api_key" type="str"></ResponseField>
-<ResponseField name="base_url" type="str"></ResponseField>
-
+<ResponseField
+  name="base_url"
+  type="str"
+  default="https://api.together.xyz/v1"
+></ResponseField>
 ## LLM Params
 
 `Together` is a subclass of the `LLM` class and has access to the same params
