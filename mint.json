@@ -202,9 +202,7 @@
         },
         {
           "group": "LLMs",
-          "pages": [
-            "examples/llms/openai"
-          ]
+          "pages": ["examples/llms/openai"]
         }
       ]
     },
@@ -334,7 +332,13 @@
             "reference/blocks/llm/openai",
             "reference/blocks/llm/aws",
             "reference/blocks/llm/together",
-            "reference/blocks/llm/ollama"
+            "reference/blocks/llm/ollama",
+            "reference/blocks/llm/fireworks",
+            "reference/blocks/llm/mistral",
+            "reference/blocks/llm/groq",
+            "reference/blocks/llm/gemini",
+            "reference/blocks/llm/azure",
+            "reference/blocks/llm/claude"
           ]
         },
         {
@@ -364,9 +368,11 @@
         {
           "group": "VectorDbs",
           "pages": [
+            "reference/blocks/vectordb/pgvector",
             "reference/blocks/vectordb/pgvector2",
             "reference/blocks/vectordb/singlestore",
-            "reference/blocks/vectordb/qdrant"
+            "reference/blocks/vectordb/qdrant",
+            "reference/blocks/vectordb/lancedb"
           ]
         }
       ]

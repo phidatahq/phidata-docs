@@ -2,4 +2,19 @@
 title: Single Store
 ---
 
-<Snippet file="coming-soon.mdx" />
+## Single Store Params
+
+<ResponseField name="collection" type="str"></ResponseField>
+<ResponseField name="schema" type="str" default="ai"></ResponseField>
+<ResponseField name="db_url" type="str" default="None"></ResponseField>
+<ResponseField name="db_engine" type="Engine" default="None"></ResponseField>
+<ResponseField
+  name="embedder"
+  type="embedder"
+  default="OpenAIEmbedder()"
+></ResponseField>
+<ResponseField
+  name="distance"
+  type="Distance"
+  default="Distance.cosine"
+></ResponseField>
