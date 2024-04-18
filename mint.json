@@ -21,17 +21,13 @@
   },
   "topbarLinks": [
     {
-      "name": "Github",
-      "url": "https://github.com/phidatahq/phidata"
-    },
-    {
       "name": "Support",
       "url": "https://discord.com/invite/4MtYHHrgA8"
     }
   ],
   "topbarCtaButton": {
-    "name": "Log In",
-    "url": "https://phidata.app/login"
+    "type": "github",
+    "url": "https://github.com/phidatahq/phidata"
   },
   "tabs": [
     {
