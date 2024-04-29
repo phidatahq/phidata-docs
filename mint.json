@@ -60,8 +60,7 @@
             "assistants/knowledge",
             "assistants/memory",
             "assistants/storage",
-            "assistants/structured-output",
-            "assistants/tasks"
+            "assistants/structured-output"
           ]
         },
         {
@@ -152,7 +151,6 @@
             "examples/assistants/pdf",
             "examples/assistants/hackernews",
             "examples/assistants/structured-output",
-            "examples/assistants/tasks",
             "examples/assistants/langchain-retriever",
             "examples/assistants/python",
             "examples/assistants/data-analyst",
