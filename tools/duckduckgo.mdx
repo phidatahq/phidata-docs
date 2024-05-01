@@ -15,7 +15,34 @@ assistant = Assistant(tools=[DuckDuckGo()], show_tool_calls=True)
 assistant.print_response("Whats happening in France?", markdown=True)
 ```
 
-## Functions in Toolkit
+## Toolkit Params
+
+<ResponseField name="search" type="bool" default="True">
+  Enables the use of the `duckduckgo_search` function to search DuckDuckGo for a
+  query.
+</ResponseField>
+<ResponseField name="news" type="bool" default="True">
+  Enables the use of the `duckduckgo_news` function to fetch the latest news via
+  DuckDuckGo.
+</ResponseField>
+<ResponseField name="fixed_max_results" type="int">
+  Sets a fixed number of maximum results to return. No default is provided, must
+  be specified if used.
+</ResponseField>
+<ResponseField name="headers" type="Any">
+  Accepts any type of header values to be sent with HTTP requests.
+</ResponseField>
+<ResponseField name="proxy" type="str">
+  Specifies a single proxy address as a string to be used for the HTTP requests.
+</ResponseField>
+<ResponseField name="proxies" type="Any">
+  Accepts a dictionary of proxies to be used for HTTP requests.
+</ResponseField>
+<ResponseField name="timeout" type="int" default="10">
+  Sets the timeout for HTTP requests, in seconds. Default is 10 seconds.
+</ResponseField>
+
+## Toolkit Functions
 
 <ResponseField name="duckduckgo_search">
   Use this function to search DuckDuckGo for a query.

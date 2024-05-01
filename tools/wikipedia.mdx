@@ -16,10 +16,18 @@ assistant = Assistant(tools=[WikipediaTools()], show_tool_calls=True)
 assistant.print_response("Search wikipedia for 'ai'")
 ```
 
-## Functions in Toolkit
+## Toolkit Params
+
+<ResponseField name="knowledge_base" type="WikipediaKnowledgeBase">
+  The knowledge base associated with Wikipedia, containing various data and
+  resources linked to Wikipedia's content.
+</ResponseField>
+
+## Toolkit Functions
 
 <ResponseField name="search_wikipedia_and_update_knowledge_base">
-  This function searches wikipedia for a topic, adds the results to the knowledge base and returns them.
+  This function searches wikipedia for a topic, adds the results to the
+  knowledge base and returns them.
 </ResponseField>
 <ResponseField name="search_wikipedia">
   Searches Wikipedia for a query.
