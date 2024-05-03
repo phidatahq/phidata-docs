@@ -9,6 +9,12 @@ The **WikipediaKnowledgeBase** reads wikipedia topics, converts them into vector
 
 <Note>
 
+[Make sure your PgVector database is running](https://docs.phidata.com/basics#assistant-with-knowledge)
+
+</Note>
+
+<Note>
+
 Install `wikipedia` using `pip install wikipedia`
 
 </Note>
@@ -17,14 +23,12 @@ Install `wikipedia` using `pip install wikipedia`
 from phi.knowledge.wikipedia import WikipediaKnowledgeBase
 from phi.vectordb.pgvector import PgVector2
 
-from resources import vector_db
-
 knowledge_base = WikipediaKnowledgeBase(
     topics=["Manchester United", "Real Madrid"],
     # Table name: ai.wikipedia_documents
     vector_db=PgVector2(
         collection="wikipedia_documents",
-        db_url=vector_db.get_db_connection_local(),
+        db_url="postgresql+psycopg://ai:ai@localhost:5532/ai",
     ),
 )
 ```

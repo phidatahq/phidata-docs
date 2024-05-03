@@ -9,6 +9,12 @@ The **ArxivKnowledgeBase** reads Arxiv articles, converts them into vector embed
 
 <Note>
 
+[Make sure your PgVector database is running](https://docs.phidata.com/basics#assistant-with-knowledge)
+
+</Note>
+
+<Note>
+
 Install `arxiv` using `pip install arxiv`
 
 </Note>
@@ -17,14 +23,12 @@ Install `arxiv` using `pip install arxiv`
 from phi.knowledge.arxiv import ArxivKnowledgeBase
 from phi.vectordb.pgvector import PgVector2
 
-from resources import vector_db
-
 knowledge_base = ArxivKnowledgeBase(
     queries=["Generative AI", "Machine Learning"],
     # Table name: ai.arxiv_documents
     vector_db=PgVector2(
         collection="arxiv_documents",
-        db_url=vector_db.get_db_connection_local(),
+        db_url="postgresql+psycopg://ai:ai@localhost:5532/ai",
     ),
 )
 ```

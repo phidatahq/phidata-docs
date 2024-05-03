@@ -9,6 +9,12 @@ The **PDFUrlKnowledgeBase** reads **PDFs from urls**, converts them into vector 
 
 <Note>
 
+[Make sure your PgVector database is running](https://docs.phidata.com/basics#assistant-with-knowledge)
+
+</Note>
+
+<Note>
+
 Install `pypdf` using `pip install pypdf`
 
 </Note>
@@ -17,14 +23,12 @@ Install `pypdf` using `pip install pypdf`
 from phi.knowledge.pdf import PDFUrlKnowledgeBase
 from phi.vectordb.pgvector import PgVector2
 
-from resources import vector_db
-
 knowledge_base = PDFUrlKnowledgeBase(
     urls=["pdf_url"],
     # Table name: ai.pdf_documents
     vector_db=PgVector2(
         collection="pdf_documents",
-        db_url=vector_db.get_db_connection_local(),
+        db_url="postgresql+psycopg://ai:ai@localhost:5532/ai",
     ),
 )
 ```

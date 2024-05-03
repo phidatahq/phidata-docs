@@ -7,11 +7,15 @@ The **CombinedKnowledgeBase** combines multiple knowledge bases into 1 and is us
 
 ## Usage
 
+<Note>
+
+[Make sure your PgVector database is running](https://docs.phidata.com/basics#assistant-with-knowledge)
+
+</Note>
+
 ```python knowledge_base.py
 from phi.knowledge.combined import CombinedKnowledgeBase
 from phi.vectordb.pgvector import PgVector2
-
-from resources import vector_db
 
 knowledge_base = CombinedKnowledgeBase(
     sources=[
@@ -22,7 +26,7 @@ knowledge_base = CombinedKnowledgeBase(
     vector_db=PgVector2(
         # Table name: ai.combined_documents
         collection="combined_documents",
-        db_url=vector_db.get_db_connection_local(),
+        db_url="postgresql+psycopg://ai:ai@localhost:5532/ai",
     ),
 )
 ```
