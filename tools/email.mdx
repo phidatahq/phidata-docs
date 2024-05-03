@@ -4,8 +4,39 @@ title: Email Tools
 
 **EmailTools** enable an Assistant to send an email to a user. The Assistant can send an email to a user with a specific subject and body.
 
-## Functions in Toolkit
+## Example
+
+```python cookbook/tools/email_tools.py
+from phi.assistant import Assistant
+from phi.tools.email import EmailTools
+
+receiver_email = "<receiver_email>"
+sender_email = "<sender_email>"
+sender_name = "<sender_name>"
+sender_passkey = "<sender_passkey>"
+
+assistant = Assistant(tools=[EmailTools(receiver_email=receiver_email, sender_email=sender_email, sender_name=sender_name, sender_passkey=sender_passkey)])
+
+assistant.print_response("send an email to <receiver_email>")
+```
+
+## Toolkit Params
+
+<ResponseField name="receiver_email" type="str">
+  The email address of the receiver.
+</ResponseField>
+<ResponseField name="sender_name" type="str">
+  The name of the sender.
+</ResponseField>
+<ResponseField name="sender_email" type="str">
+  The email address of the sender.
+</ResponseField>
+<ResponseField name="sender_passkey" type="str">
+  The passkey for the sender's email.
+</ResponseField>
+
+## Toolkit Functions
 
 <ResponseField name="email_user">
-  Emails the user with the given subject and body.
+  Emails the user with the given subject and body. Currently works with Gmail.
 </ResponseField>

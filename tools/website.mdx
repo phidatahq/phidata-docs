@@ -4,11 +4,31 @@ title: Website Tools
 
 **WebsiteTools** enable an Assistant to parse a website and add its contents to the knowledge base.
 
-## Functions in Toolkit
+## Example
+
+The following assistant will read the contents of a website and add it to the knowledge base.
+
+```python cookbook/tools/website_tools.py
+from phi.assistant import Assistant
+from phi.tools.website import WebsiteTools
+
+assistant = Assistant(tools=[WebsiteTools()], show_tool_calls=True)
+assistant.print_response("Search web page: 'https://docs.phidata.com/introduction'", markdown=True)
+```
+
+## Toolkit Params
+
+<ResponseField name="knowledge_base" type="WebsiteKnowledgeBase">
+  The knowledge base associated with the website, containing various data and
+  resources linked to the website's content.
+</ResponseField>
+
+## Toolkit Functions
 
 <ResponseField name="add_website_to_knowledge_base">
-  This function adds a websites content to the knowledge base. NOTE: The website must start with https:// and should be a valid website.
-  Use this function to get information about products from the internet
+  This function adds a websites content to the knowledge base. NOTE: The website
+  must start with https:// and should be a valid website. Use this function to
+  get information about products from the internet
 </ResponseField>
 <ResponseField name="read_website">
   This function reads a website and returns the content.

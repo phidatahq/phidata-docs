@@ -16,11 +16,22 @@ assistant = Assistant(tools=[ArxivTools()], show_tool_calls=True)
 assistant.print_response("Search arxiv for 'language models'", markdown=True)
 ```
 
-## Functions in Toolkit
+## Toolkit Params
+
+<ResponseField name="search_arxiv" type="bool" default="True">
+  Enables the functionality to search the arXiv database.
+</ResponseField>
+<ResponseField name="read_arxiv_papers" type="bool" default="True">
+  Allows reading of arXiv papers directly.
+</ResponseField>
+<ResponseField name="download_dir" type="Path">
+  Specifies the directory path where downloaded files will be saved.
+</ResponseField>
+
+## Toolkit Functions
 
 <ResponseField name="search_arxiv_and_update_knowledge_base">
-  This function searches arXiv for a topic, adds the results to the knowledge base and returns them.
+  This function searches arXiv for a topic, adds the results to the knowledge
+  base and returns them.
 </ResponseField>
-<ResponseField name="search_arxiv">
-  Searches arXiv for a query.
-</ResponseField>
+<ResponseField name="search_arxiv">Searches arXiv for a query.</ResponseField>

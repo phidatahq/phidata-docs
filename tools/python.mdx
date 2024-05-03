@@ -17,31 +17,66 @@ assistant = Assistant(tools=[PythonTools()], show_tool_calls=True)
 assistant.print_response("Write a python script for fibonacci series and display the result till the 10th number", markdown=True)
 ```
 
-## Functions in Toolkit
+## Toolkit Params
+
+<ResponseField name="base_dir" type="Path">
+  Specifies the base directory for operations. Default is None, indicating the
+  current working directory.
+</ResponseField>
+<ResponseField name="save_and_run" type="bool" default="True">
+  If True, saves and runs the code. Useful for execution of scripts after
+  saving.
+</ResponseField>
+<ResponseField name="pip_install" type="bool" default="False">
+  Enables pip installation of required packages before running the code.
+</ResponseField>
+<ResponseField name="run_code" type="bool" default="False">
+  Determines whether the code should be executed.
+</ResponseField>
+<ResponseField name="list_files" type="bool" default="False">
+  If True, lists all files in the specified base directory.
+</ResponseField>
+<ResponseField name="run_files" type="bool" default="False">
+  If True, runs the Python files found in the specified directory.
+</ResponseField>
+<ResponseField name="read_files" type="bool" default="False">
+  If True, reads the contents of the files in the specified directory.
+</ResponseField>
+<ResponseField name="safe_globals" type="dict">
+  Specifies a dictionary of global variables that are considered safe to use
+  during the execution.
+</ResponseField>
+<ResponseField name="safe_locals" type="dict">
+  Specifies a dictionary of local variables that are considered safe to use
+  during the execution.
+</ResponseField>
+
+## Toolkit Functions
 
 <ResponseField name="save_to_file_and_run">
   This function saves Python code to a file called `file_name` and then runs it.
-  If successful, returns the value of `variable_to_return` if provided otherwise returns a success message.
-  If failed, returns an error message.
-  Make sure the file_name ends with `.py`
+  If successful, returns the value of `variable_to_return` if provided otherwise
+  returns a success message. If failed, returns an error message. Make sure the
+  file_name ends with `.py`
 </ResponseField>
 <ResponseField name="run_python_file_return_variable">
-  This function runs code in a Python file.
-  If successful, returns the value of `variable_to_return` if provided otherwise returns a success message.
-  If failed, returns an error message.
+  This function runs code in a Python file. If successful, returns the value of
+  `variable_to_return` if provided otherwise returns a success message. If
+  failed, returns an error message.
 </ResponseField>
 <ResponseField name="read_file">
-  Reads the contents of the file `file_name` and returns the contents if successful.
+  Reads the contents of the file `file_name` and returns the contents if
+  successful.
 </ResponseField>
 <ResponseField name="list_files">
- Returns a list of files in the base directory
+  Returns a list of files in the base directory
 </ResponseField>
 <ResponseField name="run_python_code">
- This function runs Python code in the current environment.
-  If successful, returns the value of `variable_to_return` if provided otherwise returns a success message.
-  If failed, returns an error message.
+  This function runs Python code in the current environment. If successful,
+  returns the value of `variable_to_return` if provided otherwise returns a
+  success message. If failed, returns an error message.
 </ResponseField>
 <ResponseField name="pip_install_package">
-  This function installs a package using pip in the current environment.
-  If successful, returns a success message. If failed, returns an error message.
+  This function installs a package using pip in the current environment. If
+  successful, returns a success message. If failed, returns an error message.
 </ResponseField>

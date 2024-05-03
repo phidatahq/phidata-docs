@@ -1,6 +1,54 @@
 ---
 title: Tavily Search
-description: This guide is in the works
 ---
 
-<Snippet file="message-us-discord.mdx" />
+## Example
+
+The following assistant will run a search on Tavily for "language models" and print the response.
+
+```python cookbook/tools/tavily_tools.py
+from phi.assistant import Assistant
+from phi.tools.tavily import TavilyTools
+
+assistant = Assistant(tools=[TavilyTools()], show_tool_calls=True)
+assistant.print_response("Search tavily for 'language models'", markdown=True)
+```
+
+## Toolkit Params
+
+<ResponseField name="api_key" type="str">
+  The API key used for authentication to access the service.
+</ResponseField>
+<ResponseField name="search" type="bool" default="True">
+  Determines whether search functionality is enabled.
+</ResponseField>
+<ResponseField name="max_tokens" type="int" default="6000">
+  The maximum number of tokens to use in operations.
+</ResponseField>
+<ResponseField name="include_answer" type="bool" default="True">
+  Specifies if the answer should be included in the response.
+</ResponseField>
+<ResponseField
+  name="search_depth"
+  type="Literal['basic', 'advanced']"
+  default="advanced"
+>
+  Defines the depth of search, either 'basic' or 'advanced'.
+</ResponseField>
+<ResponseField
+  name="format"
+  type="Literal['json', 'markdown']"
+  default="markdown"
+>
+  The format of the output, either 'json' or 'markdown'.
+</ResponseField>
+<ResponseField name="use_search_context" type="bool" default="False">
+  Indicates if the search should consider the context provided in the request.
+</ResponseField>
+
+## Toolkit Functions
+
+<ResponseField name="web_search_using_tavily">
+  This function uses the Tavily API to provide realtime online information about
+  the query.
+</ResponseField>
