@@ -98,7 +98,9 @@
             "tools/email",
             "tools/website",
             "tools/wikipedia",
-            "tools/tavily"
+            "tools/tavily",
+            "tools/exa",
+            "tools/apify"
           ]
         },
         {
