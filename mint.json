@@ -331,10 +331,6 @@
           ]
         },
         {
-          "group": "Tasks",
-          "pages": ["reference/blocks/task/base", "reference/blocks/task/llm"]
-        },
-        {
           "group": "LLMs",
           "pages": [
             "reference/blocks/llm/base",
