@@ -1,0 +1,80 @@
+---
+title: CSV Tools
+---
+
+**CsvTools** enable an Assistant to read and write CSV files.
+
+## Example
+
+The following assistant will download the IMDB csv file and read it.
+
+```python cookbook/tools/csv_tools.py
+import httpx
+from pathlib import Path
+from phi.assistant import Assistant
+from phi.tools.csv_tools import CsvTools
+
+# -*- Download the imdb csv for the assistant -*-
+url = "https://phidata-public.s3.amazonaws.com/demo_data/IMDB-Movie-Data.csv"
+response = httpx.get(url)
+# Create a file in the wip dir which is ignored by git
+imdb_csv = Path(__file__).parent.joinpath("wip").joinpath("imdb.csv")
+imdb_csv.parent.mkdir(parents=True, exist_ok=True)
+imdb_csv.write_bytes(response.content)
+
+assistant = Assistant(
+    tools=[CsvTools(csvs=[imdb_csv])],
+    markdown=True,
+    show_tool_calls=True,
+    instructions=[
+        "First always get the list of files",
+        "Then check the columns in the file",
+        "Then run the query to answer the question",
+    ],
+    # debug_mode=True,
+)
+assistant.cli_app(stream=False)
+
+```
+
+## Toolkit Params
+
+<ResponseField name="csvs" type="List[Union[str, Path]]">
+  A list of CSV files or paths to be processed or read.
+</ResponseField>
+<ResponseField name="row_limit" type="int">
+  The maximum number of rows to process from each CSV file.
+</ResponseField>
+<ResponseField name="read_csvs" type="bool" default="True">
+  Enables the functionality to read data from specified CSV files.
+</ResponseField>
+<ResponseField name="list_csvs" type="bool" default="True">
+  Enables the functionality to list all available CSV files.
+</ResponseField>
+<ResponseField name="query_csvs" type="bool" default="True">
+  Enables the functionality to execute queries on data within CSV files.
+</ResponseField>
+<ResponseField name="read_column_names" type="bool" default="True">
+  Enables the functionality to read the column names from the CSV files.
+</ResponseField>
+<ResponseField name="duckdb_connection" type="Any">
+  Specifies a connection instance for DuckDB database operations.
+</ResponseField>
+<ResponseField name="duckdb_kwargs" type="Dict[str, Any]">
+  A dictionary of keyword arguments for configuring DuckDB operations.
+</ResponseField>
+
+## Toolkit Functions
+
+<ResponseField name="list_csv_files">
+  Lists all available CSV files.
+</ResponseField>
+<ResponseField name="read_csv_file">
+  This function reads the contents of a csv file
+</ResponseField>
+<ResponseField name="get_columns">
+  This function returns the columns of a csv file
+</ResponseField>
+<ResponseField name="query_csv_file">
+  This function queries the contents of a csv file
+</ResponseField>
