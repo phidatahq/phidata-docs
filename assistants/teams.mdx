@@ -1,0 +1,48 @@
+---
+title: Teams
+---
+
+We can combine multiple Assistants to form a team and tackle tasks as a cohesive unit.
+
+Here's an example:
+
+```python cookbook/teams/hackernews.py
+from phi.assistant import Assistant
+from phi.tools.hackernews import HackerNews
+
+
+story_researcher = Assistant(
+    name="HackerNews Story Researcher",
+    role="Researches hackernews stories and users.",
+    tools=[HackerNews()],
+)
+user_researcher = Assistant(
+    name="HackerNews User Researcher",
+    role="Reads articles from URLs.",
+    tools=[HackerNews()],
+)
+
+hn_assistant = Assistant(
+    name="Hackernews Team",
+    team=[story_researcher, user_researcher],
+    # debug_mode=True,
+)
+hn_assistant.print_response(
+    "Write a report about the users with the top 2 stories on hackernews",
+    markdown=True
+)
+```
+
+## How to build Assistant Teams
+
+1. Add a `role` parameter to the team-member Assistants.
+2. Create a Team Leader that can delegate tasks to team-members.
+3. Use your Assistant team just like you would use a regular Assistant.
+
+<Tip>
+Checkout the teams [cookbook](https://github.com/phidatahq/phidata/tree/main/cookbook/teams) for more examples of Assistant Teams.
+</Tip>
+
+<Warning>
+Open-ended Assistant teams are great to play with, but are not reliable for real-world problems. They need constant oversight and can run in loops if not monitored. This drawback should improve as models get better (eagerly waiting for GPT5).
+</Warning>

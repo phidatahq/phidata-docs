@@ -60,7 +60,8 @@
             "assistants/knowledge",
             "assistants/memory",
             "assistants/storage",
-            "assistants/structured-output"
+            "assistants/structured-output",
+            "assistants/teams"
           ]
         },
         {
