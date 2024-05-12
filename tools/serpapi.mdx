@@ -1,0 +1,40 @@
+---
+title: Serpapi Tools
+---
+
+**SerpApiToolkit** enable an Assistant to search Google and YouTube for a query.
+
+## Example
+
+The following assistant will search Google for the query: "Whats happening in the USA" and share results.
+
+```python cookbook/tools/serpapi_tools.py
+from phi.assistant import Assistant
+from phi.tools.serpapi_tools import SerpApiTools
+
+assistant = Assistant(
+    tools=[SerpApiTools()],
+    show_tool_calls=True,
+    debug_mode=True,
+)
+
+assistant.print_response("Whats happening in the USA?", markdown=True)
+```
+
+## Toolkit Params
+
+<ResponseField name="api_key" type="str">
+  API key for authentication purposes.
+</ResponseField>
+<ResponseField name="search_youtube" type="bool" default="False">
+  Enables the functionality to search for content on YouTube.
+</ResponseField>
+
+## Toolkit Functions
+
+<ResponseField name="search_google">
+  This function searches Google for a query.
+</ResponseField>
+<ResponseField name="search_youtube">
+  Searches YouTube for a query.
+</ResponseField>

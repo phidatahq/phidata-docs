@@ -1,0 +1,35 @@
+---
+title: Pubmed Tools
+---
+
+**PubmedTools** enable an Assistant to search for Pubmed for articles.
+
+## Example
+
+The following assistant will search Pubmed for articles related to "ulcerative colitis".
+
+```python cookbook/tools/resend_tools.py
+from phi.assistant import Assistant
+from phi.tools.pubmed import PubmedTools
+
+assistant = Assistant(tools=[PubmedTools()], debug_mode=True, show_tool_calls=True)
+assistant.print_response(
+    "ulcerative colitis.",
+    markdown=True,
+)
+```
+
+## Toolkit Params
+
+<ResponseField name="email" type="str" default="your_email@example.com">
+  The email address to be used for sending or receiving information.
+</ResponseField>
+<ResponseField name="max_results" type="int">
+  The maximum number of results to return from a query or operation.
+</ResponseField>
+
+## Toolkit Functions
+
+<ResponseField name="search_pubmed">
+  Search Pubmed for articles related to a query.
+</ResponseField>
