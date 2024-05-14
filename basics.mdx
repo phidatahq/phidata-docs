@@ -135,6 +135,7 @@ docker run -d \
 ### RAG Assistant
 
 Retrieval Augmented Generation means **"stuffing the prompt with relevant information"** to improve LLM responses. This is a 2 step process:
+
 1. Retrieve relevant information from a vector database.
 2. Augment the prompt to provide context to the LLM.
 
@@ -164,8 +165,6 @@ Let's build a **PDF Assistant** that helps us with food recipes using RAG.
     from phi.assistant import Assistant
     from phi.knowledge.pdf import PDFUrlKnowledgeBase
     from phi.vectordb.pgvector import PgVector2
-
-    from resources import vector_db
 
     knowledge_base = PDFUrlKnowledgeBase(
         # Read PDF from this URL
@@ -411,6 +410,7 @@ Continue your journey by learning about:
 - [Storage](/storage/introduction)
 
 Or Checkout the following examples:
+
 - [SQL Assistant](/examples/use-cases/sql)
 - [ArXiv Research Assistant](/examples/use-cases/arxiv-research)
 
