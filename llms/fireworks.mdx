@@ -2,6 +2,8 @@
 title: Fireworks
 ---
 
+Fireworks is a platform for providing endpoints for Large Language models.
+
 ## Authentication
 
 Set your `FIREWORKS_API_KEY` environment variable.
@@ -39,15 +41,23 @@ assistant.print_response("Share a quick healthy breakfast recipe.", markdown=Tru
 
 ## Params
 
-<ResponseField name="name" type="str" default="Fireworks"></ResponseField>
+<ResponseField name="name" type="str" default="Fireworks">
+  The name identifier for the assistant.
+</ResponseField>
 <ResponseField
   name="model"
   type="str"
   default="accounts/fireworks/models/firefunction-v1"
-></ResponseField>
-<ResponseField name="api_key" type="str"></ResponseField>
+>
+  The specific model ID used for generating responses.
+</ResponseField>
+<ResponseField name="api_key" type="str">
+  The API key for authenticating requests to the service.
+</ResponseField>
 <ResponseField
   name="base_url"
   type="str"
   default="https://api.fireworks.ai/inference/v1"
-></ResponseField>
+>
+  The base URL for making API requests to the service.
+</ResponseField>
