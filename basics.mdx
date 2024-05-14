@@ -165,8 +165,6 @@ Let's build a **PDF Assistant** that helps us with food recipes using RAG.
     from phi.knowledge.pdf import PDFUrlKnowledgeBase
     from phi.vectordb.pgvector import PgVector2
 
-    from resources import vector_db
-
     knowledge_base = PDFUrlKnowledgeBase(
         # Read PDF from this URL
         urls=["https://phi-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"],
