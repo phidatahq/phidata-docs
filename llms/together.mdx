@@ -2,6 +2,8 @@
 title: Together
 ---
 
+Together is a platform for providing endpoints for Large Language models.
+
 ## Authentication
 
 Set your `TOGETHER_API_KEY` environment vairable.
@@ -39,11 +41,19 @@ assistant.print_response("Share a quick healthy breakfast recipe.", markdown=Tru
 
 ## Params
 
-<ResponseField name="name" type="str" default="Together"></ResponseField>
+<ResponseField name="name" type="str" default="Together">
+  The name identifier for the assistant.
+</ResponseField>
 <ResponseField
   name="model"
   type="str"
   default="mistralai/Mixtral-8x7B-Instruct-v0.1"
-></ResponseField>
-<ResponseField name="api_key" type="str"></ResponseField>
-<ResponseField name="base_url" type="str"></ResponseField>
+>
+  The specific model ID used for generating responses.
+</ResponseField>
+<ResponseField name="api_key" type="str">
+  The API key used for authenticating requests to the service.
+</ResponseField>
+<ResponseField name="base_url" type="str">
+  The base URL for making API requests to the service.
+</ResponseField>

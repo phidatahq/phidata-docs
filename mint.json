@@ -71,7 +71,7 @@
             "llms/openai",
             "llms/openai-like",
             "llms/ollama",
-            "llms/aws",
+            "llms/aws-claude",
             "llms/together",
             "llms/anyscale",
             "llms/fireworks",
@@ -426,7 +426,7 @@
     },
     {
       "group": "FAQs",
-      "pages": ["faq/could-not-connect-to-docker"]
+      "pages": ["faq/could-not-connect-to-docker", "faq/environment_variables"]
     }
   ],
   "footerSocials": {

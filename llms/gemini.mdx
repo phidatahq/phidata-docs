@@ -2,6 +2,8 @@
 title: Gemini
 ---
 
+Use Google Cloud's AI Platform to access the Gemini model.
+
 ## Prerequisites
 
 1. [Install](https://cloud.google.com/sdk/docs/install) the Google Cloud SDK
@@ -38,16 +40,24 @@ assistant.print_response("Share a quick healthy breakfast recipe.", markdown=Tru
 
 ## Params
 
-<ResponseField name="name" type="str" default="Gemini"></ResponseField>
-<ResponseField
-  name="model"
-  type="str"
-  default="gemini-1.0-pro-vision"
-></ResponseField>
-<ResponseField name="generation_config" type="Any"></ResponseField>
-<ResponseField name="safety_settings" type="Any"></ResponseField>
-<ResponseField
-  name="function_declarations"
-  type="List[FunctionDeclaration]"
-></ResponseField>
-<ResponseField name="generative_model" type="GenerativeModel"></ResponseField>
+<ResponseField name="name" type="str" default="Gemini">
+  The name identifier for the assistant.
+</ResponseField>
+<ResponseField name="model" type="str" default="gemini-1.0-pro-vision">
+  The specific model ID used for generating responses.
+</ResponseField>
+<ResponseField name="generation_config" type="Any">
+  Configuration settings for the generation process, such as parameters for
+  controlling output behavior.
+</ResponseField>
+<ResponseField name="safety_settings" type="Any">
+  Settings related to safety measures, ensuring the generation of appropriate
+  and safe content.
+</ResponseField>
+<ResponseField name="function_declarations" type="List[FunctionDeclaration]">
+  A list of function declarations that the model can utilize during the response
+  generation process.
+</ResponseField>
+<ResponseField name="generative_model" type="GenerativeModel">
+  The generative model instance used for producing responses.
+</ResponseField>
