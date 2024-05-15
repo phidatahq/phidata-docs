@@ -196,17 +196,6 @@
           ]
         },
         {
-          "group": "Tools",
-          "pages": [
-            "examples/tools/arxiv",
-            "examples/tools/duckdb",
-            "examples/tools/duckduckgo",
-            "examples/tools/file",
-            "examples/tools/python",
-            "examples/tools/shell"
-          ]
-        },
-        {
           "group": "LLMs",
           "pages": [
             "examples/llms/openai",
