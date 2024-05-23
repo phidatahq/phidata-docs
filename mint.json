@@ -245,13 +245,6 @@
             "templates/django-app/run-local",
             "templates/django-app/run-aws"
           ]
-        },
-        {
-          "group": "Junior DE",
-          "pages": [
-            "templates/junior-de/run-local",
-            "templates/junior-de/run-aws"
-          ]
         }
       ]
     },
