@@ -1,0 +1,33 @@
+---
+title: Resend
+---
+
+**ResendTools** enable an Assistant to send emails using Resend
+
+## Example
+
+The following assistant will send an email using Resend
+
+```python cookbook/tools/resend_tools.py
+from phi.assistant import Assistant
+from phi.tools.resend_tools import ResendTools
+
+assistant = Assistant(tools=[ResendTools(from_email="<enter_from_email>")], debug_mode=True)
+
+assistant.print_response("send email to <enter_to_email> greeting them with hello world")
+```
+
+## Toolkit Params
+
+<ResponseField name="api_key" type="str">
+  API key for authentication purposes.
+</ResponseField>
+<ResponseField name="from_email" type="str">
+  The email address used as the sender in email communications.
+</ResponseField>
+
+## Toolkit Functions
+
+<ResponseField name="send_email">
+  Send an email using the Resend API.
+</ResponseField>

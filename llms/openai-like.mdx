@@ -2,9 +2,9 @@
 title: OpenAI Like
 ---
 
-Many providers like Together and Grow support the OpenAI API format. Use the `OpenAILike` LLM to access them by replacing the `base_url`.
+Many providers like Together and Groq support the OpenAI API format. Use the `OpenAILike` LLM to access them by replacing the `base_url`.
 
-## Example
+## Usage
 
 <CodeGroup>
 
@@ -28,13 +28,13 @@ assistant.print_response('Share a 2 sentence horror story.', markdown=True)
 ## Params
 
 <ResponseField name="model" type="str">
-  Model name
+  The name of the model to be used for generating responses.
 </ResponseField>
 <ResponseField name="api_key" type="str">
-  API Key
+  The API key for authenticating requests to the service.
 </ResponseField>
 <ResponseField name="base_url" type="str">
-  Base URL
+  The base URL for making API requests to the service.
 </ResponseField>
 
-`OpenAILike` also support all the params of [OpenAIChat](/blocks/llm/openai#params)
+`OpenAILike` also support all the params of [OpenAIChat](/llms/openai)

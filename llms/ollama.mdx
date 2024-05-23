@@ -2,6 +2,8 @@
 title: Ollama
 ---
 
+Run Large Language Models locally with Ollama
+
 [Ollama](https://ollama.com) is a fantastic tool for running LLMs locally. Install [ollama](https://ollama.com) and run a model using
 
 <CodeGroup>
@@ -27,7 +29,7 @@ from phi.assistant import Assistant
 from phi.llm.ollama import Ollama
 
 assistant = Assistant(
-    llm=Ollama(model="llama2"),
+    llm=Ollama(model="llama3"),
     description="You help people with their health and fitness goals.",
 )
 assistant.print_response("Share a quick healthy breakfast recipe.", markdown=True)
@@ -37,28 +39,30 @@ assistant.print_response("Share a quick healthy breakfast recipe.", markdown=Tru
 
 ## Params
 
-<ResponseField name="model" type="str">
-  Model name
+<ResponseField name="name" type="str" default="Ollama">
+  The name of the LLM.
+</ResponseField>
+<ResponseField name="model" type="str" default="openhermes">
+  The name of the model to be used.
 </ResponseField>
 <ResponseField name="host" type="str">
-  Host url
+  The host URL for making API requests to the service.
 </ResponseField>
-<ResponseField name="format" type="str" default="">
-  Response format, `""` or `"json"`
+<ResponseField name="format" type="str">
+  The response format, either an empty string for default or "json" for JSON responses.
 </ResponseField>
-<ResponseField name="timeout" type="Any" default="None">
-  Timeout for requests
+<ResponseField name="timeout" type="Any">
+  The timeout duration for requests, can be specified in seconds.
 </ResponseField>
-<ResponseField name="options" type="Dict[str, Any]" default="None">
-  Dictionary of options to send with the request, example: `{temperature: 0.1, stop: ['\n']}`
+<ResponseField name="options" type="Dict[str, Any]">
+  A dictionary of options to include with the request, e.g., `{"temperature": 0.1, "stop": ["\n"]}`.
 </ResponseField>
-<ResponseField name="keep_alive" type="Union[float, str]" default="None">
+<ResponseField name="keep_alive" type="Union[float, str]">
+  The keep-alive duration for maintaining persistent connections, can be specified in seconds or as a string.
 </ResponseField>
-<ResponseField name="client_kwargs" type="Dict[str, Any]" default="None">
-  Additional `{key: value}` dict sent when initalizing the `Ollama()` client.
+<ResponseField name="client_kwargs" type="Dict[str, Any]">
+  Additional keyword arguments provided as a dictionary when initializing the `Ollama()` client.
 </ResponseField>
-<ResponseField name="ollama_client" type="ollama.Client()" default="None">
-  Provide your own `ollama.Client()`
+<ResponseField name="ollama_client" type="ollama.Client">
+  An instance of `ollama.Client` provided for making API requests.
 </ResponseField>
-
-<Snippet file="message-us-discord.mdx" />

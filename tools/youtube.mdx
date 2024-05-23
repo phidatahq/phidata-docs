@@ -1,0 +1,45 @@
+---
+title: Youtube
+---
+
+**YouTubeTools** enable an Assistant to access captions and metadata of YouTube videos, when provided with a video URL.
+
+## Example
+
+The following assistant will provide a summary of a YouTube video.
+
+```python cookbook/tools/youtube_tools.py
+from phi.assistant import Assistant
+from phi.tools.youtube_tools import YouTubeTools
+
+assistant = Assistant(
+    tools=[YouTubeTools()],
+    show_tool_calls=True,
+    description="You are a YouTube assistant. Obtain the captions of a YouTube video and answer questions.",
+    debug_mode=True,
+)
+assistant.print_response('Summarize this video https://www.youtube.com/watch?v=Iv9dewmcFbs&t', markdown=True)
+
+```
+
+## Toolkit Params
+
+<ResponseField name="get_video_captions" type="bool" default="True">
+  Enables the functionality to retrieve video captions.
+</ResponseField>
+<ResponseField name="get_video_data" type="bool" default="True">
+  Enables the functionality to retrieve video metadata and other related data.
+</ResponseField>
+<ResponseField name="languages" type="List[str]">
+  Specifies the list of languages for which data should be retrieved, if
+  applicable.
+</ResponseField>
+
+## Toolkit Functions
+
+<ResponseField name="get_youtube_video_captions">
+  This function retrieves the captions of a YouTube video.
+</ResponseField>
+<ResponseField name="get_youtube_video_data">
+  This function retrieves the metadata of a YouTube video.
+</ResponseField>

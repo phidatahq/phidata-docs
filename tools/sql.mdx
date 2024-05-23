@@ -1,0 +1,74 @@
+---
+title: SQL
+---
+
+## Example
+
+The following assistant will run a SQL query to list all tables in the database and describe the contents of one of the tables.
+
+```python cookbook/tools/sql_tools.py
+from phi.assistant import Assistant
+from phi.tools.sql import SQLTools
+
+db_url = "postgresql+psycopg://ai:ai@localhost:5532/ai"
+
+assistant = Assistant(
+    tools=[SQLTools(
+        db_url=db_url,
+    )],
+    show_tool_calls=True,
+)
+
+assistant.print_response("List the tables in the database. Tell me about contents of one of the tables", markdown=True)
+```
+
+## Toolkit Params
+
+<ResponseField name="db_url" type="str">
+  The URL for connecting to the database.
+</ResponseField>
+<ResponseField name="db_engine" type="Engine">
+  The database engine used for connections and operations.
+</ResponseField>
+<ResponseField name="user" type="str">
+  The username for database authentication.
+</ResponseField>
+<ResponseField name="password" type="str">
+  The password for database authentication.
+</ResponseField>
+<ResponseField name="host" type="str">
+  The hostname or IP address of the database server.
+</ResponseField>
+<ResponseField name="port" type="int">
+  The port number on which the database server is listening.
+</ResponseField>
+<ResponseField name="schema" type="str">
+  The specific schema within the database to use.
+</ResponseField>
+<ResponseField name="dialect" type="str">
+  The SQL dialect used by the database.
+</ResponseField>
+<ResponseField name="tables" type="Dict[str, Any]">
+  A dictionary mapping table names to their respective metadata or structure.
+</ResponseField>
+<ResponseField name="list_tables" type="bool" default="True">
+  Enables the functionality to list all tables in the database.
+</ResponseField>
+<ResponseField name="describe_table" type="bool" default="True">
+  Enables the functionality to describe the schema of a specific table.
+</ResponseField>
+<ResponseField name="run_sql_query" type="bool" default="True">
+  Enables the functionality to execute SQL queries directly.
+</ResponseField>
+
+## Toolkit Functions
+
+<ResponseField name="list_tables">
+  Lists all tables in the database.
+</ResponseField>
+<ResponseField name="describe_table">
+  Describes the schema of a specific table.
+</ResponseField>
+<ResponseField name="run_sql_query">
+  Executes SQL queries directly.
+</ResponseField>

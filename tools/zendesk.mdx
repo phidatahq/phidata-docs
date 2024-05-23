@@ -1,0 +1,52 @@
+---
+title: Zendesk
+---
+
+**ZendeskTools** enable an Assistant to access Zendesk API to search for articles.
+
+## Example
+
+The following assistant will run seach Zendesk for "How do I login?" and print the response.
+
+```python cookbook/tools/zendesk_tools.py
+import os
+
+from phi.assistant import Assistant
+from phi.tools.zendesk import ZendeskTools
+
+# Retrieve Zendesk credentials from environment variables
+zd_username = os.getenv("ZENDESK_USERNAME")
+zd_password = os.getenv("ZENDESK_PW")
+zd_company_name = os.getenv("ZENDESK_COMPANY_NAME")
+
+if not zd_username or not zd_password or not zd_company_name:
+    raise EnvironmentError(
+        "Please set the following environment variables: ZENDESK_USERNAME, ZENDESK_PW, ZENDESK_COMPANY_NAME"
+    )
+
+# Initialize the ZendeskTools with the credentials
+zendesk_tools = ZendeskTools(username=zd_username, password=zd_password, company_name=zd_company_name)
+
+# Create an instance of Assistant and pass the initialized tool
+assistant = Assistant(tools=[zendesk_tools], show_tool_calls=True)
+assistant.print_response("How do I login?", markdown=True)
+```
+
+## Toolkit Params
+
+<ResponseField name="username" type="str">
+  The username used for authentication or identification purposes.
+</ResponseField>
+<ResponseField name="password" type="str">
+  The password associated with the username for authentication purposes.
+</ResponseField>
+<ResponseField name="company_name" type="str">
+  The name of the company related to the user or the data being accessed.
+</ResponseField>
+
+## Toolkit Functions
+
+<ResponseField name="search_zendesk">
+  This function searches for articles in Zendesk Help Center that match the
+  given search string.
+</ResponseField>

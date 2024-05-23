@@ -1,0 +1,37 @@
+---
+title: OpenBBTools
+---
+
+**OpenBBTools** enable an Assistant to provide information about stocks and companies.
+
+## Toolkit Params
+
+<ResponseField name="read_article" type="bool" default="True">
+  Enables the functionality to read the full content of an article.
+</ResponseField>
+<ResponseField name="include_summary" type="bool" default="False">
+  Specifies whether to include a summary of the article along with the full
+  content.
+</ResponseField>
+<ResponseField name="article_length" type="int">
+  The maximum length of the article or its summary to be processed or returned.
+</ResponseField>
+
+## Toolkit Functions
+
+<ResponseField name="get_stock_price">
+  This function gets the current stock price for a stock symbol or list of
+  symbols.
+</ResponseField>
+<ResponseField name="search_company_symbol">
+  This function searches for the stock symbol of a company.
+</ResponseField>
+<ResponseField name="get_price_targets">
+  This function gets the price targets for a stock symbol or list of symbols.
+</ResponseField>
+<ResponseField name="get_company_news">
+  This function gets the latest news for a stock symbol or list of symbols.
+</ResponseField>
+<ResponseField name="get_company_profile">
+  This function gets the company profile for a stock symbol or list of symbols.
+</ResponseField>

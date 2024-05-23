@@ -71,7 +71,7 @@
             "llms/openai",
             "llms/openai-like",
             "llms/ollama",
-            "llms/aws",
+            "llms/aws-claude",
             "llms/together",
             "llms/anyscale",
             "llms/fireworks",
@@ -90,18 +90,27 @@
             "tools/functions",
             "tools/toolkits",
             "tools/custom-toolkits",
-            "tools/duckduckgo",
-            "tools/python",
-            "tools/file",
-            "tools/shell",
-            "tools/duckdb",
             "tools/arxiv",
+            "tools/apify",
+            "tools/csv",
+            "tools/duckdb",
+            "tools/duckduckgo",
             "tools/email",
-            "tools/website",
-            "tools/wikipedia",
-            "tools/tavily",
             "tools/exa",
-            "tools/apify"
+            "tools/file",
+            "tools/newspaper4k",
+            "tools/openbb",
+            "tools/pubmed",
+            "tools/resend",
+            "tools/serpapi",
+            "tools/shell",
+            "tools/sql",
+            "tools/tavily",
+            "tools/wikipedia",
+            "tools/website",
+            "tools/yfinance",
+            "tools/youtube",
+            "tools/zendesk"
           ]
         },
         {
@@ -184,17 +193,6 @@
             "examples/integrations/singlestore",
             "examples/integrations/lancedb",
             "examples/integrations/pinecone"
-          ]
-        },
-        {
-          "group": "Tools",
-          "pages": [
-            "examples/tools/arxiv",
-            "examples/tools/duckdb",
-            "examples/tools/duckduckgo",
-            "examples/tools/file",
-            "examples/tools/python",
-            "examples/tools/shell"
           ]
         },
         {
@@ -410,7 +408,7 @@
     },
     {
       "group": "FAQs",
-      "pages": ["faq/could-not-connect-to-docker"]
+      "pages": ["faq/could-not-connect-to-docker", "faq/environment_variables"]
     }
   ],
   "footerSocials": {
