@@ -10,9 +10,9 @@ The following assistant will run seach arXiv for "language models" and print the
 
 ```python cookbook/tools/arxiv_tools.py
 from phi.assistant import Assistant
-from phi.tools.arxiv import ArxivTools
+from phi.tools.arxiv_toolkit import ArxivToolkit
 
-assistant = Assistant(tools=[ArxivTools()], show_tool_calls=True)
+assistant = Assistant(tools=[ArxivToolkit()], show_tool_calls=True)
 assistant.print_response("Search arxiv for 'language models'", markdown=True)
 ```
 
