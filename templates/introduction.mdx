@@ -2,9 +2,9 @@
 title: Introduction
 ---
 
-Phidata enables us to build AI Assistants with memory, knowledge and tools. We serve these Assistants using **Streamlit**, **FastApi** or **Django**. This process requires setting up infrastructure like database, containers and networking.
+We use phidata to build AI Assistants that can be served using **Streamlit**, **FastApi** or **Django**. This process requires setting up infrastructure like database, containers and networking.
 
-To make this process simpler, phidata provides pre-built templates that you can run locally or deploy to AWS. Here's how they work:
+To simplify this process, phidata provides pre-built templates that you can run locally using docker or deploy to AWS. Here's how they work:
 
 - Create your codebase using a template: `phi ws create`
 - Run your app locally: `phi ws up`
@@ -13,6 +13,9 @@ To make this process simpler, phidata provides pre-built templates that you can 
 ## Available Templates
 
 <CardGroup cols={2}>
+  <Card title="LLM OS" icon="rocket" href="/templates/llm-os/run-local">
+    The LLM OS built using FastApi, Streamlit and PgVector
+  </Card>
   <Card title="AI App" icon="books" href="/templates/ai-app/run-local">
     An AI App built using FastApi, Streamlit and PgVector
   </Card>
@@ -24,12 +27,5 @@ To make this process simpler, phidata provides pre-built templates that you can 
   </Card>
   <Card title="Django App" icon="globe" href="/templates/django-app/run-local">
     Full-stack web app built using Django and PostgreSQL
-  </Card>
-  <Card
-    title="Junior Data Engineer"
-    icon="sparkles"
-    href="/templates/junior-de/run-local"
-  >
-    Junior DE to automate data analysis using DuckDb and Python
   </Card>
 </CardGroup>

@@ -223,6 +223,10 @@
       "pages": [
         "templates/introduction",
         {
+          "group": "LLM OS",
+          "pages": ["templates/llm-os/run-local", "templates/llm-os/run-aws"]
+        },
+        {
           "group": "AI App",
           "pages": ["templates/ai-app/run-local", "templates/ai-app/run-aws"]
         },
