@@ -1,18 +1,29 @@
 ---
 title: What is phidata?
-description: "Phidata adds memory, knowledge and tools to LLMs."
+description: "Phidata is a framework for building **AI Assistants** with memory, knowledge and tools."
 sidebarTitle: Introduction
 mode: "wide"
 ---
+
+Use phidata to **turn any LLM into an AI Assistant (aka Agent) that can**:
+- **Search the web** using DuckDuckGo, Google etc.
+- **Pull data from APIs** like yfinance, polygon etc.
+- **Analyze data** using SQL, DuckDb, etc.
+- **Conduct research** and generate reports.
+- **Answer questions** from PDFs, APIs, etc.
+- **Summarize** articles, videos, etc.
+- **Perform tasks** like sending emails, querying databases, etc.
+- **And much more...**
 
 ![Assistant](/images/assistant.png)
 
 ## Why phidata
 
-**Problem:** LLMs have limited context and cannot take actions.<br />
-**Solution:** Add memory, knowledge and tools.
-- **Memory:** Enables LLMs to have long-term conversations by storing **chat history** in a database.
-- **Knowledge:** Provides LLMs with **business context** by storing information in a vector database.
+**Problem:** We need to turn general-purpose LLMs into specialized assistants tailored to our use-case.
+
+**Solution:** Extend LLMs with memory, knowledge and tools:
+- **Memory:** Stores **chat history** in a database and enables LLMs to have long-term conversations.
+- **Knowledge:** Stores information in a vector database and provides LLMs with **business context**.
 - **Tools:** Enable LLMs to **take actions** like pulling data from an API, sending emails or querying a database.
 
 Memory & knowledge make LLMs **smarter** while tools make them **autonomous**.
@@ -30,6 +41,8 @@ LLM = Large Language Model
 </p>
 
 ## Example
+
+### Build a Web Search Assistant
 
 <Steps>
   <Step title="Create a virtual environment">
@@ -104,6 +117,46 @@ LLM = Large Language Model
 
     ```shell
     python assistant.py
+    ```
+
+  </Step>
+</Steps>
+
+### Build a Finance Assistant
+
+<Steps>
+  <Step title="Create a Finance Assistant">
+
+    Create a file `finance_assistant.py`
+
+    ```python finance_assistant.py
+    from phi.assistant import Assistant
+    from phi.llm.openai import OpenAIChat
+    from phi.tools.yfinance import YFinanceTools
+
+    assistant = Assistant(
+        llm=OpenAIChat(model="gpt-4o"),
+        tools=[YFinanceTools(stock_price=True, analyst_recommendations=True, company_info=True, company_news=True)],
+        show_tool_calls=True,
+        markdown=True,
+    )
+    assistant.print_response("What is the stock price of NVDA")
+    assistant.print_response("Write a comparison between NVDA and AMD, use all tools available.")
+    ```
+
+  </Step>
+  <Step title="Run the Assistant">
+
+    Install `yfinance`
+
+    ```shell
+    pip install yfinance
+    ```
+
+    Run the Assistant
+
+    ```shell
+    python finance_assistant.py
     ```
 
   </Step>
