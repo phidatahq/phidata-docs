@@ -1,0 +1,39 @@
+---
+title: Introduction
+---
+
+The embedder converts the information stored in the knowledge base into vector representations. These vectors are stored in a vector database, enabling the Assistant to search and retrieve relevant information efficiently, thereby improving its responses and ensuring they are context-aware. Phidata uses `OpenAIEmbedder` by default for embeddings, but you support other embedders as well. Here is an example:
+
+```python
+from phi.assistant import Assistant, AssistantKnowledge
+from phi.vectordb.pgvector import PgVector2
+from phi.embedder.openai import OpenAIEmbedder
+
+# Create knowledge base
+knowledge_base=AssistantKnowledge(
+    vector_db=PgVector2(
+        db_url=db_url,
+        collection=embeddings_table,
+        embedder=OpenAIEmbedder(),
+    ),
+    # 2 references are added to the prompt
+    num_documents=2,
+),
+
+# Add information to the knowledge base
+knowledge_base.load_text("The sky is blue")
+
+# Add the knowledge base to the Assistant
+assistant = Assistant(knowledge_base=knowledge_base)
+```
+
+The following embedders are supported:
+
+- [OpenAI](/embedder/openai)
+- [Ollama](/embedder/ollama)
+- [Voyage AI](/embedder/voyageai)
+- [Azure OpenAI](/embedder/azure_openai)
+- [Mistral](/embedder/mistral)
+- [Fireworks](/embedder/fireworks)
+- [Together](/embedder/together)
+- [Anyscale](/embedder/anyscale)
