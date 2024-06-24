@@ -2,7 +2,7 @@
 title: Introduction
 ---
 
-The embedder converts the information stored in the knowledge base into vector representations. These vectors are stored in a vector database, enabling the Assistant to search and retrieve relevant information efficiently, thereby improving its responses and ensuring they are context-aware. Phidata uses `OpenAIEmbedder` by default for embeddings, but you support other embedders as well. Here is an example:
+An Embedder converts complex information into vector representations, allowing it to be stored in a vector database. By transforming data into embeddings, the embedder enables efficient searching and retrieval of contextually relevant information. This process enhances the responses of language models by providing them with the necessary business context, ensuring they are context-aware. Phidata uses `OpenAIEmbedder` as the default embedder, but other embedders are supported as well. Here is an example:
 
 ```python
 from phi.assistant import Assistant, AssistantKnowledge
