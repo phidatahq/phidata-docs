@@ -104,6 +104,7 @@
             "tools/resend",
             "tools/serpapi",
             "tools/shell",
+            "tools/spider",
             "tools/sql",
             "tools/tavily",
             "tools/wikipedia",
