@@ -16,9 +16,45 @@ The `WorkspaceSettings` object in the `workspace/settings.py` file defines commo
 
 Your application uses the `phidata` images by default. To use your own image:
 
+- Create a Repository in `ECR` and authenticate or use `Dockerhub`.
 - Open `workspace/settings.py` file
 - Update the `image_repo` to your image repository
 - Set `build_images=True` and `push_images=True`
+- Optional - Set `build_images=False` and `push_images=False` to use an existing image in the repository
+
+### Create an ECR Repository
+
+To use ECR, **create the image repo and authenticate with ECR** before pushing images.
+
+**1. Create the image repository in ECR**
+
+The repo name should match the `ws_name`. Meaning if you're using the default workspace name, the repo name would be `ai`.
+
+<img src="/images/create-ecr-image.png" alt="create-ecr-image" />
+
+**2. Authenticate with ECR**
+
+```bash Authenticate with ECR
+aws ecr get-login-password --region [region] | docker login --username AWS --password-stdin [account].dkr.ecr.[region].amazonaws.com
+```
+
+You can also use a helper script to avoid running the full command
+
+<Note>
+
+Update the script with your ECR repo before running.
+
+</Note>
+
+<CodeGroup>
+
+```bash Mac
+./scripts/auth_ecr.sh
+```
+
+</CodeGroup>
+
+### Update the `WorkspaceSettings`
 
 ```python workspace/settings.py
 ws_settings = WorkspaceSettings(
@@ -34,6 +70,15 @@ ws_settings = WorkspaceSettings(
     push_images=True,
 )
 ```
+
+<Note>
+
+The `image_repo` defines the repo for your image.
+
+- If using dockerhub it would be something like `phidata`.
+- If using ECR it would be something like `[ACCOUNT_ID].dkr.ecr.us-east-1.amazonaws.com`
+
+</Note>
 
 ### Build a new image
 
@@ -75,38 +120,6 @@ phi ws up prd:docker
 
 ```bash Force Build Images
 phi ws up prd:docker -f
-```
-
-</CodeGroup>
-
-### Use ECR for images
-
-To use ECR, **create the image repo and authenticate with ECR** before pushing images.
-
-**1. Create the image repository in ECR**
-
-The repo name should match the `ws_name`. Meaning if you're using the default workspace name, the repo name would be `ai`.
-
-<img src="/images/create-ecr-image.png" alt="create-ecr-image" />
-
-**2. Authenticate with ECR**
-
-```bash Authenticate with ECR
-aws ecr get-login-password --region [region] | docker login --username AWS --password-stdin [account].dkr.ecr.[region].amazonaws.com
-```
-
-You can also use a helper script to avoid running the full command
-
-<Note>
-
-Update the script with your ECR repo before running.
-
-</Note>
-
-<CodeGroup>
-
-```bash Mac
-./scripts/auth_ecr.sh
 ```
 
 </CodeGroup>
