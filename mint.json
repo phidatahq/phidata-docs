@@ -77,7 +77,8 @@
             "llms/fireworks",
             "llms/mistral",
             "llms/groq",
-            "llms/gemini",
+            "llms/google_ai_studio",
+            "llms/google_vertex_ai",
             "llms/azure",
             "llms/claude",
             "llms/cohere"
