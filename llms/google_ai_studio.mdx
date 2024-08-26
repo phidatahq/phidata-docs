@@ -1,37 +1,39 @@
 ---
-title: Gemini
+title: Gemini - AI Studio
 ---
 
-Use Google Cloud's AI Platform to access the Gemini model.
+Use Google's AI Studio to access the Gemini and Gemma models.
 
-## Prerequisites
+## Authentication
 
-1. [Install](https://cloud.google.com/sdk/docs/install) the Google Cloud SDK
-2. [Create a Google Cloud project](https://cloud.google.com/resource-manager/docs/creating-managing-projects)
-3. [Enable the AI Platform API](https://console.cloud.google.com/flows/enableapi?apiid=aiplatform.googleapis.com)
-4. [Authenticate](https://cloud.google.com/sdk/docs/initializing) with Google Cloud
+Set your `GOOGLE_API_KEY` environment variable. You can get one [from Google here](https://ai.google.dev/aistudio).
 
-```shell
-gcloud auth application-default login
+<CodeGroup>
+
+```bash Mac
+export GOOGLE_API_KEY=***
 ```
 
-## Usage
+```bash Windows
+setx GOOGLE_API_KEY ***
+```
+
+</CodeGroup>
+
+## Example
 
 Use `Gemini` with your `Assistant`:
 
 <CodeGroup>
 
 ```python assistant.py
-import vertexai
 from phi.assistant import Assistant
-from phi.llm.gemini import Gemini
-
-# *********** Initialize VertexAI ***********
-vertexai.init(project=getenv("PROJECT_ID"), location=getenv("LOCATION"))
+from phi.llm.google import Gemini
 
 assistant = Assistant(
-    llm=Gemini(model="gemini-1.0-pro-vision"),
+    llm=Gemini(model="gemini-1.5-flash"),
     description="You help people with their health and fitness goals.",
+    debug_mode=True,
 )
 assistant.print_response("Share a quick healthy breakfast recipe.", markdown=True)
 ```
@@ -43,7 +45,7 @@ assistant.print_response("Share a quick healthy breakfast recipe.", markdown=Tru
 <ResponseField name="name" type="str" default="Gemini">
   The name identifier for the assistant.
 </ResponseField>
-<ResponseField name="model" type="str" default="gemini-1.0-pro-vision">
+<ResponseField name="model" type="str" default="gemini-1.5-flash">
   The specific model ID used for generating responses.
 </ResponseField>
 <ResponseField name="generation_config" type="Any">
@@ -58,6 +60,6 @@ assistant.print_response("Share a quick healthy breakfast recipe.", markdown=Tru
   A list of function declarations that the model can utilize during the response
   generation process.
 </ResponseField>
-<ResponseField name="generative_model" type="GenerativeModel">
-  The generative model instance used for producing responses.
+<ResponseField name="api_key" type="str">
+  Google API Key
 </ResponseField>
