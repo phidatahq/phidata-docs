@@ -93,6 +93,7 @@
             "tools/custom-toolkits",
             "tools/arxiv",
             "tools/apify",
+            "tools/composio",
             "tools/csv",
             "tools/duckdb",
             "tools/duckduckgo",
