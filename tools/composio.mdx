@@ -10,7 +10,7 @@ The following assistant will use Github Tool from Composio Toolkit to star a rep
 
 ```bash Run the following commands to setup the assistant
 pip install composio-phidata
-composio add github
+composio add github # Launches GitHub login in browser
 ```
 
 ```python cookbook/tools/composio_tools.py
@@ -19,7 +19,7 @@ from composio_phidata import Action, ComposioToolSet
 
 
 toolset = ComposioToolSet()
-composio_tools = toolset.get_actions(
+composio_tools = toolset.get_tools(
   actions=[Action.GITHUB_STAR_A_REPOSITORY_FOR_THE_AUTHENTICATED_USER]
 ) # get starring action for Github
 
