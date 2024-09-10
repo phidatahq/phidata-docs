@@ -1,0 +1,45 @@
+---
+title: Composio
+---
+
+[**ComposioTools**](https://docs.composio.dev/framework/phidata) enables an Assistant to work with sofware tools like Gmail, Salesforce, Github, etc.
+
+## Example
+
+The following assistant will use Github Tool from Composio Toolkit to star a repo. 
+
+```bash Run the following commands to setup the assistant
+pip install composio-phidata
+composio add github # Launches GitHub login in browser
+```
+
+```python cookbook/tools/composio_tools.py
+from phi.assistant import Assistant
+from composio_phidata import Action, ComposioToolSet
+
+
+toolset = ComposioToolSet()
+composio_tools = toolset.get_tools(
+  actions=[Action.GITHUB_STAR_A_REPOSITORY_FOR_THE_AUTHENTICATED_USER]
+) # get starring action for Github
+
+assistant = Assistant(tools=composio_tools, show_tool_calls=True)
+
+assistant.print_response("Can you star phidatahq/phidata repo?")
+```
+
+## Toolkit Params
+
+The following parameters are used when calling the GitHub star repository action:
+
+<ResponseField name="owner" type="str">
+  The owner of the repository to star.
+</ResponseField>
+<ResponseField name="repo" type="str">
+  The name of the repository to star.
+</ResponseField>
+
+## Toolkit Functions
+
+Composio Toolkit provides 1000+ functions to connect to different software tools.
+Open this [link](https://composio.dev/tools) to view the complete list of functions.
