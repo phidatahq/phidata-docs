@@ -7,7 +7,7 @@ sidebarTitle: Text
 
 <Note>
 
-Install `textract` if needed using [this guide](/how-to/python-libraries)
+Install `textract` if needed using [this guide](/how-to/install)
 
 </Note>
 
@@ -30,15 +30,15 @@ knowledge_base = TextKnowledgeBase(
 ## TextKnowledgeBase Params
 
 <ResponseField name="path" type="Union[str, Path]">
-  Path to text files.
-Can point to a single docx file or a directory of docx files.
+  Path to text files. Can point to a single docx file or a directory of docx
+  files.
 </ResponseField>
 <ResponseField name="formats" type="List[str]">
-  Formats accepted by this knowledge base.
-Default: `[".txt"]`
+  Formats accepted by this knowledge base. Default: `[".txt"]`
 </ResponseField>
 <ResponseField name="reader" type="TextReader">
-  A `TextReader` that converts the text files into `Documents` for the vector database.
+  A `TextReader` that converts the text files into `Documents` for the vector
+  database.
 </ResponseField>
 
 ## AssistantKnowledge Params
