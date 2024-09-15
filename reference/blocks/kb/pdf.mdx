@@ -7,7 +7,7 @@ sidebarTitle: PDF
 
 <Note>
 
-Install `pypdf` if needed using [this guide](/how-to/python-libraries)
+Install `pypdf` if needed using [this guide](/how-to/install)
 
 </Note>
 
@@ -31,11 +31,12 @@ pdf_knowledge_base = PDFKnowledgeBase(
 ## PDFKnowledgeBase Params
 
 <ResponseField name="path" type="Union[str, Path]">
-  Path to `PDF` files.
-Can point to a single PDF file or a directory of PDF files.
+  Path to `PDF` files. Can point to a single PDF file or a directory of PDF
+  files.
 </ResponseField>
 <ResponseField name="reader" type="PDFReader">
-  A `PDFReader` that converts the `PDFs` into `Documents` for the vector database.
+  A `PDFReader` that converts the `PDFs` into `Documents` for the vector
+  database.
 </ResponseField>
 
 ## AssistantKnowledge Params

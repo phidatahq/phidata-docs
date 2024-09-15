@@ -275,7 +275,7 @@
           "pages": [
             "templates/how-to/development-app",
             "templates/how-to/production-app",
-            "templates/how-to/python-libraries",
+            "templates/how-to/install",
             "templates/how-to/secrets",
             "templates/how-to/env-vars",
             "templates/how-to/database-tables",
