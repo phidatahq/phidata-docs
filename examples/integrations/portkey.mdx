@@ -1,0 +1,214 @@
+---
+title: "Portkey"
+description: "Enhance your Phidata agents with Portkey for reliability, efficiency, and advanced features"
+---
+
+# Portkey Integration with Phidata
+
+<img
+  src="https://raw.githubusercontent.com/siddharthsambharia-portkey/Portkey-Product-Images/main/Portkey-Phidata.png"
+  alt="Portkey Metrics Visualization"
+  width="70%"
+/>
+
+[Portkey](https://portkey.ai) is a 2-line upgrade to make your Phidata agents reliable, cost-efficient, and fast.
+
+Portkey adds 4 core production capabilities to any Phidata agent:
+
+1. Routing to 200+ LLMs
+2. Making each LLM call more robust
+3. Full-stack tracing & cost, performance analytics
+4. Real-time guardrails to enforce behavior
+
+## Getting Started
+
+1. **Install Required Packages:**
+
+```bash
+pip install phidata portkey-ai
+```
+
+2. **Configure Phidata with Portkey:**
+
+```python
+from phi.llm.openai import OpenAIChat
+from portkey_ai import PORTKEY_GATEWAY_URL, createHeaders
+
+llm = OpenAIChat(
+     base_url=PORTKEY_GATEWAY_URL,
+     api_key="OPENAI_API_KEY", #Replace with Your OpenAI Key
+     default_headers=createHeaders(
+         provider="openai",
+         api_key=PORTKEY_API_KEY  # Replace with your Portkey API key
+     )
+ )
+```
+
+Generate your API key in the [Portkey Dashboard](https://app.portkey.ai/).
+
+And, that's it! With just this, you can start logging all of your Phidata requests and make them reliable.
+
+3. **Let's Run your Agent**
+
+```python
+from phi.assistant import Assistant
+
+assistant = Assistant(
+    llm=llm,
+    description="You help people with their health and fitness goals.",
+    instructions=["Recipes should be under 5 ingredients"],
+)
+# -*- Print a response to the client
+assistant.print_response("Share a breakfast recipe.", markdown=True)
+```
+
+Here's the output from your Agent's run on Portkey's dashboard.
+
+<img
+  src="https://github.com/siddharthsambharia-portkey/Portkey-Product-Images/blob/main/Portkey-Dashboard.png?raw=true"
+  width="70%"
+  alt="Portkey Dashboard"
+/>
+
+## Key Features
+
+Portkey offers a range of advanced features to enhance your Phidata agents. Here's an overview:
+
+| Feature                                                  | Description                                                        |
+| -------------------------------------------------------- | ------------------------------------------------------------------ |
+| 🌐 [Multi-LLM Integration](#interoperability)            | Access 200+ LLMs with simple configuration changes                 |
+| 🛡️ [Enhanced Reliability](#reliability)                  | Implement fallbacks, load balancing, retries, and much more        |
+| 📊 [Advanced Metrics](#metrics)                          | Track costs, tokens, latency, and 40+ custom metrics effortlessly  |
+| 🔍 [Detailed Traces and Logs](#comprehensive-logging)    | Gain insights into every agent action and decision                 |
+| 🚧 [Guardrails](#guardrails)                             | Enforce agent behavior with real-time checks on inputs and outputs |
+| 🔄 [Continuous Optimization](#continuous-improvement)    | Capture user feedback for ongoing agent improvements               |
+| 💾 [Smart Caching](#caching)                             | Reduce costs and latency with built-in caching mechanisms          |
+| 🔐 [Enterprise-Grade Security](#security-and-compliance) | Set budget limits and implement fine-grained access controls       |
+
+## Colab Notebook
+
+For a hands-on example of integrating Portkey with Phidata, check out our notebook:
+
+[![Google Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://git.new/Phidata-docs)
+
+## Advanced Features
+
+### Interoperability
+
+Easily switch between **200+ LLMs** by changing the `provider` and API key in your configuration.
+
+#### Example: Switching from OpenAI to Azure OpenAI
+
+```python
+config = [
+    {
+        "api_key": "api-key",
+        "model": "gpt-3.5-turbo",
+        "base_url": PORTKEY_GATEWAY_URL,
+        "api_type": "openai",
+        "default_headers": createHeaders(
+            api_key="YOUR_PORTKEY_API_KEY",
+            provider="azure-openai",
+            virtual_key="AZURE_VIRTUAL_KEY"
+        )
+    }
+]
+```
+
+### Reliability
+
+Implement fallbacks, load balancing, and automatic retries to make your agents more resilient.
+
+```python
+portkey_config = {
+  "retry": {
+    "attempts": 5
+  },
+  "strategy": {
+    "mode": "loadbalance"  # Options: "loadbalance" or "fallback"
+  },
+  "targets": [
+    {
+      "provider": "openai",
+      "api_key": "OpenAI_API_Key"
+    },
+    {
+      "provider": "anthropic",
+      "api_key": "Anthropic_API_Key"
+    }
+  ]
+}
+```
+
+### Metrics
+
+Agent runs are complex. Portkey automatically logs **40+ comprehensive metrics** for your AI agents, including cost, tokens used, latency, etc. Whether you need a broad overview or granular insights into your agent runs, Portkey's customizable filters provide the metrics you need.
+
+<AccordionGroup>
+  <Accordion title="Portkey's Observability Dashboard">
+    <img
+      src="https://github.com/siddharthsambharia-portkey/Portkey-Product-Images/blob/main/Portkey-Dashboard.png?raw=true"
+      width="70%"
+      alt="Portkey Dashboard"
+    />
+  </Accordion>
+</AccordionGroup>
+
+### Comprehensive Logging
+
+Access detailed logs and traces of agent activities, function calls, and errors. Filter logs based on multiple parameters for in-depth analysis.
+
+<AccordionGroup>
+  <Accordion title="Traces">
+    <img
+      src="https://raw.githubusercontent.com/siddharthsambharia-portkey/Portkey-Product-Images/main/Portkey-Traces.png"
+      alt="Portkey Logging Interface"
+      width="70%"
+    />
+  </Accordion>
+  <Accordion title="Logs">
+    <img
+      src="https://raw.githubusercontent.com/siddharthsambharia-portkey/Portkey-Product-Images/main/Portkey-Logs.png"
+      alt="Portkey Metrics Visualization"
+      width="70%"
+    />
+  </Accordion>
+</AccordionGroup>
+
+### Guardrails
+
+Phidata agents, while powerful, can sometimes produce unexpected or undesired outputs. Portkey's Guardrails feature helps enforce agent behavior in real-time, ensuring your Phidata agents operate within specified parameters. Verify both the **inputs** to and _outputs_ from your agents to ensure they adhere to specified formats and content guidelines.
+
+<Note>
+  Learn more about Portkey's Guardrails
+  [here](https://docs.portkey.ai/product/guardrails).
+</Note>
+
+### Continuous Improvement
+
+Capture qualitative and quantitative user feedback on your requests to continuously enhance your agent performance.
+
+### Caching
+
+Reduce costs and latency with Portkey's built-in caching system.
+
+```python
+portkey_config = {
+ "cache": {
+    "mode": "semantic"  # Options: "simple" or "semantic"
+ }
+}
+```
+
+### Security and Compliance
+
+Set budget limits on provider API keys and implement fine-grained user roles and permissions for both your application and the Portkey APIs.
+
+## Additional Resources
+
+- [📘 Portkey Documentation](https://docs.portkey.ai)
+- [🐦 Twitter](https://twitter.com/portkeyai)
+- [💬 Discord Community](https://discord.gg/DD7vgKK299)
+- [📊 Portkey App](https://app.portkey.ai)
+
+For more information on using these features and setting up your Config, please refer to the [Portkey documentation](https://docs.portkey.ai).

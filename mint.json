@@ -209,7 +209,8 @@
             "examples/integrations/pgvector",
             "examples/integrations/singlestore",
             "examples/integrations/lancedb",
-            "examples/integrations/pinecone"
+            "examples/integrations/pinecone",
+            "examples/integrations/portkey"
           ]
         },
         {
