@@ -2,7 +2,7 @@
 title: OpenAI
 ---
 
-The GPT models are the best in class LLMs and used as the default LLM by **Assistants**.
+The GPT models are the best in class LLMs and used as the default LLM by **Agents**.
 
 ## Authentication
 
@@ -22,19 +22,19 @@ setx OPENAI_API_KEY sk-***
 
 ## Example
 
-Use `OpenAIChat` with your `Assistant`:
+Use `OpenAIChat` with your `Agent`:
 
 <CodeGroup>
 
-```python assistant.py
-from phi.assistant import Assistant
+```python agent.py
+from phi.agent import Agent
 from phi.llm.openai import OpenAIChat
 
-assistant = Assistant(
+agent = Agent(
     llm=OpenAIChat(model="gpt-4-turbo", max_tokens=500, temperature=0.3),
     description="You provide 15 minute healthy recipes.",
 )
-assistant.print_response("Share a breakfast recipe.", markdown=True)
+agent.print_response("Share a breakfast recipe.", markdown=True)
 ```
 
 </CodeGroup>

@@ -6,13 +6,13 @@ One of our favorite LLM features is generating structured data (i.e. a pydantic 
 
 ## Example
 
-Let's create an Movie Assistant to write a `MovieScript` for us.
+Let's create an Movie Agent to write a `MovieScript` for us.
 
-```python movie_assistant.py
+```python movie_agent.py
 from typing import List
 from pydantic import BaseModel, Field
 from rich.pretty import pprint
-from phi.assistant import Assistant
+from phi.agent import Agent
 
 class MovieScript(BaseModel):
     setting: str = Field(..., description="Provide a nice setting for a blockbuster movie.")
@@ -22,12 +22,12 @@ class MovieScript(BaseModel):
     characters: List[str] = Field(..., description="Name of characters for this movie.")
     storyline: str = Field(..., description="3 sentence storyline for the movie. Make it exciting!")
 
-movie_assistant = Assistant(
+movie_agent = Agent(
     description="You help write movie scripts.",
     output_model=MovieScript,
 )
 
-pprint(movie_assistant.run("New York"))
+pprint(movie_agent.run("New York"))
 ```
 
 The output is an object of the `MovieScript` class, here's how it looks:

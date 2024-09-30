@@ -2,13 +2,13 @@
 title: Structured Output
 ---
 
-An assistant showcasing how to generate pydantic objects with LLMs. This assistant will generate a `MovieScript` given a theme.
+An agent showcasing how to generate pydantic objects with LLMs. This agent will generate a `MovieScript` given a theme.
 
-```python cookbook/assistants/movie_assistant.py
+```python cookbook/agents/movie_agent.py
 from typing import List
 from pydantic import BaseModel, Field
 from rich.pretty import pprint
-from phi.assistant import Assistant
+from phi.agent import Agent
 
 
 class MovieScript(BaseModel):
@@ -22,12 +22,12 @@ class MovieScript(BaseModel):
     storyline: str = Field(..., description="3 sentence storyline for the movie. Make it exciting!")
 
 
-movie_assistant = Assistant(
+movie_agent = Agent(
     description="You help write movie scripts.",
     output_model=MovieScript,
 )
 
-pprint(movie_assistant.run("New York"))
+pprint(movie_agent.run("New York"))
 ```
 
 ## Usage
@@ -43,16 +43,16 @@ pprint(movie_assistant.run("New York"))
 
   </Step>
 
-  <Step title="Run the assistant">
+  <Step title="Run the agent">
 
     <CodeGroup>
 
     ```bash Mac
-    python cookbook/assistants/movie_assistant.py
+    python cookbook/agents/movie_agent.py
     ```
 
     ```bash Windows
-    python cookbook/assistants/movie_assistant.py
+    python cookbook/agents/movie_agent.py
     ```
 
     </CodeGroup>
@@ -63,5 +63,5 @@ pprint(movie_assistant.run("New York"))
 
 ## Information
 
-- View on [Github](https://github.com/phidatahq/phidata/blob/main/cookbook/assistants/movie_assistant.py)
-- Read about generating [structured output from LLMs](/assistants/structured-output)
+- View on [Github](https://github.com/phidatahq/phidata/blob/main/cookbook/agents/movie_agent.py)
+- Read about generating [structured output from LLMs](/agents/structured-output)

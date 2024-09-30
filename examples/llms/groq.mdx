@@ -4,17 +4,17 @@ title: Groq
 
 ## Example
 
-```python cookbook/llms/groq/assistant.py
-from phi.assistant import Assistant
+```python cookbook/llms/groq/agent.py
+from phi.agent import Agent
 from phi.tools.duckduckgo import DuckDuckGo
 from phi.llm.groq import Groq
 
-assistant = Assistant(
+agent = Agent(
     llm=Groq(model="mixtral-8x7b-32768"),
     tools=[DuckDuckGo()],
     show_tool_calls=True,
 )
-assistant.print_response("Whats happening in France?", markdown=True, stream=False)
+agent.print_response("Whats happening in France?", markdown=True, stream=False)
 ```
 
 ## Usage
@@ -38,10 +38,10 @@ assistant.print_response("Whats happening in France?", markdown=True, stream=Fal
 
   </Step>
 
-  <Step title="Run Groq Assistant">
+  <Step title="Run Groq Agent">
 
     ```bash
-    python cookbook/llms/groq/assistant.py
+    python cookbook/llms/groq/agent.py
     ```
 
   </Step>
@@ -50,4 +50,4 @@ assistant.print_response("Whats happening in France?", markdown=True, stream=Fal
 
 ## Information
 
-- View on [Github](https://github.com/phidatahq/phidata/tree/main/cookbook/llms/groq/assistant.py)
+- View on [Github](https://github.com/phidatahq/phidata/tree/main/cookbook/llms/groq/agent.py)

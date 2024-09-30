@@ -2,12 +2,12 @@
 title: Email
 ---
 
-**EmailTools** enable an Assistant to send an email to a user. The Assistant can send an email to a user with a specific subject and body.
+**EmailTools** enable an Agent to send an email to a user. The Agent can send an email to a user with a specific subject and body.
 
 ## Example
 
 ```python cookbook/tools/email_tools.py
-from phi.assistant import Assistant
+from phi.agent import Agent
 from phi.tools.email import EmailTools
 
 receiver_email = "<receiver_email>"
@@ -15,9 +15,9 @@ sender_email = "<sender_email>"
 sender_name = "<sender_name>"
 sender_passkey = "<sender_passkey>"
 
-assistant = Assistant(tools=[EmailTools(receiver_email=receiver_email, sender_email=sender_email, sender_name=sender_name, sender_passkey=sender_passkey)])
+agent = Agent(tools=[EmailTools(receiver_email=receiver_email, sender_email=sender_email, sender_name=sender_name, sender_passkey=sender_passkey)])
 
-assistant.print_response("send an email to <receiver_email>")
+agent.print_response("send an email to <receiver_email>")
 ```
 
 ## Toolkit Params

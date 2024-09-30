@@ -4,21 +4,21 @@ title: Gemini
 
 ## Example
 
-```python cookbook/llms/gemini/assistant.py
+```python cookbook/llms/gemini/agent.py
 from os import getenv
 
 import vertexai
-from phi.assistant import Assistant
+from phi.agent import Agent
 from phi.llm.gemini import Gemini
 
 # *********** Initialize VertexAI ***********
 vertexai.init(project=getenv("PROJECT_ID"), location=getenv("LOCATION"))
 
-assistant = Assistant(
+agent = Agent(
     llm=Gemini(model="gemini-1.0-pro-vision"),
     description="You help people with their health and fitness goals.",
 )
-assistant.print_response("Share a 2 sentence quick and healthy breakfast recipe.", markdown=True)
+agent.print_response("Share a 2 sentence quick and healthy breakfast recipe.", markdown=True)
 ```
 
 ## Usage
@@ -57,10 +57,10 @@ gcloud auth application-default login
 
   </Step>
 
-  <Step title="Run Gemini Assistant">
+  <Step title="Run Gemini Agent">
 
     ```bash
-    python cookbook/llms/gemini/assistant.py
+    python cookbook/llms/gemini/agent.py
     ```
 
   </Step>
@@ -69,4 +69,4 @@ gcloud auth application-default login
 
 ## Information
 
-- View on [Github](https://github.com/phidatahq/phidata/tree/main/cookbook/llms/gemini/assistant.py)
+- View on [Github](https://github.com/phidatahq/phidata/tree/main/cookbook/llms/gemini/agent.py)

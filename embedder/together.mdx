@@ -8,12 +8,12 @@ The `TogetherEmbedder` can be used to embed text data into vectors using the Tog
 ## Usage
 
 ```python
-from phi.assistant import Assistant, AssistantKnowledge
+from phi.agent import Agent, AgentKnowledge
 from phi.vectordb.pgvector import PgVector2
 from phi.embedder.together import TogetherEmbedder
 
 # Create knowledge base
-knowledge_base=AssistantKnowledge(
+knowledge_base=AgentKnowledge(
     vector_db=PgVector2(
         db_url=db_url,
         collection=embeddings_table,
@@ -26,8 +26,8 @@ knowledge_base=AssistantKnowledge(
 # Add information to the knowledge base
 knowledge_base.load_text("The sky is blue")
 
-# Add the knowledge base to the Assistant
-assistant = Assistant(knowledge_base=knowledge_base)
+# Add the knowledge base to the Agent
+agent = Agent(knowledge_base=knowledge_base)
 ```
 
 ## Params

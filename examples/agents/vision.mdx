@@ -1,15 +1,15 @@
 ---
-title: Vision Assistant
+title: Vision Agent
 ---
 
-```python cookbook/assistants/vision.py
-from phi.assistant import Assistant
+```python cookbook/agents/vision.py
+from phi.agent import Agent
 from phi.llm.openai import OpenAIChat
 
-assistant = Assistant(llm=OpenAIChat(model="gpt-4-turbo"))
+agent = Agent(llm=OpenAIChat(model="gpt-4-turbo"))
 
 # Single Image
-assistant.print_response(
+agent.print_response(
     [
         {"type": "text", "text": "What's in this image, describe in 1 sentence"},
         {
@@ -20,7 +20,7 @@ assistant.print_response(
 )
 
 # Multiple Images
-assistant.print_response(
+agent.print_response(
     [
         {
             "type": "text",

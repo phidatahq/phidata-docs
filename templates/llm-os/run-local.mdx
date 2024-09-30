@@ -30,7 +30,7 @@ This will create a folder `llm-os` with the following structure:
 ```bash
 llm-os                      # root directory of your llm-os
 ├── ai
-    ├── assistants.py       # AI Assistants
+    ├── agents.py       # AI Agents
 ├── app                     # Streamlit app
 ├── api                     # FastApi routes
 ├── db                      # database settings
@@ -62,7 +62,7 @@ setx OPENAI_API_KEY sk-***
 
 </CodeGroup>
 
-If you'd like to use the research assistant, export your `EXA_API_KEY`. You can get one [from here](https://dashboard.exa.ai/api-keys) if needed.
+If you'd like to use the research agent, export your `EXA_API_KEY`. You can get one [from here](https://dashboard.exa.ai/api-keys) if needed.
 
 <CodeGroup>
 
@@ -151,7 +151,7 @@ Your LLM OS comes with ready-to-use FastApi endpoints.
     ```json
     {
       "message": "Whats 10!",
-      "assistant": "LLM_OS"
+      "agent": "LLM_OS"
     }
     ```
 
@@ -167,7 +167,7 @@ Your `llm-os` comes with pre-configured API endpoints that can be used to build 
 ```json
 {
   "user_id": "my-app-user-1",
-  "assistant": "LLM_OS"
+  "agent": "LLM_OS"
 }
 ```
 
@@ -179,7 +179,7 @@ Your `llm-os` comes with pre-configured API endpoints that can be used to build 
   "stream": true,
   "run_id": "372224c0-cd5e-4e87-a29d-65d33d9353a5",
   "user_id": "my-app-user-1",
-  "assistant": "LLM_OS"
+  "agent": "LLM_OS"
 }
 ```
 

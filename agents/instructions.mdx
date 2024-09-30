@@ -2,7 +2,7 @@
 title: Instructions (Prompts)
 ---
 
-Under the hood an Assistant will convert the `description` and `instructions` into a **system** prompt and send the input message as a **user** prompt.
+Under the hood an Agent will convert the `description` and `instructions` into a **system** prompt and send the input message as a **user** prompt.
 
 <Note>
 This is merely a formatting benefit, we DO NOT ALTER or abstract any information.
@@ -13,15 +13,15 @@ This is merely a formatting benefit, we DO NOT ALTER or abstract any information
 The `description` is added to the start of the system prompt and `instructions` are added as a numbered list inside  `<instructions></instructions>` tags. For example:
 
 ```python instructions.py
-from phi.assistant import Assistant
+from phi.agent import Agent
 
-assistant = Assistant(
+agent = Agent(
     description="You are a famous short story writer asked to write for a magazine",
     instructions=["You are a pilot on a plane flying from Hawaii to Japan."],
     markdown=True,
     debug_mode=True,
 )
-assistant.print_response("Tell me a 2 sentence horror story.")
+agent.print_response("Tell me a 2 sentence horror story.")
 ```
 
 Will translate to:
@@ -42,7 +42,7 @@ DEBUG    Estimated completion tokens: 40
 
 ## User Prompt
 
-In most cases, the user prompt is simply the input `message` sent to the Assistant.
+In most cases, the user prompt is simply the input `message` sent to the Agent.
 
 If a `knowledge_base` is provided and `add_references_to_prompt=True`, the user prompt is updated to include:
 
@@ -84,14 +84,14 @@ user_prompt += f"""Use the following chat history to reference past messages:
 Example:
 
 ```python
-from phi.assistant import Assistant
+from phi.agent import Agent
 
-assistant = Assistant(
+agent = Agent(
     system_prompt="Share a 2 sentence story about",
     user_prompt="Love in the year 12000.",
     debug_mode=True,
 )
-assistant.print_response()
+agent.print_response()
 ```
 
 ## Customize the System Prompt
@@ -99,7 +99,7 @@ assistant.print_response()
 The system prompt can be customized using:
 
 <ResponseField name="description" type="str" default="None">
-  A description of the Assistant that is added to top the system prompt.
+  A description of the Agent that is added to top the system prompt.
 </ResponseField>
 <ResponseField name="instructions" type="List[str]" default="None">
   List of instructions added to the system prompt in `<instructions>` tags. Default instructions are also created depending on values for `markdown`, `output_model` etc.
@@ -114,7 +114,7 @@ The system prompt can be customized using:
   If True, add instructions for using the knowledge base to the system prompt if knowledge base is provided
 </ResponseField>
 <ResponseField name="prevent_hallucinations" type="bool" default="False">
-  If True, add instructions to return "I dont know" when the assistant does not know the answer.
+  If True, add instructions to return "I dont know" when the agent does not know the answer.
 </ResponseField>
 <ResponseField name="prevent_prompt_injection" type="bool" default="False">
   If True, add instructions to prevent prompt injection attacks.
@@ -123,7 +123,7 @@ The system prompt can be customized using:
   If True, add instructions for limiting tool access to the default system prompt if tools are provided
 </ResponseField>
 <ResponseField name="add_datetime_to_instructions" type="bool" default="False">
-  If True, add the current datetime to the prompt to give the assistant a sense of time. This allows for relative times like "tomorrow" to be used in the prompt
+  If True, add the current datetime to the prompt to give the agent a sense of time. This allows for relative times like "tomorrow" to be used in the prompt
 </ResponseField>
 <ResponseField name="markdown" type="bool" default="False">
   Add an instruction to format the output using markdown.

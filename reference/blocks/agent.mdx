@@ -1,0 +1,28 @@
+---
+title: Agent
+---
+
+The `Agent` class provides an easy to use interface to language models.
+
+## Example
+
+```python agent.py
+from phi.agent import Agent
+
+agent = Agent(description="You help people with their health and fitness goals.")
+
+# -*- Print a response
+agent.print_response('Share a quick healthy breakfast recipe.', markdown=True)
+
+# -*- Get the response as a string
+response = agent.run('Share a quick healthy breakfast recipe.', stream=False)
+
+# -*- Get the response as a stream
+response = ""
+for delta in agent.run('Share a quick healthy breakfast recipe.'):
+    response += delta
+```
+
+## Agent Params
+
+<Snippet file="agent-reference.mdx" />

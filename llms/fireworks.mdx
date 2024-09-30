@@ -22,19 +22,19 @@ setx FIREWORKS_API_KEY ***
 
 ## Example
 
-Use `Fireworks` with your `Assistant`:
+Use `Fireworks` with your `Agent`:
 
 <CodeGroup>
 
-```python assistant.py
-from phi.assistant import Assistant
+```python agent.py
+from phi.agent import Agent
 from phi.llm.fireworks import Fireworks
 
-assistant = Assistant(
+agent = Agent(
     llm=Fireworks(model="accounts/fireworks/models/firefunction-v1"),
     description="You help people with their health and fitness goals.",
 )
-assistant.print_response("Share a quick healthy breakfast recipe.", markdown=True)
+agent.print_response("Share a quick healthy breakfast recipe.", markdown=True)
 ```
 
 </CodeGroup>
@@ -42,7 +42,7 @@ assistant.print_response("Share a quick healthy breakfast recipe.", markdown=Tru
 ## Params
 
 <ResponseField name="name" type="str" default="Fireworks">
-  The name identifier for the assistant.
+  The name identifier for the agent.
 </ResponseField>
 <ResponseField
   name="model"

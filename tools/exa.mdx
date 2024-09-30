@@ -2,18 +2,18 @@
 title: Exa
 ---
 
-**ExaTools** enable an Assistant to search the web using Exa.
+**ExaTools** enable an Agent to search the web using Exa.
 
 ## Example
 
-The following assistant will run seach exa for "language models" and print the response.
+The following agent will run seach exa for "language models" and print the response.
 
 ```python cookbook/tools/exa_tools.py
-from phi.assistant import Assistant
+from phi.agent import Agent
 from phi.tools.exa import ExaTools
 
-assistant = Assistant(tools=[ExaTools()], show_tool_calls=True)
-assistant.print_response("Search exa for 'language models'", markdown=True)
+agent = Agent(tools=[ExaTools()], show_tool_calls=True)
+agent.print_response("Search exa for 'language models'", markdown=True)
 ```
 
 ## Toolkit Params

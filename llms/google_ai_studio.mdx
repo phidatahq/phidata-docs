@@ -22,20 +22,20 @@ setx GOOGLE_API_KEY ***
 
 ## Example
 
-Use `Gemini` with your `Assistant`:
+Use `Gemini` with your `Agent`:
 
 <CodeGroup>
 
-```python assistant.py
-from phi.assistant import Assistant
+```python agent.py
+from phi.agent import Agent
 from phi.llm.google import Gemini
 
-assistant = Assistant(
+agent = Agent(
     llm=Gemini(model="gemini-1.5-flash"),
     description="You help people with their health and fitness goals.",
     debug_mode=True,
 )
-assistant.print_response("Share a quick healthy breakfast recipe.", markdown=True)
+agent.print_response("Share a quick healthy breakfast recipe.", markdown=True)
 ```
 
 </CodeGroup>
@@ -43,7 +43,7 @@ assistant.print_response("Share a quick healthy breakfast recipe.", markdown=Tru
 ## Params
 
 <ResponseField name="name" type="str" default="Gemini">
-  The name identifier for the assistant.
+  The name identifier for the agent.
 </ResponseField>
 <ResponseField name="model" type="str" default="gemini-1.5-flash">
   The specific model ID used for generating responses.

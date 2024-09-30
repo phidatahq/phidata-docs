@@ -4,15 +4,15 @@ title: Ollama
 
 ## Example
 
-```python cookbook/llms/ollama/assistant.py
-from phi.assistant import Assistant
+```python cookbook/llms/ollama/agent.py
+from phi.agent import Agent
 from phi.llm.ollama import Ollama
 
-assistant = Assistant(
+agent = Agent(
     llm=Ollama(model="openhermes"),
     description="You help people with their health and fitness goals.",
 )
-assistant.print_response("Share a 2 sentence quick and healthy breakfast recipe.", markdown=True)
+agent.print_response("Share a 2 sentence quick and healthy breakfast recipe.", markdown=True)
 
 ```
 
@@ -39,10 +39,10 @@ Message `/bye` to exit the chat model
 
   </Step>
 
-  <Step title="Run Ollama Assistant">
+  <Step title="Run Ollama Agent">
 
     ```bash
-    python cookbook/llms/ollama/assistant.py
+    python cookbook/llms/ollama/agent.py
     ```
 
   </Step>
@@ -51,4 +51,4 @@ Message `/bye` to exit the chat model
 
 ## Information
 
-- View on [Github](https://github.com/phidatahq/phidata/tree/main/cookbook/llms/ollama/assistant.py)
+- View on [Github](https://github.com/phidatahq/phidata/tree/main/cookbook/llms/ollama/agent.py)

@@ -24,19 +24,19 @@ setx AWS_SECRET_ACCESS_KEY ***
 
 ## Example
 
-Use `OpenAIChat` with your `Assistant`:
+Use `OpenAIChat` with your `Agent`:
 
 <CodeGroup>
 
-```python assistant.py
-from phi.assistant import Assistant
+```python agent.py
+from phi.agent import Agent
 from phi.llm.aws.claude import Claude
 
-assistant = Assistant(
+agent = Agent(
     llm=Claude(model="anthropic.claude-3-sonnet-20240229-v1:0"),
     description="You help people with their health and fitness goals.",
 )
-assistant.print_response("Share a quick healthy breakfast recipe.", markdown=True)
+agent.print_response("Share a quick healthy breakfast recipe.", markdown=True)
 ```
 
 </CodeGroup>
@@ -44,7 +44,7 @@ assistant.print_response("Share a quick healthy breakfast recipe.", markdown=Tru
 ## Params
 
 <ResponseField name="name" type="str" default="AwsBedrockAnthropicClaude">
-  The name identifier for the Claude assistant.
+  The name identifier for the Claude agent.
 </ResponseField>
 <ResponseField
   name="model"

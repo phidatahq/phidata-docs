@@ -1,14 +1,14 @@
 ---
-title: Hackernews Assistant
+title: Hackernews Agent
 ---
 
-An assistant showcasing how to use function calling with LLMs. This assistant has access to a function `get_top_hackernews_stories` that it can call to get top stories from Hacker News.
+An agent showcasing how to use function calling with LLMs. This agent has access to a function `get_top_hackernews_stories` that it can call to get top stories from Hacker News.
 
-```python cookbook/assistants/hackernews.py
+```python cookbook/agents/hackernews.py
 import json
 import httpx
 
-from phi.assistant import Assistant
+from phi.agent import Agent
 
 
 def get_top_hackernews_stories(num_stories: int = 10) -> str:
@@ -36,8 +36,8 @@ def get_top_hackernews_stories(num_stories: int = 10) -> str:
     return json.dumps(stories)
 
 
-assistant = Assistant(tools=[get_top_hackernews_stories], show_tool_calls=True)
-assistant.print_response("Summarize the top stories on hackernews?", markdown=True)
+agent = Agent(tools=[get_top_hackernews_stories], show_tool_calls=True)
+agent.print_response("Summarize the top stories on hackernews?", markdown=True)
 ```
 
 ## Usage
@@ -53,16 +53,16 @@ assistant.print_response("Summarize the top stories on hackernews?", markdown=Tr
 
   </Step>
 
-  <Step title="Run the assistant">
+  <Step title="Run the agent">
 
     <CodeGroup>
 
     ```bash Mac
-    python cookbook/assistants/hackernews.py
+    python cookbook/agents/hackernews.py
     ```
 
     ```bash Windows
-    python cookbook/assistants/hackernews.py
+    python cookbook/agents/hackernews.py
     ```
 
     </CodeGroup>
@@ -73,5 +73,5 @@ assistant.print_response("Summarize the top stories on hackernews?", markdown=Tr
 
 ## Information
 
-- View on [Github](https://github.com/phidatahq/phidata/blob/main/cookbook/assistants/hackernews.py)
-- Read about [Tools](/assistants/tools)
+- View on [Github](https://github.com/phidatahq/phidata/blob/main/cookbook/agents/hackernews.py)
+- Read about [Tools](/agents/tools)

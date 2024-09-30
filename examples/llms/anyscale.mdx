@@ -4,15 +4,15 @@ title: Anyscale
 
 ## Example
 
-```python cookbook/llms/anyscale/assistant.py
-from phi.assistant import Assistant
+```python cookbook/llms/anyscale/agent.py
+from phi.agent import Agent
 from phi.llm.anyscale import Anyscale
 
-assistant = Assistant(
+agent = Agent(
     llm=Anyscale(model="mistralai/Mixtral-8x7B-Instruct-v0.1"),
     description="You help people with their health and fitness goals.",
 )
-assistant.print_response("Share a 2 sentence quick and healthy breakfast recipe.", markdown=True)
+agent.print_response("Share a 2 sentence quick and healthy breakfast recipe.", markdown=True)
 ```
 
 ## Usage
@@ -36,10 +36,10 @@ assistant.print_response("Share a 2 sentence quick and healthy breakfast recipe.
 
   </Step>
 
-  <Step title="Run Anyscale Assistant">
+  <Step title="Run Anyscale Agent">
 
     ```bash
-    python cookbook/llms/anyscale/assistant.py
+    python cookbook/llms/anyscale/agent.py
     ```
 
   </Step>
@@ -48,4 +48,4 @@ assistant.print_response("Share a 2 sentence quick and healthy breakfast recipe.
 
 ## Information
 
-- View on [Github](https://github.com/phidatahq/phidata/tree/main/cookbook/llms/anyscale/assistant.py)
+- View on [Github](https://github.com/phidatahq/phidata/tree/main/cookbook/llms/anyscale/agent.py)

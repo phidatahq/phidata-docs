@@ -1,18 +1,18 @@
 ---
-title: PDF Assistant with Storage
+title: PDF Agent with Storage
 ---
 
-Create an Assistant that can
+Create an Agent that can
 
 - Read PDFs and store them in a knowledge base
 - Store the runs in PostgreSQL to provide long-term memory across sessions
 
-```python cookbook/assistants/pdf_assistant.py
+```python cookbook/agents/pdf_agent.py
 import typer
 from rich.prompt import Prompt
 from typing import Optional, List
-from phi.assistant import Assistant
-from phi.storage.assistant.postgres import PgAssistantStorage
+from phi.agent import Agent
+from phi.storage.agent.postgres import PgAgentStorage
 from phi.knowledge.pdf import PDFUrlKnowledgeBase
 from phi.vectordb.pgvector import PgVector2
 
@@ -25,10 +25,10 @@ knowledge_base = PDFUrlKnowledgeBase(
 # Comment out after first run
 knowledge_base.load()
 
-storage = PgAssistantStorage(table_name="pdf_assistant", db_url=db_url)
+storage = PgAgentStorage(table_name="pdf_agent", db_url=db_url)
 
 
-def pdf_assistant(new: bool = False, user: str = "user"):
+def pdf_agent(new: bool = False, user: str = "user"):
     run_id: Optional[str] = None
 
     if not new:
@@ -36,29 +36,29 @@ def pdf_assistant(new: bool = False, user: str = "user"):
         if len(existing_run_ids) > 0:
             run_id = existing_run_ids[0]
 
-    assistant = Assistant(
+    agent = Agent(
         run_id=run_id,
         user_id=user,
         knowledge_base=knowledge_base,
         storage=storage,
         # Show tool calls in the response
         show_tool_calls=True,
-        # Enable the assistant to search the knowledge base
+        # Enable the agent to search the knowledge base
         search_knowledge=True,
-        # Enable the assistant to read the chat history
+        # Enable the agent to read the chat history
         read_chat_history=True,
     )
     if run_id is None:
-        run_id = assistant.run_id
+        run_id = agent.run_id
         print(f"Started Run: {run_id}\n")
     else:
         print(f"Continuing Run: {run_id}\n")
 
-    assistant.cli_app(markdown=True)
+    agent.cli_app(markdown=True)
 
 
 if __name__ == "__main__":
-    typer.run(pdf_assistant)
+    typer.run(pdf_agent)
 ```
 
 ## Usage
@@ -76,20 +76,20 @@ if __name__ == "__main__":
 
   </Step>
 
-  <Step title="Run the assistant">
+  <Step title="Run the agent">
 
     <CodeGroup>
 
     ```bash Mac
-    python cookbook/assistants/pdf_assistant.py
+    python cookbook/agents/pdf_agent.py
     ```
 
     ```bash Windows
-    python cookbook/assistants/pdf_assistant.py
+    python cookbook/agents/pdf_agent.py
     ```
     </CodeGroup>
 
-    Now the assistant continues across sessions. Ask a question:
+    Now the agent continues across sessions. Ask a question:
 
     ```
     How do I make pad thai?
@@ -103,10 +103,10 @@ if __name__ == "__main__":
 
   </Step>
   <Step title="Start a new run">
-    Run the `assistant_with_storage.py` file with the `--new` flag to start a new run.
+    Run the `agent_with_storage.py` file with the `--new` flag to start a new run.
 
     ```bash
-    python assistant_with_storage.py --new
+    python agent_with_storage.py --new
     ```
 
   </Step>
@@ -121,5 +121,5 @@ if __name__ == "__main__":
 
 ## Information
 
-- View on [Github](https://github.com/phidatahq/phidata/tree/main/cookbook/assistants/pdf_assistant.py)
-- Read about [Assistant Storage](/assistants/storage)
+- View on [Github](https://github.com/phidatahq/phidata/tree/main/cookbook/agents/pdf_agent.py)
+- Read about [Agent Storage](/agents/storage)

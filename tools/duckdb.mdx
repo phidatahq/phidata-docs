@@ -2,7 +2,7 @@
 title: DuckDb
 ---
 
-**DuckDbTools** enable an Assistant to run SQL and analyze data using DuckDb.
+**DuckDbTools** enable an Agent to run SQL and analyze data using DuckDb.
 
 ### Prerequisites
 
@@ -17,18 +17,18 @@ For more installation options, please refer to [DuckDB documentation](https://du
 
 ## Example
 
-The following assistant will analyze the movies file using SQL and return the result.
+The following agent will analyze the movies file using SQL and return the result.
 
 ```python cookbook/tools/duckdb_tools.py
-from phi.assistant import Assistant
+from phi.agent import Agent
 from phi.tools.duckdb import DuckDbTools
 
-assistant = Assistant(
+agent = Agent(
     tools=[DuckDbTools()],
     show_tool_calls=True,
     system_prompt="Use this file for Movies data: https://phidata-public.s3.amazonaws.com/demo_data/IMDB-Movie-Data.csv",
 )
-assistant.print_response("What is the average rating of movies?", markdown=True, stream=False)
+agent.print_response("What is the average rating of movies?", markdown=True, stream=False)
 ```
 
 ## Toolkit Params

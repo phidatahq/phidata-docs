@@ -2,17 +2,17 @@
 title: Introduction
 ---
 
-Large Language Models are machine-learning models that are trained to understand natural language and code. They are quickly emerging as the building block of a new computing paradigm. Use any `llm` with an Assistant like:
+Large Language Models are machine-learning models that are trained to understand natural language and code. They are quickly emerging as the building block of a new computing paradigm. Use any `llm` with an Agent like:
 
 ```python
-from phi.assistant import Assistant
+from phi.agent import Agent
 from phi.llm.openai import OpenAIChat
 
-assistant = Assistant(
+agent = Agent(
     llm=OpenAIChat(model="gpt-4-turbo"),
     description="You provide 15 minute healthy recipes.",
 )
-assistant.print_response("Share a breakfast recipe.", markdown=True)
+agent.print_response("Share a breakfast recipe.", markdown=True)
 ```
 
 Phidata supports the following LLM providers:

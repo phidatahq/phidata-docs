@@ -4,15 +4,15 @@ title: Mistral
 
 ## Example
 
-```python cookbook/llms/mistral/assistant.py
-from phi.assistant import Assistant
+```python cookbook/llms/mistral/agent.py
+from phi.agent import Agent
 from phi.llm.mistral import Mistral
 
-assistant = Assistant(
+agent = Agent(
     llm=Mistral(model="mistral-large-latest"),
     description="You help people with their health and fitness goals.",
 )
-assistant.print_response("Share a 2 sentence quick and healthy breakfast recipe.", markdown=True)
+agent.print_response("Share a 2 sentence quick and healthy breakfast recipe.", markdown=True)
 
 ```
 
@@ -37,10 +37,10 @@ assistant.print_response("Share a 2 sentence quick and healthy breakfast recipe.
 
   </Step>
 
-  <Step title="Run Mistral Assistant">
+  <Step title="Run Mistral Agent">
 
     ```bash
-    python cookbook/llms/mistral/assistant.py
+    python cookbook/llms/mistral/agent.py
     ```
 
   </Step>
@@ -49,4 +49,4 @@ assistant.print_response("Share a 2 sentence quick and healthy breakfast recipe.
 
 ## Information
 
-- View on [Github](https://github.com/phidatahq/phidata/tree/main/cookbook/llms/mistral/assistant.py)
+- View on [Github](https://github.com/phidatahq/phidata/tree/main/cookbook/llms/mistral/agent.py)

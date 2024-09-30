@@ -22,15 +22,15 @@ setx ANTHROPIC_API_KEY ***
 
 ## Example
 
-Use `Claude` with your `Assistant`:
+Use `Claude` with your `Agent`:
 
 <CodeGroup>
 
-```python assistant.py
-from phi.assistant import Assistant
+```python agent.py
+from phi.agent import Agent
 from phi.llm.anthropic import Claude
 
-assistant = Assistant(
+agent = Agent(
     llm=Claude(
         model="claude-3-opus-20240229",
         max_tokens=1024,
@@ -38,7 +38,7 @@ assistant = Assistant(
 )
 
 # -*- Print a response
-assistant.print_response('Share a 5 word horror story.', markdown=True)
+agent.print_response('Share a 5 word horror story.', markdown=True)
 ```
 
 </CodeGroup>
@@ -46,7 +46,7 @@ assistant.print_response('Share a 5 word horror story.', markdown=True)
 ## Params
 
 <ResponseField name="name" type="str" default="Claude">
-  The name identifier for the assistant.
+  The name identifier for the agent.
 </ResponseField>
 <ResponseField name="models" type="str" default="claude-3-opus-20240229">
   The specific model ID used for generating responses.

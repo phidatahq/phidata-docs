@@ -4,17 +4,17 @@ title: Claude
 
 ## Example
 
-```python cookbook/llms/claude/assistant.py
-from phi.assistant import Assistant
+```python cookbook/llms/claude/agent.py
+from phi.agent import Agent
 from phi.llm.anthropic import Claude
 from phi.tools.duckduckgo import DuckDuckGo
 
-assistant = Assistant(
+agent = Agent(
     llm=Claude(model="claude-3-opus-20240229"),
     tools=[DuckDuckGo()],
     show_tool_calls=True,
 )
-assistant.print_response("Whats happening in France?", markdown=True)
+agent.print_response("Whats happening in France?", markdown=True)
 ```
 
 ## Usage
@@ -38,10 +38,10 @@ assistant.print_response("Whats happening in France?", markdown=True)
 
   </Step>
 
-  <Step title="Run Claude Assistant">
+  <Step title="Run Claude Agent">
 
     ```bash
-    python cookbook/llms/claude/assistant.py
+    python cookbook/llms/claude/agent.py
     ```
 
   </Step>
@@ -50,4 +50,4 @@ assistant.print_response("Whats happening in France?", markdown=True)
 
 ## Information
 
-- View on [Github](https://github.com/phidatahq/phidata/tree/main/cookbook/llms/claude/assistant.py)
+- View on [Github](https://github.com/phidatahq/phidata/tree/main/cookbook/llms/claude/agent.py)

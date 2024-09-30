@@ -4,22 +4,22 @@ title: SQL
 
 ## Example
 
-The following assistant will run a SQL query to list all tables in the database and describe the contents of one of the tables.
+The following agent will run a SQL query to list all tables in the database and describe the contents of one of the tables.
 
 ```python cookbook/tools/sql_tools.py
-from phi.assistant import Assistant
+from phi.agent import Agent
 from phi.tools.sql import SQLTools
 
 db_url = "postgresql+psycopg://ai:ai@localhost:5532/ai"
 
-assistant = Assistant(
+agent = Agent(
     tools=[SQLTools(
         db_url=db_url,
     )],
     show_tool_calls=True,
 )
 
-assistant.print_response("List the tables in the database. Tell me about contents of one of the tables", markdown=True)
+agent.print_response("List the tables in the database. Tell me about contents of one of the tables", markdown=True)
 ```
 
 ## Toolkit Params

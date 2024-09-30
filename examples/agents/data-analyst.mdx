@@ -2,11 +2,11 @@
 title: Data Analyst
 ---
 
-```python cookbook/assistants/data_analyst.py
+```python cookbook/agents/data_analyst.py
 import json
-from phi.assistant.duckdb import DuckDbAssistant
+from phi.agent.duckdb import DuckDbAgent
 
-data_analyst = DuckDbAssistant(
+data_analyst = DuckDbAgent(
     semantic_model=json.dumps(
         {
             "tables": [

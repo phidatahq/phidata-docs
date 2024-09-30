@@ -6,16 +6,16 @@ title: Groq
 
 <CodeGroup>
 
-```python assistant.py
-from phi.assistant import Assistant
+```python agent.py
+from phi.agent import Agent
 from phi.llm.groq import Groq
 
-assistant = Assistant(
+agent = Agent(
     llm=Groq(model="mixtral-8x7b-32768"),
     description="You help people with their health and fitness goals.",
     # debug_mode=True,
 )
-assistant.print_response("Share a quick healthy breakfast recipe.", markdown=True)
+agent.print_response("Share a quick healthy breakfast recipe.", markdown=True)
 ```
 
 </CodeGroup>

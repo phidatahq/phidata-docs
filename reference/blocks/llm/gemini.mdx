@@ -6,19 +6,19 @@ title: Gemini
 
 <CodeGroup>
 
-```python assistant.py
+```python agent.py
 import vertexai
-from phi.assistant import Assistant
+from phi.agent import Agent
 from phi.llm.gemini import Gemini
 
 # *********** Initialize VertexAI ***********
 vertexai.init(project=getenv("PROJECT_ID"), location=getenv("LOCATION"))
 
-assistant = Assistant(
+agent = Agent(
     llm=Gemini(model="gemini-1.0-pro-vision"),
     description="You help people with their health and fitness goals.",
 )
-assistant.print_response("Share a quick healthy breakfast recipe.", markdown=True)
+agent.print_response("Share a quick healthy breakfast recipe.", markdown=True)
 ```
 
 </CodeGroup>

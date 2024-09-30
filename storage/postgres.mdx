@@ -1,31 +1,31 @@
 ---
-title: Postgres Assistant Storage
+title: Postgres Agent Storage
 sidebarTitle: Postgres
 ---
 
-Phidata supports using PostgreSQL as a storage backend for Assistants using the `PgAssistantStorage` class.
+Phidata supports using PostgreSQL as a storage backend for Agents using the `PgAgentStorage` class.
 
 ## Usage
 
 ```python storage.py
-from phi.storage.assistant.postgres import PgAssistantStorage
+from phi.storage.agent.postgres import PgAgentStorage
 
 # Create a storage backend using the Postgres database
-storage = PgAssistantStorage(
-    # store runs in the ai.assistant_runs table
-    table_name="assistant_runs",
+storage = PgAgentStorage(
+    # store runs in the ai.agent_runs table
+    table_name="agent_runs",
     # db_url: Postgres database URL
     db_url=db_url,
 )
 
-# Add storage to the Assistant
-assistant = Assistant(storage=storage)
+# Add storage to the Agent
+agent = Agent(storage=storage)
 ```
 
 ## Params
 
 <ResponseField name="table_name" type="str">
-  The name of the table to store assistant runs in.
+  The name of the table to store agent runs in.
 </ResponseField>
 <ResponseField name="schema" type="str" default="ai">
   The schema to store the table in.

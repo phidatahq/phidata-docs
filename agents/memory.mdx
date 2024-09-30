@@ -2,7 +2,7 @@
 title: Memory
 ---
 
-Every Assistant comes with built-in memory that can be used to access the **Chat History** or **LLM Messages**. Access the assistant memory using `assistant.memory`
+Every Agent comes with built-in memory that can be used to access the **Chat History** or **LLM Messages**. Access the agent memory using `agent.memory`
 - **Chat History:** The messages between the user and LLM.
 - **LLM Messages:** The full list of messages sent to the LLM, including system prompt, tool calls etc.
 
@@ -10,15 +10,15 @@ Every Assistant comes with built-in memory that can be used to access the **Chat
 
 ```python memory.py
 from rich.pretty import pprint
-from phi.assistant import Assistant, AssistantMemory
+from phi.agent import Agent, AgentMemory
 
-assistant = Assistant()
+agent = Agent()
 
 # -*- Print a response
-assistant.print_response("Share a 5 word horror story.")
+agent.print_response("Share a 5 word horror story.")
 
 # -*- Get the memory
-memory: AssistantMemory = assistant.memory
+memory: AgentMemory = agent.memory
 
 # -*- Print Chat History
 print("============ Chat History ============")
@@ -31,6 +31,6 @@ pprint(memory.llm_messages)
 
 <Warning>
 
-AssistantMemory only lasts while the session is active. To provide memory across sessions, add `Storage` to the `Assistant`.
+AgentMemory only lasts while the session is active. To provide memory across sessions, add `Storage` to the `Agent`.
 
 </Warning>

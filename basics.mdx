@@ -1,13 +1,13 @@
 ---
 title: Basics
-description: "Phidata is a framework for building AI Assistants with memory, knowledge and tools."
+description: "Phidata is a framework for building AI Agents with memory, knowledge and tools."
 ---
 
 - **Memory:** Stores chat history, summaries, facts in a database.
 - **Knowledge:** Stores business context in a vector database.
 - **Tools:** Let LLMs take actions like calling APIs, sending emails or querying a database.
 
-![Assistant](/images/assistant.png)
+![Agent](/images/agent.png)
 
 Let's work through a few examples
 
@@ -50,24 +50,24 @@ Let's work through a few examples
   </Step>
 </Steps>
 
-## Assistant with Tools
+## Agent with Tools
 
-Tools are **functions** that an Assistant can run to achieve tasks like searching the web, running SQL, sending an email, calling APIs.
+Tools are **functions** that an Agent can run to achieve tasks like searching the web, running SQL, sending an email, calling APIs.
 
-### Example: Research Assistant
+### Example: Research Agent
 
-Let's create an Assistant that prepares a research report by searching the web.
+Let's create an Agent that prepares a research report by searching the web.
 
 <Steps>
-  <Step title="Create Research Assistant">
+  <Step title="Create Research Agent">
     Create a file `research.py`
 
     ```python research.py
-    from phi.assistant import Assistant
+    from phi.agent import Agent
     from phi.tools.duckduckgo import DuckDuckGo
     from phi.tools.newspaper4k import Newspaper4k
 
-    assistant = Assistant(
+    agent = Agent(
         tools=[DuckDuckGo(), Newspaper4k()],
         show_tool_calls=True,
         description="You are a senior NYT researcher writing an article on a topic.",
@@ -78,12 +78,12 @@ Let's create an Assistant that prepares a research report by searching the web.
         ],
         add_datetime_to_instructions=True,
     )
-    assistant.print_response("Latest developments in AI", markdown=True)
+    agent.print_response("Latest developments in AI", markdown=True)
     ```
 
   </Step>
-  <Step title="Run the Assistant">
-    Assistants use `OpenAI` by default. Set your `OPENAI_API_KEY`.
+  <Step title="Run the Agent">
+    Agents use `OpenAI` by default. Set your `OPENAI_API_KEY`.
 
     <CodeGroup>
 
@@ -103,7 +103,7 @@ Let's create an Assistant that prepares a research report by searching the web.
     pip install openai duckduckgo-search newspaper4k lxml_html_clean
     ```
 
-    Run the Assistant
+    Run the Agent
 
     ```shell
     python research.py
@@ -112,9 +112,9 @@ Let's create an Assistant that prepares a research report by searching the web.
   </Step>
 </Steps>
 
-## Assistant with Knowledge
+## Agent with Knowledge
 
-To provide LLMs with business context, we store information in a vector database that the Assistant can search to improve its responses. Let's use **PgVector** as our vector store as it can also provide storage for our Assistants.
+To provide LLMs with business context, we store information in a vector database that the Agent can search to improve its responses. Let's use **PgVector** as our vector store as it can also provide storage for our Agents.
 
 ### Run PgVector
 
@@ -132,14 +132,14 @@ docker run -d \
   phidata/pgvector:16
 ```
 
-### RAG Assistant
+### RAG Agent
 
 Retrieval Augmented Generation means **"stuffing the prompt with relevant information"** to improve LLM responses. This is a 2 step process:
 
 1. Retrieve relevant information from a vector database.
 2. Augment the prompt to provide context to the LLM.
 
-Let's build a **PDF Assistant** that helps us with food recipes using RAG.
+Let's build a **PDF Agent** that helps us with food recipes using RAG.
 
 <Steps>
   <Step title="Install libraries">
@@ -158,11 +158,11 @@ Let's build a **PDF Assistant** that helps us with food recipes using RAG.
     </CodeGroup>
 
   </Step>
-  <Step title="Create a RAG Assistant">
-    Create a file `rag_assistant.py` with the following contents
+  <Step title="Create a RAG Agent">
+    Create a file `rag_agent.py` with the following contents
 
-    ```python rag_assistant.py
-    from phi.assistant import Assistant
+    ```python rag_agent.py
+    from phi.agent import Agent
     from phi.knowledge.pdf import PDFUrlKnowledgeBase
     from phi.vectordb.pgvector import PgVector2
 
@@ -178,26 +178,26 @@ Let's build a **PDF Assistant** that helps us with food recipes using RAG.
     # Load the knowledge base
     knowledge_base.load(recreate=False)
 
-    assistant = Assistant(
+    agent = Agent(
         knowledge_base=knowledge_base,
         # The add_references_to_prompt will update the prompt with references from the knowledge base.
         add_references_to_prompt=True,
     )
-    assistant.print_response("How do I make pad thai?", markdown=True)
+    agent.print_response("How do I make pad thai?", markdown=True)
     ```
 
   </Step>
-  <Step title="Run the Assistant">
-    Run the Assistant (it takes a few seconds to load the knowledge base).
+  <Step title="Run the Agent">
+    Run the Agent (it takes a few seconds to load the knowledge base).
 
     <CodeGroup>
 
     ```bash Mac
-    python rag_assistant.py
+    python rag_agent.py
     ```
 
     ```bash Windows
-    python rag_assistant.py
+    python rag_agent.py
     ```
 
     </CodeGroup>
@@ -205,7 +205,7 @@ Let's build a **PDF Assistant** that helps us with food recipes using RAG.
     <br />
 
     <Note>
-    The Assistant uses the `OpenAI` LLM and Embeddings by default.
+    The Agent uses the `OpenAI` LLM and Embeddings by default.
     </Note>
 
   </Step>
@@ -214,7 +214,7 @@ Let's build a **PDF Assistant** that helps us with food recipes using RAG.
 <Accordion title="How to use local PDFs" icon="file-pdf" iconType="duotone">
 If you want to use local PDFs, use a `PDFKnowledgeBase` instead
 
-```python assistant.py
+```python agent.py
 from phi.knowledge.pdf import PDFKnowledgeBase
 
 ...
@@ -230,20 +230,20 @@ knowledge_base = PDFKnowledgeBase(
 
 </Accordion>
 
-### Autonomous Assistant
+### Autonomous Agent
 
-With the RAG assistant above, the `add_references_to_prompt=True` always adds information from the knowledge base to the prompt, regardless of whether it is relevant to the question.
+With the RAG agent above, the `add_references_to_prompt=True` always adds information from the knowledge base to the prompt, regardless of whether it is relevant to the question.
 
-With Autonomous assistants, we let the LLM decide **if** it needs to access the knowledge base and what search parameters it needs to query the knowledge base.
+With Autonomous agents, we let the LLM decide **if** it needs to access the knowledge base and what search parameters it needs to query the knowledge base.
 
-Make the `Assistant` Autonomous by setting the `search_knowledge` and `read_chat_history` flags, giving it tools to search the knowledge base and chat history on demand.
+Make the `Agent` Autonomous by setting the `search_knowledge` and `read_chat_history` flags, giving it tools to search the knowledge base and chat history on demand.
 
 <Steps>
-  <Step title="Create an Autonomous Assistant">
-    Create a file `auto_assistant.py` with the following contents
+  <Step title="Create an Autonomous Agent">
+    Create a file `auto_agent.py` with the following contents
 
-    ```python auto_assistant.py
-    from phi.assistant import Assistant
+    ```python auto_agent.py
+    from phi.agent import Agent
     from phi.knowledge.pdf import PDFUrlKnowledgeBase
     from phi.vectordb.pgvector import PgVector2
 
@@ -257,31 +257,31 @@ Make the `Assistant` Autonomous by setting the `search_knowledge` and `read_chat
     # Comment out as the knowledge base is already loaded.
     # knowledge_base.load(recreate=False)
 
-    assistant = Assistant(
+    agent = Agent(
         knowledge_base=knowledge_base,
         # Show tool calls in the response
         show_tool_calls=True,
-        # Enable the assistant to search the knowledge base
+        # Enable the agent to search the knowledge base
         search_knowledge=True,
-        # Enable the assistant to read the chat history
+        # Enable the agent to read the chat history
         read_chat_history=True,
     )
-    assistant.print_response("How do I make pad thai?", markdown=True)
-    assistant.print_response("What was my last question?", markdown=True)
+    agent.print_response("How do I make pad thai?", markdown=True)
+    agent.print_response("What was my last question?", markdown=True)
     ```
 
   </Step>
-  <Step title="Run the assistant">
-    Run the Assistant
+  <Step title="Run the agent">
+    Run the Agent
 
     <CodeGroup>
 
     ```bash Mac
-    python auto_assistant.py
+    python auto_agent.py
     ```
 
     ```bash Windows
-    python auto_assistant.py
+    python auto_agent.py
     ```
 
     </CodeGroup>
@@ -291,20 +291,20 @@ Make the `Assistant` Autonomous by setting the `search_knowledge` and `read_chat
   </Step>
 </Steps>
 
-## Assistant with Memory, Knowledge & Tools
+## Agent with Memory, Knowledge & Tools
 
-Assistants comes with built-in memory but it only lasts while the session is active. To continue conversations across sessions, we can store chat history in a database like PostgreSQL.
+Agents comes with built-in memory but it only lasts while the session is active. To continue conversations across sessions, we can store chat history in a database like PostgreSQL.
 
-Lets wrap up by building an Assistant that can read PDFs, store them in a knowledge base and continue conversations across sessions by storing chat history in a database.
+Lets wrap up by building an Agent that can read PDFs, store them in a knowledge base and continue conversations across sessions by storing chat history in a database.
 
-Create a file `pdf_assistant.py`
+Create a file `pdf_agent.py`
 
-```python pdf_assistant.py
+```python pdf_agent.py
 import typer
 from rich.prompt import Prompt
 from typing import Optional, List
-from phi.assistant import Assistant
-from phi.storage.assistant.postgres import PgAssistantStorage
+from phi.agent import Agent
+from phi.storage.agent.postgres import PgAgentStorage
 from phi.knowledge.pdf import PDFUrlKnowledgeBase
 from phi.vectordb.pgvector import PgVector2
 
@@ -317,10 +317,10 @@ knowledge_base = PDFUrlKnowledgeBase(
 # Comment out after first run
 knowledge_base.load()
 
-storage = PgAssistantStorage(table_name="pdf_assistant", db_url=db_url)
+storage = PgAgentStorage(table_name="pdf_agent", db_url=db_url)
 
 
-def pdf_assistant(new: bool = False, user: str = "user"):
+def pdf_agent(new: bool = False, user: str = "user"):
     run_id: Optional[str] = None
 
     if not new:
@@ -328,42 +328,42 @@ def pdf_assistant(new: bool = False, user: str = "user"):
         if len(existing_run_ids) > 0:
             run_id = existing_run_ids[0]
 
-    assistant = Assistant(
+    agent = Agent(
         run_id=run_id,
         user_id=user,
         knowledge_base=knowledge_base,
         storage=storage,
         # Show tool calls in the response
         show_tool_calls=True,
-        # Enable the assistant to search the knowledge base
+        # Enable the agent to search the knowledge base
         search_knowledge=True,
-        # Enable the assistant to read the chat history
+        # Enable the agent to read the chat history
         read_chat_history=True,
     )
     if run_id is None:
-        run_id = assistant.run_id
+        run_id = agent.run_id
         print(f"Started Run: {run_id}\n")
     else:
         print(f"Continuing Run: {run_id}\n")
 
-    # Runs the assistant as a cli app
-    assistant.cli_app(markdown=True)
+    # Runs the agent as a cli app
+    agent.cli_app(markdown=True)
 
 
 if __name__ == "__main__":
-    typer.run(pdf_assistant)
+    typer.run(pdf_agent)
 ```
 
-**Run the Assistant**
+**Run the Agent**
 
 <CodeGroup>
 
 ```bash Mac
-python pdf_assistant.py
+python pdf_agent.py
 ```
 
 ```bash Windows
-python pdf_assistant.py
+python pdf_agent.py
 ```
 
 </CodeGroup>
@@ -382,36 +382,36 @@ Then message `bye` to exit, start the app again and ask:
 What was my last message?
 ```
 
-Run the `pdf_assistant.py` file with the `--new` flag to start a new run.
+Run the `pdf_agent.py` file with the `--new` flag to start a new run.
 
 <CodeGroup>
 
 ```bash Mac
-python pdf_assistant.py --new
+python pdf_agent.py --new
 ```
 
 ```bash Windows
-python pdf_assistant.py --new
+python pdf_agent.py --new
 ```
 
 </CodeGroup>
 
 ## Next
 
-Congratulations on building an AI Assistant with memory, knowledge and tools. You can serve this Assistant using `FastApi`, `Streamlit` or `Django`. Here's the architecture we just built:
+Congratulations on building an AI Agent with memory, knowledge and tools. You can serve this Agent using `FastApi`, `Streamlit` or `Django`. Here's the architecture we just built:
 
-![Assistant](/images/assistant.png)
+![Agent](/images/agent.png)
 
 Continue your journey by learning about:
 
-- [Assistants](/assistants/introduction)
+- [Agents](/agents/introduction)
 - [Tools](/tools/introduction)
 - [Knowledge](/knowledge/introduction)
 - [Storage](/storage/introduction)
 
 Or Checkout the following examples:
 
-- [SQL Assistant](/examples/use-case/sql)
-- [ArXiv Research Assistant](/examples/use-case/arxiv-research)
+- [SQL Agent](/examples/use-case/sql)
+- [ArXiv Research Agent](/examples/use-case/arxiv-research)
 
 If you need help, reach out to us on [Discord](https://discord.com/invite/4MtYHHrgA8).

@@ -34,19 +34,19 @@ pdf_knowledge_base = PDFKnowledgeBase(
 )
 ```
 
-Then use the `knowledge_base` with an Assistant:
+Then use the `knowledge_base` with an Agent:
 
-```python assistant.py
-from phi.assistant import Assistant
+```python agent.py
+from phi.agent import Agent
 from knowledge_base import knowledge_base
 
-assistant = Assistant(
+agent = Agent(
     knowledge_base=knowledge_base,
     add_references_to_prompt=True,
 )
-assistant.knowledge_base.load(recreate=False)
+agent.knowledge_base.load(recreate=False)
 
-assistant.print_response("Ask me about something from the knowledge base")
+agent.print_response("Ask me about something from the knowledge base")
 ```
 
 ## Params

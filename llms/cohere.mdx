@@ -22,21 +22,21 @@ setx CO_API_KEY ***
 
 ## Example
 
-Use `CohereChat` with your `Assistant`:
+Use `CohereChat` with your `Agent`:
 
 <CodeGroup>
 
-```python assistant.py
-from phi.assistant import Assistant
+```python agent.py
+from phi.agent import Agent
 from phi.tools.duckduckgo import DuckDuckGo
 from phi.llm.cohere import CohereChat
 
-assistant = Assistant(
+agent = Agent(
     llm=CohereChat(model="command-r"),
     tools=[DuckDuckGo()],
     show_tool_calls=True,
 )
-assistant.print_response("Whats happening in France?", markdown=True)
+agent.print_response("Whats happening in France?", markdown=True)
 ```
 
 </CodeGroup>

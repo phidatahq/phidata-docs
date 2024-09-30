@@ -6,11 +6,11 @@ title: OpenAI
 
 <CodeGroup>
 
-```python assistant.py
-from phi.assistant import Assistant
+```python agent.py
+from phi.agent import Agent
 from phi.llm.openai import OpenAIChat
 
-assistant = Assistant(
+agent = Agent(
     llm=OpenAIChat(
         model="gpt-4",
         max_tokens=1024,
@@ -19,7 +19,7 @@ assistant = Assistant(
 )
 
 # -*- Print a response
-assistant.print_response('Share a 5 word horror story.')
+agent.print_response('Share a 5 word horror story.')
 ```
 
 </CodeGroup>

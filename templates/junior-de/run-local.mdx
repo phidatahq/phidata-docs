@@ -38,9 +38,9 @@ junior-de                     # root directory for your junior-de
 ├── ai                      # directory for AI components
     ├── duckgpt             # directory for the DuckDb DE
     ├── pygpt               # directory for the Python DE
-    ├── assistants          # AI assistants
-    ├── knowledge_base.py   # assistant knowledge base
-    └── storage.py          # assistant storage
+    ├── agents          # AI agents
+    ├── knowledge_base.py   # agent knowledge base
+    └── storage.py          # agent storage
 ├── app                     # directory for Streamlit apps
 ├── db                      # directory for database components
 ├── notebooks               # directory for Jupyter notebooks
@@ -93,7 +93,7 @@ phi ws up dev:docker
 `DuckGPT` tables are defined in the `ai/duckgpt/knowledge/tables.json` file.
 
 - You can add `csv`, `json` or `parquet` files stored locally or on s3.
-- You can also add `txt` files to provide more information to the Assistant.
+- You can also add `txt` files to provide more information to the Agent.
 - Click the `Update Knowledge Base` to load the knowledge base.
 
 <Note>
@@ -104,7 +104,7 @@ phi ws up dev:docker
 
 ## How DuckGPT works
 
-DuckGPT uses the `DuckDbAssistant` defined in the `ai/duckgpt/duckgpt.py` file. You can customize your assistant and adapt the Junior DE to your workflow.
+DuckGPT uses the `DuckDbAgent` defined in the `ai/duckgpt/duckgpt.py` file. You can customize your agent and adapt the Junior DE to your workflow.
 
 ## PyGPT: Automate Data Analysis using Python
 
@@ -120,7 +120,7 @@ DuckGPT uses the `DuckDbAssistant` defined in the `ai/duckgpt/duckgpt.py` file. 
 `PyGPT` files are defined in the `ai/pygpt/knowledge/files.json` file.
 
 - You can add `csv`, `json` or `parquet` files stored locally or on s3.
-- You can also add `txt` files to provide more information to the Assistant.
+- You can also add `txt` files to provide more information to the Agent.
 - Click the `Update Knowledge Base` to load the knowledge base.
 
 <Note>
@@ -131,7 +131,7 @@ DuckGPT uses the `DuckDbAssistant` defined in the `ai/duckgpt/duckgpt.py` file. 
 
 ## How PyGPT works
 
-PyGPT uses the `PythonAssistant` defined in the `ai/pygpt/pygpt_streamlit.py` file. You can customize your assistant and adapt the Junior DE to your workflow.
+PyGPT uses the `PythonAgent` defined in the `ai/pygpt/pygpt_streamlit.py` file. You can customize your agent and adapt the Junior DE to your workflow.
 
 ## Optional: Run Jupyterlab
 
@@ -186,9 +186,9 @@ A jupyter notebook is a must have for AI development and your `junior-de` comes 
 
 Junior DE is a v0 release, meaning there will be plenty of bugs and plenty of upgrades. Here's what we have in the works:
 
-- Add Snowflake Assistant.
+- Add Snowflake Agent.
 - Ask questions via slack
-- Add Airflow Assistant.
+- Add Airflow Agent.
 - Add ability to write and test data pipelines.
 
 Message us on [discord](https://discord.gg/4MtYHHrgA8) if you want to beta-test.

@@ -2,18 +2,18 @@
 title: Wikipedia
 ---
 
-**WikipediaTools** enable an Assistant to search wikipedia a website and add its contents to the knowledge base.
+**WikipediaTools** enable an Agent to search wikipedia a website and add its contents to the knowledge base.
 
 ## Example
 
-The following assistant will run seach wikipedia for "ai" and print the response.
+The following agent will run seach wikipedia for "ai" and print the response.
 
 ```python cookbook/tools/wikipedia_tools.py
-from phi.assistant import Assistant
+from phi.agent import Agent
 from phi.tools.wikipedia import WikipediaTools
 
-assistant = Assistant(tools=[WikipediaTools()], show_tool_calls=True)
-assistant.print_response("Search wikipedia for 'ai'")
+agent = Agent(tools=[WikipediaTools()], show_tool_calls=True)
+agent.print_response("Search wikipedia for 'ai'")
 ```
 
 ## Toolkit Params

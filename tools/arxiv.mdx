@@ -2,18 +2,18 @@
 title: Arxiv
 ---
 
-**ArxivTools** enable an Assistant to search for papers on Arxiv.
+**ArxivTools** enable an Agent to search for papers on Arxiv.
 
 ## Example
 
-The following assistant will run seach arXiv for "language models" and print the response.
+The following agent will run seach arXiv for "language models" and print the response.
 
 ```python cookbook/tools/arxiv_tools.py
-from phi.assistant import Assistant
+from phi.agent import Agent
 from phi.tools.arxiv_toolkit import ArxivToolkit
 
-assistant = Assistant(tools=[ArxivToolkit()], show_tool_calls=True)
-assistant.print_response("Search arxiv for 'language models'", markdown=True)
+agent = Agent(tools=[ArxivToolkit()], show_tool_calls=True)
+agent.print_response("Search arxiv for 'language models'", markdown=True)
 ```
 
 ## Toolkit Params

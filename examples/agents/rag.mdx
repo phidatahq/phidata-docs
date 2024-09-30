@@ -1,11 +1,11 @@
 ---
-title: RAG Assistant
+title: RAG Agent
 ---
 
-A Retrieval Augmented Generation (RAG) assistant that uses a PDF Knowledge Base and adds context about the query to the prompt.
+A Retrieval Augmented Generation (RAG) agent that uses a PDF Knowledge Base and adds context about the query to the prompt.
 
-```python cookbook/assistants/rag_assistant.py
-from phi.assistant import Assistant
+```python cookbook/agents/rag_agent.py
+from phi.agent import Agent
 from phi.knowledge.pdf import PDFUrlKnowledgeBase
 from phi.vectordb.pgvector import PgVector2
 
@@ -21,12 +21,12 @@ knowledge_base = PDFUrlKnowledgeBase(
 # Load the knowledge base
 knowledge_base.load(recreate=False)
 
-assistant = Assistant(
+agent = Agent(
     knowledge_base=knowledge_base,
     # The add_references_to_prompt will update the prompt with references from the knowledge base.
     add_references_to_prompt=True,
 )
-assistant.print_response("How do I make pad thai?", markdown=True)
+agent.print_response("How do I make pad thai?", markdown=True)
 ```
 
 ## Usage
@@ -44,16 +44,16 @@ assistant.print_response("How do I make pad thai?", markdown=True)
 
   </Step>
 
-  <Step title="Run the assistant">
+  <Step title="Run the agent">
 
     <CodeGroup>
 
     ```bash Mac
-    python cookbook/assistants/rag_assistant.py
+    python cookbook/agents/rag_agent.py
     ```
 
     ```bash Windows
-    python cookbook/assistants/rag_assistant.py
+    python cookbook/agents/rag_agent.py
     ```
 
     </CodeGroup>
@@ -64,4 +64,4 @@ assistant.print_response("How do I make pad thai?", markdown=True)
 
 ## Information
 
-- View on [Github](https://github.com/phidatahq/phidata/tree/main/cookbook/assistants/rag_assistant.py)
+- View on [Github](https://github.com/phidatahq/phidata/tree/main/cookbook/agents/rag_agent.py)

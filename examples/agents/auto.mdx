@@ -1,8 +1,8 @@
 ---
-title: Autonomous Assistant
+title: Autonomous Agent
 ---
 
-With Autonomous Assistants, the LLM can run functions to:
+With Autonomous Agents, the LLM can run functions to:
 
 - Search the knowledge base
 - Search the chat history
@@ -10,8 +10,8 @@ With Autonomous Assistants, the LLM can run functions to:
 
 The LLM decides **if** it needs to search the knowledge base and what search parameters it needs to query the knowledge base.
 
-```python cookbook/assistants/auto_assistant.py
-from phi.assistant import Assistant
+```python cookbook/agents/auto_agent.py
+from phi.agent import Agent
 from phi.knowledge.pdf import PDFUrlKnowledgeBase
 from phi.vectordb.pgvector import PgVector2
 
@@ -25,17 +25,17 @@ knowledge_base = PDFUrlKnowledgeBase(
 # Comment out as the knowledge base is already loaded.
 # knowledge_base.load(recreate=False)
 
-assistant = Assistant(
+agent = Agent(
     knowledge_base=knowledge_base,
     # Show tool calls in the response
     show_tool_calls=True,
-    # Enable the assistant to search the knowledge base
+    # Enable the agent to search the knowledge base
     search_knowledge=True,
-    # Enable the assistant to read the chat history
+    # Enable the agent to read the chat history
     read_chat_history=True,
 )
-assistant.print_response("How do I make pad thai?", markdown=True)
-assistant.print_response("What was my last question?", markdown=True)
+agent.print_response("How do I make pad thai?", markdown=True)
+agent.print_response("What was my last question?", markdown=True)
 ```
 
 ## Usage
@@ -53,16 +53,16 @@ assistant.print_response("What was my last question?", markdown=True)
 
   </Step>
 
-  <Step title="Run the assistant">
+  <Step title="Run the agent">
 
     <CodeGroup>
 
     ```bash Mac
-    python cookbook/assistants/auto_assistant.py
+    python cookbook/agents/auto_agent.py
     ```
 
     ```bash Windows
-    python cookbook/assistants/auto_assistant.py
+    python cookbook/agents/auto_agent.py
     ```
 
     </CodeGroup>
@@ -73,4 +73,4 @@ assistant.print_response("What was my last question?", markdown=True)
 
 ## Information
 
-- View on [Github](https://github.com/phidatahq/phidata/tree/main/cookbook/assistants/auto_assistant.py)
+- View on [Github](https://github.com/phidatahq/phidata/tree/main/cookbook/agents/auto_agent.py)

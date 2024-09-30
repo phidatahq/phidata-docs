@@ -2,25 +2,25 @@
 title: Introduction
 ---
 
-Assistants come with built-in memory but it only lasts while the session is active. To continue conversations across sessions, we store Assistant runs in a database like PostgreSQL.
+Agents come with built-in memory but it only lasts while the session is active. To continue conversations across sessions, we store Agent runs in a database like PostgreSQL.
 
 Storage is a necessary component when building user facing AI products as any production application will require users to be able to "continue" their conversation with the AI.
 
-The general syntax for adding storage to an Assistant looks like:
+The general syntax for adding storage to an Agent looks like:
 
 ```python storage.py
-from phi.storage.assistant.postgres import PgAssistantStorage
+from phi.storage.agent.postgres import PgAgentStorage
 
 # Create a storage backend using the Postgres database
-storage = PgAssistantStorage(
-    # store runs in the ai.assistant_runs table
-    table_name="assistant_runs",
+storage = PgAgentStorage(
+    # store runs in the ai.agent_runs table
+    table_name="agent_runs",
     # db_url: Postgres database URL
     db_url=db_url,
 )
 
-# Add storage to the Assistant
-assistant = Assistant(storage=storage)
+# Add storage to the Agent
+agent = Agent(storage=storage)
 ```
 
 The following databases are supported as a storage backend:

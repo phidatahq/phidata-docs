@@ -24,15 +24,15 @@ After you have the local model running, use the `Ollama` LLM to access them
 
 <CodeGroup>
 
-```python assistant.py
-from phi.assistant import Assistant
+```python agent.py
+from phi.agent import Agent
 from phi.llm.ollama import Ollama
 
-assistant = Assistant(
+agent = Agent(
     llm=Ollama(model="llama3"),
     description="You help people with their health and fitness goals.",
 )
-assistant.print_response("Share a quick healthy breakfast recipe.", markdown=True)
+agent.print_response("Share a quick healthy breakfast recipe.", markdown=True)
 ```
 
 </CodeGroup>

@@ -6,7 +6,7 @@ sidebarTitle: LangChain
 ## Example
 
 ```python langchain_kb.py
-from phi.assistant import Assistant
+from phi.agent import Agent
 from phi.knowledge.langchain import LangChainKnowledgeBase
 
 from langchain.embeddings import OpenAIEmbeddings
@@ -36,7 +36,7 @@ retriever = db.as_retriever()
 # -*- Create a knowledge base from the vector store
 knowledge_base = LangChainKnowledgeBase(retriever=retriever)
 
-assistant = Assistant(knowledge_base=knowledge_base, add_references_to_prompt=True)
+agent = Agent(knowledge_base=knowledge_base, add_references_to_prompt=True)
 conv.print_response("What did the president say about technology?")
 ```
 
@@ -55,9 +55,9 @@ conv.print_response("What did the president say about technology?")
   LangChain retriever.
 </ResponseField>
 
-## AssistantKnowledge Params
+## AgentKnowledge Params
 
-`LangChainKnowledgeBase` is a subclass of the `AssistantKnowledge` class and has access to the same params
+`LangChainKnowledgeBase` is a subclass of the `AgentKnowledge` class and has access to the same params
 
 <Snippet file="kb-base-reference.mdx" />
 

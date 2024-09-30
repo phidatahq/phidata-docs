@@ -4,17 +4,17 @@ title: Fireworks
 
 ## Example
 
-```python cookbook/llms/fireworks/assistant.py
-from phi.assistant import Assistant
+```python cookbook/llms/fireworks/agent.py
+from phi.agent import Agent
 from phi.llm.fireworks import Fireworks
 from phi.tools.duckduckgo import DuckDuckGo
 
-assistant = Assistant(
+agent = Agent(
     llm=Fireworks(),
     tools=[DuckDuckGo()],
     show_tool_calls=True
 )
-assistant.print_response("Whats happening in France?", markdown=True, stream=False)
+agent.print_response("Whats happening in France?", markdown=True, stream=False)
 ```
 
 ## Usage
@@ -38,10 +38,10 @@ assistant.print_response("Whats happening in France?", markdown=True, stream=Fal
 
   </Step>
 
-  <Step title="Run fireworks Assistant">
+  <Step title="Run fireworks Agent">
 
     ```bash
-    python cookbook/llms/fireworks/assistant.py
+    python cookbook/llms/fireworks/agent.py
     ```
 
   </Step>
@@ -50,4 +50,4 @@ assistant.print_response("Whats happening in France?", markdown=True, stream=Fal
 
 ## Information
 
-- View on [Github](https://github.com/phidatahq/phidata/tree/main/cookbook/llms/fireworks/assistant.py)
+- View on [Github](https://github.com/phidatahq/phidata/tree/main/cookbook/llms/fireworks/agent.py)

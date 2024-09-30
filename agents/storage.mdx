@@ -2,31 +2,31 @@
 title: Storage
 ---
 
-Assistants come with built-in memory but it only lasts while the session is active. To continue conversations across sessions, we store Assistant runs in a database like PostgreSQL.
+Agents come with built-in memory but it only lasts while the session is active. To continue conversations across sessions, we store Agent runs in a database like PostgreSQL.
 
 Storage is a necessary component when building user facing AI products as any production application will require users to be able to "continue" their conversation with the AI.
 
-The general syntax for adding storage to an Assistant looks like:
+The general syntax for adding storage to an Agent looks like:
 
 ```python storage.py
-from phi.storage.assistant.postgres import PgAssistantStorage
+from phi.storage.agent.postgres import PgAgentStorage
 
 # Create a storage backend using the Postgres database
-storage = PgAssistantStorage(
-    # store runs in the ai.assistant_runs table
-    table_name="assistant_runs",
+storage = PgAgentStorage(
+    # store runs in the ai.agent_runs table
+    table_name="agent_runs",
     # db_url: Postgres database URL
     db_url=db_url,
 )
 
-# Add storage to the Assistant
-assistant = Assistant(storage=storage)
+# Add storage to the Agent
+agent = Agent(storage=storage)
 ```
 
 ## Params
 
 <ResponseField name="table_name" type="str">
-  The name of the table to store assistant runs in.
+  The name of the table to store agent runs in.
 </ResponseField>
 <ResponseField name="schema" type="str" default="ai">
   The schema to store the table in.
@@ -92,15 +92,15 @@ assistant = Assistant(storage=storage)
     ```
 
   </Step>
-  <Step title="Create an Assistant with Storage">
-    Create a file `pdf_assistant.py` with the following contents
+  <Step title="Create an Agent with Storage">
+    Create a file `pdf_agent.py` with the following contents
 
-    ```python pdf_assistant.py
+    ```python pdf_agent.py
     import typer
     from rich.prompt import Prompt
     from typing import Optional, List
-    from phi.assistant import Assistant
-    from phi.storage.assistant.postgres import PgAssistantStorage
+    from phi.agent import Agent
+    from phi.storage.agent.postgres import PgAgentStorage
     from phi.knowledge.pdf import PDFUrlKnowledgeBase
     from phi.vectordb.pgvector import PgVector2
 
@@ -113,10 +113,10 @@ assistant = Assistant(storage=storage)
     # Comment out after first run
     knowledge_base.load()
 
-    storage = PgAssistantStorage(table_name="pdf_assistant", db_url=db_url)
+    storage = PgAgentStorage(table_name="pdf_agent", db_url=db_url)
 
 
-    def pdf_assistant(new: bool = False, user: str = "user"):
+    def pdf_agent(new: bool = False, user: str = "user"):
         run_id: Optional[str] = None
 
         if not new:
@@ -124,40 +124,40 @@ assistant = Assistant(storage=storage)
             if len(existing_run_ids) > 0:
                 run_id = existing_run_ids[0]
 
-        assistant = Assistant(
+        agent = Agent(
             run_id=run_id,
             user_id=user,
             knowledge_base=knowledge_base,
             storage=storage,
             # Show tool calls in the response
             show_tool_calls=True,
-            # Enable the assistant to search the knowledge base
+            # Enable the agent to search the knowledge base
             search_knowledge=True,
-            # Enable the assistant to read the chat history
+            # Enable the agent to read the chat history
             read_chat_history=True,
         )
         if run_id is None:
-            run_id = assistant.run_id
+            run_id = agent.run_id
             print(f"Started Run: {run_id}\n")
         else:
             print(f"Continuing Run: {run_id}\n")
 
-        # Runs the assistant as a cli app
-        assistant.cli_app(markdown=True)
+        # Runs the agent as a cli app
+        agent.cli_app(markdown=True)
 
 
     if __name__ == "__main__":
-        typer.run(pdf_assistant)
+        typer.run(pdf_agent)
     ```
   </Step>
-  <Step title="Run the assistant">
-    Run the `pdf_assistant.py` file
+  <Step title="Run the agent">
+    Run the `pdf_agent.py` file
 
     ```bash
-    python pdf_assistant.py
+    python pdf_agent.py
     ```
 
-    Now the assistant continues across sessions. Ask a question:
+    Now the agent continues across sessions. Ask a question:
 
     ```
     How do I make pad thai?
@@ -171,10 +171,10 @@ assistant = Assistant(storage=storage)
 
   </Step>
   <Step title="Start a new run">
-    Run the `pdf_assistant.py` file with the `--new` flag to start a new run.
+    Run the `pdf_agent.py` file with the `--new` flag to start a new run.
 
     ```bash
-    python pdf_assistant.py --new
+    python pdf_agent.py --new
     ```
 
   </Step>

@@ -4,15 +4,15 @@ title: Together
 
 ## Example
 
-```python cookbook/llms/together/assistant.py
-from phi.assistant import Assistant
+```python cookbook/llms/together/agent.py
+from phi.agent import Agent
 from phi.llm.together import Together
 
-assistant = Assistant(
+agent = Agent(
     llm=Together(model="mistralai/Mixtral-8x7B-Instruct-v0.1"),
     description="You help people with their health and fitness goals.",
 )
-assistant.print_response("Share a 2 sentence quick and healthy breakfast recipe.", markdown=True)
+agent.print_response("Share a 2 sentence quick and healthy breakfast recipe.", markdown=True)
 ```
 
 ## Usage
@@ -36,10 +36,10 @@ assistant.print_response("Share a 2 sentence quick and healthy breakfast recipe.
 
   </Step>
 
-  <Step title="Run Together Assistant">
+  <Step title="Run Together Agent">
 
     ```bash
-    python cookbook/llms/together/assistant.py
+    python cookbook/llms/together/agent.py
     ```
 
   </Step>
@@ -48,4 +48,4 @@ assistant.print_response("Share a 2 sentence quick and healthy breakfast recipe.
 
 ## Information
 
-- View on [Github](https://github.com/phidatahq/phidata/tree/main/cookbook/llms/together/assistant.py)
+- View on [Github](https://github.com/phidatahq/phidata/tree/main/cookbook/llms/together/agent.py)

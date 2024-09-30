@@ -4,17 +4,17 @@ title: Hermes2
 
 ## Example
 
-```python cookbook/llms/hermes2/assistant.py
-from phi.assistant import Assistant
+```python cookbook/llms/hermes2/agent.py
+from phi.agent import Agent
 from phi.tools.duckduckgo import DuckDuckGo
 from phi.llm.ollama import Hermes
 
-assistant = Assistant(
+agent = Agent(
     llm=Hermes(model="adrienbrault/nous-hermes2pro:Q8_0"),
     tools=[DuckDuckGo()],
     show_tool_calls=True
 )
-assistant.print_response("Whats happening in France?", markdown=True, stream=False)
+agent.print_response("Whats happening in France?", markdown=True, stream=False)
 ```
 
 ## Usage
@@ -41,10 +41,10 @@ This will run the `hermes2pro` model, respond to "Hey!" and then exit.
 
   </Step>
 
-  <Step title="Run Hermes2 Assistant">
+  <Step title="Run Hermes2 Agent">
 
     ```bash
-    python cookbook/llms/hermes2/assistant.py
+    python cookbook/llms/hermes2/agent.py
     ```
 
   </Step>
@@ -53,4 +53,4 @@ This will run the `hermes2pro` model, respond to "Hey!" and then exit.
 
 ## Information
 
-- View on [Github](https://github.com/phidatahq/phidata/tree/main/cookbook/llms/hermes2/assistant.py)
+- View on [Github](https://github.com/phidatahq/phidata/tree/main/cookbook/llms/hermes2/agent.py)

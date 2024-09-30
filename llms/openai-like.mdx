@@ -8,19 +8,19 @@ Many providers like Together and Groq support the OpenAI API format. Use the `Op
 
 <CodeGroup>
 
-```python assistant.py
+```python agent.py
 from os import getenv
-from phi.assistant import Assistant
+from phi.agent import Agent
 from phi.llm.openai.like import OpenAILike
 
-assistant = Assistant(
+agent = Agent(
     llm=OpenAILike(
         model="mistralai/Mixtral-8x7B-Instruct-v0.1",
         api_key=getenv("TOGETHER_API_KEY"),
         base_url="https://api.together.xyz/v1",
     )
 )
-assistant.print_response('Share a 2 sentence horror story.', markdown=True)
+agent.print_response('Share a 2 sentence horror story.', markdown=True)
 ```
 
 </CodeGroup>

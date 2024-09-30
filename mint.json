@@ -1,6 +1,7 @@
 {
   "$schema": "https://mintlify.com/schema.json",
   "name": "Phidata",
+  "theme": "prism",
   "logo": {
     "dark": "/logo/dark.svg",
     "light": "/logo/light.svg"
@@ -9,11 +10,7 @@
   "colors": {
     "primary": "#0D9373",
     "light": "#07C983",
-    "dark": "#0D9373",
-    "anchors": {
-      "from": "#0D9373",
-      "to": "#07C983"
-    }
+    "dark": "#0D9373"
   },
   "feedback": {
     "thumbsRating": true,
@@ -52,16 +49,16 @@
       "group": "Documentation",
       "pages": [
         {
-          "group": "Assistants",
+          "group": "Agents",
           "pages": [
-            "assistants/introduction",
-            "assistants/instructions",
-            "assistants/tools",
-            "assistants/knowledge",
-            "assistants/memory",
-            "assistants/storage",
-            "assistants/structured-output",
-            "assistants/teams"
+            "agents/introduction",
+            "agents/instructions",
+            "agents/tools",
+            "agents/knowledge",
+            "agents/memory",
+            "agents/storage",
+            "agents/structured-output",
+            "agents/teams"
           ]
         },
         {
@@ -172,22 +169,22 @@
       "pages": [
         "examples/cookbook",
         {
-          "group": "Assistants",
+          "group": "Agents",
           "pages": [
-            "examples/assistants/basic",
-            "examples/assistants/rag",
-            "examples/assistants/auto",
-            "examples/assistants/pdf",
-            "examples/assistants/hackernews",
-            "examples/assistants/structured-output",
-            "examples/assistants/langchain-retriever",
-            "examples/assistants/python",
-            "examples/assistants/data-analyst",
-            "examples/assistants/vision"
+            "examples/agents/basic",
+            "examples/agents/rag",
+            "examples/agents/auto",
+            "examples/agents/pdf",
+            "examples/agents/hackernews",
+            "examples/agents/structured-output",
+            "examples/agents/langchain-retriever",
+            "examples/agents/python",
+            "examples/agents/data-analyst",
+            "examples/agents/vision"
           ]
         },
         {
-          "group": "Assistant Teams",
+          "group": "Agent Teams",
           "pages": [
             "examples/teams/research",
             "examples/teams/journalist",
@@ -336,12 +333,12 @@
     {
       "group": "Building Blocks",
       "pages": [
-        "reference/blocks/assistant",
+        "reference/blocks/agent",
         {
-          "group": "Custom Assistants",
+          "group": "Custom Agents",
           "pages": [
-            "reference/blocks/assistants/python",
-            "reference/blocks/assistants/duckdb"
+            "reference/blocks/agents/python",
+            "reference/blocks/agents/duckdb"
           ]
         },
         {
@@ -363,9 +360,9 @@
         {
           "group": "Storage",
           "pages": [
-            "reference/blocks/storage/assistant/postgres",
-            "reference/blocks/storage/assistant/sqlite",
-            "reference/blocks/storage/assistant/singlestore"
+            "reference/blocks/storage/agent/postgres",
+            "reference/blocks/storage/agent/sqlite",
+            "reference/blocks/storage/agent/singlestore"
           ]
         },
         {

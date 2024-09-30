@@ -6,19 +6,19 @@ title: Spider
 
 [Spider](https://spider.cloud/?ref=phidata) is the fastest [open source](https://github.com/spider-rs/spider) web Scraper & Crawler that returns LLM-ready data. To start using Spider, you need an API key from the [Spider dashboard](https://spider.cloud/?ref=phidata).
 
-The following assistant will run a search query to get the latest news in USA and scrape the first search result. The assistant will return the scraped data in markdown format.
+The following agent will run a search query to get the latest news in USA and scrape the first search result. The agent will return the scraped data in markdown format.
 
 ```python cookbook/tools/spider_tools.py
-from phi.assistant import Assistant
+from phi.agent import Agent
 from phi.tools.spider import SpiderTools
 
-assistant = Assistant(
+agent = Agent(
     tools=[SpiderTools()],
     show_tool_calls=True,
     debug_mode=True,
 )
 
-assistant.print_response('Can you scrape the first search result from a search on "news in USA"?', markdown=True)
+agent.print_response('Can you scrape the first search result from a search on "news in USA"?', markdown=True)
 ```
 
 ## Toolkit Params
