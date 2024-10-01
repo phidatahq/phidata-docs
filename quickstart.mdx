@@ -1,0 +1,303 @@
+---
+title: Quickstart
+description: Phidata is a framework for building AI Agents, lets learn by example
+---
+
+## Setup
+
+<Steps>
+  <Step title="Create a virtual environment">
+    Open the `Terminal` and create a python virtual environment.
+
+    <CodeGroup>
+
+    ```bash Mac
+    python3 -m venv ~/.venvs/aienv
+    source ~/.venvs/aienv/bin/activate
+    ```
+
+    ```bash Windows
+    python3 -m venv aienv
+    aienv/scripts/activate
+    ```
+
+    </CodeGroup>
+
+  </Step>
+  <Step title="Install phidata">
+
+    <CodeGroup>
+
+    ```bash Mac
+    pip install -U phidata
+    ```
+
+    ```bash Windows
+    pip install -U phidata
+    ```
+
+    </CodeGroup>
+
+  </Step>
+  <Step title="Export your OpenAI Key">
+
+    Phidata works with any LLM but for these examples let's use OpenAI. Export your `OPENAI_API_KEY` (you can get one from [here](https://platform.openai.com/account/api-keys)).
+
+    <CodeGroup>
+
+    ```bash Mac
+    export OPENAI_API_KEY=sk-***
+    ```
+
+    ```bash Windows
+    setx OPENAI_API_KEY sk-***
+    ```
+
+    </CodeGroup>
+
+  </Step>
+</Steps>
+
+## Finance Agent
+
+<Steps>
+  <Step title="Create an agent that can query financial data to answer questions">
+
+    Create a file `finance_agent.py`
+
+    ```python finance_agent.py
+    from phi.agent import Agent
+    from phi.model.openai import OpenAIChat
+    from phi.tools.yfinance import YFinanceTools
+
+    agent = Agent(
+        model=OpenAIChat(id="gpt-4o"),
+        # Use YFinanceTools to get stock data
+        tools=[YFinanceTools(stock_price=True, analyst_recommendations=True, company_info=True, company_news=True)],
+        # Teach the agent how to format its response
+        instructions=["Use tables where possible"],
+        show_tool_calls=True,
+        markdown=True,
+    )
+
+    agent.print_response("What is the stock price of NVDA", stream=True)
+    agent.print_response("Write a report comparing NVDA to TSLA", stream=True)
+    ```
+
+  </Step>
+  <Step title="Run the agent">
+
+    Install `yfinance`
+
+    ```shell
+    pip install yfinance
+    ```
+
+    Run the agent
+
+    ```shell
+    python finance_agent.py
+    ```
+
+  </Step>
+</Steps>
+
+## Web Search Agent
+
+<Steps>
+  <Step title="Create an agent that can search the web">
+
+    Create a file `web_search.py`
+
+    ```python web_search.py
+    from phi.agent import Agent
+    from phi.model.openai import OpenAIChat
+    from phi.tools.duckduckgo import DuckDuckGo
+
+    agent = Agent(
+        # Use gpt-4o as the model
+        model=OpenAIChat(id="gpt-4o"),
+        # Use DuckDuckGo to search the web
+        tools=[DuckDuckGo()],
+        # Show the tool calls in the output
+        show_tool_calls=True,
+        # Use markdown in the output
+        markdown=True
+    )
+    agent.print_response("Whats happening in France?", stream=True)
+    ```
+
+  </Step>
+  <Step title="Run the agent">
+
+    Install `openai` & `duckduckgo`
+
+    ```shell
+    pip install openai duckduckgo-search
+    ```
+
+    Run the agent
+
+    ```shell
+    python web_search.py
+    ```
+
+  </Step>
+</Steps>
+
+## Agentic RAG
+
+Let's create an agent that can search a knowledge base and use the results to answer questions. Instead of always inserting the "context" into the prompt, this agent searches the vector database only when it needs to.
+
+<Steps>
+  <Step title="Create an agent that can search a knowledge base to answer questions">
+
+    Create a file `rag_agent.py`
+
+    ```python rag_agent.py
+    from phi.agent import Agent
+    from phi.model.openai import OpenAIChat
+    from phi.knowledge.pdf import PDFUrlKnowledgeBase
+    from phi.vectordb.lancedb import LanceDb, SearchType
+
+    db_uri = "tmp/lancedb"
+    # Create a knowledge base from a PDF
+    knowledge_base = PDFUrlKnowledgeBase(
+        urls=["https://phi-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"],
+        # Use LanceDB as the vector database
+        vector_db=LanceDb(table_name="recipes", uri=db_uri, search_type=SearchType.vector),
+    )
+    # Comment after first run to avoid reloading the knowledge base
+    knowledge_base.load(upsert=True)
+
+    agent = Agent(
+        model=OpenAIChat(id="gpt-4o"),
+        # Add the knowledge base to the agent
+        knowledge=knowledge_base,
+        # Add a tool to search the knowledge base which enables agentic RAG.
+        search_knowledge=True,
+        show_tool_calls=True,
+        markdown=True,
+    )
+    agent.print_response("How do I make chicken and galangal in coconut milk soup")
+    ```
+
+  </Step>
+  <Step title="Run the agent">
+
+    Install `lancedb`
+
+    ```shell
+    pip install lancedb
+    ```
+
+    Run the agent
+
+    ```shell
+    python rag_agent.py
+    ```
+
+  </Step>
+</Steps>
+
+## Structured Outputs
+
+<Steps>
+  <Step title="Create an agent that returns structured output">
+
+    Create a file `structured_output.py`
+
+    ```python structured_output.py
+    from typing import List
+    from pydantic import BaseModel, Field
+    from phi.agent import Agent
+    from phi.model.openai import OpenAIChat
+
+    # Define a Pydantic model to enforce the structure of the output
+    class MovieScript(BaseModel):
+        setting: str = Field(..., description="Provide a nice setting for a blockbuster movie.")
+        ending: str = Field(..., description="Ending of the movie. If not available, provide a happy ending.")
+        genre: str = Field(..., description="Genre of the movie. If not available, select action, thriller or romantic comedy.")
+        name: str = Field(..., description="Give a name to this movie")
+        characters: List[str] = Field(..., description="Name of characters for this movie.")
+        storyline: str = Field(..., description="3 sentence storyline for the movie. Make it exciting!")
+
+
+    # Agent that uses JSON mode
+    json_mode_agent = Agent(
+        model=OpenAIChat(id="gpt-4o"),
+        description="You write movie scripts.",
+        response_model=MovieScript,
+    )
+
+    # Agent that uses structured outputs
+    structured_output_agent = Agent(
+        model=OpenAIChat(id="gpt-4o-2024-08-06"),
+        description="You write movie scripts.",
+        response_model=MovieScript,
+        structured_outputs=True,
+    )
+
+    json_mode_agent.print_response("New York")
+    structured_output_agent.print_response("New York")
+    ```
+
+  </Step>
+  <Step title="Run the agent">
+
+    ```shell
+    python structured_output.py
+    ```
+
+  </Step>
+</Steps>
+
+
+## Team of Agents
+
+<Steps>
+  <Step title="Create a team of agents that can work together to solve a problem">
+
+    Create a file `hn_team.py`
+
+    ```python hn_team.py
+    from phi.agent import Agent
+    from phi.tools.hackernews import HackerNews
+
+
+    story_researcher = Agent(
+        # Agents use gpt-4o as the default model if not provided
+        name="HackerNews Story Researcher",
+        role="Researches hackernews stories and users.",
+        tools=[HackerNews()],
+    )
+    user_researcher = Agent(
+        name="HackerNews User Researcher",
+        role="Reads articles from URLs.",
+        tools=[HackerNews()],
+    )
+
+    hn_leader = Agent(
+        name="Hackernews Team",
+        team=[story_researcher, user_researcher],
+        markdown=True,
+    )
+    hn_leader.print_response("Write a report about the users with the top 2 stories on hackernews", stream=True)
+    ```
+
+  </Step>
+  <Step title="Run the team of agents">
+
+    ```shell
+    python hn_team.py
+    ```
+
+  </Step>
+</Steps>
+
+
+## Ready to build?
+
+1. Read the [introduction](/introduction) to learn more about phidata.
+2. Read about [Agents](/agents/introduction) and how to customize them to your use case.
+3. Checkout the [templates](/templates/introduction) for building full-stack agentic systems.

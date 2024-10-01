@@ -1,16 +1,24 @@
 {
   "$schema": "https://mintlify.com/schema.json",
   "name": "Phidata",
-  "theme": "prism",
   "logo": {
     "dark": "/logo/dark.svg",
     "light": "/logo/light.svg"
   },
+  "theme": "prism",
   "favicon": "/favicon.png",
   "colors": {
     "primary": "#0D9373",
     "light": "#07C983",
-    "dark": "#0D9373"
+    "dark": "#0D9373",
+    "anchors": {
+      "from": "#0D9373",
+      "to": "#07C983"
+    }
+  },
+  "layout": "sidenav",
+  "background": {
+    "style": "windows"
   },
   "feedback": {
     "thumbsRating": true,
@@ -23,8 +31,11 @@
     }
   ],
   "topbarCtaButton": {
-    "type": "github",
-    "url": "https://github.com/phidatahq/phidata"
+    "type": "link",
+    "url": "https://phidata.app/login",
+    "name": "Get Started",
+    "style": "roundedRectangle",
+    "arrow": true
   },
   "tabs": [
     {
@@ -43,7 +54,7 @@
   "navigation": [
     {
       "group": "Getting Started",
-      "pages": ["introduction", "basics"]
+      "pages": ["quickstart", "introduction", "basics"]
     },
     {
       "group": "Documentation",
