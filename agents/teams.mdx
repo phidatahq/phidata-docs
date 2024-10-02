@@ -6,7 +6,7 @@ We can combine multiple Agents to form a team and tackle tasks as a cohesive uni
 
 Here's an example:
 
-```python cookbook/teams/hackernews.py
+```python hn_team.py
 from phi.agent import Agent
 from phi.tools.hackernews import HackerNews
 
@@ -22,27 +22,22 @@ user_researcher = Agent(
     tools=[HackerNews()],
 )
 
-hn_agent = Agent(
+hn_leader = Agent(
     name="Hackernews Team",
     team=[story_researcher, user_researcher],
-    # debug_mode=True,
+    markdown=True,
 )
-hn_agent.print_response(
-    "Write a report about the users with the top 2 stories on hackernews",
-    markdown=True
-)
+hn_leader.print_response("Write a report about the users with the top 2 stories on hackernews", stream=True)
 ```
 
 ## How to build Agent Teams
 
-1. Add a `role` parameter to the team-member Agents.
+1. Add a `name` and `role` parameter to the member Agents.
 2. Create a Team Leader that can delegate tasks to team-members.
 3. Use your Agent team just like you would use a regular Agent.
 
-<Tip>
-Checkout the teams [cookbook](https://github.com/phidatahq/phidata/tree/main/cookbook/teams) for more examples of Agent Teams.
-</Tip>
-
 <Warning>
-Open-ended Agent teams are great to play with, but are not reliable for real-world problems. They need constant oversight and can run in loops if not monitored. This drawback should improve as models get better (eagerly waiting for GPT5).
+Open-ended Agentic teams are great to play with, but are not reliable for real-world problems that require high reliability.
+
+They need constant oversight and can run in loops if not monitored. This drawback should improve as models get better (eagerly waiting for GPT5).
 </Warning>

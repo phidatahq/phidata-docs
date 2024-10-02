@@ -2,82 +2,36 @@
 title: Storage
 ---
 
-Agents come with built-in memory but it only lasts while the session is active. To continue conversations across sessions, we store Agent runs in a database like PostgreSQL.
+Agents come with built-in memory but it only lasts while the session is active. To continue conversations across sessions, we store Agent sessions in a database like PostgreSQL.
 
-Storage is a necessary component when building user facing AI products as any production application will require users to be able to "continue" their conversation with the AI.
+Storage is a necessary component when building user facing AI products as any production application will require users to be able to "continue" their conversation with the Agent.
 
 The general syntax for adding storage to an Agent looks like:
 
 ```python storage.py
+from phi.agent import Agent
+from phi.model.openai import OpenAIChat
+from phi.tools.duckduckgo import DuckDuckGo
 from phi.storage.agent.postgres import PgAgentStorage
 
-# Create a storage backend using the Postgres database
-storage = PgAgentStorage(
-    # store runs in the ai.agent_runs table
-    table_name="agent_runs",
-    # db_url: Postgres database URL
-    db_url=db_url,
+agent = Agent(
+    model=OpenAIChat(id="gpt-4o"),
+    storage=PgAgentStorage(table_name="agent_sessions", db_url="postgresql+psycopg://ai:ai@localhost:5532/ai"),
+    tools=[DuckDuckGo()],
+    show_tool_calls=True,
+    add_history_to_messages=True,
 )
-
-# Add storage to the Agent
-agent = Agent(storage=storage)
+agent.print_response("How many people live in Canada?")
+agent.print_response("What is their national anthem called?")
+agent.print_response("Which country are we speaking about?")
 ```
-
-## Params
-
-<ResponseField name="table_name" type="str">
-  The name of the table to store agent runs in.
-</ResponseField>
-<ResponseField name="schema" type="str" default="ai">
-  The schema to store the table in.
-</ResponseField>
-<ResponseField name="db_url" type="str">
-  The database URL to connect to.
-</ResponseField>
-<ResponseField name="db_engine" type="Engine">
-  The database engine to use.
-</ResponseField>
 
 ## Example
 
 <Steps>
-  <Step title="Create a virtual environment">
-    Open the `Terminal` and create a python virtual environment.
+  <Step title="Run Postgres">
 
-    <CodeGroup>
-
-    ```bash Mac
-    python3 -m venv ~/.venvs/aienv
-    source ~/.venvs/aienv/bin/activate
-    ```
-
-    ```bash Windows
-    python3 -m venv aienv
-    aienv/scripts/activate
-    ```
-
-    </CodeGroup>
-
-  </Step>
-  <Step title="Install libraries">
-    Install libraries using pip
-
-    <CodeGroup>
-
-    ```bash Mac
-    pip install -U phidata openai pgvector pypdf "psycopg[binary]" sqlalchemy
-    ```
-
-    ```bash Windows
-    pip install -U phidata openai pgvector pypdf "psycopg[binary]" sqlalchemy
-    ```
-
-    </CodeGroup>
-
-  </Step>
-  <Step title="Run PgVector">
-
-    Install [docker desktop](https://docs.docker.com/desktop/install/mac-install/) and run **PgVector** on port **5532** using:
+    Install [docker desktop](https://docs.docker.com/desktop/install/mac-install/) and run **Postgres** on port **5532** using:
 
     ```bash
     docker run -d \
@@ -93,9 +47,9 @@ agent = Agent(storage=storage)
 
   </Step>
   <Step title="Create an Agent with Storage">
-    Create a file `pdf_agent.py` with the following contents
+    Create a file `agent_with_storage.py` with the following contents
 
-    ```python pdf_agent.py
+    ```python agent_with_storage.py
     import typer
     from rich.prompt import Prompt
     from typing import Optional, List
@@ -151,10 +105,24 @@ agent = Agent(storage=storage)
     ```
   </Step>
   <Step title="Run the agent">
-    Run the `pdf_agent.py` file
+    Install libraries
+
+    <CodeGroup>
+
+    ```bash Mac
+    pip install -U phidata openai pgvector pypdf "psycopg[binary]" sqlalchemy
+    ```
+
+    ```bash Windows
+    pip install -U phidata openai pgvector pypdf "psycopg[binary]" sqlalchemy
+    ```
+
+    </CodeGroup>
+
+    Run the agent
 
     ```bash
-    python pdf_agent.py
+    python agent_with_storage.py
     ```
 
     Now the agent continues across sessions. Ask a question:
@@ -171,10 +139,10 @@ agent = Agent(storage=storage)
 
   </Step>
   <Step title="Start a new run">
-    Run the `pdf_agent.py` file with the `--new` flag to start a new run.
+    Run the `agent_with_storage.py` file with the `--new` flag to start a new run.
 
     ```bash
-    python pdf_agent.py --new
+    python agent_with_storage.py --new
     ```
 
   </Step>
