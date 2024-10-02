@@ -2,30 +2,29 @@
 title: Knowledge
 ---
 
-Knowledge Base is a database of information that the Agent can search to improve its responses. This information is stored in a vector database and provides LLMs with business context, which makes them respond in a context-aware manner. The general syntax is:
+A **knowledge base** is a database of information that an agent can search to improve its responses. This information is stored in a vector database and provides agents with business context, helping them respond in a context-aware manner. The general syntax is:
 
 ```python
 from phi.agent import Agent, AgentKnowledge
 
-# Create knowledge base
+# Create a knowledge base for the Agent
 knowledge_base = AgentKnowledge(vector_db=...)
 
 # Add information to the knowledge base
 knowledge_base.load_text("The sky is blue")
 
-# Add the knowledge base to the Agent
-agent = Agent(knowledge_base=knowledge_base)
+# Add the knowledge base to the Agent and
+# give it a tool to search the knowledge base as needed
+agent = Agent(knowledge=knowledge_base, search_knowledge=True)
 ```
 
 ## Vector Databases
 
-While any type of storage can act as a knowledge base, vector databases offer the best solution for retrieving relevant results from dense information quickly.
-
-**Our goal is to search relevant information from a knowledge base quickly**, here's how vector databases are used with LLMs:
+While any type of storage can act as a knowledge base, vector databases offer the best solution for retrieving relevant results from dense information quickly. Here's how vector databases are used with Agents:
 
 <Steps>
   <Step title="Chunk the information">
-    Break down the knowledge into smaller chunks to ensure our search query matches only relevant results.
+    Break down the knowledge into smaller chunks to ensure our search query returns only relevant results.
   </Step>
   <Step title="Load the knowledge base">
     Convert the chunks into embedding vectors and store them in a vector database.
@@ -35,12 +34,9 @@ While any type of storage can act as a knowledge base, vector databases offer th
   </Step>
 </Steps>
 
-## Example: Agent with a PDF Knowledge Base
+## Example: RAG Agent with a PDF Knowledge Base
 
-Let's build an **Agent** that answers questions from a PDF.
-
-1. We'll load our knowledge base with the PDF of a recipe book.
-2. Our **Agent** will respond with recipes from the knowledge base.
+Let's build a **RAG Agent** that answers questions from a PDF.
 
 ### Step 1: Run PgVector
 
@@ -60,13 +56,13 @@ docker run -d \
   phidata/pgvector:16
 ```
 
-### Step 2: RAG Agent
+### Step 2: Basic RAG
 
-Retrieval Augmented Generation means **"stuffing the prompt with relevant information"** to improve LLM responses. This is a 2 step process:
-1. Retrieve relevant information from a vector database.
-2. Augment the prompt to provide context to the LLM.
+Retrieval Augmented Generation means **"stuffing the prompt with relevant information"** to improve the model's response. This is a 2 step process:
+1. Retrieve relevant information from the knowledge base.
+2. Augment the prompt to provide context to the model.
 
-Let's build a **PDF Agent** that helps us with food recipes using RAG.
+Let's build a **Basic RAG Agent** that answers questions from a PDF of recipes.
 
 <Steps>
   <Step title="Install libraries">
@@ -85,57 +81,52 @@ Let's build a **PDF Agent** that helps us with food recipes using RAG.
     </CodeGroup>
 
   </Step>
-  <Step title="Create a RAG Agent">
-    Create a file `rag_agent.py` with the following contents
+  <Step title="Create a Basic RAG Agent">
+    Create a file `basic_rag.py` with the following contents
 
-    ```python rag_agent.py
+    ```python basic_rag.py
     from phi.agent import Agent
+    from phi.model.openai import OpenAIChat
     from phi.knowledge.pdf import PDFUrlKnowledgeBase
-    from phi.vectordb.pgvector import PgVector2
+    from phi.vectordb.pgvector import PgVector, SearchType
 
-    from resources import vector_db
-
+    db_url = "postgresql+psycopg://ai:ai@localhost:5532/ai"
     knowledge_base = PDFUrlKnowledgeBase(
         # Read PDF from this URL
         urls=["https://phi-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"],
         # Store embeddings in the `ai.recipes` table
-        vector_db=PgVector2(
-            collection="recipes",
-            db_url="postgresql+psycopg://ai:ai@localhost:5532/ai",
-        ),
+        vector_db=PgVector(table_name="recipes", db_url=db_url, search_type=SearchType.hybrid),
     )
-    # Load the knowledge base
-    knowledge_base.load(recreate=False)
+    # Load the knowledge base: Comment out after first run
+    knowledge_base.load(upsert=True)
 
     agent = Agent(
-        knowledge_base=knowledge_base,
-        # The add_references_to_prompt will update the prompt with references from the knowledge base.
-        add_references_to_prompt=True,
+        model=OpenAIChat(id="gpt-4o"),
+        knowledge=knowledge_base,
+        enable_rag=True,
+        markdown=True,
+        # debug_mode=True,
     )
-    agent.print_response("How do I make pad thai?", markdown=True)
+    agent.print_response("How do I make chicken and galangal in coconut milk soup")
     ```
 
   </Step>
-  <Step title="Run the Agent">
-    Run the Agent (it takes a few seconds to load the knowledge base).
+  <Step title="Run the agent">
+    Run the agent (it takes a few seconds to load the knowledge base).
 
     <CodeGroup>
 
     ```bash Mac
-    python rag_agent.py
+    python basic_rag.py
     ```
 
     ```bash Windows
-    python rag_agent.py
+    python basic_rag.py
     ```
 
     </CodeGroup>
 
     <br />
-
-    <Note>
-    The Agent uses the `OpenAI` LLM and Embeddings by default.
-    </Note>
 
   </Step>
 </Steps>
@@ -149,9 +140,9 @@ from phi.knowledge.pdf import PDFKnowledgeBase
 ...
 knowledge_base = PDFKnowledgeBase(
     path="data/pdfs",
-    vector_db=PgVector2(
+    vector_db=PgVector(
         collection="pdf_documents",
-        db_url=vector_db.get_db_connection_local(),
+        db_url=db_url,
     ),
 )
 ...
@@ -159,63 +150,66 @@ knowledge_base = PDFKnowledgeBase(
 
 </Accordion>
 
-### Step 3: Autonomous Agent
+### Step 3: Agentic RAG
 
-With the RAG agent above, the `add_references_to_prompt=True` always adds information from the knowledge base to the prompt, regardless of whether it is relevant to the question.
+With Basic RAG above, `enable_rag=True` always adds information from the knowledge base to the prompt, regardless of whether it is relevant to the question or helpful.
 
-With Autonomous agents, we let the LLM decide **if** it needs to access the knowledge base and what search parameters it needs to query the knowledge base.
+With Agentic RAG, we let the Agent decide **if** it needs to access the knowledge base and what search parameters it needs to query the knowledge base.
 
-Make the `Agent` Autonomous by setting the `search_knowledge` and `read_chat_history` flags, giving it tools to search the knowledge base and chat history on demand.
+Set `search_knowledge=True` and `read_chat_history=True`, giving the Agent tools to search its knowledge and chat history on demand.
 
 <Steps>
-  <Step title="Create an Autonomous Agent">
-    Create a file `auto_agent.py` with the following contents
+  <Step title="Create an Agentic RAG Agent">
+    Create a file `agentic_rag.py` with the following contents
 
-    ```python auto_agent.py
+    ```python agentic_rag.py
     from phi.agent import Agent
+    from phi.model.openai import OpenAIChat
     from phi.knowledge.pdf import PDFUrlKnowledgeBase
-    from phi.vectordb.pgvector import PgVector2
+    from phi.vectordb.pgvector import PgVector, SearchType
 
+    db_url = "postgresql+psycopg://ai:ai@localhost:5532/ai"
     knowledge_base = PDFUrlKnowledgeBase(
         urls=["https://phi-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"],
-        vector_db=PgVector2(
-            collection="recipes",
-            db_url="postgresql+psycopg://ai:ai@localhost:5532/ai",
-        ),
+        vector_db=PgVector(table_name="recipes", db_url=db_url, search_type=SearchType.hybrid),
     )
-    # Comment out as the knowledge base is already loaded.
-    # knowledge_base.load(recreate=False)
+    # Load the knowledge base: Comment out after first run
+    knowledge_base.load(upsert=True)
 
     agent = Agent(
-        knowledge_base=knowledge_base,
-        # Show tool calls in the response
-        show_tool_calls=True,
-        # Enable the agent to search the knowledge base
+        model=OpenAIChat(id="gpt-4o"),
+        knowledge=knowledge_base,
+        # Add a tool to search the knowledge base which enables agentic RAG.
         search_knowledge=True,
-        # Enable the agent to read the chat history
+        # Add a tool to read chat history.
         read_chat_history=True,
+        show_tool_calls=True,
+        markdown=True,
+        # debug_mode=True,
     )
-    agent.print_response("How do I make pad thai?", markdown=True)
+    agent.print_response("How do I make chicken and galangal in coconut milk soup", stream=True)
     agent.print_response("What was my last question?", markdown=True)
     ```
 
   </Step>
   <Step title="Run the agent">
-    Run the Agent
+    Run the agent
 
     <CodeGroup>
 
     ```bash Mac
-    python auto_agent.py
+    python agentic_rag.py
     ```
 
     ```bash Windows
-    python auto_agent.py
+    python agentic_rag.py
     ```
 
     </CodeGroup>
 
-    > Notice how it searches the knowledge base and chat history when needed
+    <Note>
+    Notice how it searches the knowledge base and chat history when needed
+    </Note>
 
   </Step>
 </Steps>

@@ -45,14 +45,14 @@ Let's create an Agent that can help us research a topic by searching the web. We
     ```
 
   </Step>
-  <Step title="Run the Agent">
+  <Step title="Run the agent">
     Install libraries
 
     ```shell
     pip install phidata openai duckduckgo-search newspaper4k lxml_html_clean
     ```
 
-    Run the Agent
+    Run the agent
 
     ```shell
     python research_agent.py
@@ -90,15 +90,4 @@ from typing import Iterator
 response_stream: Iterator[RunResponse] = agent.run("Simulation theory", stream=True)
 # Print the response stream in markdown format
 pprint_run_response(response_stream, markdown=True, show_time=True)
-```
-
-## Set the system prompt directly
-
-You can manually set the system prompt using the `system_prompt` variable. The `description` and `instructions` only provide a formatting benefit, learn more in the [instructions](/agents/instructions) guide.
-
-```python
-from phi.agent import Agent
-
-agent = Agent(system_prompt="Share a 2 sentence story about")
-agent.print_response("Love in the year 12000.")
 ```

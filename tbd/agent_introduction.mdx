@@ -45,14 +45,14 @@ Let's create an Agent that can help us research a topic by searching the web. We
     ```
 
   </Step>
-  <Step title="Run the Agent">
+  <Step title="Run the agent">
     Install libraries
 
     ```shell
     pip install phidata openai duckduckgo-search newspaper4k lxml_html_clean
     ```
 
-    Run the Agent
+    Run the agent
 
     ```shell
     python research_agent.py
@@ -92,9 +92,9 @@ response_stream: Iterator[RunResponse] = agent.run("Simulation theory", stream=T
 pprint_run_response(response_stream, markdown=True, show_time=True)
 ```
 
-## Run the Agent as a CLI app
+## Run the agent as a CLI app
 
-Run the Agent as a command line application using `agent.cli_app()`
+Run the agent as a command line application using `agent.cli_app()`
 
 ```python
 from phi.agent import Agent

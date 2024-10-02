@@ -2,15 +2,15 @@
 title: Prompts
 ---
 
-Under the hood an Agent will convert the `description` and `instructions` into a **system** prompt and send the input message as a **user** prompt.
+Under the hood an Agent will convert its `description` and `instructions` into the **system** prompt and send the input message as the **user** prompt. Understanding how these prompts are created will help you build better Agents.
 
 <Note>
-This is merely a formatting benefit, we DO NOT ALTER or abstract any information.
+This is merely a formatting benefit, we do not alter or abstract any information.
 </Note>
 
-## System Prompt
+## System prompt
 
-The `description` is added to the start of the system prompt and `instructions` are added as a numbered list inside  `<instructions></instructions>` tags. For example:
+The system prompt is created using `description`, `instructions` and a number of other settings. The `description` is added to the start of the system prompt and `instructions` are added as a numbered list inside  `<instructions></instructions>` tags. For example:
 
 ```python instructions.py
 from phi.agent import Agent
@@ -21,7 +21,7 @@ agent = Agent(
     markdown=True,
     debug_mode=True,
 )
-agent.print_response("Tell me a 2 sentence horror story.")
+agent.print_response("Tell me a 2 sentence horror story.", stream=True)
 ```
 
 Will translate to:
@@ -29,77 +29,58 @@ Will translate to:
 ```js
 DEBUG    ============== system ==============
 DEBUG    You are a famous short story writer asked to write for a magazine
-         YOU MUST FOLLOW THESE INSTRUCTIONS CAREFULLY.
+         You must follow these instructions carefully:
          <instructions>
          1. You are a pilot on a plane flying from Hawaii to Japan.
          2. Use markdown to format your answers.
          </instructions>
 DEBUG    ============== user ==============
 DEBUG    Tell me a 2 sentence horror story.
-DEBUG    Time to generate response: 1.5415s
-DEBUG    Estimated completion tokens: 40
+DEBUG    Time to first token: 0.4431s
+DEBUG    Time per output token: 0.0147s
+DEBUG    Throughput: 68.1266 tokens/s
 ```
 
-## User Prompt
+## Set the system prompt directly
 
-In most cases, the user prompt is simply the input `message` sent to the Agent.
-
-If a `knowledge_base` is provided and `add_references_to_prompt=True`, the user prompt is updated to include:
-
-```python
-user_prompt += f"""Use this information from the knowledge base if it helps:
-<knowledge_base>
-{references}
-</knowledge_base>
-"""
-```
-
-If `add_chat_history_to_prompt=True`, the user prompt is updated to include messages from the chat history. The number of messages can by set using `num_history_messages`:
-
-```python
-user_prompt += f"""Use the following chat history to reference past messages:
-<chat_history>
-{chat_history}
-</chat_history>
-"""
-```
-
-## Overriding Default Prompts
-
-**You can completely override the default prompts using:**
-
-<ResponseField name="system_prompt" type="str" default="None">
-  Provide the system prompt as a string.
-</ResponseField>
-<ResponseField name="system_prompt_template" type="PromptTemplate" default="None">
-  Provide the system prompt as a PromptTemplate
-</ResponseField>
-<ResponseField name="user_prompt" type="str" default="None">
-  Provide the user prompt as a string. Note: this will ignore the message sent to the run function.
-</ResponseField>
-<ResponseField name="user_prompt_template" type="PromptTemplate" default="None">
-  Provide the user prompt as a PromptTemplate.
-</ResponseField>
-
-Example:
+You can manually set the system prompt using the `system_prompt` parameter.
 
 ```python
 from phi.agent import Agent
 
-agent = Agent(
-    system_prompt="Share a 2 sentence story about",
-    user_prompt="Love in the year 12000.",
-    debug_mode=True,
-)
-agent.print_response()
+agent = Agent(system_prompt="Share a 2 sentence story about")
+agent.print_response("Love in the year 12000.")
 ```
 
-## Customize the System Prompt
+## User prompt
+
+In most cases, the user prompt is simply the input `message` sent to the Agent.
+
+If `knowledge` is provided and `enable_rag=True`, the user prompt is updated to include:
+
+```python
+user_prompt += f"""Use the following information from the knowledge base if it helps:"
+<knowledge>
+{context}
+</knowledge>
+"""
+```
+
+## Default System Message
+
+By default, an Agent will create a default system message. You can disable this by setting `use_default_system_message=False`.
+
+## Customize the default system prompt
 
 The system prompt can be customized using:
 
+TODO: @yash to update
+
 <ResponseField name="description" type="str" default="None">
-  A description of the Agent that is added to top the system prompt.
+  A description of the Agent that is added to the start of the system message.
+</ResponseField>
+<ResponseField name="task" type="str" default="None">
+  Describe the task the agent should achieve.
 </ResponseField>
 <ResponseField name="instructions" type="List[str]" default="None">
   List of instructions added to the system prompt in `<instructions>` tags. Default instructions are also created depending on values for `markdown`, `output_model` etc.
@@ -135,9 +116,15 @@ The system prompt can be customized using:
   If True, the output is converted into the output_model (pydantic model or json dict). Otherwise returned as is.
 </ResponseField>
 
-## Customize the User Prompt
+## Default user message
 
-The user prompt can be customized using:
+By default, an Agent will create a default user message, which is either the input message or a message with the `context` if `enable_rag=True`. You can disable this by setting `use_default_user_message=False`.
+
+## Customize the default user message
+
+The user message can be customized using:
+
+TODO: @yash to update
 
 <ResponseField name="add_references_to_prompt" type="bool" default="False">
   Enable RAG by adding references from the knowledge base to the prompt.
