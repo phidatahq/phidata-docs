@@ -2,20 +2,22 @@
 title: Memory
 ---
 
-Every Agent comes with built-in memory that can be used to access the **Chat History** or **LLM Messages**. Access the agent memory using `agent.memory`
-- **Chat History:** The messages between the user and LLM.
-- **LLM Messages:** The full list of messages sent to the LLM, including system prompt, tool calls etc.
+Every Agent comes with built-in memory that can be used to access the **Chat history** or the **Run messages**. Access the agent memory using `agent.memory`
+- **Chat History:** The messages between the User and Agent.
+- **Run Messages:** The full list of messages sent to the model, including system prompt, tool calls etc.
 
 ## Example
 
-```python memory.py
+```python agent_memory.py
 from rich.pretty import pprint
-from phi.agent import Agent, AgentMemory
 
-agent = Agent()
+from phi.agent import Agent, AgentMemory
+from phi.tools.yfinance import YFinanceTools
+
+agent = Agent(tools=[YFinanceTools()])
 
 # -*- Print a response
-agent.print_response("Share a 5 word horror story.")
+agent.print_response("What is the price of AAPL?", stream=True)
 
 # -*- Get the memory
 memory: AgentMemory = agent.memory
@@ -24,9 +26,9 @@ memory: AgentMemory = agent.memory
 print("============ Chat History ============")
 pprint(memory.chat_history)
 
-# -*- Print LLM Messages
-print("============ LLM Messages ============")
-pprint(memory.llm_messages)
+# -*- Print Run Messages
+print("============ Run Messages ============")
+pprint(memory.run_messages)
 ```
 
 <Warning>
