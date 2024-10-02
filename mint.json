@@ -5,21 +5,17 @@
     "dark": "/logo/dark.svg",
     "light": "/logo/light.svg"
   },
-  "theme": "prism",
   "favicon": "/favicon.png",
   "colors": {
-    "primary": "#0D9373",
-    "light": "#07C983",
-    "dark": "#0D9373",
-    "anchors": {
-      "from": "#0D9373",
-      "to": "#07C983"
+    "primary": "#FF4017",
+    "light": "#FF4017",
+    "dark": "#FF4017",
+    "background": {
+      "light": "#FFFFFF",
+      "dark": "#111113"
     }
   },
   "layout": "sidenav",
-  "background": {
-    "style": "windows"
-  },
   "feedback": {
     "thumbsRating": true,
     "suggestEdit": true
@@ -54,7 +50,7 @@
   "navigation": [
     {
       "group": "Getting Started",
-      "pages": ["quickstart", "introduction", "basics"]
+      "pages": ["quickstart", "introduction"]
     },
     {
       "group": "Documentation",

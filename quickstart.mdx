@@ -1,62 +1,7 @@
 ---
 title: Quickstart
-description: Phidata is a framework for building AI Agents, lets learn by example
+description: Phidata is a framework for building AI Agents, lets learn by building
 ---
-
-## Setup
-
-<Steps>
-  <Step title="Create a virtual environment">
-    Open the `Terminal` and create a python virtual environment.
-
-    <CodeGroup>
-
-    ```bash Mac
-    python3 -m venv ~/.venvs/aienv
-    source ~/.venvs/aienv/bin/activate
-    ```
-
-    ```bash Windows
-    python3 -m venv aienv
-    aienv/scripts/activate
-    ```
-
-    </CodeGroup>
-
-  </Step>
-  <Step title="Install phidata">
-
-    <CodeGroup>
-
-    ```bash Mac
-    pip install -U phidata
-    ```
-
-    ```bash Windows
-    pip install -U phidata
-    ```
-
-    </CodeGroup>
-
-  </Step>
-  <Step title="Export your OpenAI Key">
-
-    Phidata works with any LLM but for these examples let's use OpenAI. Export your `OPENAI_API_KEY` (you can get one from [here](https://platform.openai.com/account/api-keys)).
-
-    <CodeGroup>
-
-    ```bash Mac
-    export OPENAI_API_KEY=sk-***
-    ```
-
-    ```bash Windows
-    setx OPENAI_API_KEY sk-***
-    ```
-
-    </CodeGroup>
-
-  </Step>
-</Steps>
 
 ## Finance Agent
 
@@ -85,15 +30,61 @@ description: Phidata is a framework for building AI Agents, lets learn by exampl
     ```
 
   </Step>
-  <Step title="Run the agent">
+  <Step title="Setup">
 
-    Install `yfinance`
+    Open the `Terminal` and create a python virtual environment.
 
-    ```shell
-    pip install yfinance
+    <CodeGroup>
+
+    ```bash Mac
+    python3 -m venv ~/.venvs/aienv
+    source ~/.venvs/aienv/bin/activate
     ```
 
-    Run the agent
+    ```bash Windows
+    python3 -m venv aienv
+    aienv/scripts/activate
+    ```
+
+    </CodeGroup>
+
+    Install libraries
+
+    <CodeGroup>
+
+    ```bash Mac
+    pip install -U phidata yfinance openai
+    ```
+
+    ```bash Windows
+    pip install -U phidata yfinance openai
+    ```
+
+    </CodeGroup>
+
+    Export your OpenAI key
+
+    <CodeGroup>
+
+    ```bash Mac
+    export OPENAI_API_KEY=sk-***
+    ```
+
+    ```bash Windows
+    setx OPENAI_API_KEY sk-***
+    ```
+
+    </CodeGroup>
+
+    <Tip>
+    Phidata works with any LLM but for these examples let's use OpenAI.
+
+    You can get an API key from [here](https://platform.openai.com/account/api-keys).
+    </Tip>
+
+  </Step>
+  <Step title="Run the agent">
+
 
     ```shell
     python finance_agent.py
@@ -130,10 +121,10 @@ description: Phidata is a framework for building AI Agents, lets learn by exampl
   </Step>
   <Step title="Run the agent">
 
-    Install `openai` & `duckduckgo`
+    Install `duckduckgo`
 
     ```shell
-    pip install openai duckduckgo-search
+    pip install duckduckgo-search
     ```
 
     Run the agent
@@ -300,4 +291,4 @@ Let's create an agent that can search a knowledge base and use the results to an
 
 1. Read the [introduction](/introduction) to learn more about phidata.
 2. Read about [Agents](/agents/introduction) and how to customize them to your use case.
-3. Checkout the [templates](/templates/introduction) for building full-stack agentic systems.
+3. Checkout [templates](/templates/introduction) for building full-stack agentic systems.
