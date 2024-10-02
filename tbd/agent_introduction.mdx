@@ -92,9 +92,33 @@ response_stream: Iterator[RunResponse] = agent.run("Simulation theory", stream=T
 pprint_run_response(response_stream, markdown=True, show_time=True)
 ```
 
-## Set the system prompt directly
+## Run the Agent as a CLI app
 
-You can manually set the system prompt using the `system_prompt` variable. The `description` and `instructions` only provide a formatting benefit, learn more in the [instructions](/agents/instructions) guide.
+Run the Agent as a command line application using `agent.cli_app()`
+
+```python
+from phi.agent import Agent
+from phi.tools.duckduckgo import DuckDuckGo
+
+agent = Agent(tools=[DuckDuckGo()], show_tool_calls=True, read_chat_history=True)
+agent.cli_app(markdown=True)
+```
+
+Ask
+
+```
+Whats happening in france?
+```
+
+Then ask:
+
+```
+Summarize the last response
+```
+
+## Manually set the system prompt
+
+You can manually set the system prompt using the `system_prompt` variable. The `description` and `instructions` only provide a formatting benefit. Learn more in the [instructions](/agents/instructions) guide.
 
 ```python
 from phi.agent import Agent

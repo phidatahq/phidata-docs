@@ -59,7 +59,7 @@
           "group": "Agents",
           "pages": [
             "agents/introduction",
-            "agents/instructions",
+            "agents/prompts",
             "agents/tools",
             "agents/knowledge",
             "agents/memory",
@@ -69,23 +69,23 @@
           ]
         },
         {
-          "group": "LLMs",
+          "group": "Models",
           "pages": [
-            "llms/introduction",
-            "llms/openai",
-            "llms/openai-like",
-            "llms/ollama",
-            "llms/aws-claude",
-            "llms/together",
-            "llms/anyscale",
-            "llms/fireworks",
-            "llms/mistral",
-            "llms/groq",
-            "llms/google_ai_studio",
-            "llms/google_vertex_ai",
-            "llms/azure",
-            "llms/claude",
-            "llms/cohere"
+            "models/introduction",
+            "models/openai",
+            "models/anthropic",
+            "models/cohere",
+            "models/ollama",
+            "models/openai-like",
+            "models/aws-claude",
+            "models/together",
+            "models/anyscale",
+            "models/fireworks",
+            "models/mistral",
+            "models/groq",
+            "models/google_ai_studio",
+            "models/google_vertex_ai",
+            "models/azure"
           ]
         },
         {
@@ -156,7 +156,7 @@
           ]
         },
         {
-          "group": "Embedder",
+          "group": "Embeddings",
           "pages": [
             "embedder/introduction",
             "embedder/openai",
@@ -218,20 +218,20 @@
           ]
         },
         {
-          "group": "LLMs",
+          "group": "Model Providers",
           "pages": [
-            "examples/llms/openai",
-            "examples/llms/anyscale",
-            "examples/llms/azure",
-            "examples/llms/claude",
-            "examples/llms/cohere",
-            "examples/llms/fireworks",
-            "examples/llms/gemini",
-            "examples/llms/groq",
-            "examples/llms/hermes2",
-            "examples/llms/mistral",
-            "examples/llms/ollama",
-            "examples/llms/together"
+            "examples/provider/openai",
+            "examples/provider/anyscale",
+            "examples/provider/azure",
+            "examples/provider/claude",
+            "examples/provider/cohere",
+            "examples/provider/fireworks",
+            "examples/provider/gemini",
+            "examples/provider/groq",
+            "examples/provider/hermes2",
+            "examples/provider/mistral",
+            "examples/provider/ollama",
+            "examples/provider/together"
           ]
         }
       ]
@@ -245,16 +245,16 @@
       "pages": [
         "templates/introduction",
         {
+          "group": "Agent App",
+          "pages": ["templates/agent-app/run-local", "templates/agent-app/run-aws"]
+        },
+        {
+          "group": "Agent API",
+          "pages": ["templates/agent-api/run-local", "templates/agent-api/run-aws"]
+        },
+        {
           "group": "LLM OS",
           "pages": ["templates/llm-os/run-local", "templates/llm-os/run-aws"]
-        },
-        {
-          "group": "AI App",
-          "pages": ["templates/ai-app/run-local", "templates/ai-app/run-aws"]
-        },
-        {
-          "group": "AI API",
-          "pages": ["templates/ai-api/run-local", "templates/ai-api/run-aws"]
         },
         {
           "group": "Streamlit App",
@@ -340,62 +340,62 @@
     {
       "group": "Building Blocks",
       "pages": [
-        "reference/blocks/agent",
+        "reference/agent",
         {
           "group": "Custom Agents",
           "pages": [
-            "reference/blocks/agents/python",
-            "reference/blocks/agents/duckdb"
+            "reference/agents/python",
+            "reference/agents/duckdb"
           ]
         },
         {
-          "group": "LLMs",
+          "group": "Models",
           "pages": [
-            "reference/blocks/llm/base",
-            "reference/blocks/llm/openai",
-            "reference/blocks/llm/aws",
-            "reference/blocks/llm/together",
-            "reference/blocks/llm/ollama",
-            "reference/blocks/llm/fireworks",
-            "reference/blocks/llm/mistral",
-            "reference/blocks/llm/groq",
-            "reference/blocks/llm/gemini",
-            "reference/blocks/llm/azure",
-            "reference/blocks/llm/claude"
+            "reference/model/base",
+            "reference/model/openai",
+            "reference/model/aws",
+            "reference/model/together",
+            "reference/model/ollama",
+            "reference/model/fireworks",
+            "reference/model/mistral",
+            "reference/model/groq",
+            "reference/model/gemini",
+            "reference/model/azure",
+            "reference/model/claude"
           ]
         },
         {
           "group": "Storage",
           "pages": [
-            "reference/blocks/storage/agent/postgres",
-            "reference/blocks/storage/agent/sqlite",
-            "reference/blocks/storage/agent/singlestore"
+            "reference/storage/postgres",
+            "reference/storage/sqlite",
+            "reference/storage/singlestore"
           ]
         },
         {
           "group": "Knowledge Base",
           "pages": [
-            "reference/blocks/kb/base",
-            "reference/blocks/kb/arxiv",
-            "reference/blocks/kb/combined",
-            "reference/blocks/kb/docx",
-            "reference/blocks/kb/json",
-            "reference/blocks/kb/langchain",
-            "reference/blocks/kb/pdf",
-            "reference/blocks/kb/pdf-url",
-            "reference/blocks/kb/text",
-            "reference/blocks/kb/website",
-            "reference/blocks/kb/wikipedia"
+            "reference/kb/base",
+            "reference/kb/arxiv",
+            "reference/kb/combined",
+            "reference/kb/docx",
+            "reference/kb/json",
+            "reference/kb/langchain",
+            "reference/kb/pdf",
+            "reference/kb/pdf-url",
+            "reference/kb/text",
+            "reference/kb/website",
+            "reference/kb/wikipedia"
           ]
         },
         {
           "group": "VectorDbs",
           "pages": [
-            "reference/blocks/vectordb/pgvector",
-            "reference/blocks/vectordb/pgvector2",
-            "reference/blocks/vectordb/singlestore",
-            "reference/blocks/vectordb/qdrant",
-            "reference/blocks/vectordb/lancedb"
+            "reference/vectordb/pgvector",
+            "reference/vectordb/pgvector2",
+            "reference/vectordb/singlestore",
+            "reference/vectordb/qdrant",
+            "reference/vectordb/lancedb"
           ]
         }
       ]
@@ -439,7 +439,7 @@
   ],
   "footerSocials": {
     "github": "https://github.com/phidatahq/phidata",
-    "discord": "https://discord.com/invite/4MtYHHrgA8",
+    "discord": "https://phidata.link/discord",
     "website": "https://phidata.com"
   }
 }
