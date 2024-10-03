@@ -2,9 +2,8 @@
 title: Introduction
 ---
 
-Tools are **functions** that an Agent can run to achieve tasks like searching the web, running SQL, sending an email and calling APIs. **Tools make LLMs autonomous**.
-
-You can use any python function as a tool or use a pre-built **Toolkit**. The general syntax is:
+Tools are **functions** that an Agent can run like searching the web, running SQL, sending an email or calling APIs. Use tools integrate Agents with external systems.
+You can use any python function as a tool or use a pre-built **toolkit**. The general syntax is:
 
 ```python
 from phi.agent import Agent
@@ -12,7 +11,7 @@ from phi.agent import Agent
 agent = Agent(
     # Add functions or Toolkits
     tools=[...],
-    # Show tool calls in LLM response.
+    # Show tool calls in the Agent response
     show_tool_calls=True
 )
 ```

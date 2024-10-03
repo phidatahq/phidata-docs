@@ -62,7 +62,9 @@ Let's create an Agent that can help us research a topic by searching the web. We
 </Steps>
 
 <Note>
-Under the hood, the description and instructions are converted to the system prompt and the input is passed as the user prompt. Use `debug_mode=True` to log the messages sent to the LLM.
+Under the hood, the description and instructions are converted to the system prompt and the input is passed as the user prompt.
+
+Use `debug_mode=True` to log the raw messages used by the agent.
 </Note>
 
 ## Return Agent response as a variable
@@ -91,3 +93,13 @@ response_stream: Iterator[RunResponse] = agent.run("Simulation theory", stream=T
 # Print the response stream in markdown format
 pprint_run_response(response_stream, markdown=True, show_time=True)
 ```
+
+## RunResponse
+
+The `Agent.run()` function returns a `RunResponse` object or an stream of `RunResponse` objects. `RunResponse` contains the following attributes:
+
+TODO: @yash to update
+
+<ResponseField name="content" type="str" default="None">
+  Content of the response
+</ResponseField>

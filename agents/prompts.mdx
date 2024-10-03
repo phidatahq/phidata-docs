@@ -8,9 +8,9 @@ Under the hood an Agent will convert its `description` and `instructions` into t
 This is merely a formatting benefit, we do not alter or abstract any information.
 </Note>
 
-## System prompt
+## System message
 
-The system prompt is created using `description`, `instructions` and a number of other settings. The `description` is added to the start of the system prompt and `instructions` are added as a numbered list inside  `<instructions></instructions>` tags. For example:
+The system message is created using `description`, `instructions` and a number of other settings. The `description` is added to the start of the system message and `instructions` are added as a numbered list inside  `<instructions></instructions>` tags. For example:
 
 ```python instructions.py
 from phi.agent import Agent
@@ -41,9 +41,9 @@ DEBUG    Time per output token: 0.0147s
 DEBUG    Throughput: 68.1266 tokens/s
 ```
 
-## Set the system prompt directly
+## Set the system message directly
 
-You can manually set the system prompt using the `system_prompt` parameter.
+You can manually set the system message using the `system_prompt` parameter.
 
 ```python
 from phi.agent import Agent
@@ -52,11 +52,11 @@ agent = Agent(system_prompt="Share a 2 sentence story about")
 agent.print_response("Love in the year 12000.")
 ```
 
-## User prompt
+## User message
 
-In most cases, the user prompt is simply the input `message` sent to the Agent.
+In most cases, the user message is simply the input `message` sent to the Agent.
 
-If `knowledge` is provided and `enable_rag=True`, the user prompt is updated to include:
+If `knowledge` is provided and `enable_rag=True`, the user message is updated to include:
 
 ```python
 user_prompt += f"""Use the following information from the knowledge base if it helps:"
@@ -66,13 +66,13 @@ user_prompt += f"""Use the following information from the knowledge base if it h
 """
 ```
 
-## Default System Message
+## Default system message
 
 By default, an Agent will create a default system message. You can disable this by setting `use_default_system_message=False`.
 
-## Customize the default system prompt
+## Customize the system message
 
-The system prompt can be customized using:
+The system message can be customized using:
 
 TODO: @yash to update
 
@@ -120,7 +120,7 @@ TODO: @yash to update
 
 By default, an Agent will create a default user message, which is either the input message or a message with the `context` if `enable_rag=True`. You can disable this by setting `use_default_user_message=False`.
 
-## Customize the default user message
+## Customize the user message
 
 The user message can be customized using:
 

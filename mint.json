@@ -15,7 +15,20 @@
       "dark": "#111113"
     }
   },
+  "font": {
+    "headings": {
+      "family": "Inter",
+      "weight": 900
+    },
+    "body": {
+      "family": "Inter",
+      "weight": 400
+    }
+  },
   "layout": "sidenav",
+  "sidebar": {
+    "items": "undecorated"
+  },
   "feedback": {
     "thumbsRating": true,
     "suggestEdit": true
@@ -76,13 +89,13 @@
             "models/anthropic",
             "models/cohere",
             "models/ollama",
+            "models/groq",
             "models/openai-like",
-            "models/aws-claude",
+            "models/aws-bedrock",
             "models/together",
             "models/anyscale",
             "models/fireworks",
             "models/mistral",
-            "models/groq",
             "models/google_ai_studio",
             "models/google_vertex_ai",
             "models/azure"

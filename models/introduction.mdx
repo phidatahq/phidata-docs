@@ -2,33 +2,35 @@
 title: Introduction
 ---
 
-Large Language Models are machine-learning models that are trained to understand natural language and code. They are quickly emerging as the building block of a new computing paradigm. Use any `llm` with an Agent like:
+Language Models are machine-learning programs that are trained to understand natural language and code. They are quickly emerging as the building block of a new computing paradigm.
+
+Use any `model` with an Agent like:
 
 ```python
 from phi.agent import Agent
-from phi.llm.openai import OpenAIChat
+from phi.model.openai import OpenAIChat
 
 agent = Agent(
-    llm=OpenAIChat(model="gpt-4-turbo"),
-    description="You provide 15 minute healthy recipes.",
+    model=OpenAIChat(id="gpt-4-turbo"),
+    description="Share 15 minute healthy recipes.",
+    markdown=True,
 )
-agent.print_response("Share a breakfast recipe.", markdown=True)
+agent.print_response("Share a breakfast recipe.", stream=True)
 ```
 
-Phidata supports the following LLM providers:
+Phidata supports the following model providers:
 
-- [OpenAI](/llms/openai)
-- [OpenAI Like](/llms/openai-like)
-- [Anthropic Claude](/llms/claude)
-- [Ollama](/llms/ollama)
-- [Hermes2](/llms/ollama)
-- [AWS Bedrock](/llms/aws-claude)
-- [Together](/llms/together)
-- [Anyscale](/llms/anyscale)
-- [Gemini - AI Studio](/llms/google_ai_studio)
-- [Gemini - Vertex AI](/llms/google_vertex_ai)
-- [Groq](/llms/groq)
-- [Fireworks](/llms/fireworks)
-- [Azure](/llms/azure)
-- [Mistral](/llms/mistral)
-- [Cohere](/llms/cohere)
+- [OpenAI](/models/openai)
+- [Anthropic](/models/anthropic)
+- [Cohere](/models/cohere)
+- [Ollama](/models/ollama)
+- [Groq](/models/groq)
+- [OpenAI Like](/models/openai-like)
+- [AWS Bedrock](/models/aws-bedrock)
+- [Together](/models/together)
+- [Anyscale](/models/anyscale)
+- [Fireworks](/models/fireworks)
+- [Mistral](/models/mistral)
+- [Gemini - AI Studio](/models/google_ai_studio)
+- [Gemini - Vertex AI](/models/google_vertex_ai)
+- [Azure](/models/azure)
