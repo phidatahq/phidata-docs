@@ -103,6 +103,7 @@ agent.print_response("Which country are we speaking about?")
     if __name__ == "__main__":
         typer.run(pdf_agent)
     ```
+
   </Step>
   <Step title="Run the agent">
     Install libraries
@@ -147,3 +148,9 @@ agent.print_response("Which country are we speaking about?")
 
   </Step>
 </Steps>
+
+## Params
+
+<ResponseField name="storage" type="Optional[AgentStorage]" default="None">
+  Storage mechanism for the agent, if applicable.
+</ResponseField>

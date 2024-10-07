@@ -3,6 +3,7 @@ title: Memory
 ---
 
 Every Agent comes with built-in memory that can be used to access the **Chat history** or the **Run messages**. Access the agent memory using `agent.memory`
+
 - **Chat History:** The messages between the User and Agent.
 - **Run Messages:** The full list of messages sent to the model, including system prompt, tool calls etc.
 
@@ -36,3 +37,36 @@ pprint(memory.run_messages)
 AgentMemory only lasts while the session is active. To provide memory across sessions, add `Storage` to the `Agent`.
 
 </Warning>
+
+## Params
+
+<ResponseField name="memory" type="AgentMemory" default="AgentMemory()">
+  Agent's memory object used for storing and retrieving information.
+</ResponseField>
+<ResponseField
+  name="add_history_to_messages"
+  type="bool"
+  default="False"
+  alias="add_chat_history_to_messages"
+>
+  If true, adds the chat history to the messages sent to the Model.
+</ResponseField>
+<ResponseField name="num_history_responses" type="int" default="3">
+  Number of historical responses to add to the messages.
+</ResponseField>
+<ResponseField name="create_user_memories" type="bool" default="False">
+  If true, create and store personalized memories for the user.
+</ResponseField>
+<ResponseField name="update_user_memories_after_run" type="bool" default="True">
+  If true, update memories for the user after each run.
+</ResponseField>
+<ResponseField name="create_session_summary" type="bool" default="False">
+  If true, create and store session summaries.
+</ResponseField>
+<ResponseField
+  name="update_session_summary_after_run"
+  type="bool"
+  default="True"
+>
+  If true, update session summaries after each run.
+</ResponseField>

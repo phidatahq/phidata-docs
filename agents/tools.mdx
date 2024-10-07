@@ -21,9 +21,7 @@ agent = Agent(
 
 Phidata provides many pre-built **toolkits** that you can add to your Agents. For example, let's use the DuckDuckGo toolkit to search the web.
 
-<Tip>
-You can find more toolkits in the [Toolkits](/tools/toolkits) guide.
-</Tip>
+<Tip>You can find more toolkits in the [Toolkits](/tools/toolkits) guide.</Tip>
 
 <Steps>
   <Step title="Create Web Search Agent">
@@ -94,6 +92,7 @@ agent.print_response("Summarize the top 5 stories on hackernews?", stream=True)
 ```
 
 Read more about:
+
 - [Available toolkits](/tools/toolkits)
 - [Using functions as tools](/tools/functions)
 
@@ -101,13 +100,11 @@ Read more about:
 
 The following fields allow an `Agent` to use tools
 
-TODO: @yash to update
-
 <ResponseField name="tools" type="List[Union[Tool, Toolkit, Callable, Dict, Function]">
- A list of tools provided to the LLM.
+ A list of tools provided to the Model. Tools are fuctions the model may generate JSON inputs for.
 </ResponseField>
 <ResponseField name="show_tool_calls" type="bool" default="False">
-  Print the signature of the tool calls in the LLM response.
+  Print the signature of the tool calls in the Model response.
 </ResponseField>
 <ResponseField name="tool_call_limit" type="int">
   Maximum number of tool calls allowed.
@@ -125,17 +122,18 @@ TODO: @yash to update
   ```
   forces the model to call that tool.
 
-  "none" is the default when no tools are present. "auto" is the default if tools are present.
+"none" is the default when no tools are present. "auto" is the default if tools are present.
+
 </ResponseField>
 <ResponseField name="read_chat_history" type="bool" default="False">
-  Add a tool that allows the LLM to get the chat history.
+  Add a tool that allows the Model to read the chat history.
 </ResponseField>
 <ResponseField name="search_knowledge" type="bool" default="False">
-  Add a tool that allows the LLM to search the knowledge base.
+  Add a tool that allows the Model to search the knowledge base (aka Agentic RAG).
 </ResponseField>
-<ResponseField name="update_knoupdate_knowledgewledge_base" type="bool" default="False">
-  Add a tool that allows the LLM to update the knowledge base.
+<ResponseField name="update_knowledge" type="bool" default="False">
+  Add a tool that allows the Model to update the knowledge base.
 </ResponseField>
 <ResponseField name="read_tool_call_history" type="bool" default="False">
-  Add a tool is added that allows the LLM to get the tool call history.
+  Add a tool that allows the Model to get the tool call history.
 </ResponseField>

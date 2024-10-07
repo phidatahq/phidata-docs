@@ -24,13 +24,16 @@ While any type of storage can act as a knowledge base, vector databases offer th
 
 <Steps>
   <Step title="Chunk the information">
-    Break down the knowledge into smaller chunks to ensure our search query returns only relevant results.
+    Break down the knowledge into smaller chunks to ensure our search query
+    returns only relevant results.
   </Step>
   <Step title="Load the knowledge base">
-    Convert the chunks into embedding vectors and store them in a vector database.
+    Convert the chunks into embedding vectors and store them in a vector
+    database.
   </Step>
   <Step title="Search the knowledge base">
-    When the user sends a message, we convert the input message into an embedding and "search" for nearest neighbors in the vector database.
+    When the user sends a message, we convert the input message into an
+    embedding and "search" for nearest neighbors in the vector database.
   </Step>
 </Steps>
 
@@ -59,6 +62,7 @@ docker run -d \
 ### Step 2: Basic RAG
 
 Retrieval Augmented Generation means **"stuffing the prompt with relevant information"** to improve the model's response. This is a 2 step process:
+
 1. Retrieve relevant information from the knowledge base.
 2. Augment the prompt to provide context to the model.
 
@@ -213,3 +217,33 @@ Set `search_knowledge=True` and `read_chat_history=True`, giving the Agent tools
 
   </Step>
 </Steps>
+
+## Params
+
+<ResponseField
+  name="knowledge"
+  type="AgentKnowledge"
+  default="None"
+  alias="knowledge_base"
+>
+  Provides the knowledge base used by the agent.
+</ResponseField>
+<ResponseField name="enable_rag" type="bool" default="False">
+  Enable RAG by adding references from AgentKnowledge to the user prompt.
+</ResponseField>
+<ResponseField
+  name="retriever"
+  type="Callable[..., Optional[list[dict]]]"
+  default="None"
+>
+  Function to get context to add to the user message. This function is called
+  when enable_rag is True.
+</ResponseField>
+<ResponseField name="rag_format" type="Literal['json', 'yaml']" default="json">
+  Specifies the format for RAG, either "json" or "yaml".
+</ResponseField>
+<ResponseField name="add_rag_instructions" type="bool" default="False">
+  If True, adds instructions for using the RAG to the system prompt (if
+  knowledge is also provided). For example: add an instruction to prefer
+  information from the knowledge base over its training data.
+</ResponseField>
