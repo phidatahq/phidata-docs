@@ -5,12 +5,13 @@ title: Prompts
 Under the hood an Agent will convert its `description` and `instructions` into the **system** prompt and send the input message as the **user** prompt. Understanding how these prompts are created will help you build better Agents.
 
 <Note>
-This is merely a formatting benefit, we do not alter or abstract any information.
+  This is merely a formatting benefit, we do not alter or abstract any
+  information.
 </Note>
 
 ## System message
 
-The system message is created using `description`, `instructions` and a number of other settings. The `description` is added to the start of the system message and `instructions` are added as a numbered list inside  `<instructions></instructions>` tags. For example:
+The system message is created using `description`, `instructions` and a number of other settings. The `description` is added to the start of the system message and `instructions` are added as a numbered list inside `<instructions></instructions>` tags. For example:
 
 ```python instructions.py
 from phi.agent import Agent
@@ -74,8 +75,6 @@ By default, an Agent will create a default system message. You can disable this 
 
 The system message can be customized using:
 
-TODO: @yash to update
-
 <ResponseField name="description" type="str" default="None">
   A description of the Agent that is added to the start of the system message.
 </ResponseField>
@@ -85,17 +84,17 @@ TODO: @yash to update
 <ResponseField name="instructions" type="List[str]" default="None">
   List of instructions added to the system prompt in `<instructions>` tags. Default instructions are also created depending on values for `markdown`, `output_model` etc.
 </ResponseField>
+<ResponseField name="additional_context" type="str" default="None">
+  Additional context added to the end of the system message.
+</ResponseField>
+<ResponseField name="expected_output" type="str" default="None">
+  Provide the expected output from the Agent. This is added to the end of the system message.
+</ResponseField>
 <ResponseField name="extra_instructions" type="List[str]" default="None">
-  List of extra_instructions added to the default system prompt. Use these when you want to add some extra instructions at the end of the default instructions.
-</ResponseField>
-<ResponseField name="add_to_system_prompt" type="str" default="None">
-  Add a string to the end of the default system prompt.
-</ResponseField>
-<ResponseField name="add_knowledge_base_instructions" type="bool" default="True">
-  If True, add instructions for using the knowledge base to the system prompt if knowledge base is provided
+  List of extra instructions added to the default system prompt. Use these when you want to add some extra instructions at the end of the default instructions.
 </ResponseField>
 <ResponseField name="prevent_hallucinations" type="bool" default="False">
-  If True, add instructions to return "I dont know" when the agent does not know the answer.
+  If True, add instructions to return "I don't know" when the agent does not know the answer.
 </ResponseField>
 <ResponseField name="prevent_prompt_injection" type="bool" default="False">
   If True, add instructions to prevent prompt injection attacks.
@@ -103,17 +102,26 @@ TODO: @yash to update
 <ResponseField name="limit_tool_access" type="bool" default="False">
   If True, add instructions for limiting tool access to the default system prompt if tools are provided
 </ResponseField>
-<ResponseField name="add_datetime_to_instructions" type="bool" default="False">
-  If True, add the current datetime to the prompt to give the agent a sense of time. This allows for relative times like "tomorrow" to be used in the prompt
-</ResponseField>
 <ResponseField name="markdown" type="bool" default="False">
   Add an instruction to format the output using markdown.
 </ResponseField>
-<ResponseField name="output_model" type="Optional[Union[str, List, Type[BaseModel]]]" default="None">
-  Provide an output model for the responses. Accepts a pydantic model, list of strings where each string is a key the LLM should return a value for or just a string.
+<ResponseField name="add_datetime_to_instructions" type="bool" default="False">
+  If True, add the current datetime to the prompt to give the agent a sense of time. This allows for relative times like "tomorrow" to be used in the prompt
 </ResponseField>
-<ResponseField name="parse_output" type="bool" default="True">
-  If True, the output is converted into the output_model (pydantic model or json dict). Otherwise returned as is.
+<ResponseField name="system_prompt" type="str" default="None">
+  System prompt: provide the system prompt as a string
+</ResponseField>
+<ResponseField name="system_prompt" type="str" default="None">
+  Provide the system prompt as a string.
+</ResponseField>
+<ResponseField name="system_prompt_template" type="PromptTemplate" default="None">
+  Provide the system prompt as a PromptTemplate.
+</ResponseField>
+<ResponseField name="use_default_system_message" type="bool" default="True">
+  If True, build a default system message using agent settings and use that.
+</ResponseField>
+<ResponseField name="system_message_role" type="str" default="system">
+  Role for the system message.
 </ResponseField>
 
 ## Default user message
@@ -124,14 +132,30 @@ By default, an Agent will create a default user message, which is either the inp
 
 The user message can be customized using:
 
-TODO: @yash to update
-
-<ResponseField name="add_references_to_prompt" type="bool" default="False">
+<ResponseField name="enable_rag" type="bool" default="False">
   Enable RAG by adding references from the knowledge base to the prompt.
 </ResponseField>
-<ResponseField name="add_chat_history_to_prompt" type="bool" default="False">
-  Adds the formatted chat history to the user prompt.
+<ResponseField name="add_rag_instructions" type="bool" default="False">
+  If True, adds instructions for using the RAG to the system prompt (if
+  knowledge is also provided). For example: add an instruction to prefer
+  information from the knowledge base over its training data.
 </ResponseField>
-<ResponseField name="num_history_messages" type="int" default="6">
-  Number of previous messages to add to the prompt or messages.
+<ResponseField name="add_history_to_messages" type="bool" default="False">
+  If true, adds the chat history to the messages sent to the Model.
+</ResponseField>
+<ResponseField name="num_history_responses" type="int" default="3">
+  Number of historical responses to add to the messages.
+</ResponseField>
+<ResponseField name="user_prompt" type="Union[List, Dict, str]" default="None">
+  Provide the user prompt as a string. Note: this will ignore the message sent
+  to the run function.
+</ResponseField>
+<ResponseField name="user_prompt_template" type="PromptTemplate" default="None">
+  Provide the user prompt as a PromptTemplate.
+</ResponseField>
+<ResponseField name="use_default_user_message" type="bool" default="True">
+  If True, build a default user prompt using references and chat history.
+</ResponseField>
+<ResponseField name="user_message_role" type="str" default="user">
+  Role for the user message.
 </ResponseField>

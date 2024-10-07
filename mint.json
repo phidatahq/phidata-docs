@@ -259,11 +259,17 @@
         "templates/introduction",
         {
           "group": "Agent App",
-          "pages": ["templates/agent-app/run-local", "templates/agent-app/run-aws"]
+          "pages": [
+            "templates/agent-app/run-local",
+            "templates/agent-app/run-aws"
+          ]
         },
         {
           "group": "Agent API",
-          "pages": ["templates/agent-api/run-local", "templates/agent-api/run-aws"]
+          "pages": [
+            "templates/agent-api/run-local",
+            "templates/agent-api/run-aws"
+          ]
         },
         {
           "group": "LLM OS",
@@ -356,10 +362,7 @@
         "reference/agent",
         {
           "group": "Custom Agents",
-          "pages": [
-            "reference/agents/python",
-            "reference/agents/duckdb"
-          ]
+          "pages": ["reference/agents/python", "reference/agents/duckdb"]
         },
         {
           "group": "Models",
