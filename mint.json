@@ -165,6 +165,7 @@
           "pages": [
             "storage/introduction",
             "storage/postgres",
+            "storage/sqlite",
             "storage/singlestore"
           ]
         },
