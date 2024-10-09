@@ -40,12 +40,12 @@ Update the `chat/views.py` file to
 ```python chat/views.py
 from django.shortcuts import render, redirect
 
-from phi.assistant import Assistant
+from phi.agent import Agent
 
 def index(request):
     try:
-        # Create a assistant
-        assistant = Assistant()
+        # Create a agent
+        agent = Agent()
         if 'messages' not in request.session:
             request.session['messages'] = []
         if request.method == 'POST':
@@ -55,9 +55,9 @@ def index(request):
             # Set the session as modified
             request.session.modified = True
             # Create a response
-            response = assistant.run(prompt, stream=False)
+            response = agent.run(prompt, stream=False)
             # Append the response to the messages
-            request.session['messages'].append({"role": "assistant", "content": response})
+            request.session['messages'].append({"role": "agent", "content": response})
             # Set the session as modified
             request.session.modified = True
             # Redirect to the home page
@@ -79,7 +79,7 @@ def index(request):
 
 def new_chat(request):
     # -*- Clears the session messages and redirects to the home page -*-
-    request.session.pop('assistant', None)
+    request.session.pop('agent', None)
     request.session.pop('messages', None)
     return redirect('index')
 ```
@@ -145,7 +145,7 @@ Create the HTML templates for the chat interface in the `chat/templates/chat` fo
               </div>
               <div class="chat-history mb-3">
                 {% for message in messages %}
-                  <div class="card mb-2 {% if message.role == 'assistant' %}bg-success text-white{% endif %}">
+                  <div class="card mb-2 {% if message.role == 'agent' %}bg-success text-white{% endif %}">
                     <div class="card-body p-2">
                       <strong>{{ message.role|title }}:</strong> {{ message.content|linebreaksbr }}
                     </div>
