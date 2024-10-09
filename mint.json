@@ -197,7 +197,6 @@
             "examples/agents/hackernews",
             "examples/agents/structured-output",
             "examples/agents/langchain-retriever",
-            "examples/agents/python",
             "examples/agents/data-analyst",
             "examples/agents/vision"
           ]
@@ -222,6 +221,7 @@
         {
           "group": "Integrations",
           "pages": [
+            "examples/integrations/composio",
             "examples/integrations/pgvector",
             "examples/integrations/singlestore",
             "examples/integrations/lancedb",

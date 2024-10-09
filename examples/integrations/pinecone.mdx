@@ -1,6 +1,117 @@
 ---
-title: Pinecone
-description: This guide is in the works
+title: Pinecone Integration
+sidebarTitle: Pinecone
 ---
 
-<Snippet file="message-us-discord.mdx" />
+## Example
+
+```python agent_with_knowledge.py
+import os
+import typer
+from typing import Optional
+from rich.prompt import Prompt
+
+from phi.agent import Agent
+from phi.knowledge.pdf import PDFUrlKnowledgeBase
+from phi.vectordb.pineconedb import PineconeDB
+
+api_key = os.getenv("PINECONE_API_KEY")
+index_name = "thai-recipe-hybrid-search"
+
+vector_db = PineconeDB(
+    name=index_name,
+    dimension=1536,
+    metric="cosine",
+    spec={"serverless": {"cloud": "aws", "region": "us-east-1"}},
+    api_key=api_key,
+    use_hybrid_search=True,
+    hybrid_alpha=0.5,
+)
+
+knowledge_base = PDFUrlKnowledgeBase(
+    urls=["https://phi-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"],
+    vector_db=vector_db,
+)
+
+# Comment out after first run
+knowledge_base.load(recreate=True, upsert=True)
+
+
+def pinecone_agent(user: str = "user"):
+    run_id: Optional[str] = None
+
+    agent = Agent(
+        run_id=run_id,
+        user_id=user,
+        knowledge=knowledge_base,
+        show_tool_calls=True,
+        debug_mode=True,
+    )
+
+    if run_id is None:
+        run_id = agent.run_id
+        print(f"Started Run: {run_id}\n")
+    else:
+        print(f"Continuing Run: {run_id}\n")
+
+    while True:
+        message = Prompt.ask(f"[bold] :sunglasses: {user} [/bold]")
+        if message in ("exit", "bye"):
+            break
+        agent.print_response(message)
+
+
+if __name__ == "__main__":
+    typer.run(pinecone_agent)
+
+
+```
+
+## PineconeDB Params
+
+<ResponseField name="name" type="str">
+  The name of the table to use.
+</ResponseField>
+<ResponseField name="dimension" type="int">
+  The dimension of the table to use.
+</ResponseField>
+<ResponseField name="spec" type="Union[Dict, ServerlessSpec, PodSpec]">
+  The spec of the table to use.
+</ResponseField>
+<ResponseField name="embedder" type="Optional[Embedder]">
+  The embedder to use for encoding vectors. If not provided, a default embedder will be used.
+</ResponseField>
+<ResponseField name="metric" type="Optional[str]">
+  The distance metric to use for similarity search. Default is "cosine".
+</ResponseField>
+<ResponseField name="additional_headers" type="Optional[Dict[str, str]]">
+  Additional headers to include in API requests.
+</ResponseField>
+<ResponseField name="pool_threads" type="Optional[int]">
+  The number of threads to use for the connection pool. Default is 1.
+</ResponseField>
+<ResponseField name="namespace" type="Optional[str]">
+  The namespace to use for the index.
+</ResponseField>
+<ResponseField name="timeout" type="Optional[int]">
+  The timeout for API requests in seconds.
+</ResponseField>
+<ResponseField name="index_api" type="Optional[Any]">
+  A custom index API implementation to use instead of the default.
+</ResponseField>
+<ResponseField name="api_key" type="Optional[str]">
+  The API key for authentication with Pinecone.
+</ResponseField>
+<ResponseField name="host" type="Optional[str]">
+  The host URL for the Pinecone service.
+</ResponseField>
+<ResponseField name="config" type="Optional[Config]">
+  Additional configuration options for the Pinecone client.
+</ResponseField>
+<ResponseField name="use_hybrid_search" type="bool">
+  Whether to use hybrid search (combining vector and keyword search). Default is False.
+</ResponseField>
+<ResponseField name="hybrid_alpha" type="float">
+  The alpha parameter for hybrid search, balancing between vector and keyword search. Default is 0.5.
+</ResponseField>
+
