@@ -154,7 +154,7 @@
           "pages": [
             "vectordb/introduction",
             "vectordb/pgvector",
-            "vectordb/singlestore",
+            "vectordb/qdrant",
             "vectordb/pinecone",
             "vectordb/lancedb"
           ]
