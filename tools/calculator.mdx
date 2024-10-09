@@ -1,0 +1,90 @@
+---
+title: Calculator
+---
+
+**Calculator** enable an Agent to perform mathematical calculations.
+
+## Example
+
+The following agent will calculate the result of `10*5` and then raise it to the power of `2`:
+
+```python cookbook/tools/calculator_tools.py
+from phi.agent import Agent
+from phi.tools.calculator import Calculator
+
+agent = Agent(
+    tools=[
+        Calculator(
+            add=True,
+            subtract=True,
+            multiply=True,
+            divide=True,
+            exponentiate=True,
+            factorial=True,
+            is_prime=True,
+            square_root=True,
+        )
+    ],
+    show_tool_calls=True,
+    markdown=True,
+)
+agent.print_response("What is 10*5 then to the power of 2, do it step by step")
+```
+
+## Toolkit Params
+
+<ResponseField name="add" type="bool" default="True">
+  Enables the functionality to perform addition.
+</ResponseField>
+<ResponseField name="subtract" type="bool" default="True">
+  Enables the functionality to perform subtraction.
+</ResponseField>
+<ResponseField name="multiply" type="bool" default="True">
+  Enables the functionality to perform multiplication.
+</ResponseField>
+<ResponseField name="divide" type="bool" default="True">
+  Enables the functionality to perform division.
+</ResponseField>
+<ResponseField name="exponentiate" type="bool" default="False">
+  Enables the functionality to perform exponentiation.
+</ResponseField>
+<ResponseField name="factorial" type="bool" default="False">
+  Enables the functionality to calculate the factorial of a number.
+</ResponseField>
+<ResponseField name="is_prime" type="bool" default="False">
+  Enables the functionality to check if a number is prime.
+</ResponseField>
+<ResponseField name="square_root" type="bool" default="False">
+  Enables the functionality to calculate the square root of a number.
+</ResponseField>
+
+## Toolkit Functions
+
+<ResponseField name="add">
+  Adds two numbers and returns the result.
+</ResponseField>
+<ResponseField name="subtract">
+  Subtracts the second number from the first and returns the result.
+</ResponseField>
+<ResponseField name="multiply">
+  Multiplies two numbers and returns the result.
+</ResponseField>
+<ResponseField name="divide">
+  Divides the first number by the second and returns the result. Handles
+  division by zero.
+</ResponseField>
+<ResponseField name="exponentiate">
+  Raises the first number to the power of the second number and returns the
+  result.
+</ResponseField>
+<ResponseField name="factorial">
+  Calculates the factorial of a number and returns the result. Handles negative
+  numbers.
+</ResponseField>
+<ResponseField name="is_prime">
+  Checks if a number is prime and returns the result.
+</ResponseField>
+<ResponseField name="square_root">
+  Calculates the square root of a number and returns the result. Handles
+  negative numbers.
+</ResponseField>

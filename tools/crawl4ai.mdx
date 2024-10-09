@@ -1,0 +1,31 @@
+---
+title: Crawl4AI
+---
+
+**Crawl4aiTools** enable an Agent to perform web crawling and scraping tasks.
+
+## Example
+
+The following agent will calculate the result of `10*5` and then raise it to the power of `2`:
+
+```python cookbook/tools/crawl4ai_tools.py
+from phi.agent import Agent
+from phi.tools.crawl4ai_tools import Crawl4aiTools
+
+agent = Agent(tools=[Crawl4aiTools(max_length=None)], show_tool_calls=True)
+agent.print_response("Tell me about https://github.com/phidatahq/phidata.", markdown=True)
+```
+
+## Toolkit Params
+
+<ResponseField name="max_length" type="int" default="1000">
+  Specifies the maximum length of the text from the webpage to be returned.
+</ResponseField>
+
+## Toolkit Functions
+
+<ResponseField name="web_crawler">
+  Crawls a website using crawl4ai's WebCrawler. Parameters include 'url' for the
+  URL to crawl and an optional 'max_length' to limit the length of extracted
+  content. The default value for 'max_length' is 1000.
+</ResponseField>
