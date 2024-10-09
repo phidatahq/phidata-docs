@@ -22,20 +22,30 @@ setx GOOGLE_API_KEY ***
 
 ## Example
 
-Use `Gemini` with your `Assistant`:
+Use `Gemini` with your `Agent`:
 
 <CodeGroup>
 
-```python assistant.py
-from phi.assistant import Assistant
-from phi.llm.google import Gemini
+```python agent.py
+"""Run `pip install yfinance` to install dependencies."""
 
-assistant = Assistant(
-    llm=Gemini(model="gemini-1.5-flash"),
-    description="You help people with their health and fitness goals.",
-    debug_mode=True,
+from phi.agent import Agent, RunResponse  # noqa
+from phi.model.google import Gemini
+from phi.tools.yfinance import YFinanceTools
+
+agent = Agent(
+    model=Gemini(id="gemini-1.5-flash"),
+    tools=[YFinanceTools(stock_price=True)],
+    show_tool_calls=True,
+    markdown=True,
 )
-assistant.print_response("Share a quick healthy breakfast recipe.", markdown=True)
+
+# Get the response in a variable
+# run: RunResponse = agent.run("What is the stock price of NVDA and TSLA")
+# print(run.content)
+
+# Print the response in the terminal
+agent.print_response("What is the stock price of NVDA and TSLA")
 ```
 
 </CodeGroup>
@@ -43,9 +53,9 @@ assistant.print_response("Share a quick healthy breakfast recipe.", markdown=Tru
 ## Params
 
 <ResponseField name="name" type="str" default="Gemini">
-  The name identifier for the assistant.
+  The name identifier for the agent.
 </ResponseField>
-<ResponseField name="model" type="str" default="gemini-1.5-flash">
+<ResponseField name="id" type="str" default="gemini-1.5-flash">
   The specific model ID used for generating responses.
 </ResponseField>
 <ResponseField name="generation_config" type="Any">

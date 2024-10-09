@@ -6,19 +6,18 @@ title: Gemini
 
 <CodeGroup>
 
-```python assistant.py
-import vertexai
-from phi.assistant import Assistant
-from phi.llm.gemini import Gemini
+```python agent.py
+from phi.agent import Agent, RunResponse  # noqa
+from phi.model.google import Gemini
 
-# *********** Initialize VertexAI ***********
-vertexai.init(project=getenv("PROJECT_ID"), location=getenv("LOCATION"))
+agent = Agent(model=Gemini(id="gemini-1.5-flash"), markdown=True, debug_mode=True)
 
-assistant = Assistant(
-    llm=Gemini(model="gemini-1.0-pro-vision"),
-    description="You help people with their health and fitness goals.",
-)
-assistant.print_response("Share a quick healthy breakfast recipe.", markdown=True)
+# Get the response in a variable
+# run: RunResponse = agent.run("Share a 2 sentence horror story")
+# print(run.content)
+
+# Print the response in the terminal
+agent.print_response("Share a 2 sentence horror story")
 ```
 
 </CodeGroup>
@@ -27,7 +26,7 @@ assistant.print_response("Share a quick healthy breakfast recipe.", markdown=Tru
 
 <ResponseField name="name" type="str" default="Gemini"></ResponseField>
 <ResponseField
-  name="model"
+  name="id"
   type="str"
   default="gemini-1.0-pro-vision"
 ></ResponseField>
@@ -41,6 +40,6 @@ assistant.print_response("Share a quick healthy breakfast recipe.", markdown=Tru
 
 ## LLM Params
 
-`Gemini` is a subclass of the `LLM` class and has access to the same params
+`Gemini` is a subclass of the `Model` class and has access to the same params
 
 <Snippet file="llm-base-reference.mdx" />

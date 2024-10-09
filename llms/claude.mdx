@@ -22,23 +22,31 @@ setx ANTHROPIC_API_KEY ***
 
 ## Example
 
-Use `Claude` with your `Assistant`:
+Use `Claude` with your `Agent`:
 
 <CodeGroup>
 
 ```python assistant.py
-from phi.assistant import Assistant
-from phi.llm.anthropic import Claude
+"""Run `pip install yfinance` to install dependencies."""
 
-assistant = Assistant(
-    llm=Claude(
-        model="claude-3-opus-20240229",
-        max_tokens=1024,
-    )
+from phi.agent import Agent, RunResponse  # noqa
+from phi.model.anthropic import Claude
+from phi.tools.yfinance import YFinanceTools
+
+agent = Agent(
+    model=Claude(id="claude-3-5-sonnet-20240620"),
+    tools=[YFinanceTools(stock_price=True)],
+    show_tool_calls=True,
+    markdown=True,
 )
 
-# -*- Print a response
-assistant.print_response('Share a 5 word horror story.', markdown=True)
+# Get the response in a variable
+# run: RunResponse = agent.run("What is the stock price of NVDA and TSLA")
+# print(run.content)
+
+# Print the response in the terminal
+agent.print_response("What is the stock price of NVDA and TSLA")
+
 ```
 
 </CodeGroup>
@@ -48,7 +56,7 @@ assistant.print_response('Share a 5 word horror story.', markdown=True)
 <ResponseField name="name" type="str" default="Claude">
   The name identifier for the assistant.
 </ResponseField>
-<ResponseField name="models" type="str" default="claude-3-opus-20240229">
+<ResponseField name="id" type="str" default="claude-3-5-sonnet-20240620">
   The specific model ID used for generating responses.
 </ResponseField>
 <ResponseField name="max_tokens" type="int" default="1024">

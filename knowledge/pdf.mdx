@@ -21,12 +21,12 @@ Install `pypdf` using `pip install pypdf`
 
 ```python knowledge_base.py
 from phi.knowledge.pdf import PDFKnowledgeBase, PDFReader
-from phi.vectordb.pgvector import PgVector2
+from phi.vectordb.pgvector import PgVector
 
 pdf_knowledge_base = PDFKnowledgeBase(
     path="data/pdfs",
     # Table name: ai.pdf_documents
-    vector_db=PgVector2(
+    vector_db=PgVector(
         collection="pdf_documents",
         db_url="postgresql+psycopg://ai:ai@localhost:5532/ai",
     ),
@@ -34,19 +34,18 @@ pdf_knowledge_base = PDFKnowledgeBase(
 )
 ```
 
-Then use the `knowledge_base` with an Assistant:
+Then use the `knowledge_base` with an Agent:
 
-```python assistant.py
-from phi.assistant import Assistant
+```python agent.py
+from phi.agent import Agent
 from knowledge_base import knowledge_base
 
-assistant = Assistant(
-    knowledge_base=knowledge_base,
-    add_references_to_prompt=True,
+agent = Agent(
+    knowledge_base=knowledge_base
 )
-assistant.knowledge_base.load(recreate=False)
+agent.knowledge_base.load(recreate=False)
 
-assistant.print_response("Ask me about something from the knowledge base")
+agent.print_response("Ask me about something from the knowledge base")
 ```
 
 ## Params

@@ -22,20 +22,31 @@ setx GROQ_API_KEY ***
 
 ## Example
 
-Use `Groq` with your `Assistant`:
+Use `Groq` with your `Agent`:
 
 <CodeGroup>
 
-```python assistant.py
-from phi.assistant import Assistant
-from phi.llm.groq import Groq
+```python agent.py
+"""Run `pip install yfinance` to install dependencies."""
 
-assistant = Assistant(
-    llm=Groq(model="mixtral-8x7b-32768"),
-    description="You help people with their health and fitness goals.",
-    # debug_mode=True,
+from phi.agent import Agent, RunResponse  # noqa
+from phi.model.groq import Groq
+from phi.tools.yfinance import YFinanceTools
+
+agent = Agent(
+    model=Groq(id="llama3-groq-70b-8192-tool-use-preview"),
+    tools=[YFinanceTools(stock_price=True)],
+    show_tool_calls=True,
+    markdown=True,
 )
-assistant.print_response("Share a quick healthy breakfast recipe.", markdown=True)
+
+# Get the response in a variable
+# run: RunResponse = agent.run("What is the stock price of NVDA and TSLA")
+# print(run.content)
+
+# Print the response on the terminal
+agent.print_response("What is the stock price of NVDA and TSLA")
+
 ```
 
 </CodeGroup>
@@ -43,9 +54,9 @@ assistant.print_response("Share a quick healthy breakfast recipe.", markdown=Tru
 ## Params
 
 <ResponseField name="name" type="str" default="Groq">
-  The name identifier for the assistant.
+  The name identifier for the agent.
 </ResponseField>
-<ResponseField name="model" type="str" default="mixtral-8x7b-32768">
+<ResponseField name="id" type="str" default="llama3-groq-70b-8192-tool-use-preview">
   The specific model ID used for generating responses.
 </ResponseField>
 <ResponseField name="frequency_penalty" type="float">

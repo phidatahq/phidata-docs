@@ -24,19 +24,32 @@ setx AWS_SECRET_ACCESS_KEY ***
 
 ## Example
 
-Use `OpenAIChat` with your `Assistant`:
+Use `OpenAIChat` with your `Agent`:
 
 <CodeGroup>
 
-```python assistant.py
-from phi.assistant import Assistant
-from phi.llm.aws.claude import Claude
+```python agent.py
+"""Run `pip install yfinance` to install dependencies."""
 
-assistant = Assistant(
-    llm=Claude(model="anthropic.claude-3-sonnet-20240229-v1:0"),
-    description="You help people with their health and fitness goals.",
+from phi.agent import Agent, RunResponse  # noqa
+from phi.model.aws.claude import Claude
+from phi.tools.yfinance import YFinanceTools
+
+agent = Agent(
+    model=Claude(id="anthropic.claude-3-5-sonnet-20240620-v1:0"),
+    tools=[YFinanceTools(stock_price=True)],
+    show_tool_calls=True,
+    markdown=True,
+    debug_mode=True,
 )
-assistant.print_response("Share a quick healthy breakfast recipe.", markdown=True)
+
+# Get the response in a variable
+# run: RunResponse = agent.run("What is the stock price of NVDA and TSLA")
+# print(run.content)
+
+# Print the response in the terminal
+agent.print_response("What is the stock price of NVDA and TSLA")
+
 ```
 
 </CodeGroup>
@@ -44,10 +57,10 @@ assistant.print_response("Share a quick healthy breakfast recipe.", markdown=Tru
 ## Params
 
 <ResponseField name="name" type="str" default="AwsBedrockAnthropicClaude">
-  The name identifier for the Claude assistant.
+  The name identifier for the Claude agent.
 </ResponseField>
 <ResponseField
-  name="model"
+  name="id"
   type="str"
   default="anthropic.claude-3-sonnet-20240229-v1:0"
 >

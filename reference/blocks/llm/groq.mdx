@@ -6,16 +6,18 @@ title: Groq
 
 <CodeGroup>
 
-```python assistant.py
-from phi.assistant import Assistant
-from phi.llm.groq import Groq
+```python agent.py
+from phi.agent import Agent, RunResponse  # noqa
+from phi.model.groq import Groq
 
-assistant = Assistant(
-    llm=Groq(model="mixtral-8x7b-32768"),
-    description="You help people with their health and fitness goals.",
-    # debug_mode=True,
-)
-assistant.print_response("Share a quick healthy breakfast recipe.", markdown=True)
+agent = Agent(model=Groq(id="llama3-groq-70b-8192-tool-use-preview"), markdown=True)
+
+# Get the response in a variable
+# run: RunResponse = agent.run("Share a 2 sentence horror story")
+# print(run.content)
+
+# Print the response on the terminal
+agent.print_response("Share a 2 sentence horror story")
 ```
 
 </CodeGroup>
@@ -23,7 +25,7 @@ assistant.print_response("Share a quick healthy breakfast recipe.", markdown=Tru
 ## Groq Params
 
 <ResponseField name="name" type="str" default="Groq"/>
-<ResponseField name="model" type="str" default="mixtral-8x7b-32768"/>
+<ResponseField name="id" type="str" default="mixtral-8x7b-32768"/>
 <ResponseField name="frequency_penalty" type="float">
   Number between -2.0 and 2.0. Positive values penalize new tokens based on
   their existing frequency in the text so far, decreasing the model's likelihood
@@ -82,6 +84,6 @@ assistant.print_response("Share a quick healthy breakfast recipe.", markdown=Tru
 
 ## LLM Params
 
-`Groq` is a subclass of the `LLM` class and has access to the same params
+`Groq` is a subclass of the `Model` class and has access to the same params
 
 <Snippet file="llm-base-reference.mdx" />

@@ -6,15 +6,19 @@ title: Fireworks
 
 <CodeGroup>
 
-```python assistant.py
-from phi.assistant import Assistant
-from phi.llm.fireworks import Fireworks
+```python agent.py
+from phi.agent import Agent, RunResponse  # noqa
+from phi.model.together import Together
 
-assistant = Assistant(
-    llm=Fireworks(model="accounts/fireworks/models/firefunction-v1"),
-    description="You help people with their health and fitness goals.",
-)
-assistant.print_response("Share a quick healthy breakfast recipe.", markdown=True)
+agent = Agent(model=Together(id="meta-llama/Meta-Llama-3.1-8B-Instruct-Turbo"), markdown=True)
+
+# Get the response in a variable
+# run: RunResponse = agent.run("Share a 2 sentence horror story")
+# print(run.content)
+
+# Print the response in the terminal
+agent.print_response("Share a 2 sentence horror story")
+
 ```
 
 </CodeGroup>
@@ -23,7 +27,7 @@ assistant.print_response("Share a quick healthy breakfast recipe.", markdown=Tru
 
 <ResponseField name="name" type="str" default="Fireworks"></ResponseField>
 <ResponseField
-  name="model"
+  name="id"
   type="str"
   default="accounts/fireworks/models/firefunction-v1"
 ></ResponseField>
@@ -36,6 +40,6 @@ assistant.print_response("Share a quick healthy breakfast recipe.", markdown=Tru
 
 ## LLM Params
 
-`Fireworks` is a subclass of the `LLM` class and has access to the same params
+`Fireworks` is a subclass of the `Moldel` class and has access to the same params
 
 <Snippet file="llm-base-reference.mdx" />

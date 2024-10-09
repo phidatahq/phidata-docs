@@ -6,15 +6,32 @@ title: Azure
 
 <CodeGroup>
 
-```python assistant.py
-from phi.assistant import Assistant
-from phi.llm.azure import AzureOpenAIChat
+```python agent.py
+import os
 
-assistant = Assistant(
-    llm=AzureOpenAIChat(model="gpt-35-turbo"),
-    description="You help people with their health and fitness goals.",
+from dotenv import load_dotenv
+
+from phi.agent import Agent, RunResponse  # noqa
+from phi.model.azure import AzureOpenAIChat
+
+load_dotenv()
+
+azure_model = AzureOpenAIChat(
+    id=os.getenv("AZURE_OPENAI_MODEL_NAME"),
+    api_key=os.getenv("AZURE_OPENAI_API_KEY"),
+    azure_endpoint=os.getenv("AZURE_OPENAI_ENDPOINT"),
+    azure_deployment=os.getenv("AZURE_OPENAI_DEPLOYMENT"),
 )
-assistant.print_response("Share a quick healthy breakfast recipe.", markdown=True)
+
+agent = Agent(model=azure_model, markdown=True)
+
+# Get the response in a variable
+# run: RunResponse = agent.run("Share a 2 sentence horror story")
+# print(run.content)
+
+# Print the response on the terminal
+agent.print_response("Share a 2 sentence horror story")
+
 ```
 
 </CodeGroup>
@@ -22,7 +39,7 @@ assistant.print_response("Share a quick healthy breakfast recipe.", markdown=Tru
 ## Azure Params
 
 <ResponseField name="name" type="str" default="AzureOpenAIChat"></ResponseField>
-<ResponseField name="model" type="str" required="true"></ResponseField>
+<ResponseField name="id" type="str" required="true"></ResponseField>
 <ResponseField name="api_key" type="str"></ResponseField>
 <ResponseField
   name="api_version"
@@ -35,8 +52,8 @@ assistant.print_response("Share a quick healthy breakfast recipe.", markdown=Tru
 <ResponseField name="azure_ad_token_provider" type="str"></ResponseField>
 <ResponseField name="openai_client" type="AzureOpenAIClient"></ResponseField>
 
-## LLM Params
+## Model Params
 
-`Azure` is a subclass of the `LLM` class and has access to the same params
+`Azure` is a subclass of the `Model` class and has access to the same params
 
 <Snippet file="llm-base-reference.mdx" />

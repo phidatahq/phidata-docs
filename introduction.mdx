@@ -1,11 +1,11 @@
 ---
 title: What is phidata?
-description: "Phidata is a framework for building **AI Assistants** with memory, knowledge and tools."
+description: "Phidata is a framework for building **Agentic Software** by connecting LLMs with reasoning, memory, knowledge and tools."
 sidebarTitle: Introduction
 mode: "wide"
 ---
 
-Use phidata to **turn any LLM into an AI Assistant (aka Agent) that can**:
+Use phidata to **turn any LLM into an AI Agent that can**:
 - **Search the web** using DuckDuckGo, Google etc.
 - **Pull data from APIs** like yfinance, polygon etc.
 - **Analyze data** using SQL, DuckDb, etc.
@@ -15,11 +15,11 @@ Use phidata to **turn any LLM into an AI Assistant (aka Agent) that can**:
 - **Perform tasks** like sending emails, querying databases, etc.
 - **And much more...**
 
-![Assistant](/images/assistant.png)
+![Agent](/images/agent.png)
 
 ## Why phidata
 
-**Problem:** We need to turn general-purpose LLMs into specialized assistants tailored to our use-case.
+**Problem:** We need to turn general-purpose LLMs into specialized agents tailored to our use-case.
 
 **Solution:** Extend LLMs with memory, knowledge and tools:
 - **Memory:** Stores **chat history** in a database and enables LLMs to have long-term conversations.
@@ -30,7 +30,7 @@ Memory & knowledge make LLMs **smarter** while tools make them **autonomous**.
 
 ## How it works
 
-- **Step 1:** Create an `Assistant`
+- **Step 1:** Create an `Agent`
 - **Step 2:** Add Tools (functions), Knowledge (vectordb) and Storage (database)
 - **Step 3:** Serve using Streamlit, FastApi or Django to build your AI application
 
@@ -42,7 +42,7 @@ LLM = Large Language Model
 
 ## Example
 
-### Build a Web Search Assistant
+### Build a Web Search Agent
 
 <Steps>
   <Step title="Create a virtual environment">
@@ -78,22 +78,29 @@ LLM = Large Language Model
     </CodeGroup>
 
   </Step>
-  <Step title="Create an Assistant">
+  <Step title="Create an Agent">
 
-    Create a file `assistant.py` with an Assistant that can search the web using DuckDuckGo.
+    Create a file `agent.py` with an Agent that can search the web using DuckDuckGo.
 
-    ```python assistant.py
-    from phi.assistant import Assistant
+    ```python agent.py
+    from phi.agent import Agent
+    from phi.model.openai import OpenAIChat
     from phi.tools.duckduckgo import DuckDuckGo
 
-    assistant = Assistant(tools=[DuckDuckGo()], show_tool_calls=True)
-    assistant.print_response("Whats happening in France?", markdown=True)
+    agent = Agent(model=OpenAIChat(id="gpt-4o"), tools=[DuckDuckGo()], show_tool_calls=True, markdown=True)
+    
+    # Get the response in a variable
+    # run: RunResponse = agent.run("Share a 2 sentence horror story")
+    # print(run.content)
+
+    # Print the response in the terminal
+    agent.print_response("Whats happening in France?", stream=True)
     ```
 
   </Step>
-  <Step title="Run the Assistant">
+  <Step title="Run the Agent">
 
-    Assistants use `OpenAI` by default. Set your `OPENAI_API_KEY` (you can get one from [here](https://platform.openai.com/account/api-keys)).
+    Agents use `OpenAI` by default. Set your `OPENAI_API_KEY` (you can get one from [here](https://platform.openai.com/account/api-keys)).
 
     <CodeGroup>
 
@@ -113,39 +120,42 @@ LLM = Large Language Model
     pip install openai duckduckgo-search
     ```
 
-    Run the Assistant
+    Run the Agent
 
     ```shell
-    python assistant.py
+    python agent.py
     ```
 
   </Step>
 </Steps>
 
-### Build a Finance Assistant
+### Build a Finance Agent
 
 <Steps>
-  <Step title="Create a Finance Assistant">
+  <Step title="Create a Finance Agent">
 
-    Create a file `finance_assistant.py`
+    Create a file `finance_agent.py`
 
-    ```python finance_assistant.py
-    from phi.assistant import Assistant
-    from phi.llm.openai import OpenAIChat
+    ```python finance_agent.py
+    from phi.agent import Agent
+    from phi.model.openai import OpenAIChat
     from phi.tools.yfinance import YFinanceTools
 
-    assistant = Assistant(
-        llm=OpenAIChat(model="gpt-4o"),
-        tools=[YFinanceTools(stock_price=True, analyst_recommendations=True, company_info=True, company_news=True)],
+    agent = Agent(
+        model=OpenAIChat(id="gpt-4o"),
+        tools=[YFinanceTools(stock_price=True, analyst_recommendations=True, stock_fundamentals=True)],
         show_tool_calls=True,
+        description="You are an investment analyst that researches stocks and helps users make informed decisions.",
+        instructions=["Use tables to display data where possible."],
         markdown=True,
     )
-    assistant.print_response("What is the stock price of NVDA")
-    assistant.print_response("Write a comparison between NVDA and AMD, use all tools available.")
+
+    # agent.print_response("Share the NVDA stock price and analyst recommendations", stream=True)
+    agent.print_response("Summarize fundamentals for TSLA", stream=True)
     ```
 
   </Step>
-  <Step title="Run the Assistant">
+  <Step title="Run the Agent">
 
     Install `yfinance`
 
@@ -153,10 +163,10 @@ LLM = Large Language Model
     pip install yfinance
     ```
 
-    Run the Assistant
+    Run the Agent
 
     ```shell
-    python finance_assistant.py
+    python finance_agent.py
     ```
 
   </Step>
@@ -173,15 +183,15 @@ Checkout the following AI Applications built using phidata:
 ## Next Steps
 
 1. Read the [basics](/basics) to learn more about phidata.
-2. Read about [Assistants](/assistants/introduction) and how to customize them.
+2. Read about [Agents](/agents/introduction) and how to customize them.
 3. Checkout the [cookbook](/examples/cookbook) for in-depth examples and code.
 
 ## Looking to build an AI product?
 
 We've helped many companies build AI products, the general workflow is:
 
-1. **Build an Assistant** with proprietary data to perform tasks specific to your product.
-2. **Connect your product** to the Assistant via an API.
+1. **Build an Agent** with proprietary data to perform tasks specific to your product.
+2. **Connect your product** to the Agent via an API.
 3. **Monitor and Improve** your AI product.
 
 We also provide dedicated support and development, [book a call](https://cal.com/phidata/intro) to get started.

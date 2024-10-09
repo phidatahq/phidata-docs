@@ -15,7 +15,7 @@ We are using a local PgVector database for this example. [Make sure it's running
 
 ```python knowledge_base.py
 from phi.knowledge.combined import CombinedKnowledgeBase
-from phi.vectordb.pgvector import PgVector2
+from phi.vectordb.pgvector import PgVector
 
 knowledge_base = CombinedKnowledgeBase(
     sources=[
@@ -23,7 +23,7 @@ knowledge_base = CombinedKnowledgeBase(
         website_knowledge_base,
         local_pdf_knowledge_base,
     ],
-    vector_db=PgVector2(
+    vector_db=PgVector(
         # Table name: ai.combined_documents
         collection="combined_documents",
         db_url="postgresql+psycopg://ai:ai@localhost:5532/ai",
@@ -31,19 +31,18 @@ knowledge_base = CombinedKnowledgeBase(
 )
 ```
 
-Then use the `knowledge_base` with an Assistant:
+Then use the `knowledge_base` with an Agent:
 
-```python assistant.py
-from phi.assistant import Assistant
+```python agent.py
+from phi.agent import Agent
 from knowledge_base import knowledge_base
 
-assistant = Assistant(
+agent = Agent(
     knowledge_base=knowledge_base,
-    add_references_to_prompt=True,
 )
-assistant.knowledge_base.load(recreate=False)
+agent.knowledge_base.load(recreate=False)
 
-assistant.print_response("Ask me about something from the knowledge base")
+agent.print_response("Ask me about something from the knowledge base")
 ```
 
 ## Params

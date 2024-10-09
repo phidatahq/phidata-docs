@@ -2,19 +2,19 @@
 title: Introduction
 ---
 
-Knowledge Base is a database of information that the Assistant can search to improve its responses. This information is stored in a vector database and provides LLMs with business context, which makes them respond in a context-aware manner. The general syntax is:
+Knowledge Base is a database of information that the Agent can search to improve its responses. This information is stored in a vector database and provides LLMs with business context, which makes them respond in a context-aware manner. The general syntax is:
 
 ```python
-from phi.assistant import Assistant, AssistantKnowledge
+from phi.agent import Agent, AgentKnowledge
 
 # Create knowledge base
-knowledge_base = AssistantKnowledge(vector_db=...)
+knowledge_base = AgentKnowledge(vector_db=...)
 
 # Add information to the knowledge base
 knowledge_base.load_text("The sky is blue")
 
-# Add the knowledge base to the Assistant
-assistant = Assistant(knowledge_base=knowledge_base)
+# Add the knowledge base to the Agent
+agent = Agent(knowledge_base=knowledge_base)
 ```
 
 ## Vector Databases
@@ -32,8 +32,10 @@ While any type of storage can act as a knowledge base, vector databases offer th
   </Step>
   <Step title="Search the knowledge base">
     When the user sends a message, we convert the input message into an embedding and "search" for nearest neighbors in the vector database.
+    Phidata offers semantic, keyword, and hybrid search on most vector databases.
   </Step>
 </Steps>
+
 
 ## Loading the Knowledge Base
 

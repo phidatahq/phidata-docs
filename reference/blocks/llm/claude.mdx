@@ -1,20 +1,23 @@
 ---
-title: Claude
+title: ClaudeLLM
 ---
 
 ## Example
 
 <CodeGroup>
 
-```python assistant.py
-from phi.assistant import Assistant
-from phi.llm.anthropic import Claude
+```python agent.py
+from phi.agent import Agent, RunResponse  # noqa
+from phi.model.anthropic import Claude
 
-assistant = Assistant(
-    llm=Claude(model="claude-3-opus-20240229"),
-    description="You help people with their health and fitness goals.",
-)
-assistant.print_response("Share a quick healthy breakfast recipe.", markdown=True)
+agent = Agent(model=Claude(id="claude-3-5-sonnet-20240620"), markdown=True)
+
+# Get the response in a variable
+# run: RunResponse = agent.run("Share a 2 sentence horror story")
+# print(run.content)
+
+# Print the response in the terminal
+agent.print_response("Share a 2 sentence horror story")
 ```
 
 </CodeGroup>
@@ -23,7 +26,7 @@ assistant.print_response("Share a quick healthy breakfast recipe.", markdown=Tru
 
 <ResponseField name="name" type="str" default="Claude"></ResponseField>
 <ResponseField
-  name="models"
+  name="id"
   type="str"
   default="claude-3-opus-20240229"
 ></ResponseField>
@@ -37,8 +40,8 @@ assistant.print_response("Share a quick healthy breakfast recipe.", markdown=Tru
 <ResponseField name="base_url" type="str"></ResponseField>
 <ResponseField name="anthropic_client" type="AnthropicClient"></ResponseField>
 
-## LLM Params
+## Model Params
 
-`Claude` is a subclass of the `LLM` class and has access to the same params
+`Claude` is a subclass of the `Model` class and has access to the same params
 
 <Snippet file="llm-base-reference.mdx" />

@@ -52,6 +52,19 @@
       "group": "Documentation",
       "pages": [
         {
+          "group": "Agents",
+          "pages": [
+            "agents/introduction",
+            "agents/instructions",
+            "agents/tools",
+            "agents/knowledge",
+            "agents/memory",
+            "agents/storage",
+            "agents/structured-output",
+            "agents/teams"
+          ]
+        },        
+        {
           "group": "Assistants",
           "pages": [
             "assistants/introduction",

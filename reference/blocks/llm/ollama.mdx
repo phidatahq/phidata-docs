@@ -6,15 +6,15 @@ title: Ollama
 
 <CodeGroup>
 
-```python assistant.py
-from phi.assistant import Assistant
-from phi.llm.ollama import Ollama
+```python agent.py
+from phi.agent import Agent
+from phi.model.ollama import Ollama
 
-assistant = Assistant(
+agent = Agent(
     llm=Ollama(),
     description="You help people with their health and fitness goals.",
 )
-assistant.print_response("Share a quick healthy breakfast recipe.", markdown=True)
+agent.print_response("Share a quick healthy breakfast recipe.", markdown=True)
 ```
 
 </CodeGroup>
@@ -24,7 +24,7 @@ assistant.print_response("Share a quick healthy breakfast recipe.", markdown=Tru
 <ResponseField name="name" type="str" default="Ollama">
   Name for this LLM. Note: This is not sent to the LLM API.
 </ResponseField>
-<ResponseField name="model" type="str" default="llama2">
+<ResponseField name="id" type="str" default="llama2">
   ID of the model to use.
 </ResponseField>
 <ResponseField name="host" type="str"></ResponseField>
@@ -56,6 +56,6 @@ assistant.print_response("Share a quick healthy breakfast recipe.", markdown=Tru
 
 ## LLM Params
 
-`Ollama` is a subclass of the `LLM` class and has access to the same params
+`Ollama` is a subclass of the `Model` class and has access to the same params
 
 <Snippet file="llm-base-reference.mdx" />

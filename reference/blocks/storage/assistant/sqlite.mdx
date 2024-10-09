@@ -1,19 +1,35 @@
 ---
-title: Sqlite Assistant Storage
+title: Sqlite Agent Storage
 sidebarTitle: Sqlite
 ---
 
-## SqlAssistantStorage Params
+## Example
+
+```python agent_with_storage.py
+from phi.agent import Agent
+from phi.storage.agent.postgres import SqlAgentStorage
+
+agent = Agent(
+    # -*- Add storage to the agent
+    storage = SqlAgentStorage(
+        # Table name: ai.agent_runs
+        table_name="agent_runs",
+        db_url=db_url,
+    )
+)
+```
+
+## PgAgentStorage Params
 
 <ResponseField name="table_name" type="str">
-  The name of the table to store assistant conversations in.
+  The name of the table to store agent conversations in.
+</ResponseField>
+<ResponseField name="schema" type="str" default="llm">
+  The schema to store the table in.
 </ResponseField>
 <ResponseField name="db_url" type="str">
   The database URL to connect to.
 </ResponseField>
 <ResponseField name="db_engine" type="Engine">
   The database engine to use.
-</ResponseField>
-<ResponseField name="metadata" type="MetaData">
-  The metadata to use for the database.
 </ResponseField>

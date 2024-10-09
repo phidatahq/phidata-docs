@@ -15,8 +15,6 @@ Install `pypdf` if needed using [this guide](/how-to/install)
 from phi.knowledge.pdf import PDFUrlKnowledgeBase
 from phi.vectordb.pgvector import PgVector
 
-from resources import vector_db
-
 knowledge_base = PDFUrlKnowledgeBase(
     urls=["pdf_url"],
     # Table name: llm.pdf_documents
@@ -37,8 +35,8 @@ knowledge_base = PDFUrlKnowledgeBase(
   database.
 </ResponseField>
 
-## AssistantKnowledge Params
+## AgentKnowledge Params
 
-`PDFUrlKnowledgeBase` is a subclass of the `AssistantKnowledge` class and has access to the same params
+`PDFUrlKnowledgeBase` is a subclass of the `AgentKnowledge` class and has access to the same params
 
 <Snippet file="kb-base-reference.mdx" />

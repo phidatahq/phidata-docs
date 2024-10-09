@@ -6,15 +6,19 @@ title: Together
 
 <CodeGroup>
 
-```python assistant.py
-from phi.assistant import Assistant
-from phi.llm.together import Together
+```python agent.py
+from phi.agent import Agent, RunResponse  # noqa
+from phi.model.together import Together
 
-assistant = Assistant(
-    llm=Together(model="mistralai/Mixtral-8x7B-Instruct-v0.1"),
-    description="You help people with their health and fitness goals.",
-)
-assistant.print_response("Share a quick healthy breakfast recipe.", markdown=True)
+agent = Agent(model=Together(id="meta-llama/Meta-Llama-3.1-8B-Instruct-Turbo"), markdown=True)
+
+# Get the response in a variable
+# run: RunResponse = agent.run("Share a 2 sentence horror story")
+# print(run.content)
+
+# Print the response in the terminal
+agent.print_response("Share a 2 sentence horror story")
+
 ```
 
 </CodeGroup>
@@ -23,7 +27,7 @@ assistant.print_response("Share a quick healthy breakfast recipe.", markdown=Tru
 
 <ResponseField name="name" type="str" default="Together"></ResponseField>
 <ResponseField
-  name="model"
+  name="id"
   type="str"
   default="mistralai/Mixtral-8x7B-Instruct-v0.1"
 ></ResponseField>
@@ -35,6 +39,6 @@ assistant.print_response("Share a quick healthy breakfast recipe.", markdown=Tru
 ></ResponseField>
 ## LLM Params
 
-`Together` is a subclass of the `LLM` class and has access to the same params
+`Together` is a subclass of the `Model` class and has access to the same params
 
 <Snippet file="llm-base-reference.mdx" />

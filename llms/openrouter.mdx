@@ -22,19 +22,31 @@ setx OPENROUTER_API_KEY ***
 
 ## Example
 
-Use `OpenRouter` with your `Assistant`:
+Use `OpenRouter` with your `Agent`:
 
 <CodeGroup>
 
-```python assistant.py
-from phi.assistant import Assistant
-from phi.llm.openrouter import OpenRouter
+```python agent.py
+"""Run `pip install yfinance` to install dependencies."""
 
-assistant = Assistant(
-    llm=OpenRouter(model="mistralai/mistral-7b-instruct:free"),
-    description="You help people with their health and fitness goals.",
+from phi.agent import Agent, RunResponse  # noqa
+from phi.model.openrouter import OpenRouter
+from phi.tools.yfinance import YFinanceTools
+
+agent = Agent(
+    model=OpenRouter(id="gpt-4o"),
+    tools=[YFinanceTools(stock_price=True)],
+    show_tool_calls=True,
+    markdown=True,
 )
-assistant.print_response("Share a 2 sentence quick and healthy breakfast recipe.", markdown=True)
+
+# Get the response in a variable
+# run: RunResponse = agent.run("What is the stock price of NVDA and TSLA")
+# print(run.content)
+
+# Print the response in the terminal
+agent.print_response("What is the stock price of NVDA and TSLA")
+
 ```
 
 </CodeGroup>
@@ -42,10 +54,10 @@ assistant.print_response("Share a 2 sentence quick and healthy breakfast recipe.
 ## Params
 
 <ResponseField name="name" type="str" default="OpenRouter">
-  The name identifier for the OpenRouter assistant.
+  The name identifier for the OpenRouter agent.
 </ResponseField>
 <ResponseField
-  name="model"
+  name="id"
   type="str"
   default="mistralai/mistral-7b-instruct:free"
 >

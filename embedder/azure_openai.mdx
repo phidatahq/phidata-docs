@@ -8,16 +8,34 @@ The `AzureOpenAIEmbedder` class is used to embed text data into vectors using th
 ## Usage
 
 ```python
-from phi.assistant import Assistant, AssistantKnowledge
-from phi.vectordb.pgvector import PgVector2
+
+import os
+from typing import List
+from rich.pretty import pprint  # noqa
+from pydantic import BaseModel, Field
+
+from dotenv import load_dotenv
+
+from phi.vectordb.pgvector import PgVector
+from phi.model.azure import AzureOpenAIChat
 from phi.embedder.azure_openai import AzureOpenAIEmbedder
+from phi.agent import Agent, AgentKnowledge, RunResponse  # noqa
+
+load_dotenv()
+
+embedding_model = AzureOpenAIEmbedder(
+    model=os.getenv("AZURE_OPENAI_MODEL_NAME"),
+    api_key=os.getenv("AZURE_OPENAI_API_KEY"),
+    azure_endpoint=os.getenv("AZURE_OPENAI_ENDPOINT"),
+    azure_deployment=os.getenv("AZURE_OPENAI_DEPLOYMENT"),
+)
 
 # Create knowledge base
-knowledge_base=AssistantKnowledge(
-    vector_db=PgVector2(
+knowledge_base=AgentKnowledge(
+    vector_db=PgVector(
         db_url=db_url,
         collection=embeddings_table,
-        embedder=AzureOpenAIEmbedder(),
+        embedder=embedding_model,
     ),
     # 2 references are added to the prompt
     num_documents=2,
@@ -26,8 +44,21 @@ knowledge_base=AssistantKnowledge(
 # Add information to the knowledge base
 knowledge_base.load_text("The sky is blue")
 
-# Add the knowledge base to the Assistant
-assistant = Assistant(knowledge_base=knowledge_base)
+azure_chat_model = AzureOpenAIChat(
+    id=os.getenv("AZURE_OPENAI_MODEL_NAME"),
+    api_key=os.getenv("AZURE_OPENAI_API_KEY"),
+    azure_endpoint=os.getenv("AZURE_OPENAI_ENDPOINT"),
+    azure_deployment=os.getenv("AZURE_OPENAI_DEPLOYMENT"),
+)
+
+# Add the knowledge base to the Agent
+agent = Agent(
+  model=azure_model,
+  knowledge=knowledge_base
+)
+
+# Run the agent
+agent.run("Within the knowledge base, what is the color of the sky?")
 ```
 
 ## Params

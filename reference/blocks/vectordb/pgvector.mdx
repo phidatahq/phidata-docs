@@ -1,21 +1,76 @@
 ---
-title: PgVector
+title: PgVector Agent Knowledge
+sidebarTitle: PgVector
 ---
 
-## PgVectorDb Params
+## Example
 
-<ResponseField name="collection" type="str"></ResponseField>
-<ResponseField name="schema" type="str" default="ai"></ResponseField>
-<ResponseField name="db_url" type="str" default="None"></ResponseField>
-<ResponseField name="db_engine" type="Engine" default="None"></ResponseField>
-<ResponseField
-  name="embedder"
-  type="embedder"
-  default="OpenAIEmbedder()"
-></ResponseField>
-<ResponseField
-  name="distance"
-  type="Distance"
-  default="Distance.cosine"
-></ResponseField>
-<ResponseField name="index" type="Union" default="HNSW()"></ResponseField>
+```python agent_with_knowledge.py
+from phi.agent import Agent
+from phi.model.openai import OpenAIChat
+from phi.knowledge.pdf import PDFUrlKnowledgeBase
+from phi.vectordb.pgvector import PgVector, SearchType
+
+db_url = "postgresql+psycopg://ai:ai@localhost:5532/ai"
+knowledge_base = PDFUrlKnowledgeBase(
+    urls=["https://phi-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"],
+    vector_db=PgVector(table_name="recipes", db_url=db_url, search_type=SearchType.keyword),
+)
+# Load the knowledge base: Comment out after first run
+knowledge_base.load(recreate=True, upsert=True)
+
+agent = Agent(
+    model=OpenAIChat(id="gpt-4o"),
+    knowledge=knowledge_base,
+    # Add a tool to read chat history.
+    read_chat_history=True,
+    show_tool_calls=True,
+    markdown=True,
+    # debug_mode=True,
+)
+agent.print_response("How do I make chicken and galangal in coconut milk soup", stream=True)
+agent.print_response("What was my last question?", stream=True)
+
+```
+
+## PgVector Params
+
+<ResponseField name="table_name" type="str">
+  The name of the table to use.
+</ResponseField>
+<ResponseField name="schema" type="str">
+  The schema to use.
+</ResponseField>
+<ResponseField name="db_url" type="str">
+  The database URL to connect to.
+</ResponseField>
+<ResponseField name="db_engine" type="Engine">
+  The database engine to use.
+</ResponseField>
+<ResponseField name="embedder" type="Embedder">
+  The embedder to use.
+</ResponseField>
+<ResponseField name="search_type" type="SearchType">
+  The search type to use.
+</ResponseField>
+<ResponseField name="vector_index" type="Union[Ivfflat, HNSW]">
+  The vector index to use.
+</ResponseField>
+<ResponseField name="distance" type="Distance">
+  The distance to use.
+</ResponseField>
+<ResponseField name="prefix_match" type="bool">
+  Whether to use prefix matching.
+</ResponseField>
+<ResponseField name="vector_score_weight" type="float">
+  The weight of the vector score.
+</ResponseField>
+<ResponseField name="content_language" type="str">
+  The content language to use.
+</ResponseField>
+<ResponseField name="schema_version" type="int">
+  The schema version to use.
+</ResponseField>
+<ResponseField name="auto_upgrade_schema" type="bool">
+  Whether to auto upgrade the schema.
+</ResponseField>

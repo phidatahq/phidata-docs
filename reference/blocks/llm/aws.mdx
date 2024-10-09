@@ -2,14 +2,34 @@
 title: Aws Bedrock
 sidebarTitle: AWS Bedrock
 ---
+## Example
+
+<CodeGroup>
+
+```python agent.py
+from phi.agent import Agent, RunResponse  # noqa
+from phi.model.aws.claude import Claude
+
+agent = Agent(model=Claude(id="anthropic.claude-3-5-sonnet-20240620-v1:0"), markdown=True)
+
+# Get the response in a variable
+# run: RunResponse = agent.run("Share a 2 sentence horror story")
+# print(run.content)
+
+# Print the response in the terminal
+agent.print_response("Share a 2 sentence horror story")
+
+```
+
+</CodeGroup>
 
 ## AWS Bedrock Params
 
 <ResponseField name="name" type="str" default="AwsBedrock"></ResponseField>
 <ResponseField
-  name="model"
+  name="id"
   type="str"
-  default="anthropic.claude-v2"
+  default="anthropic.claude-3-5-sonnet-20240620-v1:0"
 ></ResponseField>
 <ResponseField name="aws_region" type="str" default="None"></ResponseField>
 <ResponseField name="aws_profile" type="str" default="None"></ResponseField>
@@ -21,6 +41,6 @@ sidebarTitle: AWS Bedrock
 
 ## LLM Params
 
-`AwsBedrock` is a subclass of the `LLM` class and has access to the same params
+`AwsBedrock` is a subclass of the `Model` class and has access to the same params
 
 <Snippet file="llm-base-reference.mdx" />

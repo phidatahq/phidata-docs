@@ -1,0 +1,92 @@
+---
+title: Introduction
+---
+
+**Agents** add memory, knowledge and tools to LLMs.
+
+We **"prompt"** them using `description` and `instructions`, for example:
+
+```python agent.py
+from phi.agent import Agent
+from phi.model.openai import OpenAIChat
+
+agent = Agent(
+    model=OpenAIChat(id="gpt-4o"),
+    description="You help people with their health and fitness goals.",
+    instructions=["Recipes should be under 5 ingredients"],
+    debug_mode=True,
+)
+
+# -*- Print the response in markdown format
+agent.print_response("Share a breakfast recipe.", markdown=True)
+```
+
+Under the hood, the description and instructions are converted into the system prompt and the input is passed as the user prompt. Use `debug_mode=True` to print the underlying prompts sent to the LLM, here's how they look like:
+
+```js
+DEBUG    ============== system ==============
+DEBUG    You help people with their health and fitness goals.
+         YOU MUST FOLLOW THESE INSTRUCTIONS CAREFULLY.
+         <instructions>
+         1. Recipes should be under 5 ingredients.
+         2. Use markdown to format your answers.
+         </instructions>
+DEBUG    ============== user ==============
+DEBUG    Share a breakfast recipe.
+DEBUG    Time to generate response: 1.8701s
+DEBUG    Estimated completion tokens: 113
+```
+
+## Return response as a variable
+
+Use the `Agent.run()` function to return the LLM response as a variable.
+
+```python
+# -*- Get the response as a stream
+run_response: Iterator[RunResponse] = agent.run("What is the stock price of NVDA and TSLA", stream=True)
+for chunk in run_response:
+    print(chunk.content)
+```
+
+By default `stream=False` which will return a Pydantic `RunResponse` object. 
+
+```python
+# -*- Get the response as a string
+run: RunResponse = agent.run("Share a 2 sentence horror story")
+print(run.content)
+```
+
+## Run the Agent as a CLI app
+
+Run the Agent as a command line application using `agent.cli_app()`
+
+```python
+from phi.agent import Agent
+from phi.tools.duckduckgo import DuckDuckGo
+
+agent = Agent(tools=[DuckDuckGo()], show_tool_calls=True, read_chat_history=True)
+agent.cli_app(markdown=True)
+```
+
+Ask
+
+```
+Whats happening in france?
+```
+
+Then ask:
+
+```
+Summarize the last response
+```
+
+## Manually set the system prompt
+
+You can manually set the system prompt using the `system_prompt` variable. The `description` and `instructions` only provide a formatting benefit. Learn more in the [instructions](/agents/instructions) guide.
+
+```python
+from phi.agent import Agent
+
+agent = Agent(system_prompt="Share a 2 sentence story about")
+agent.print_response("Love in the year 12000.")
+```

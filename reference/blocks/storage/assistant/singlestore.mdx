@@ -1,6 +1,35 @@
 ---
-title: Single Store Assistant Storage
-sidebarTitle: Single Store
+title: SingleStore Agent Storage
+sidebarTitle: SingleStore
 ---
 
-<Snippet file="coming-soon.mdx" />
+## Example
+
+```python agent_with_storage.py
+from phi.agent import Agent
+from phi.storage.agent.singlestore import S2AgentStorage
+
+agent = Agent(
+    # -*- Add storage to the agent
+    storage = S2AgentStorage(
+        # Table name: ai.agent_runs
+        table_name="agent_runs",
+        db_url=db_url,
+    )
+)
+```
+
+## S2AgentStorage Params
+
+<ResponseField name="table_name" type="str">
+  The name of the table to store agent conversations in.
+</ResponseField>
+<ResponseField name="schema" type="str" default="llm">
+  The schema to store the table in.
+</ResponseField>
+<ResponseField name="db_url" type="str">
+  The database URL to connect to.
+</ResponseField>
+<ResponseField name="db_engine" type="Engine">
+  The database engine to use.
+</ResponseField>
