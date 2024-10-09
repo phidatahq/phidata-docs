@@ -1,0 +1,95 @@
+---
+title: Introduction
+---
+
+The [phidata cookbook](https://github.com/phidatahq/phidata/tree/main/cookbook) contains a bunch of recipes for building different types of AI products, from simple agents to advanced fine-tuning and evaluations.
+
+You can run each recipe individually or clone the [phidata](https://github.com/phidatahq/phidata) repo and run it from there.
+
+## Setup
+
+<Steps>
+  <Step title="Fork & clone the phidata repo">
+    <Tip>
+
+    We recommend Forking the [phidata](https://github.com/phidatahq/phidata) repo first so you can customize the cookbooks.
+
+    </Tip>
+
+    clone the [phidata](https://github.com/phidatahq/phidata) repo
+
+    ```bash
+    git clone https://github.com/phidatahq/phidata
+    ```
+
+    cd into the `phidata` repo
+
+    ```bash
+    cd phidata
+    ```
+
+  </Step>
+  <Step title="Create a virtual environment">
+    Create a virtual environment with the required libraries and install the project in editable mode. You can use a helper script or run these steps manually.
+
+    <CodeGroup>
+
+    ```bash Mac
+    ./scripts/create_venv.sh
+    source phienv/bin/activate
+    ```
+
+    ```bash Manual (Mac)
+    python3 -m venv aienv
+    source aienv/bin/activate
+
+    pip install -r requirements.txt
+    pip install --editable .
+    ```
+
+    ```bash Windows
+    python3 -m venv aienv
+    aienv/scripts/activate
+
+    pip install -r requirements.txt
+    pip install --editable .
+    ```
+    </CodeGroup>
+
+  </Step>
+  <Step title="Install docker">
+    Install [docker desktop](https://docs.docker.com/desktop/install/mac-install/) to run the resources like vector dbs
+  </Step>
+  <Step title="Set your OpenAI key">
+
+     Set your `OPENAI_API_KEY` as an environment variable. You can get one [from OpenAI](https://platform.openai.com/account/api-keys).
+
+    <CodeGroup>
+
+    ```bash Mac
+    export OPENAI_API_KEY=sk-***
+    ```
+
+    ```bash Windows
+    setx OPENAI_API_KEY sk-***
+    ```
+
+    </CodeGroup>
+
+  </Step>
+  <Step title="Run a recipe">
+
+    Install `openai`
+
+    ```bash
+    pip install openai
+    ```
+
+    Run the `agent/basic.py` recipe
+
+    ```bash
+    python cookbook/agent/basic.py
+    ```
+
+  </Step>
+</Steps>

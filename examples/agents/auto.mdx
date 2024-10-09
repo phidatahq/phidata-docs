@@ -1,0 +1,76 @@
+---
+title: Autonomous Agent
+---
+
+With Autonomous Agents, the LLM can run functions to:
+
+- Search the knowledge base
+- Search the chat history
+- Achieve other tasks
+
+The LLM decides **if** it needs to search the knowledge base and what search parameters it needs to query the knowledge base.
+
+```python cookbook/agents/auto_agent.py
+from phi.agent import Agent
+from phi.knowledge.pdf import PDFUrlKnowledgeBase
+from phi.vectordb.pgvector import PgVector
+
+knowledge_base = PDFUrlKnowledgeBase(
+    urls=["https://phi-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"],
+    vector_db=PgVector(
+        collection="recipes",
+        db_url="postgresql+psycopg://ai:ai@localhost:5532/ai",
+    ),
+)
+# Comment out as the knowledge base is already loaded.
+# knowledge_base.load(recreate=False)
+
+agent = Agent(
+    knowledge=knowledge_base,
+    # Show tool calls in the response
+    show_tool_calls=True,
+    # Enable the agent to search the knowledge base
+    search_knowledge=True,
+    # Enable the agent to read the chat history
+    read_chat_history=True,
+)
+agent.print_response("How do I make pad thai?", markdown=True)
+agent.print_response("What was my last question?", markdown=True)
+```
+
+## Usage
+
+<Steps>
+  <Snippet file="create-venv-step.mdx" />
+
+  <Snippet file="run-pgvector-step.mdx" />
+
+  <Step title="Install libraries">
+
+    ```bash
+    pip install -U pgvector pypdf "psycopg[binary]" sqlalchemy openai phidata
+    ```
+
+  </Step>
+
+  <Step title="Run the agent">
+
+    <CodeGroup>
+
+    ```bash Mac
+    python cookbook/agents/auto_agent.py
+    ```
+
+    ```bash Windows
+    python cookbook/agents/auto_agent.py
+    ```
+
+    </CodeGroup>
+
+  </Step>
+
+</Steps>
+
+## Information
+
+- View on [Github](https://github.com/phidatahq/phidata/tree/main/cookbook/agents/auto_agent.py)
