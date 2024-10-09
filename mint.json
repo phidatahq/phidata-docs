@@ -93,7 +93,6 @@
             "models/openai-like",
             "models/aws-bedrock",
             "models/together",
-            "models/anyscale",
             "models/fireworks",
             "models/mistral",
             "models/google_ai_studio",
@@ -179,8 +178,7 @@
             "embedder/azure_openai",
             "embedder/mistral",
             "embedder/fireworks",
-            "embedder/together",
-            "embedder/anyscale"
+            "embedder/together"
           ]
         }
       ]
@@ -235,7 +233,6 @@
           "group": "Model Providers",
           "pages": [
             "examples/provider/openai",
-            "examples/provider/anyscale",
             "examples/provider/azure",
             "examples/provider/claude",
             "examples/provider/cohere",
