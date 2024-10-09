@@ -2,9 +2,9 @@
 title: Spider
 ---
 
-## Example
+**SpiderTools** is an open source web Scraper & Crawler that returns LLM-ready data. To start using Spider, you need an API key from the [Spider dashboard](https://spider.cloud).
 
-[Spider](https://spider.cloud/?ref=phidata) is the fastest [open source](https://github.com/spider-rs/spider) web Scraper & Crawler that returns LLM-ready data. To start using Spider, you need an API key from the [Spider dashboard](https://spider.cloud/?ref=phidata).
+## Example
 
 The following agent will run a search query to get the latest news in USA and scrape the first search result. The agent will return the scraped data in markdown format.
 
@@ -35,9 +35,5 @@ agent.print_response('Can you scrape the first search result from a search on "n
 <ResponseField name="search">
   Searches the web for the given query.
 </ResponseField>
-<ResponseField name="scrape">
-  Scrapes the given url.
-</ResponseField>
-<ResponseField name="crawl">
-  Crawls the given url.
-</ResponseField>
+<ResponseField name="scrape">Scrapes the given url.</ResponseField>
+<ResponseField name="crawl">Crawls the given url.</ResponseField>

@@ -1,0 +1,91 @@
+---
+title: Searxng
+---
+
+## Example
+
+**Searxng** enables an Agent to search the web for a query, scrape a website, or crawl a website.
+
+## Toolkit Params
+
+<ResponseField name="host" type="str">
+  The host for the connection.
+</ResponseField>
+<ResponseField name="engines" type="List[str]" default="[]">
+  A list of search engines to use. The default is an empty list.
+</ResponseField>
+<ResponseField name="fixed_max_results" type="int" default="None">
+  Optional parameter to specify the fixed maximum number of results. The default
+  is None.
+</ResponseField>
+<ResponseField name="images" type="bool" default="False">
+  Enables searching for images. Default is False.
+</ResponseField>
+<ResponseField name="it" type="bool" default="False">
+  Enables searching for IT-related content. Default is False.
+</ResponseField>
+<ResponseField name="map" type="bool" default="False">
+  Enables searching for maps. Default is False.
+</ResponseField>
+<ResponseField name="music" type="bool" default="False">
+  Enables searching for music. Default is False.
+</ResponseField>
+<ResponseField name="news" type="bool" default="False">
+  Enables searching for news. Default is False.
+</ResponseField>
+<ResponseField name="science" type="bool" default="False">
+  Enables searching for science-related content. Default is False.
+</ResponseField>
+<ResponseField name="videos" type="bool" default="False">
+  Enables searching for videos. Default is False.
+</ResponseField>
+
+## Toolkit Functions
+
+<ResponseField name="search">
+  Performs a general web search using the specified query. Parameters include
+  'query' for the search term and 'max_results' for the maximum number of
+  results (default is 5). Returns the search results.
+</ResponseField>
+<ResponseField name="image_search">
+  Performs an image search using the specified query. Parameters include 'query'
+  for the search term and 'max_results' for the maximum number of results
+  (default is 5). Returns the image search results.
+</ResponseField>
+<ResponseField name="it_search">
+  Performs a search for IT-related information using the specified query.
+  Parameters include 'query' for the search term and 'max_results' for the
+  maximum number of results (default is 5). Returns the IT-related search
+  results.
+</ResponseField>
+<ResponseField name="map_search">
+  Performs a search for maps using the specified query. Parameters include
+  'query' for the search term and 'max_results' for the maximum number of
+  results (default is 5). Returns the map search results.
+</ResponseField>
+<ResponseField name="music_search">
+  Performs a search for music-related information using the specified query.
+  Parameters include 'query' for the search term and 'max_results' for the
+  maximum number of results (default is 5). Returns the music search results.
+</ResponseField>
+<ResponseField name="news_search">
+  Performs a search for news using the specified query. Parameters include
+  'query' for the search term and 'max_results' for the maximum number of
+  results (default is 5). Returns the news search results.
+</ResponseField>
+<ResponseField name="science_search">
+  Performs a search for science-related information using the specified query.
+  Parameters include 'query' for the search term and 'max_results' for the
+  maximum number of results (default is 5). Returns the science search results.
+</ResponseField>
+<ResponseField name="video_search">
+  Performs a search for videos using the specified query. Parameters include
+  'query' for the search term and 'max_results' for the maximum number of
+  results (default is 5). Returns the video search results.
+</ResponseField>
+<ResponseField name="_search">
+  Internal function to handle the search logic for all categories. Parameters
+  include 'query' for the search term, 'category' to specify the type of
+  content, and 'max_results' for the maximum number of results (default is 5).
+  Returns the search results or an error message.
+</ResponseField>

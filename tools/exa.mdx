@@ -6,14 +6,20 @@ title: Exa
 
 ## Example
 
-The following agent will run seach exa for "language models" and print the response.
+The following agent will run seach exa for AAPL news and print the response.
 
 ```python cookbook/tools/exa_tools.py
+import os
+
 from phi.agent import Agent
 from phi.tools.exa import ExaTools
 
-agent = Agent(tools=[ExaTools()], show_tool_calls=True)
-agent.print_response("Search exa for 'language models'", markdown=True)
+os.environ["EXA_API_KEY"] = "your api key"
+
+assistant = Agent(
+    tools=[ExaTools(include_domains=["cnbc.com", "reuters.com", "bloomberg.com"])], show_tool_calls=True
+)
+assistant.print_response("Search for AAPL news", debug_mode=True, markdown=True)
 ```
 
 ## Toolkit Params

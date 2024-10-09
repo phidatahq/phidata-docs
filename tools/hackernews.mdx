@@ -1,0 +1,49 @@
+---
+title: Hacker News
+---
+
+**HackerNews** enables an Agent to search Hacker News website.
+
+## Example
+
+The following agent will write an engaging summary of the users with the top 2 stories on hackernews along with the stories.
+
+```python cookbook/tools/hackernews.py
+from phi.agent import Agent
+from phi.tools.hackernews import HackerNews
+
+hn_agent = Agent(
+    name="Hackernews Team",
+    tools=[HackerNews()],
+    show_tool_calls=True,
+    markdown=True,
+    # debug_mode=True,
+)
+hn_agent.print_response(
+    "Write an engaging summary of the "
+    "users with the top 2 stories on hackernews. "
+    "Please mention the stories as well.",
+)
+```
+
+## Toolkit Params
+
+<ResponseField name="get_top_stories" type="bool" default="True">
+  Enables fetching top stories. The default value is True.
+</ResponseField>
+<ResponseField name="get_user_details" type="bool" default="True">
+  Enables fetching user details. The default value is True.
+</ResponseField>
+
+## Toolkit Functions
+
+<ResponseField name="get_top_hackernews_stories">
+  Retrieves the top stories from Hacker News. Parameters include 'num_stories'
+  to specify the number of stories to return (default is 10). Returns the top
+  stories in JSON format.
+</ResponseField>
+<ResponseField name="get_user_details">
+  Retrieves the details of a Hacker News user by their username. Parameters
+  include 'username' to specify the user. Returns the user details in JSON
+  format.
+</ResponseField>
