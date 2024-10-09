@@ -3,18 +3,18 @@ title: Python
 sidebarTitle: Python
 ---
 
-**PythonTools** enable an Assistant to write and run python code.
+**PythonTools** enable an Agent to write and run python code.
 
 ## Example
 
-The following assistant will write a python script that creates the fibonacci series, save it to a file, run it and return the result.
+The following agent will write a python script that creates the fibonacci series, save it to a file, run it and return the result.
 
 ```python cookbook/tools/python_tools.py
-from phi.assistant import Assistant
+from phi.agent import Agent
 from phi.tools.python import PythonTools
 
-assistant = Assistant(tools=[PythonTools()], show_tool_calls=True)
-assistant.print_response("Write a python script for fibonacci series and display the result till the 10th number", markdown=True)
+agent = Agent(tools=[PythonTools()], show_tool_calls=True)
+agent.print_response("Write a python script for fibonacci series and display the result till the 10th number", markdown=True)
 ```
 
 ## Toolkit Params

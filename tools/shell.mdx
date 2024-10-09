@@ -2,18 +2,18 @@
 title: Shell
 ---
 
-ShellTools enable an Assistant to interact with the shell.
+ShellTools enable an Agent to interact with the shell.
 
 ## Example
 
-The following assistant will run a shell command and show contents of the current directory. Note: Mention your OS to the assistant to make sure it runs the correct command.
+The following agent will run a shell command and show contents of the current directory. Note: Mention your OS to the agent to make sure it runs the correct command.
 
 ```python cookbook/tools/shell_tools.py
-from phi.assistant import Assistant
+from phi.agent import Agent
 from phi.tools.shell import ShellTools
 
-assistant = Assistant(tools=[ShellTools()], show_tool_calls=True)
-assistant.print_response("Show me the contents of the current directory", markdown=True)
+agent = Agent(tools=[ShellTools()], show_tool_calls=True)
+agent.print_response("Show me the contents of the current directory", markdown=True)
 ```
 
 ## Functions in Toolkit

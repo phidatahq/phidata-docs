@@ -4,14 +4,14 @@ title: Tavily
 
 ## Example
 
-The following assistant will run a search on Tavily for "language models" and print the response.
+The following agent will run a search on Tavily for "language models" and print the response.
 
 ```python cookbook/tools/tavily_tools.py
-from phi.assistant import Assistant
+from phi.agent import Agent
 from phi.tools.tavily import TavilyTools
 
-assistant = Assistant(tools=[TavilyTools()], show_tool_calls=True)
-assistant.print_response("Search tavily for 'language models'", markdown=True)
+agent = Agent(tools=[TavilyTools()], show_tool_calls=True)
+agent.print_response("Search tavily for 'language models'", markdown=True)
 ```
 
 ## Toolkit Params

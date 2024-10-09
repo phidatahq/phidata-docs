@@ -2,18 +2,18 @@
 title: Pubmed
 ---
 
-**PubmedTools** enable an Assistant to search for Pubmed for articles.
+**PubmedTools** enable an Agent to search for Pubmed for articles.
 
 ## Example
 
-The following assistant will search Pubmed for articles related to "ulcerative colitis".
+The following agent will search Pubmed for articles related to "ulcerative colitis".
 
 ```python cookbook/tools/resend_tools.py
-from phi.assistant import Assistant
+from phi.agent import Agent
 from phi.tools.pubmed import PubmedTools
 
-assistant = Assistant(tools=[PubmedTools()], debug_mode=True, show_tool_calls=True)
-assistant.print_response(
+agent = Agent(tools=[PubmedTools()], debug_mode=True, show_tool_calls=True)
+agent.print_response(
     "ulcerative colitis.",
     markdown=True,
 )

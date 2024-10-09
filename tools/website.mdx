@@ -2,18 +2,18 @@
 title: Website
 ---
 
-**WebsiteTools** enable an Assistant to parse a website and add its contents to the knowledge base.
+**WebsiteTools** enable an Agent to parse a website and add its contents to the knowledge base.
 
 ## Example
 
-The following assistant will read the contents of a website and add it to the knowledge base.
+The following agent will read the contents of a website and add it to the knowledge base.
 
 ```python cookbook/tools/website_tools.py
-from phi.assistant import Assistant
+from phi.agent import Agent
 from phi.tools.website import WebsiteTools
 
-assistant = Assistant(tools=[WebsiteTools()], show_tool_calls=True)
-assistant.print_response("Search web page: 'https://docs.phidata.com/introduction'", markdown=True)
+agent = Agent(tools=[WebsiteTools()], show_tool_calls=True)
+agent.print_response("Search web page: 'https://docs.phidata.com/introduction'", markdown=True)
 ```
 
 ## Toolkit Params

@@ -2,18 +2,18 @@
 title: File
 ---
 
-**FileTools** enable an Assistant to read and write files on the local file system.
+**FileTools** enable an Agent to read and write files on the local file system.
 
 ## Example
 
-The following assistant will generate an answer and save it in a file.
+The following agent will generate an answer and save it in a file.
 
 ```python cookbook/tools/file_tools.py
-from phi.assistant import Assistant
+from phi.agent import Agent
 from phi.tools.file import FileTools
 
-assistant = Assistant(tools=[FileTools()], show_tool_calls=True)
-assistant.print_response("What is the most advanced LLM currently? Save the answer to a file.", markdown=True)
+agent = Agent(tools=[FileTools()], show_tool_calls=True)
+agent.print_response("What is the most advanced LLM currently? Save the answer to a file.", markdown=True)
 ```
 
 ## Toolkit Params
