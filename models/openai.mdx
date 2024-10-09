@@ -2,7 +2,7 @@
 title: OpenAI
 ---
 
-OpenAI's GPT models are best in class and used as the default model by Agents.
+The GPT models are the best in class LLMs and used as the default LLM by **Agents**.
 
 ## Authentication
 
@@ -22,32 +22,35 @@ setx OPENAI_API_KEY sk-***
 
 ## Example
 
+Use `OpenAIChat` with your `Agent`:
+
 <CodeGroup>
 
 ```python agent.py
-from phi.agent import Agent
+
+from phi.agent import Agent, RunResponse  # noqa
 from phi.model.openai import OpenAIChat
-from phi.tools.yfinance import YFinanceTools
 
 agent = Agent(
     model=OpenAIChat(id="gpt-4o"),
-    tools=[YFinanceTools(stock_price=True)],
-    instructions=["Use tables where possible."],
-    markdown=True,
-    show_tool_calls=True,
 )
 
-agent.print_response("What is the stock price of NVDA and TSLA", stream=True)
+# Get the response in a variable
+# run: RunResponse = agent.run("Share a 2 sentence horror story.")
+# print(run.content)
+
+# Print the response in the terminal
+agent.print_response("Share a 2 sentence horror story.")
+
 ```
+
 </CodeGroup>
 
 ## Params
 
-TODO: @yash to update
-
 For more information, please refer to the [OpenAI docs](https://platform.openai.com/docs/api-reference/chat/create) as well.
 
-<ResponseField name="model" type="str" default="gpt-4-turbo">
+<ResponseField name="id" type="str" default="gpt-4-turbo">
   OpenAI model ID.
 </ResponseField>
 <ResponseField name="seed" type="int">

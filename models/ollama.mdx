@@ -4,7 +4,7 @@ title: Ollama
 
 Run Large Language Models locally with Ollama
 
-[Ollama](https://ollama.com) is a fantastic tool for running LLMs locally. Install [ollama](https://ollama.com) and run a model using
+[Ollama](https://ollama.com) is a fantastic tool for running models locally. Install [ollama](https://ollama.com) and run a model using
 
 <CodeGroup>
 
@@ -18,7 +18,7 @@ ollama serve
 
 </CodeGroup>
 
-After you have the local model running, use the `Ollama` LLM to access them
+After you have the local model running, use the `Ollama` model to access them
 
 ## Example
 
@@ -26,13 +26,18 @@ After you have the local model running, use the `Ollama` LLM to access them
 
 ```python agent.py
 from phi.agent import Agent
-from phi.llm.ollama import Ollama
+from phi.model.ollama import Ollama
 
 agent = Agent(
-    llm=Ollama(model="llama3"),
+    model=Ollama(id="llama3"),
     description="You help people with their health and fitness goals.",
 )
-agent.print_response("Share a quick healthy breakfast recipe.", markdown=True)
+# Get the response in a variable
+# run: RunResponse = agent.run("Share a 2 sentence horror story.")
+# print(run.content)
+
+# Print the response in the terminal
+agent.print_response("Share a 2 sentence horror story.")
 ```
 
 </CodeGroup>
@@ -40,9 +45,9 @@ agent.print_response("Share a quick healthy breakfast recipe.", markdown=True)
 ## Params
 
 <ResponseField name="name" type="str" default="Ollama">
-  The name of the LLM.
+  The name of the model.
 </ResponseField>
-<ResponseField name="model" type="str" default="openhermes">
+<ResponseField name="id" type="str" default="openhermes">
   The name of the model to be used.
 </ResponseField>
 <ResponseField name="host" type="str">

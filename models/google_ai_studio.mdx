@@ -27,15 +27,22 @@ Use `Gemini` with your `Agent`:
 <CodeGroup>
 
 ```python agent.py
-from phi.agent import Agent
-from phi.llm.google import Gemini
+
+from phi.agent import Agent, RunResponse  # noqa
+from phi.model.google import Gemini
 
 agent = Agent(
-    llm=Gemini(model="gemini-1.5-flash"),
-    description="You help people with their health and fitness goals.",
-    debug_mode=True,
+    model=Gemini(id="gemini-1.5-flash"),
+    show_tool_calls=True,
+    markdown=True,
 )
-agent.print_response("Share a quick healthy breakfast recipe.", markdown=True)
+
+# Get the response in a variable
+# run: RunResponse = agent.run("Share a 2 sentence horror story.")
+# print(run.content)
+
+# Print the response in the terminal
+agent.print_response("Share a 2 sentence horror story.")
 ```
 
 </CodeGroup>
@@ -45,7 +52,7 @@ agent.print_response("Share a quick healthy breakfast recipe.", markdown=True)
 <ResponseField name="name" type="str" default="Gemini">
   The name identifier for the agent.
 </ResponseField>
-<ResponseField name="model" type="str" default="gemini-1.5-flash">
+<ResponseField name="id" type="str" default="gemini-1.5-flash">
   The specific model ID used for generating responses.
 </ResponseField>
 <ResponseField name="generation_config" type="Any">

@@ -28,13 +28,10 @@ Use `Claude` with your `Agent`:
 
 ```python agent.py
 from phi.agent import Agent
-from phi.llm.anthropic import Claude
+from phi.model.anthropic import Claude
 
 agent = Agent(
-    llm=Claude(
-        model="claude-3-opus-20240229",
-        max_tokens=1024,
-    )
+    model=Claude(id="claude-3-5-sonnet-20240620"),
 )
 
 # -*- Print a response
@@ -48,7 +45,7 @@ agent.print_response('Share a 5 word horror story.', markdown=True)
 <ResponseField name="name" type="str" default="Claude">
   The name identifier for the agent.
 </ResponseField>
-<ResponseField name="models" type="str" default="claude-3-opus-20240229">
+<ResponseField name="id" type="str" default="claude-3-5-sonnet-20240620">
   The specific model ID used for generating responses.
 </ResponseField>
 <ResponseField name="max_tokens" type="int" default="1024">

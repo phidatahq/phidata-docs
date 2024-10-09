@@ -27,15 +27,21 @@ Use `Groq` with your `Agent`:
 <CodeGroup>
 
 ```python agent.py
-from phi.agent import Agent
-from phi.llm.groq import Groq
+"""Run `pip install yfinance` to install dependencies."""
+
+from phi.agent import Agent, RunResponse  # noqa
+from phi.model.groq import Groq
 
 agent = Agent(
-    llm=Groq(model="mixtral-8x7b-32768"),
-    description="You help people with their health and fitness goals.",
-    # debug_mode=True,
+    model=Groq(id="llama3-groq-70b-8192-tool-use-preview"),
 )
-agent.print_response("Share a quick healthy breakfast recipe.", markdown=True)
+# Get the response in a variable
+# run: RunResponse = agent.run("Share a 2 sentence horror story.")
+# print(run.content)
+
+# Print the response on the terminal
+agent.print_response("Share a 2 sentence horror story.")
+
 ```
 
 </CodeGroup>
@@ -45,7 +51,7 @@ agent.print_response("Share a quick healthy breakfast recipe.", markdown=True)
 <ResponseField name="name" type="str" default="Groq">
   The name identifier for the agent.
 </ResponseField>
-<ResponseField name="model" type="str" default="mixtral-8x7b-32768">
+<ResponseField name="id" type="str" default="llama3-groq-70b-8192-tool-use-preview">
   The specific model ID used for generating responses.
 </ResponseField>
 <ResponseField name="frequency_penalty" type="float">

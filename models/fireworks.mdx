@@ -27,14 +27,21 @@ Use `Fireworks` with your `Agent`:
 <CodeGroup>
 
 ```python agent.py
-from phi.agent import Agent
-from phi.llm.fireworks import Fireworks
+
+from phi.agent import Agent, RunResponse  # noqa
+from phi.model.fireworks import Fireworks
 
 agent = Agent(
-    llm=Fireworks(model="accounts/fireworks/models/firefunction-v1"),
-    description="You help people with their health and fitness goals.",
+    model=Fireworks(id="accounts/fireworks/models/firefunction-v2"),
 )
-agent.print_response("Share a quick healthy breakfast recipe.", markdown=True)
+
+# Get the response in a variable
+# run: RunResponse = agent.run("Share a 2 sentence horror story.")
+# print(run.content)
+
+# Print the response in the terminal
+agent.print_response("Share a 2 sentence horror story.")
+
 ```
 
 </CodeGroup>
@@ -45,9 +52,9 @@ agent.print_response("Share a quick healthy breakfast recipe.", markdown=True)
   The name identifier for the agent.
 </ResponseField>
 <ResponseField
-  name="model"
+  name="id"
   type="str"
-  default="accounts/fireworks/models/firefunction-v1"
+  default="accounts/fireworks/models/firefunction-v2"
 >
   The specific model ID used for generating responses.
 </ResponseField>
