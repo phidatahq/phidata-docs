@@ -13,11 +13,11 @@ The LLM decides **if** it needs to search the knowledge base and what search par
 ```python cookbook/agents/auto_agent.py
 from phi.agent import Agent
 from phi.knowledge.pdf import PDFUrlKnowledgeBase
-from phi.vectordb.pgvector import PgVector2
+from phi.vectordb.pgvector import PgVector
 
 knowledge_base = PDFUrlKnowledgeBase(
     urls=["https://phi-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"],
-    vector_db=PgVector2(
+    vector_db=PgVector(
         collection="recipes",
         db_url="postgresql+psycopg://ai:ai@localhost:5532/ai",
     ),

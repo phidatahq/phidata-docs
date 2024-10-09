@@ -21,12 +21,12 @@ Install `wikipedia` using `pip install wikipedia`
 
 ```python knowledge_base.py
 from phi.knowledge.wikipedia import WikipediaKnowledgeBase
-from phi.vectordb.pgvector import PgVector2
+from phi.vectordb.pgvector import PgVector
 
 knowledge_base = WikipediaKnowledgeBase(
     topics=["Manchester United", "Real Madrid"],
     # Table name: ai.wikipedia_documents
-    vector_db=PgVector2(
+    vector_db=PgVector(
         collection="wikipedia_documents",
         db_url="postgresql+psycopg://ai:ai@localhost:5532/ai",
     ),

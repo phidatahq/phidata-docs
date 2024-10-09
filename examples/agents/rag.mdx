@@ -7,13 +7,13 @@ A Retrieval Augmented Generation (RAG) agent that uses a PDF Knowledge Base and 
 ```python cookbook/agents/rag_agent.py
 from phi.agent import Agent
 from phi.knowledge.pdf import PDFUrlKnowledgeBase
-from phi.vectordb.pgvector import PgVector2
+from phi.vectordb.pgvector import PgVector
 
 knowledge_base = PDFUrlKnowledgeBase(
     # Read PDFs from URLs
     urls=["https://phi-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"],
     # Store embeddings in the `ai.recipes` table
-    vector_db=PgVector2(
+    vector_db=PgVector(
         collection="recipes",
         db_url="postgresql+psycopg://ai:ai@localhost:5532/ai",
     ),
