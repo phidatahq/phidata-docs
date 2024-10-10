@@ -2,7 +2,7 @@
 title: Structured Output
 ---
 
-One of our favorite LLM features is generating structured data (i.e. a pydantic model) from text. Use this feature to extract features, generate movie scripts, produce fake data etc.
+One of our favorite features is using Agents to generate structured data (i.e. a pydantic model). Use this feature to extract features, generate movie scripts, produce fake data etc. The best part is that they work with function calls, knowledge bases and all other features.
 
 ## Example
 
@@ -28,7 +28,6 @@ class MovieScript(BaseModel):
 
 
 # Agent that uses JSON mode
-# Available to most LLM providers
 json_mode_agent = Agent(
     model=OpenAIChat(id="gpt-4o"),
     description="You write movie scripts.",
@@ -36,7 +35,6 @@ json_mode_agent = Agent(
 )
 
 # Agent that uses structured outputs
-# Only available to certain OpenAI models
 structured_output_agent = Agent(
     model=OpenAIChat(id="gpt-4o-2024-08-06"),
     description="You write movie scripts.",
@@ -46,34 +44,35 @@ structured_output_agent = Agent(
 
 
 # Get the response in a variable
-json_mode_response: RunResponse = json_mode_agent.run("New York")
-pprint(json_mode_response.content)
-structured_output_response: RunResponse = structured_output_agent.run("New York")
-pprint(structured_output_response.content)
+# json_mode_response: RunResponse = json_mode_agent.run("New York")
+# pprint(json_mode_response.content)
+# structured_output_response: RunResponse = structured_output_agent.run("New York")
+# pprint(structured_output_response.content)
+
+json_mode_agent.print_response("New York")
+structured_output_agent.print_response("New York")
 ```
 
-The output is a pydantic object of the `MovieScript` class, here's how it looks:
+The output is an object of the `MovieScript` class, here's how it looks:
 
 ```python
-# json_mode_response
+# Using JSON mode
 MovieScript(
-│   setting='The bustling streets and hidden alleyways of New York City, from the glitzy towers of Manhattan to the vibrant neighborhoods of Brooklyn.',
-│   ending='The protagonists uncover a conspiracy, triumph over adversity, and bring the villains to justice, leading to a major city celebration.',
+│   setting='The bustling streets of New York City, filled with skyscrapers, secret alleyways, and hidden underground passages.',
+│   ending='The protagonist manages to thwart an international conspiracy, clearing his name and winning the love of his life back.',
 │   genre='Thriller',
-│   name='Echoes of the Concrete Jungle',
-│   characters=['Jack Harper', 'Elena Ramirez', 'Detective Marcus Lee', 'Vivian Monroe', 'Leo Carver'],
-│   storyline="When journalist Elena Ramirez stumbles upon a mysterious signal causing chaos throughout New York City, she teams up with tech-savvy detective Marcus Lee to investigate. As they delve deeper into the city's underbelly, they uncover a sinister plot orchestrated by a powerful corporation led by the enigmatic Vivian Monroe. Racing against time to prevent disaster, they harness the skills of reformed hacker Leo Carver and courageous taxi driver Jack Harper to save the city and its inhabitants."
+│   name='Shadows in the City',
+│   characters=['Alex Monroe', 'Eva Parker', 'Detective Rodriguez', 'Mysterious Mr. Black'],
+│   storyline="When Alex Monroe, an ex-CIA operative, is framed for a crime he didn't commit, he must navigate the dangerous streets of New York to clear his name. As he uncovers a labyrinth of deceit involving the city's most notorious crime syndicate, he enlists the help of an old flame, Eva Parker. Together, they race against time to expose the true villain before it's too late."
 )
-```
 
-```python
-# json_mode_response
+# Use the structured output
 MovieScript(
-│   setting='Set against the fast-paced backdrop of New York City, this movie takes place among the iconic skyscrapers and bustling streets of Manhattan.',
-│   ending='In a heart-stopping climax atop the Brooklyn Bridge, Justice manages to outsmart the villains and save the city from sabotage. Harmony, choosing love over vendetta, helps him foiling the plot, and they both embrace, knowing they have prevented a catastrophe. Under the shimmering city lights, they realize their true feelings for each other, promising to face whatever the future holds together.',
+│   setting='In the bustling streets and iconic skyline of New York City.',
+│   ending='Isabella and Alex, having narrowly escaped the clutches of the Syndicate, find themselves standing at the top of the Empire State Building. As the glow of the setting sun bathes the city, they share a victorious kiss. Newly emboldened and as an unstoppable duo, they vow to keep NYC safe from any future threats.',
 │   genre='Action Thriller',
-│   name='Manhattan Meltdown',
-│   characters=['Detective Jack Justice', 'Harmony Black', 'Anthony Delgado', 'Sophia Marquez'],
-│   storyline="Detective Jack Justice has 24 hours to thwart a massive terrorist attack on New York City orchestrated by an elusive mastermind. With the help of the enigmatic cat burglar Harmony Black, Jack races against the clock through iconic NYC landmarks. As the pair discovers a personal connection between the attack and Jack's past, every minute brings them closer to betrayal or redemption."
+│   name='The NYC Chronicles',
+│   characters=['Isabella Grant', 'Alex Chen', 'Marcus Kane', 'Detective Ellie Monroe', 'Victor Sinclair'],
+│   storyline='Isabella Grant, a fearless investigative journalist, uncovers a massive conspiracy involving a powerful syndicate plotting to control New York City. Teaming up with renegade cop Alex Chen, they must race against time to expose the culprits before the city descends into chaos. Dodging danger at every turn, they fight to protect the city they love from imminent destruction.'
 )
 ```
