@@ -23,7 +23,7 @@ knowledge_base = WebsiteKnowledgeBase(
     max_links=10,
     # Table name: ai.website_documents
     vector_db=PgVector(
-        collection="website_documents",
+        table_name="website_documents",
         db_url=vector_db.get_db_connection_local(),
     ),
 )

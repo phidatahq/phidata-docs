@@ -21,7 +21,7 @@ knowledge_base = TextKnowledgeBase(
     path="data/docs",
     # Table name: ai.text_documents
     vector_db=PgVector(
-        collection="text_documents",
+        table_name="text_documents",
         db_url=vector_db.get_db_connection_local(),
     ),
 )

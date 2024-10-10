@@ -16,7 +16,7 @@ knowledge_base = DocxKnowledgeBase(
     path="data/docs",
     # Table name: ai.docx_documents
     vector_db=PgVector(
-        collection="docx_documents",
+        table_name="docx_documents",
         db_url=vector_db.get_db_connection_local(),
     ),
 )

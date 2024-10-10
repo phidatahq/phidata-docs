@@ -21,7 +21,7 @@ knowledge_base = JSONKnowledgeBase(
     path="data/json",
     # Table name: ai.json_documents
     vector_db=PgVector(
-        collection="json_documents",
+        table_name="json_documents",
         db_url="postgresql+psycopg://ai:ai@localhost:5532/ai",
     ),
 )

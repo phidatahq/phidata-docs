@@ -27,7 +27,7 @@ knowledge_base = WikipediaKnowledgeBase(
     topics=["Manchester United", "Real Madrid"],
     # Table name: ai.wikipedia_documents
     vector_db=PgVector(
-        collection="wikipedia_documents",
+        table_name="wikipedia_documents",
         db_url="postgresql+psycopg://ai:ai@localhost:5532/ai",
     ),
 )

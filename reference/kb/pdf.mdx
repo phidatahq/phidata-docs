@@ -21,7 +21,7 @@ pdf_knowledge_base = PDFKnowledgeBase(
     path="data/pdfs",
     # Table name: llm.pdf_documents
     vector_db=PgVector(
-        collection="pdf_documents",
+        table_name="pdf_documents",
         db_url=vector_db.get_db_connection_local(),
     ),
     reader=PDFReader(chunk=True),

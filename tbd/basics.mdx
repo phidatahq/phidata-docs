@@ -171,7 +171,7 @@ Let's build a **PDF Agent** that helps us with food recipes using RAG.
         urls=["https://phi-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"],
         # Store embeddings in the `ai.recipes` table
         vector_db=PgVector(
-            collection="recipes",
+            table_name="recipes",
             db_url="postgresql+psycopg://ai:ai@localhost:5532/ai",
         ),
     )
@@ -221,7 +221,7 @@ from phi.knowledge.pdf import PDFKnowledgeBase
 knowledge_base = PDFKnowledgeBase(
     path="data/pdfs",
     vector_db=PgVector(
-        collection="pdf_documents",
+        table_name="pdf_documents",
         db_url=vector_db.get_db_connection_local(),
     ),
 )
@@ -250,7 +250,7 @@ Make the `Agent` Autonomous by setting the `search_knowledge` and `read_chat_his
     knowledge_base = PDFUrlKnowledgeBase(
         urls=["https://phi-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"],
         vector_db=PgVector(
-            collection="recipes",
+            table_name="recipes",
             db_url="postgresql+psycopg://ai:ai@localhost:5532/ai",
         ),
     )
@@ -312,7 +312,7 @@ db_url = "postgresql+psycopg://ai:ai@localhost:5532/ai"
 
 knowledge_base = PDFUrlKnowledgeBase(
     urls=["https://phi-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"],
-    vector_db=PgVector(collection="recipes", db_url=db_url),
+    vector_db=PgVector(table_name="recipes", db_url=db_url),
 )
 # Comment out after first run
 knowledge_base.load()

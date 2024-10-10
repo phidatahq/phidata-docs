@@ -196,7 +196,6 @@
             "examples/agents/pdf",
             "examples/agents/hackernews",
             "examples/agents/structured-output",
-            "examples/agents/langchain-retriever",
             "examples/agents/data-analyst",
             "examples/agents/vision"
           ]
