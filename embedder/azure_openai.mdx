@@ -16,7 +16,7 @@ from phi.embedder.azure_openai import AzureOpenAIEmbedder
 knowledge_base=AgentKnowledge(
     vector_db=PgVector(
         db_url=db_url,
-        collection=embeddings_table,
+        table_name=embeddings_table,
         embedder=AzureOpenAIEmbedder(),
     ),
     # 2 references are added to the prompt
