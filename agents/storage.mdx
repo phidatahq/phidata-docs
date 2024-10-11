@@ -8,7 +8,7 @@ Storage is a necessary component when building user facing AI products as any pr
 
 The general syntax for adding storage to an Agent looks like:
 
-```python storage.py
+```python
 from phi.agent import Agent
 from phi.model.openai import OpenAIChat
 from phi.tools.duckduckgo import DuckDuckGo
@@ -49,20 +49,20 @@ agent.print_response("Which country are we speaking about?")
   <Step title="Create an Agent with Storage">
     Create a file `agent_with_storage.py` with the following contents
 
-    ```python agent_with_storage.py
+    ```python
     import typer
     from rich.prompt import Prompt
     from typing import Optional, List
     from phi.agent import Agent
     from phi.storage.agent.postgres import PgAgentStorage
     from phi.knowledge.pdf import PDFUrlKnowledgeBase
-    from phi.vectordb.pgvector import PgVector2
+    from phi.vectordb.pgvector import PgVector
 
     db_url = "postgresql+psycopg://ai:ai@localhost:5532/ai"
 
     knowledge_base = PDFUrlKnowledgeBase(
         urls=["https://phi-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"],
-        vector_db=PgVector2(collection="recipes", db_url=db_url),
+        vector_db=PgVector(table_name="recipes", db_url=db_url),
     )
     # Comment out after first run
     knowledge_base.load()

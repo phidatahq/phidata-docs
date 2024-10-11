@@ -93,7 +93,6 @@
             "models/openai-like",
             "models/aws-bedrock",
             "models/together",
-            "models/anyscale",
             "models/fireworks",
             "models/mistral",
             "models/google_ai_studio",
@@ -155,7 +154,7 @@
           "pages": [
             "vectordb/introduction",
             "vectordb/pgvector",
-            "vectordb/singlestore",
+            "vectordb/qdrant",
             "vectordb/pinecone",
             "vectordb/lancedb"
           ]
@@ -179,8 +178,7 @@
             "embedder/azure_openai",
             "embedder/mistral",
             "embedder/fireworks",
-            "embedder/together",
-            "embedder/anyscale"
+            "embedder/together"
           ]
         }
       ]
@@ -198,8 +196,6 @@
             "examples/agents/pdf",
             "examples/agents/hackernews",
             "examples/agents/structured-output",
-            "examples/agents/langchain-retriever",
-            "examples/agents/python",
             "examples/agents/data-analyst",
             "examples/agents/vision"
           ]
@@ -224,6 +220,7 @@
         {
           "group": "Integrations",
           "pages": [
+            "examples/integrations/composio",
             "examples/integrations/pgvector",
             "examples/integrations/singlestore",
             "examples/integrations/lancedb",
@@ -235,7 +232,6 @@
           "group": "Model Providers",
           "pages": [
             "examples/provider/openai",
-            "examples/provider/anyscale",
             "examples/provider/azure",
             "examples/provider/claude",
             "examples/provider/cohere",

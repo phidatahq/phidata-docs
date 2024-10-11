@@ -2,11 +2,14 @@
 title: Vision Agent
 ---
 
-```python cookbook/agents/vision.py
+```python
 from phi.agent import Agent
 from phi.llm.openai import OpenAIChat
 
-agent = Agent(llm=OpenAIChat(model="gpt-4-turbo"))
+agent = Agent(
+    model=OpenAIChat(id="gpt-4o"),
+    markdown=True,
+)
 
 # Single Image
 agent.print_response(

@@ -21,13 +21,13 @@ Install `pypdf` using `pip install pypdf`
 
 ```python knowledge_base.py
 from phi.knowledge.pdf import PDFKnowledgeBase, PDFReader
-from phi.vectordb.pgvector import PgVector2
+from phi.vectordb.pgvector import PgVector
 
 pdf_knowledge_base = PDFKnowledgeBase(
     path="data/pdfs",
     # Table name: ai.pdf_documents
-    vector_db=PgVector2(
-        collection="pdf_documents",
+    vector_db=PgVector(
+        table_name="pdf_documents",
         db_url="postgresql+psycopg://ai:ai@localhost:5532/ai",
     ),
     reader=PDFReader(chunk=True),
@@ -60,7 +60,7 @@ Can point to a single PDF file or a directory of PDF files.
 <ResponseField name="vector_db" type="VectorDb">
   Vector Database for the Knowledge Base.
 
-Example: `PgVector2`
+Example: `PgVector`
 
 </ResponseField>
 <ResponseField name="reader" type="PDFReader">

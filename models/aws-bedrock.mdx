@@ -24,16 +24,16 @@ setx AWS_SECRET_ACCESS_KEY ***
 
 ## Example
 
-Use `OpenAIChat` with your `Agent`:
+Use `AWS BedrockClaude` with your `Agent`:
 
 <CodeGroup>
 
 ```python agent.py
 from phi.agent import Agent
-from phi.llm.aws.claude import Claude
+from phi.model.aws.claude import Claude
 
 agent = Agent(
-    llm=Claude(model="anthropic.claude-3-sonnet-20240229-v1:0"),
+    model=Claude(id="anthropic.claude-3-5-sonnet-20240620-v1:0"),
     description="You help people with their health and fitness goals.",
 )
 agent.print_response("Share a quick healthy breakfast recipe.", markdown=True)
@@ -47,7 +47,7 @@ agent.print_response("Share a quick healthy breakfast recipe.", markdown=True)
   The name identifier for the Claude agent.
 </ResponseField>
 <ResponseField
-  name="model"
+  name="id"
   type="str"
   default="anthropic.claude-3-sonnet-20240229-v1:0"
 >

@@ -1,32 +1,35 @@
 ---
-title: RAG Agent
+title: Agentic RAG with Hybrid Search
 ---
 
 A Retrieval Augmented Generation (RAG) agent that uses a PDF Knowledge Base and adds context about the query to the prompt.
 
-```python cookbook/agents/rag_agent.py
-from phi.agent import Agent
-from phi.knowledge.pdf import PDFUrlKnowledgeBase
-from phi.vectordb.pgvector import PgVector2
+```python
 
+from phi.agent import Agent
+from phi.model.openai import OpenAIChat
+from phi.knowledge.pdf import PDFUrlKnowledgeBase
+from phi.vectordb.lancedb import LanceDb, SearchType
+
+db_uri = "tmp/lancedb"
 knowledge_base = PDFUrlKnowledgeBase(
-    # Read PDFs from URLs
     urls=["https://phi-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"],
-    # Store embeddings in the `ai.recipes` table
-    vector_db=PgVector2(
-        collection="recipes",
-        db_url="postgresql+psycopg://ai:ai@localhost:5532/ai",
-    ),
+    vector_db=LanceDb(table_name="recipes", uri=db_uri, search_type=SearchType.vector),
 )
-# Load the knowledge base
-knowledge_base.load(recreate=False)
+# Load the knowledge base: Comment out after first run
+knowledge_base.load(upsert=True)
 
 agent = Agent(
-    knowledge_base=knowledge_base,
-    # The add_references_to_prompt will update the prompt with references from the knowledge base.
-    add_references_to_prompt=True,
+    model=OpenAIChat(id="gpt-4o"),
+    knowledge=knowledge_base,
+    # Add a tool to read chat history.
+    read_chat_history=True,
+    show_tool_calls=True,
+    markdown=True,
+    # debug_mode=True,
 )
-agent.print_response("How do I make pad thai?", markdown=True)
+agent.print_response("How do I make chicken and galangal in coconut milk soup", stream=True)
+
 ```
 
 ## Usage
@@ -39,7 +42,7 @@ agent.print_response("How do I make pad thai?", markdown=True)
   <Step title="Install libraries">
 
     ```bash
-    pip install -U pgvector pypdf "psycopg[binary]" sqlalchemy openai phidata
+    pip install -U lancedb tantivy openai phidata
     ```
 
   </Step>
@@ -49,11 +52,11 @@ agent.print_response("How do I make pad thai?", markdown=True)
     <CodeGroup>
 
     ```bash Mac
-    python cookbook/agents/rag_agent.py
+    python cookbook/agents/agentic_rag_lancedb.py
     ```
 
     ```bash Windows
-    python cookbook/agents/rag_agent.py
+    python cookbook/agents/agentic_rag_lancedb.py
     ```
 
     </CodeGroup>
@@ -64,4 +67,4 @@ agent.print_response("How do I make pad thai?", markdown=True)
 
 ## Information
 
-- View on [Github](https://github.com/phidatahq/phidata/tree/main/cookbook/agents/rag_agent.py)
+- View on [Github](https://github.com/phidatahq/phidata/tree/main/cookbook/agents/agentic_rag_lancedb.py)

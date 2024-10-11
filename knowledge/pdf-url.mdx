@@ -21,13 +21,13 @@ Install `pypdf` using `pip install pypdf`
 
 ```python knowledge_base.py
 from phi.knowledge.pdf import PDFUrlKnowledgeBase
-from phi.vectordb.pgvector import PgVector2
+from phi.vectordb.pgvector import PgVector
 
 knowledge_base = PDFUrlKnowledgeBase(
     urls=["pdf_url"],
     # Table name: ai.pdf_documents
-    vector_db=PgVector2(
-        collection="pdf_documents",
+    vector_db=PgVector(
+        table_name="pdf_documents",
         db_url="postgresql+psycopg://ai:ai@localhost:5532/ai",
     ),
 )

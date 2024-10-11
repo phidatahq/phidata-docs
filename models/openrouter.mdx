@@ -27,14 +27,23 @@ Use `OpenRouter` with your `Agent`:
 <CodeGroup>
 
 ```python agent.py
-from phi.agent import Agent
-from phi.llm.openrouter import OpenRouter
+from phi.agent import Agent, RunResponse  # noqa
+from phi.model.openrouter import OpenRouter
 
 agent = Agent(
-    llm=OpenRouter(model="mistralai/mistral-7b-instruct:free"),
-    description="You help people with their health and fitness goals.",
+    model=OpenRouter(id="gpt-4o"),
+    tools=[YFinanceTools(stock_price=True)],
+    show_tool_calls=True,
+    markdown=True,
 )
-agent.print_response("Share a 2 sentence quick and healthy breakfast recipe.", markdown=True)
+
+# Get the response in a variable
+# run: RunResponse = agent.run("Share a 2 sentence horror story.")
+# print(run.content)
+
+# Print the response in the terminal
+agent.print_response("Share a 2 sentence horror story.")
+
 ```
 
 </CodeGroup>
@@ -45,7 +54,7 @@ agent.print_response("Share a 2 sentence quick and healthy breakfast recipe.", m
   The name identifier for the OpenRouter agent.
 </ResponseField>
 <ResponseField
-  name="model"
+  name="id"
   type="str"
   default="mistralai/mistral-7b-instruct:free"
 >

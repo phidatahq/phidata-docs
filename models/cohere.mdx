@@ -27,16 +27,20 @@ Use `CohereChat` with your `Agent`:
 <CodeGroup>
 
 ```python agent.py
-from phi.agent import Agent
-from phi.tools.duckduckgo import DuckDuckGo
-from phi.llm.cohere import CohereChat
+from phi.agent import Agent, RunResponse  # noqa
+from phi.model.cohere import CohereChat
 
 agent = Agent(
-    llm=CohereChat(model="command-r"),
-    tools=[DuckDuckGo()],
-    show_tool_calls=True,
+    model=CohereChat(id="command-r-08-2024"),
 )
-agent.print_response("Whats happening in France?", markdown=True)
+
+# Get the response in a variable
+# run: RunResponse = agent.run("Share a 2 sentence horror story.")
+# print(run.content)
+
+# Print the response on the terminal
+agent.print_response("Share a 2 sentence horror story.")
+
 ```
 
 </CodeGroup>
@@ -46,7 +50,7 @@ agent.print_response("Whats happening in France?", markdown=True)
 <ResponseField name="name" type="str" default="cohere">
   Name of the model.
 </ResponseField>
-<ResponseField name="model" type="str" default="command-r">
+<ResponseField name="id" type="str" default="command-r-08-2024">
   Cohere model ID.
 </ResponseField>
 <ResponseField name="temperature" type="float">

@@ -27,14 +27,21 @@ Use `Together` with your `Agent`:
 <CodeGroup>
 
 ```python agent.py
-from phi.agent import Agent
-from phi.llm.together import Together
+from phi.agent import Agent, RunResponse  # noqa
+from phi.model.together import Together
 
 agent = Agent(
-    llm=Together(model="mistralai/Mixtral-8x7B-Instruct-v0.1"),
-    description="You help people with their health and fitness goals.",
+    model=Together(id="meta-llama/Meta-Llama-3.1-8B-Instruct-Turbo"),
 )
-agent.print_response("Share a quick healthy breakfast recipe.", markdown=True)
+
+# Get the response in a variable
+# run: RunResponse = agent.run("Share a 2 sentence horror story.")
+# print(run.content)
+
+# Print the response in the terminal
+agent.print_response("Share a 2 sentence horror story.")
+
+
 ```
 
 </CodeGroup>
@@ -45,7 +52,7 @@ agent.print_response("Share a quick healthy breakfast recipe.", markdown=True)
   The name identifier for the agent.
 </ResponseField>
 <ResponseField
-  name="model"
+  name="id"
   type="str"
   default="mistralai/Mixtral-8x7B-Instruct-v0.1"
 >

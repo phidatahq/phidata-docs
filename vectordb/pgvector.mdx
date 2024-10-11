@@ -1,23 +1,76 @@
 ---
-title: PgVector
+title: PgVector Agent Knowledge
+sidebarTitle: PgVector
 ---
 
-We're big fans of using **PgVector** for vector storage because it delivers spectacular results for 99.9% of the use-cases and can also provide long-term storage for Agents.
+## Example
 
-It runs locally on docker and is provided as a resilient service by major cloud providers. It truly is a remarkable option -- just without the marketing budget of other vector databases.
+```python agent_with_knowledge.py
+from phi.agent import Agent
+from phi.model.openai import OpenAIChat
+from phi.knowledge.pdf import PDFUrlKnowledgeBase
+from phi.vectordb.pgvector import PgVector, SearchType
 
-## Run PgVector
+db_url = "postgresql+psycopg://ai:ai@localhost:5532/ai"
+knowledge_base = PDFUrlKnowledgeBase(
+    urls=["https://phi-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"],
+    vector_db=PgVector(table_name="recipes", db_url=db_url, search_type=SearchType.hybrid),
+)
+# Load the knowledge base: Comment out after first run
+knowledge_base.load(recreate=True, upsert=True)
 
-Install [docker desktop](https://docs.docker.com/desktop/install/mac-install/) and run **PgVector** on port **5532** using:
+agent = Agent(
+    model=OpenAIChat(id="gpt-4o"),
+    knowledge=knowledge_base,
+    # Add a tool to read chat history.
+    read_chat_history=True,
+    show_tool_calls=True,
+    markdown=True,
+    # debug_mode=True,
+)
+agent.print_response("How do I make chicken and galangal in coconut milk soup", stream=True)
+agent.print_response("What was my last question?", stream=True)
 
-```bash
-docker run -d \
-  -e POSTGRES_DB=ai \
-  -e POSTGRES_USER=ai \
-  -e POSTGRES_PASSWORD=ai \
-  -e PGDATA=/var/lib/postgresql/data/pgdata \
-  -v pgvolume:/var/lib/postgresql/data \
-  -p 5532:5432 \
-  --name pgvector \
-  phidata/pgvector:16
 ```
+
+## PgVector Params
+
+<ResponseField name="table_name" type="str">
+  The name of the table to use.
+</ResponseField>
+<ResponseField name="schema" type="str">
+  The schema to use.
+</ResponseField>
+<ResponseField name="db_url" type="str">
+  The database URL to connect to.
+</ResponseField>
+<ResponseField name="db_engine" type="Engine">
+  The database engine to use.
+</ResponseField>
+<ResponseField name="embedder" type="Embedder">
+  The embedder to use.
+</ResponseField>
+<ResponseField name="search_type" type="SearchType">
+  The search type to use.
+</ResponseField>
+<ResponseField name="vector_index" type="Union[Ivfflat, HNSW]">
+  The vector index to use.
+</ResponseField>
+<ResponseField name="distance" type="Distance">
+  The distance to use.
+</ResponseField>
+<ResponseField name="prefix_match" type="bool">
+  Whether to use prefix matching.
+</ResponseField>
+<ResponseField name="vector_score_weight" type="float">
+  The weight of the vector score.
+</ResponseField>
+<ResponseField name="content_language" type="str">
+  The content language to use.
+</ResponseField>
+<ResponseField name="schema_version" type="int">
+  The schema version to use.
+</ResponseField>
+<ResponseField name="auto_upgrade_schema" type="bool">
+  Whether to auto upgrade the schema.
+</ResponseField>

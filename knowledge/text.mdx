@@ -15,13 +15,13 @@ We are using a local PgVector database for this example. [Make sure it's running
 
 ```python knowledge_base.py
 from phi.knowledge.text import TextKnowledgeBase
-from phi.vectordb.pgvector import PgVector2
+from phi.vectordb.pgvector import PgVector
 
 knowledge_base = TextKnowledgeBase(
     path="data/docs",
     # Table name: ai.text_documents
-    vector_db=PgVector2(
-        collection="text_documents",
+    vector_db=PgVector(
+        table_name="text_documents",
         db_url="postgresql+psycopg://ai:ai@localhost:5532/ai",
     ),
 )

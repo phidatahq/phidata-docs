@@ -15,7 +15,7 @@ knowledge_base = JSONKnowledgeBase(
     path="data/json",
     # Table name: llm.json_documents
     vector_db=PgVector(
-        collection="json_documents",
+        table_name="json_documents",
         db_url=vector_db.get_db_connection_local(),
     ),
 )

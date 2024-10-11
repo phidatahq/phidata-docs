@@ -19,7 +19,7 @@ knowledge_base = CombinedKnowledgeBase(
     ],
     vector_db=PgVector(
         # Table name: llm.combined_documents
-        collection="combined_documents",
+        table_name="combined_documents",
         db_url=vector_db.get_db_connection_local(),
     ),
 )

@@ -13,15 +13,15 @@ Install `textract` if needed using [this guide](/how-to/install)
 
 ```python knowledge_base.py
 from phi.knowledge.text import TextKnowledgeBase
-from phi.vectordb.pgvector import PgVector2
+from phi.vectordb.pgvector import PgVector
 
 from resources import vector_db
 
 knowledge_base = TextKnowledgeBase(
     path="data/docs",
     # Table name: ai.text_documents
-    vector_db=PgVector2(
-        collection="text_documents",
+    vector_db=PgVector(
+        table_name="text_documents",
         db_url=vector_db.get_db_connection_local(),
     ),
 )

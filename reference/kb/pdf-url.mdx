@@ -21,7 +21,7 @@ knowledge_base = PDFUrlKnowledgeBase(
     urls=["pdf_url"],
     # Table name: llm.pdf_documents
     vector_db=PgVector(
-        collection="pdf_documents",
+        table_name="pdf_documents",
         db_url=vector_db.get_db_connection_local(),
     ),
 )
