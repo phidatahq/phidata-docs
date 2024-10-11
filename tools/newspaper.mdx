@@ -1,0 +1,33 @@
+---
+title: Newspaper
+---
+
+**NewspaperTools** enable an Agent to read news articles using the Newspaper4k library.
+
+## Example
+
+The following agent will summarize the wikipedia article on language models.
+
+```python cookbook/tools/newspaper_tools.py
+from phi.agent import Agent
+from phi.tools.newspaper_tools import NewspaperTools
+
+agent = Agent(tools=[NewspaperTools()])
+
+agent.print_response("Please summarize https://en.wikipedia.org/wiki/Language_model")
+```
+
+## Toolkit Params
+
+<ResponseField name="get_article_text" type="bool" default="True">
+  Enables the functionality to retrieve the text of an article. The default
+  value is True.
+</ResponseField>
+
+## Toolkit Functions
+
+<ResponseField name="get_article_text">
+  Retrieves the text of an article from a specified URL. Parameters include
+  'url' for the URL of the article. Returns the text of the article or an error
+  message if the retrieval fails.
+</ResponseField>

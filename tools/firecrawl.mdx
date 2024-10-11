@@ -1,0 +1,55 @@
+---
+title: Firecrawl
+---
+
+**FirecrawlTools** enable an Agent to perform web crawling and scraping tasks.
+
+## Example
+
+The following agent will scrape the content from "https://finance.yahoo.com/" and return a summary of the content:
+
+```python cookbook/tools/firecrawl_tools.py
+import os
+
+from phi.agent import Agent
+from phi.tools.firecrawl import FirecrawlTools
+
+api_key = os.getenv("FIRECRAWL_API_KEY")
+
+agent = Agent(
+    tools=[FirecrawlTools(api_key=api_key, scrape=False, crawl=True)], show_tool_calls=True, markdown=True
+)
+agent.print_response("summarize this https://finance.yahoo.com/")
+```
+
+## Toolkit Params
+
+<ResponseField name="api_key" type="str" default="None">
+  Optional API key for authentication purposes.
+</ResponseField>
+<ResponseField name="formats" type="List[str]" default="None">
+  Optional list of formats to be used for the operation.
+</ResponseField>
+<ResponseField name="limit" type="int" default="10">
+  Maximum number of items to retrieve. The default value is 10.
+</ResponseField>
+<ResponseField name="scrape" type="bool" default="True">
+  Enables the scraping functionality. Default is True.
+</ResponseField>
+<ResponseField name="crawl" type="bool" default="False">
+  Enables the crawling functionality. Default is False.
+</ResponseField>
+
+## Toolkit Functions
+
+<ResponseField name="scrape_website">
+  Scrapes a website using Firecrawl. Parameters include 'url' to specify the URL
+  to scrape. The function supports optional formats if specified. Returns the
+  results of the scraping in JSON format.
+</ResponseField>
+<ResponseField name="crawl_website">
+  Crawls a website using Firecrawl. Parameters include 'url' to specify the URL
+  to crawl, and an optional 'limit' to define the maximum number of pages to
+  crawl. The function supports optional formats and returns the crawling results
+  in JSON format.
+</ResponseField>
