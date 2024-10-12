@@ -66,30 +66,39 @@ agent.print_response("Share a 2 sentence horror story.")
 
 ## Params
 
-<ResponseField name="name" type="str" default="AzureOpenAIChat">
-  The name identifier for the agent.
-</ResponseField>
 <ResponseField name="id" type="str" required="true">
   The specific model ID used for generating responses. This field is required.
 </ResponseField>
-<ResponseField name="api_key" type="str">
+<ResponseField name="name" type="str" default="AzureOpenAIChat">
+  The name identifier for the agent.
+</ResponseField>
+<ResponseField name="provider" type="str" default="Azure">
+  The provider of the model.
+</ResponseField>
+<ResponseField name="api_key" type="Optional[str]">
   The API key for authenticating requests to the Azure OpenAI service.
 </ResponseField>
-<ResponseField name="api_version" type="str" default="2023-12-01-preview">
+<ResponseField name="api_version" type="str" default="2024-02-01">
   The version of the Azure OpenAI API to use.
 </ResponseField>
-<ResponseField name="azure_deployment" type="str">
+<ResponseField name="azure_endpoint" type="Optional[str]">
+  The endpoint URL for the Azure OpenAI service.
+</ResponseField>
+<ResponseField name="azure_deployment" type="Optional[str]">
   The deployment name or ID in Azure.
 </ResponseField>
-<ResponseField name="base_url" type="str">
+<ResponseField name="base_url" type="Optional[str]">
   The base URL for making API requests to the Azure OpenAI service.
 </ResponseField>
-<ResponseField name="azure_ad_token" type="str">
+<ResponseField name="azure_ad_token" type="Optional[str]">
   The Azure Active Directory token for authenticating requests.
 </ResponseField>
-<ResponseField name="azure_ad_token_provider" type="str">
+<ResponseField name="azure_ad_token_provider" type="Optional[Any]">
   The provider for obtaining Azure Active Directory tokens.
 </ResponseField>
-<ResponseField name="openai_client" type="AzureOpenAIClient">
+<ResponseField name="organization" type="Optional[str]">
+  The organization associated with the API requests.
+</ResponseField>
+<ResponseField name="openai_client" type="Optional[AzureOpenAIClient]">
   An instance of AzureOpenAIClient provided for making API requests.
 </ResponseField>

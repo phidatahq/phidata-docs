@@ -50,24 +50,22 @@ agent.print_response("Share a 2 sentence horror story.")
 
 ## Params
 
+<ResponseField name="id" type="str" default="gpt-4o">
+  The specific model ID used for generating responses.
+</ResponseField>
 <ResponseField name="name" type="str" default="OpenRouter">
   The name identifier for the OpenRouter agent.
 </ResponseField>
-<ResponseField
-  name="id"
-  type="str"
-  default="mistralai/mistral-7b-instruct:free"
->
-  The specific model ID used for generating responses.
+<ResponseField name="provider" type="str">
+  The provider of the model, combining "OpenRouter" with the model ID.
 </ResponseField>
 <ResponseField name="api_key" type="Optional[str]">
   The API key for authenticating requests to the OpenRouter service. Retrieved
   from the environment variable `OPENROUTER_API_KEY`.
 </ResponseField>
-<ResponseField
-  name="base_url"
-  type="str"
-  default="https://openrouter.ai/api/v1"
->
+<ResponseField name="base_url" type="str" default="https://openrouter.ai/api/v1">
   The base URL for making API requests to the OpenRouter service.
+</ResponseField>
+<ResponseField name="max_tokens" type="int" default="1024">
+  The maximum number of tokens to generate in the response.
 </ResponseField>

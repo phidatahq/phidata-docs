@@ -42,37 +42,43 @@ agent.print_response('Share a 5 word horror story.', markdown=True)
 
 ## Params
 
-<ResponseField name="name" type="str" default="Claude">
-  The name identifier for the agent.
-</ResponseField>
 <ResponseField name="id" type="str" default="claude-3-5-sonnet-20240620">
   The specific model ID used for generating responses.
 </ResponseField>
-<ResponseField name="max_tokens" type="int" default="1024">
+<ResponseField name="name" type="str" default="Claude">
+  The name identifier for the agent.
+</ResponseField>
+<ResponseField name="provider" type="str" default="Anthropic">
+  The provider of the model.
+</ResponseField>
+<ResponseField name="max_tokens" type="Optional[int]" default="1024">
   The maximum number of tokens to generate in the response.
 </ResponseField>
-<ResponseField name="temperature" type="float">
+<ResponseField name="temperature" type="Optional[float]">
   The sampling temperature to use, between 0 and 2. Higher values like 0.8 make
   the output more random, while lower values like 0.2 make it more focused and
   deterministic.
 </ResponseField>
-<ResponseField name="stop_sequence" type="List[str]">
+<ResponseField name="stop_sequences" type="Optional[List[str]]">
   A list of sequences where the API will stop generating further tokens.
 </ResponseField>
-<ResponseField name="top_p" type="float">
+<ResponseField name="top_p" type="Optional[float]">
   Nucleus sampling parameter. The model considers the results of the tokens with
   top_p probability mass.
 </ResponseField>
-<ResponseField name="top_k" type="int">
+<ResponseField name="top_k" type="Optional[int]">
   The number of highest probability vocabulary tokens to keep for
   top-k-filtering.
 </ResponseField>
-<ResponseField name="api_key" type="str">
+<ResponseField name="request_params" type="Optional[Dict[str, Any]]">
+  Additional parameters to include in the request.
+</ResponseField>
+<ResponseField name="api_key" type="Optional[str]">
   The API key for authenticating requests to the service.
 </ResponseField>
-<ResponseField name="base_url" type="str">
-  The base URL for making API requests to the service.
+<ResponseField name="client_params" type="Optional[Dict[str, Any]]">
+  Additional parameters for client configuration.
 </ResponseField>
-<ResponseField name="anthropic_client" type="AnthropicClient">
-  An instance of AnthropicClient provided for making API requests.
+<ResponseField name="client" type="Optional[AnthropicClient]">
+  A pre-configured instance of the Anthropic client.
 </ResponseField>

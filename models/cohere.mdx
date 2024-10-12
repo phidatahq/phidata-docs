@@ -47,50 +47,53 @@ agent.print_response("Share a 2 sentence horror story.")
 
 ## Params
 
-<ResponseField name="name" type="str" default="cohere">
-  Name of the model.
-</ResponseField>
 <ResponseField name="id" type="str" default="command-r-08-2024">
-  Cohere model ID.
+  The specific model ID used for generating responses.
 </ResponseField>
-<ResponseField name="temperature" type="float">
-  What sampling temperature to use, between 0 and 2. Higher values like 0.8 will
-  make the output more random, while lower values like 0.2 will make it more
-  focused and deterministic.
+<ResponseField name="name" type="str" default="CohereChat">
+  The name identifier for the agent.
 </ResponseField>
-<ResponseField name="max_tokens" type="int">
-  The maximum number of tokens to generate in the chat completion.
+<ResponseField name="provider" type="str" default="Cohere">
+  The provider of the model.
 </ResponseField>
-<ResponseField name="top_k" type="int">
+<ResponseField name="temperature" type="Optional[float]">
+  The sampling temperature to use, between 0 and 2. Higher values like 0.8 make
+  the output more random, while lower values like 0.2 make it more focused and
+  deterministic.
+</ResponseField>
+<ResponseField name="max_tokens" type="Optional[int]">
+  The maximum number of tokens to generate in the response.
+</ResponseField>
+<ResponseField name="top_k" type="Optional[int]">
   The number of highest probability vocabulary tokens to keep for
   top-k-filtering.
 </ResponseField>
-<ResponseField name="top_p" type="float">
-  An alternative to sampling with temperature, called nucleus sampling, where
-  the model considers the results of the tokens with top_p probability mass.
+<ResponseField name="top_p" type="Optional[float]">
+  Nucleus sampling parameter. The model considers the results of the tokens with
+  top_p probability mass.
 </ResponseField>
-<ResponseField name="frequency_penalty" type="float">
+<ResponseField name="frequency_penalty" type="Optional[float]">
   Number between -2.0 and 2.0. Positive values penalize new tokens based on
   their existing frequency in the text so far, decreasing the model's likelihood
   to repeat the same line verbatim.
 </ResponseField>
-<ResponseField name="presence_penalty" type="float">
+<ResponseField name="presence_penalty" type="Optional[float]">
   Number between -2.0 and 2.0. Positive values penalize new tokens based on
   whether they appear in the text so far, increasing the model's likelihood to
   talk about new topics.
 </ResponseField>
-<ResponseField name="request_params" type="Dict[str, Any]">
-  Additional parameters for the Cohere API request.
+<ResponseField name="request_params" type="Optional[Dict[str, Any]]">
+  Additional parameters to include in the request.
 </ResponseField>
 <ResponseField name="add_chat_history" type="bool" default="False">
-  Add chat history to the Cohere messages instead of using the conversation_id.
+  Whether to add chat history to the Cohere messages instead of using the conversation_id.
 </ResponseField>
-<ResponseField name="api_key" type="str">
-  Cohere API Key.
+<ResponseField name="api_key" type="Optional[str]">
+  The API key for authenticating requests to the Cohere service.
 </ResponseField>
-<ResponseField name="client_params" type="Dict[str, Any]">
-  Additional keyword arguments used when creating the `CohereClient()`.
+<ResponseField name="client_params" type="Optional[Dict[str, Any]]">
+  Additional parameters for client configuration.
 </ResponseField>
-<ResponseField name="cohere_client" type="CohereClient">
-  Provide your own CohereClient to use.
+<ResponseField name="cohere_client" type="Optional[CohereClient]">
+  A pre-configured instance of the Cohere client.
 </ResponseField>
