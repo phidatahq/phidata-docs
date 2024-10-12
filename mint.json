@@ -96,7 +96,6 @@
             "models/fireworks",
             "models/mistral",
             "models/google_ai_studio",
-            "models/google_vertex_ai",
             "models/azure"
           ]
         },
