@@ -63,7 +63,7 @@
   "navigation": [
     {
       "group": "Getting Started",
-      "pages": ["quickstart", "introduction"]
+      "pages": ["quickstart"]
     },
     {
       "group": "Documentation",

@@ -1,41 +1,23 @@
 ---
 title: Quickstart
-description: Phidata is a framework for building AI Agents, lets learn by building
+description: Phidata is a framework for building agentic systems.
 ---
 
-## Finance Agent
+Engineers use phidata to:
+- **Build powerful AI Agents with memory, knowledge, tools and reasoning.** Phidata will manage the agent's state, memory and knowledge in a database.
+- **Run those agents as a software application (with a database, vectordb and api).** Phidata will manage your infrastructure, both local and cloud (BYOC).
+- **Monitor, evaluate and optimize your agents and application.** Phidata will monitor your sessions and metrics to help you understand and improve your agentic system.
+
+Let's start by building some agents.
+
+## Setup
 
 <Steps>
-  <Step title="Create an agent that can query financial data to answer questions">
-
-    Create a file `finance_agent.py`
-
-    ```python finance_agent.py
-    from phi.agent import Agent
-    from phi.model.openai import OpenAIChat
-    from phi.tools.yfinance import YFinanceTools
-
-    agent = Agent(
-        model=OpenAIChat(id="gpt-4o"),
-        # Use YFinanceTools to get stock data
-        tools=[YFinanceTools(stock_price=True, analyst_recommendations=True, company_info=True, company_news=True)],
-        # Teach the agent how to format its response
-        instructions=["Use tables where possible"],
-        show_tool_calls=True,
-        markdown=True,
-    )
-
-    agent.print_response("What is the stock price of NVDA", stream=True)
-    agent.print_response("Write a report comparing NVDA to TSLA", stream=True)
-    ```
-
-  </Step>
-  <Step title="Setup">
+  <Step title="Create a virtual environment">
 
     Open the `Terminal` and create a python virtual environment.
 
     <CodeGroup>
-
     ```bash Mac
     python3 -m venv ~/.venvs/aienv
     source ~/.venvs/aienv/bin/activate
@@ -45,27 +27,27 @@ description: Phidata is a framework for building AI Agents, lets learn by buildi
     python3 -m venv aienv
     aienv/scripts/activate
     ```
-
     </CodeGroup>
 
-    Install libraries
+  </Step>
+  <Step title="Install libraries">
 
     <CodeGroup>
-
     ```bash Mac
-    pip install -U phidata yfinance openai
+    pip install -U phidata openai
     ```
 
     ```bash Windows
-    pip install -U phidata yfinance openai
+    pip install -U phidata
     ```
-
     </CodeGroup>
 
-    Export your OpenAI key
+  </Step>
+  <Step title="Export your OpenAI key">
+
+    Phidata works with every LLM but for these examples let's use OpenAI.
 
     <CodeGroup>
-
     ```bash Mac
     export OPENAI_API_KEY=sk-***
     ```
@@ -73,75 +55,111 @@ description: Phidata is a framework for building AI Agents, lets learn by buildi
     ```bash Windows
     setx OPENAI_API_KEY sk-***
     ```
-
     </CodeGroup>
 
     <Tip>
-    Phidata works with any LLM but for these examples let's use OpenAI.
-
     You can get an API key from [here](https://platform.openai.com/account/api-keys).
     </Tip>
-
-  </Step>
-  <Step title="Run the agent">
-
-
-    ```shell
-    python finance_agent.py
-    ```
-
   </Step>
 </Steps>
 
-## Web Search Agent
+## Basic Agent
+
+Let's start with a basic agent that can pull financial data using `yfinance` and search the web using `duckduckgo`.
 
 <Steps>
-  <Step title="Create an agent that can search the web">
+  <Step title="Create an agent with web search and financial tools">
 
-    Create a file `web_search.py`
+    Create a file `basic_agent.py`
 
-    ```python web_search.py
+    ```python basic_agent.py
     from phi.agent import Agent
     from phi.model.openai import OpenAIChat
+    from phi.tools.yfinance import YFinanceTools
     from phi.tools.duckduckgo import DuckDuckGo
 
     agent = Agent(
-        # Use gpt-4o as the model
         model=OpenAIChat(id="gpt-4o"),
-        # Use DuckDuckGo to search the web
-        tools=[DuckDuckGo()],
-        # Show the tool calls in the output
+        tools=[
+          DuckDuckGo(),
+          YFinanceTools(stock_price=True, analyst_recommendations=True, company_info=True, company_news=True)
+        ],
+        instructions=["Use tables where possible"],
         show_tool_calls=True,
-        # Use markdown in the output
-        markdown=True
+        markdown=True,
     )
-    agent.print_response("Whats happening in France?", stream=True)
+
+    agent.print_response("Write a thorough report on NVDA", stream=True)
     ```
 
   </Step>
   <Step title="Run the agent">
 
-    Install `duckduckgo`
+    Install libraries
 
     ```shell
-    pip install duckduckgo-search
+    pip install yfinance duckduckgo-search
     ```
 
     Run the agent
 
     ```shell
-    python web_search.py
+    python basic_agent.py
     ```
 
   </Step>
 </Steps>
 
-## Agentic RAG
+## Reasoning Agent
 
-Let's create an agent that can search a knowledge base and use the results to answer questions. Instead of always inserting the "context" into the prompt, this agent searches the vector database only when it needs to.
+Reasoning helps agents work through a problem step-by-step, backtracking and correcting as needed. Let's give the reasonining agent a simple task that gpt-4o fails at.
 
 <Steps>
-  <Step title="Create an agent that can search a knowledge base to answer questions">
+  <Step title="Counting 'r' in a word">
+
+    Create a file `basic_reasoning.py`
+
+    ```python basic_reasoning.py
+    from phi.agent import Agent
+    from phi.model.openai import OpenAIChat
+    from phi.cli.console import console
+
+    regular_agent = Agent(model=OpenAIChat(id="gpt-4o"), markdown=True)
+    reasoning_agent = Agent(
+        model=OpenAIChat(id="gpt-4o-2024-08-06"),
+        reasoning=True,
+        markdown=True,
+        structured_outputs=True,
+    )
+
+    task = "How many 'r' are in the word 'supercalifragilisticexpialidocious'?"
+
+    console.rule("[bold green]Regular Agent[/bold green]")
+    regular_agent.print_response(task, stream=True)
+    console.rule("[bold yellow]Reasoning Agent[/bold yellow]")
+    reasoning_agent.print_response(task, stream=True, show_full_reasoning=True)
+    ```
+
+  </Step>
+  <Step title="Run the reasoning agent">
+
+    ```shell
+    python basic_reasoning.py
+    ```
+
+  </Step>
+</Steps>
+
+<Tip>
+If using tools with `reasoning=True`, set `structured_outputs=False` because gpt-4o doesnt support tools with structured outputs.
+</Tip>
+
+## RAG Agent
+
+Let's create an agent that can search its knowledge base and answer questions. Instead of always inserting the "context" into the prompt, this agent searches the vector database for what it needs, when it needs. This saves tokens and improves response quality.
+
+<Steps>
+  <Step title="Create an agent with a knowledge base">
 
     Create a file `rag_agent.py`
 
@@ -158,15 +176,13 @@ Let's create an agent that can search a knowledge base and use the results to an
         # Use LanceDB as the vector database
         vector_db=LanceDb(table_name="recipes", uri=db_uri, search_type=SearchType.vector),
     )
-    # Comment after first run to avoid reloading the knowledge base
+    # Load the knowledge base: Comment out after first run
     knowledge_base.load(upsert=True)
 
     agent = Agent(
         model=OpenAIChat(id="gpt-4o"),
         # Add the knowledge base to the agent
         knowledge=knowledge_base,
-        # Add a tool to search the knowledge base which enables agentic RAG.
-        search_knowledge=True,
         show_tool_calls=True,
         markdown=True,
     )
@@ -176,10 +192,10 @@ Let's create an agent that can search a knowledge base and use the results to an
   </Step>
   <Step title="Run the agent">
 
-    Install `lancedb`
+    Install libraries
 
     ```shell
-    pip install lancedb
+    pip install lancedb tantivy
     ```
 
     Run the agent
@@ -192,6 +208,8 @@ Let's create an agent that can search a knowledge base and use the results to an
 </Steps>
 
 ## Structured Outputs
+
+Structured outputs allow you to enforce the structure of the output from an agent. The agent will return a pydantic object.
 
 <Steps>
   <Step title="Create an agent that returns structured output">
@@ -213,14 +231,12 @@ Let's create an agent that can search a knowledge base and use the results to an
         characters: List[str] = Field(..., description="Name of characters for this movie.")
         storyline: str = Field(..., description="3 sentence storyline for the movie. Make it exciting!")
 
-
     # Agent that uses JSON mode
     json_mode_agent = Agent(
         model=OpenAIChat(id="gpt-4o"),
         description="You write movie scripts.",
         response_model=MovieScript,
     )
-
     # Agent that uses structured outputs
     structured_output_agent = Agent(
         model=OpenAIChat(id="gpt-4o-2024-08-06"),
@@ -243,42 +259,66 @@ Let's create an agent that can search a knowledge base and use the results to an
   </Step>
 </Steps>
 
-
 ## Team of Agents
 
+A team of agents can work together to solve complex problems. Here's a simple example that uses a team of agents to write an article about the top stories on hackernews.
+
 <Steps>
-  <Step title="Create a team of agents that can work together to solve a problem">
+  <Step title="Create a team of agents">
 
     Create a file `hn_team.py`
 
     ```python hn_team.py
     from phi.agent import Agent
     from phi.tools.hackernews import HackerNews
+    from phi.tools.duckduckgo import DuckDuckGo
+    from phi.tools.newspaper4k import Newspaper4k
 
-
-    story_researcher = Agent(
-        # Agents use gpt-4o as the default model if not provided
-        name="HackerNews Story Researcher",
-        role="Researches hackernews stories and users.",
+    hn_researcher = Agent(
+        name="HackerNews Researcher",
+        role="Gets top stories from hackernews.",
         tools=[HackerNews()],
     )
-    user_researcher = Agent(
-        name="HackerNews User Researcher",
+
+    web_searcher = Agent(
+        name="Web Searcher",
+        role="Searches the web for information on a topic",
+        tools=[DuckDuckGo()],
+        add_datetime_to_instructions=True,
+    )
+
+    article_reader = Agent(
+        name="Article Reader",
         role="Reads articles from URLs.",
-        tools=[HackerNews()],
+        tools=[Newspaper4k()],
     )
 
-    hn_leader = Agent(
+    hn_team = Agent(
         name="Hackernews Team",
-        team=[story_researcher, user_researcher],
+        team=[hn_researcher, web_searcher, article_reader],
+        instructions=[
+            "First, search hackernews for what the user is asking about.",
+            "Next, ask the article reader to read the links for the stories to get more information.",
+            "Important: you must provide the article reader with the links to read.",
+            "Then, ask the web searcher to search for each story to get more information.",
+            "Finally, provide a thoughtful and engaging summary.",
+        ],
+        show_tool_calls=True,
         markdown=True,
     )
-    hn_leader.print_response("Write a report about the users with the top 2 stories on hackernews", stream=True)
+    hn_team.print_response("Write an article about the top 2 stories on hackernews", stream=True)
     ```
 
   </Step>
   <Step title="Run the team of agents">
 
+    Install libraries
+
+    ```shell
+    pip install duckduckgo-search newspaper4k lxml_html_clean phidata
+    ```
+
+    Run the team of agents
     ```shell
     python hn_team.py
     ```
@@ -286,9 +326,25 @@ Let's create an agent that can search a knowledge base and use the results to an
   </Step>
 </Steps>
 
-
 ## Ready to build?
 
-1. Read the [introduction](/introduction) to learn more about phidata.
-2. Read about [Agents](/agents/introduction) and how to customize them to your use case.
-3. Checkout [templates](/templates/introduction) for building full-stack agentic systems.
+You can either start by building your own agents or use one of our templates to build a full-stack agentic system.
+
+<CardGroup cols={1}>
+  <Card title="Agents" icon="user-astronaut" iconType="duotone" href="/agents/introduction">
+    Build your own agents and customize them to your use case.
+  </Card>
+  <Card title="Templates" icon="rocket-launch" iconType="duotone" href="/templates/introduction">
+    Build full-stack agentic systems using pre-configured codebases, including infrastructure setup.
+  </Card>
+</CardGroup>
+
+## Looking for dedicated support?
+
+We've helped many companies build AI products, the general workflow is:
+
+1. **Build agents** to perform tasks specific to your product.
+2. **Serve your agents** via an API and connect them to your product.
+3. **Monitor and improve** your AI product.
+
+We provide dedicated support and development, [book a call](https://cal.com/phidata/intro) to get started.
