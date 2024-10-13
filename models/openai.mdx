@@ -28,7 +28,7 @@ Use `OpenAIChat` with your `Agent`:
 
 ```python agent.py
 
-from phi.agent import Agent, RunResponse  # noqa
+from phi.agent import Agent, RunResponse
 from phi.model.openai import OpenAIChat
 
 agent = Agent(
@@ -53,67 +53,90 @@ For more information, please refer to the [OpenAI docs](https://platform.openai.
 <ResponseField name="id" type="str" default="gpt-4-turbo">
   OpenAI model ID.
 </ResponseField>
-<ResponseField name="seed" type="int">
-  If specified, openai system will make a best effort to sample
-  deterministically, such that repeated requests with the same `seed` and
-  parameters should return the same result.
+<ResponseField name="name" type="str" default="OpenAIChat">
+  Name identifier for the OpenAI chat model.
 </ResponseField>
-<ResponseField name="max_tokens" type="int">
-  The maximum number of tokens to generate in the chat completion.
+<ResponseField name="provider" type="str">
+  Provider of the model, combining "OpenAI" with the model ID.
 </ResponseField>
-<ResponseField name="temperature" type="float">
-  What sampling temperature to use, between 0 and 2. Higher values like 0.8 will
-  make the output more random, while lower values like 0.2 will make it more
-  focused and deterministic.
+<ResponseField name="store" type="Optional[bool]">
+  If set, determines whether to store the conversation.
 </ResponseField>
-<ResponseField name="frequency_penalty" type="float">
-  Number between -2.0 and 2.0. Positive values penalize new tokens based on
-  their existing frequency in the text so far, decreasing the model's likelihood
-  to repeat the same line verbatim.
-</ResponseField>
-<ResponseField name="response_format" type="Dict[str, Any]">
-  An object specifying the format that the model must output.
-  Setting to `{ "type": "json_object" }` enables JSON mode, which guarantees the message the model generates is valid JSON.
-</ResponseField>
-<ResponseField name="frequency_penalty" type="float">
+<ResponseField name="frequency_penalty" type="Optional[float]">
   Number between -2.0 and 2.0. Positive values penalize new tokens based on their existing frequency in the text so far, decreasing the model's likelihood to repeat the same line verbatim.
 </ResponseField>
-<ResponseField name="presence_penalty" type="float">
-  Number between -2.0 and 2.0. Positive values penalize new tokens based on
-  whether they appear in the text so far, increasing the model's likelihood to
-  talk about new topics.
+<ResponseField name="logit_bias" type="Optional[Any]">
+  Modify the likelihood of specified tokens appearing in the completion.
 </ResponseField>
-<ResponseField name="stop" type="List[str]">
+<ResponseField name="logprobs" type="Optional[bool]">
+  Whether to return log probabilities of the output tokens.
+</ResponseField>
+<ResponseField name="max_tokens" type="Optional[int]">
+  The maximum number of tokens to generate in the chat completion.
+</ResponseField>
+<ResponseField name="presence_penalty" type="Optional[float]">
+  Number between -2.0 and 2.0. Positive values penalize new tokens based on whether they appear in the text so far, increasing the model's likelihood to talk about new topics.
+</ResponseField>
+<ResponseField name="response_format" type="Optional[Any]">
+  An object specifying the format that the model must output. Setting to `{ "type": "json_object" }` enables JSON mode, which guarantees the message the model generates is valid JSON.
+</ResponseField>
+<ResponseField name="seed" type="Optional[int]">
+  If specified, OpenAI system will make a best effort to sample deterministically, such that repeated requests with the same `seed` and parameters should return the same result.
+</ResponseField>
+<ResponseField name="stop" type="Optional[Union[str, List[str]]]">
   Up to 4 sequences where the API will stop generating further tokens.
 </ResponseField>
-<ResponseField name="user" type="str">
-  A unique identifier representing your end-user, which can help OpenAI to
-  monitor and detect abuse.
+<ResponseField name="temperature" type="Optional[float]">
+  What sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic.
 </ResponseField>
-<ResponseField name="top_p" type="float">
-  An alternative to sampling with temperature, called nucleus sampling, where
-  the model considers the results of the tokens with top_p probability mass.
+<ResponseField name="top_logprobs" type="Optional[int]">
+  The number of most likely tokens to return at each token position, along with their log probabilities.
 </ResponseField>
-<ResponseField name="logit_bias" type="Any">
-  Modify the likelihood of specified tokens appearing in the completion. Accepts
-  a json object that maps tokens (specified by their token ID in the tokenizer)
-  to an associated bias value from -100 to 100.
+<ResponseField name="user" type="Optional[str]">
+  A unique identifier representing your end-user, which can help OpenAI to monitor and detect abuse.
 </ResponseField>
-<ResponseField name="headers" type="Dict[str, Any]">
-  Headers added to the OpenAI request.
+<ResponseField name="top_p" type="Optional[float]">
+  An alternative to sampling with temperature, called nucleus sampling, where the model considers the results of the tokens with top_p probability mass.
 </ResponseField>
-<ResponseField name="api_key" type="str">
-  OpenAI API Key
+<ResponseField name="extra_headers" type="Optional[Any]">
+  Additional headers to be included in the API request.
 </ResponseField>
-<ResponseField name="organization" type="str">
-  OpenAI organization
+<ResponseField name="extra_query" type="Optional[Any]">
+  Additional query parameters to be included in the API request.
 </ResponseField>
-<ResponseField name="base_url" type="str">
-  OpenAI Base URL
+<ResponseField name="request_params" type="Optional[Dict[str, Any]]">
+  Additional parameters to be included in the API request.
 </ResponseField>
-<ResponseField name="client_params" type="Dict[str, Any]">
-  Additional key word argumens used when creating the `OpenAI()` client.
+<ResponseField name="api_key" type="Optional[str]">
+  OpenAI API Key for authentication.
 </ResponseField>
-<ResponseField name="openai_client" type="OpenAI">
-  Provide your own OpenAI() client to use
+<ResponseField name="organization" type="Optional[str]">
+  OpenAI organization identifier.
+</ResponseField>
+<ResponseField name="base_url" type="Optional[Union[str, httpx.URL]]">
+  Base URL for the OpenAI API.
+</ResponseField>
+<ResponseField name="timeout" type="Optional[float]">
+  Timeout for API requests in seconds.
+</ResponseField>
+<ResponseField name="max_retries" type="Optional[int]">
+  Maximum number of retries for failed API requests.
+</ResponseField>
+<ResponseField name="default_headers" type="Optional[Any]">
+  Default headers to be included in all API requests.
+</ResponseField>
+<ResponseField name="default_query" type="Optional[Any]">
+  Default query parameters to be included in all API requests.
+</ResponseField>
+<ResponseField name="http_client" type="Optional[httpx.Client]">
+  Custom HTTP client for making API requests.
+</ResponseField>
+<ResponseField name="client_params" type="Optional[Dict[str, Any]]">
+  Additional parameters for configuring the OpenAI client.
+</ResponseField>
+<ResponseField name="client" type="Optional[OpenAIClient]">
+  Custom OpenAI client instance.
+</ResponseField>
+<ResponseField name="async_client" type="Optional[AsyncOpenAIClient]">
+  Custom asynchronous OpenAI client instance.
 </ResponseField>

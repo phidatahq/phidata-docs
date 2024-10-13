@@ -27,7 +27,7 @@ Use `Fireworks` with your `Agent`:
 <CodeGroup>
 
 ```python agent.py
-from phi.agent import Agent, RunResponse  # noqa
+from phi.agent import Agent, RunResponse
 from phi.model.fireworks import Fireworks
 
 agent = Agent(
@@ -47,9 +47,6 @@ agent.print_response("Share a 2 sentence horror story.")
 
 ## Params
 
-<ResponseField name="name" type="str" default="Fireworks">
-  The name identifier for the agent.
-</ResponseField>
 <ResponseField
   name="id"
   type="str"
@@ -57,13 +54,19 @@ agent.print_response("Share a 2 sentence horror story.")
 >
   The specific model ID used for generating responses.
 </ResponseField>
-<ResponseField name="api_key" type="str">
-  The API key for authenticating requests to the service.
+<ResponseField name="name" type="str" default="Fireworks: {id}">
+  The name identifier for the agent. Defaults to "Fireworks: " followed by the model ID.
+</ResponseField>
+<ResponseField name="provider" type="str" default="Fireworks">
+  The provider of the model.
+</ResponseField>
+<ResponseField name="api_key" type="Optional[str]">
+  The API key for authenticating requests to the service. Retrieved from the environment variable FIREWORKS_API_KEY.
 </ResponseField>
 <ResponseField
   name="base_url"
   type="str"
   default="https://api.fireworks.ai/inference/v1"
 >
-  The base URL for making API requests to the service.
+  The base URL for making API requests to the Fireworks service.
 </ResponseField>
