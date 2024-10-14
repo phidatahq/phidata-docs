@@ -1,0 +1,76 @@
+---
+title: Jira
+---
+
+**JiraTools** enable an Agent to perform Jira tasks.
+
+## Prerequisites
+
+The following example requires the `jira` library and auth credentials.
+
+```shell
+pip install -U jira
+```
+
+```shell
+export JIRA_SERVER_URL="YOUR_JIRA_SERVER_URL"
+export JIRA_USERNAME="YOUR_USERNAME"
+export JIRA_API_TOKEN="YOUR_API_TOKEN"
+```
+
+## Example
+
+The following agent will use Jira API to search for issues in a project.
+
+```python cookbook/tools/jira_tools.py
+from phi.agent import Agent
+from phi.tools.jira_tools import JiraTools
+
+agent = Agent(tools=[JiraTools()])
+agent.print_response("Find all issues in project PROJ", markdown=True)
+```
+
+## Toolkit Params
+
+<ResponseField name="server_url" type="str" default="">
+  The URL of the JIRA server, retrieved from the environment variable
+  'JIRA_SERVER_URL'. Default is an empty string if not set.
+</ResponseField>
+<ResponseField name="username" type="str" default="None">
+  The JIRA username for authentication, retrieved from the environment variable
+  'JIRA_USERNAME'. Default is None if not set.
+</ResponseField>
+<ResponseField name="password" type="str" default="None">
+  The JIRA password for authentication, retrieved from the environment variable
+  'JIRA_PASSWORD'. Default is None if not set.
+</ResponseField>
+<ResponseField name="token" type="str" default="None">
+  The JIRA API token for authentication, retrieved from the environment variable
+  'JIRA_TOKEN'. Default is None if not set.
+</ResponseField>
+
+## Toolkit Functions
+
+<ResponseField name="get_issue">
+  Retrieves issue details from JIRA. Parameters include 'issue_key' for the key
+  of the issue to retrieve. Returns a JSON string containing issue details or an
+  error message.
+</ResponseField>
+<ResponseField name="create_issue">
+  Creates a new issue in JIRA. Parameters include 'project_key' for the project
+  in which to create the issue, 'summary' for the issue summary, 'description'
+  for the issue description, and 'issuetype' for the type of issue (default is
+  "Task"). Returns a JSON string with the new issue's key and URL or an error
+  message.
+</ResponseField>
+<ResponseField name="search_issues">
+  Searches for issues using a JQL query in JIRA. Parameters include 'jql_str'
+  for the JQL query string and 'max_results' for the maximum number of results
+  to return (default is 50). Returns a JSON string containing a list of
+  dictionaries with issue details or an error message.
+</ResponseField>
+<ResponseField name="add_comment">
+  Adds a comment to an issue in JIRA. Parameters include 'issue_key' for the key
+  of the issue and 'comment' for the comment text. Returns a JSON string
+  indicating success or an error message.
+</ResponseField>

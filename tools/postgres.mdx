@@ -4,6 +4,52 @@ title: Postgres
 
 **PostgresTools** enable an Agent to interact with a PostgreSQL database.
 
+## Prerequisites
+
+The following example requires the `psycopg2` library.
+
+```shell
+pip install -U psycopg2
+```
+
+You will also need a database. The following example uses a Postgres database running in a Docker container.
+
+```shell
+docker run -d \
+  -e POSTGRES_DB=ai \
+  -e POSTGRES_USER=ai \
+  -e POSTGRES_PASSWORD=ai \
+  -e PGDATA=/var/lib/postgresql/data/pgdata \
+  -v pgvolume:/var/lib/postgresql/data \
+  -p 5532:5432 \
+  --name pgvector \
+  phidata/pgvector:16
+```
+
+## Example
+
+The following agent will list all tables in the database.
+
+```python cookbook/tools/postgres.py
+from phi.agent import Agent
+from phi.tools.postgres import PostgresTools
+
+db_name = "ai"
+user = "ai"
+password = "ai"
+host = "localhost"
+port = 5532
+
+agent = Agent(tools=[PostgresTools(
+    db_name=db_name,
+    user=user,
+    password=password,
+    host=host,
+    port=port),
+])
+agent.print_response("List the tables in the database", markdown=True)
+```
+
 ## Toolkit Params
 
 | Name | Type | Default | Description |
