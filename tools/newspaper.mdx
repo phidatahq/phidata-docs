@@ -19,15 +19,12 @@ agent.print_response("Please summarize https://en.wikipedia.org/wiki/Language_mo
 
 ## Toolkit Params
 
-<ResponseField name="get_article_text" type="bool" default="True">
-  Enables the functionality to retrieve the text of an article. The default
-  value is True.
-</ResponseField>
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `get_article_text` | `bool` | `True` | Enables the functionality to retrieve the text of an article. |
 
 ## Toolkit Functions
 
-<ResponseField name="get_article_text">
-  Retrieves the text of an article from a specified URL. Parameters include
-  'url' for the URL of the article. Returns the text of the article or an error
-  message if the retrieval fails.
-</ResponseField>
+| Function | Description |
+|----------|-------------|
+| `get_article_text` | Retrieves the text of an article from a specified URL. Parameters include `url` for the URL of the article. Returns the text of the article or an error message if the retrieval fails. |

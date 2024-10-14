@@ -6,69 +6,26 @@ title: Postgres
 
 ## Toolkit Params
 
-<ResponseField
-  name="connection"
-  type="psycopg2.extensions.connection"
-  default="None"
->
-  Optional database connection object. Default is None.
-</ResponseField>
-<ResponseField name="db_name" type="str" default="None">
-  Optional name of the database to connect to. Default is None.
-</ResponseField>
-<ResponseField name="user" type="str" default="None">
-  Optional username for database authentication. Default is None.
-</ResponseField>
-<ResponseField name="password" type="str" default="None">
-  Optional password for database authentication. Default is None.
-</ResponseField>
-<ResponseField name="host" type="str" default="None">
-  Optional host for the database connection. Default is None.
-</ResponseField>
-<ResponseField name="port" type="int" default="None">
-  Optional port for the database connection. Default is None.
-</ResponseField>
-<ResponseField name="run_queries" type="bool" default="True">
-  Enables running SQL queries. Default is True.
-</ResponseField>
-<ResponseField name="inspect_queries" type="bool" default="False">
-  Enables inspecting SQL queries before execution. Default is False.
-</ResponseField>
-<ResponseField name="summarize_tables" type="bool" default="True">
-  Enables summarizing table structures. Default is True.
-</ResponseField>
-<ResponseField name="export_tables" type="bool" default="False">
-  Enables exporting tables from the database. Default is False.
-</ResponseField>
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `connection` | `psycopg2.extensions.connection` | `None` | Optional database connection object. |
+| `db_name` | `str` | `None` | Optional name of the database to connect to. |
+| `user` | `str` | `None` | Optional username for database authentication. |
+| `password` | `str` | `None` | Optional password for database authentication. |
+| `host` | `str` | `None` | Optional host for the database connection. |
+| `port` | `int` | `None` | Optional port for the database connection. |
+| `run_queries` | `bool` | `True` | Enables running SQL queries. |
+| `inspect_queries` | `bool` | `False` | Enables inspecting SQL queries before execution. |
+| `summarize_tables` | `bool` | `True` | Enables summarizing table structures. |
+| `export_tables` | `bool` | `False` | Enables exporting tables from the database. |
 
 ## Toolkit Functions
 
-<ResponseField name="show_tables">
-  Retrieves and displays a list of tables in the database. Returns the list of
-  tables.
-</ResponseField>
-<ResponseField name="describe_table">
-  Describes the structure of a specified table by returning its columns, data
-  types, and maximum character length. Parameters include 'table' to specify the
-  table name. Returns the table description.
-</ResponseField>
-<ResponseField name="summarize_table">
-  Summarizes a table by computing aggregates such as min, max, average, standard
-  deviation, and non-null counts for numeric columns. Parameters include 'table'
-  to specify the table name, and an optional 'table_schema' to specify the
-  schema (default is "public"). Returns the summary of the table.
-</ResponseField>
-<ResponseField name="inspect_query">
-  Inspects an SQL query by returning the query plan. Parameters include 'query'
-  to specify the SQL query. Returns the query plan.
-</ResponseField>
-<ResponseField name="export_table_to_path">
-  Exports a specified table in CSV format to a given path. Parameters include
-  'table' to specify the table name and an optional 'path' to specify where to
-  save the file (default is the current directory). Returns the result of the
-  export operation.
-</ResponseField>
-<ResponseField name="run_query">
-  Executes an SQL query and returns the result. Parameters include 'query' to
-  specify the SQL query. Returns the result of the query execution.
-</ResponseField>
+| Function | Description |
+|----------|-------------|
+| `show_tables` | Retrieves and displays a list of tables in the database. Returns the list of tables. |
+| `describe_table` | Describes the structure of a specified table by returning its columns, data types, and maximum character length. Parameters include 'table' to specify the table name. Returns the table description. |
+| `summarize_table` | Summarizes a table by computing aggregates such as min, max, average, standard deviation, and non-null counts for numeric columns. Parameters include 'table' to specify the table name, and an optional 'table_schema' to specify the schema (default is "public"). Returns the summary of the table. |
+| `inspect_query` | Inspects an SQL query by returning the query plan. Parameters include 'query' to specify the SQL query. Returns the query plan. |
+| `export_table_to_path` | Exports a specified table in CSV format to a given path. Parameters include 'table' to specify the table name and an optional 'path' to specify where to save the file (default is the current directory). Returns the result of the export operation. |
+| `run_query` | Executes an SQL query and returns the result. Parameters include 'query' to specify the SQL query. Returns the result of the query execution. |

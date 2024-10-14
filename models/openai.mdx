@@ -50,93 +50,35 @@ agent.print_response("Share a 2 sentence horror story.")
 
 For more information, please refer to the [OpenAI docs](https://platform.openai.com/docs/api-reference/chat/create) as well.
 
-<ResponseField name="id" type="str" default="gpt-4-turbo">
-  OpenAI model ID.
-</ResponseField>
-<ResponseField name="name" type="str" default="OpenAIChat">
-  Name identifier for the OpenAI chat model.
-</ResponseField>
-<ResponseField name="provider" type="str">
-  Provider of the model, combining "OpenAI" with the model ID.
-</ResponseField>
-<ResponseField name="store" type="Optional[bool]">
-  If set, determines whether to store the conversation.
-</ResponseField>
-<ResponseField name="frequency_penalty" type="Optional[float]">
-  Number between -2.0 and 2.0. Positive values penalize new tokens based on their existing frequency in the text so far, decreasing the model's likelihood to repeat the same line verbatim.
-</ResponseField>
-<ResponseField name="logit_bias" type="Optional[Any]">
-  Modify the likelihood of specified tokens appearing in the completion.
-</ResponseField>
-<ResponseField name="logprobs" type="Optional[bool]">
-  Whether to return log probabilities of the output tokens.
-</ResponseField>
-<ResponseField name="max_tokens" type="Optional[int]">
-  The maximum number of tokens to generate in the chat completion.
-</ResponseField>
-<ResponseField name="presence_penalty" type="Optional[float]">
-  Number between -2.0 and 2.0. Positive values penalize new tokens based on whether they appear in the text so far, increasing the model's likelihood to talk about new topics.
-</ResponseField>
-<ResponseField name="response_format" type="Optional[Any]">
-  An object specifying the format that the model must output. Setting to `{ "type": "json_object" }` enables JSON mode, which guarantees the message the model generates is valid JSON.
-</ResponseField>
-<ResponseField name="seed" type="Optional[int]">
-  If specified, OpenAI system will make a best effort to sample deterministically, such that repeated requests with the same `seed` and parameters should return the same result.
-</ResponseField>
-<ResponseField name="stop" type="Optional[Union[str, List[str]]]">
-  Up to 4 sequences where the API will stop generating further tokens.
-</ResponseField>
-<ResponseField name="temperature" type="Optional[float]">
-  What sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic.
-</ResponseField>
-<ResponseField name="top_logprobs" type="Optional[int]">
-  The number of most likely tokens to return at each token position, along with their log probabilities.
-</ResponseField>
-<ResponseField name="user" type="Optional[str]">
-  A unique identifier representing your end-user, which can help OpenAI to monitor and detect abuse.
-</ResponseField>
-<ResponseField name="top_p" type="Optional[float]">
-  An alternative to sampling with temperature, called nucleus sampling, where the model considers the results of the tokens with top_p probability mass.
-</ResponseField>
-<ResponseField name="extra_headers" type="Optional[Any]">
-  Additional headers to be included in the API request.
-</ResponseField>
-<ResponseField name="extra_query" type="Optional[Any]">
-  Additional query parameters to be included in the API request.
-</ResponseField>
-<ResponseField name="request_params" type="Optional[Dict[str, Any]]">
-  Additional parameters to be included in the API request.
-</ResponseField>
-<ResponseField name="api_key" type="Optional[str]">
-  OpenAI API Key for authentication.
-</ResponseField>
-<ResponseField name="organization" type="Optional[str]">
-  OpenAI organization identifier.
-</ResponseField>
-<ResponseField name="base_url" type="Optional[Union[str, httpx.URL]]">
-  Base URL for the OpenAI API.
-</ResponseField>
-<ResponseField name="timeout" type="Optional[float]">
-  Timeout for API requests in seconds.
-</ResponseField>
-<ResponseField name="max_retries" type="Optional[int]">
-  Maximum number of retries for failed API requests.
-</ResponseField>
-<ResponseField name="default_headers" type="Optional[Any]">
-  Default headers to be included in all API requests.
-</ResponseField>
-<ResponseField name="default_query" type="Optional[Any]">
-  Default query parameters to be included in all API requests.
-</ResponseField>
-<ResponseField name="http_client" type="Optional[httpx.Client]">
-  Custom HTTP client for making API requests.
-</ResponseField>
-<ResponseField name="client_params" type="Optional[Dict[str, Any]]">
-  Additional parameters for configuring the OpenAI client.
-</ResponseField>
-<ResponseField name="client" type="Optional[OpenAIClient]">
-  Custom OpenAI client instance.
-</ResponseField>
-<ResponseField name="async_client" type="Optional[AsyncOpenAIClient]">
-  Custom asynchronous OpenAI client instance.
-</ResponseField>
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `id` | `str` | `"gpt-4-turbo"` | OpenAI model ID. |
+| `name` | `str` | `"OpenAIChat"` | Name identifier for the OpenAI chat model. |
+| `provider` | `str` | - | Provider of the model, combining "OpenAI" with the model ID. |
+| `store` | `Optional[bool]` | - | If set, determines whether to store the conversation. |
+| `frequency_penalty` | `Optional[float]` | - | Number between -2.0 and 2.0. Positive values penalize new tokens based on their existing frequency in the text so far, decreasing the model's likelihood to repeat the same line verbatim. |
+| `logit_bias` | `Optional[Any]` | - | Modify the likelihood of specified tokens appearing in the completion. |
+| `logprobs` | `Optional[bool]` | - | Whether to return log probabilities of the output tokens. |
+| `max_tokens` | `Optional[int]` | - | The maximum number of tokens to generate in the chat completion. |
+| `presence_penalty` | `Optional[float]` | - | Number between -2.0 and 2.0. Positive values penalize new tokens based on whether they appear in the text so far, increasing the model's likelihood to talk about new topics. |
+| `response_format` | `Optional[Any]` | - | An object specifying the format that the model must output. Setting to `{ "type": "json_object" }` enables JSON mode, which guarantees the message the model generates is valid JSON. |
+| `seed` | `Optional[int]` | - | If specified, OpenAI system will make a best effort to sample deterministically, such that repeated requests with the same `seed` and parameters should return the same result. |
+| `stop` | `Optional[Union[str, List[str]]]` | - | Up to 4 sequences where the API will stop generating further tokens. |
+| `temperature` | `Optional[float]` | - | What sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic. |
+| `top_logprobs` | `Optional[int]` | - | The number of most likely tokens to return at each token position, along with their log probabilities. |
+| `user` | `Optional[str]` | - | A unique identifier representing your end-user, which can help OpenAI to monitor and detect abuse. |
+| `top_p` | `Optional[float]` | - | An alternative to sampling with temperature, called nucleus sampling, where the model considers the results of the tokens with top_p probability mass. |
+| `extra_headers` | `Optional[Any]` | - | Additional headers to be included in the API request. |
+| `extra_query` | `Optional[Any]` | - | Additional query parameters to be included in the API request. |
+| `request_params` | `Optional[Dict[str, Any]]` | - | Additional parameters to be included in the API request. |
+| `api_key` | `Optional[str]` | - | OpenAI API Key for authentication. |
+| `organization` | `Optional[str]` | - | OpenAI organization identifier. |
+| `base_url` | `Optional[Union[str, httpx.URL]]` | - | Base URL for the OpenAI API. |
+| `timeout` | `Optional[float]` | - | Timeout for API requests in seconds. |
+| `max_retries` | `Optional[int]` | - | Maximum number of retries for failed API requests. |
+| `default_headers` | `Optional[Any]` | - | Default headers to be included in all API requests. |
+| `default_query` | `Optional[Any]` | - | Default query parameters to be included in all API requests. |
+| `http_client` | `Optional[httpx.Client]` | - | Custom HTTP client for making API requests. |
+| `client_params` | `Optional[Dict[str, Any]]` | - | Additional parameters for configuring the OpenAI client. |
+| `client` | `Optional[OpenAIClient]` | - | Custom OpenAI client instance. |
+| `async_client` | `Optional[AsyncOpenAIClient]` | - | Custom asynchronous OpenAI client instance. |

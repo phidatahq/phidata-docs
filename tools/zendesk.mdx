@@ -34,19 +34,14 @@ agent.print_response("How do I login?", markdown=True)
 
 ## Toolkit Params
 
-<ResponseField name="username" type="str">
-  The username used for authentication or identification purposes.
-</ResponseField>
-<ResponseField name="password" type="str">
-  The password associated with the username for authentication purposes.
-</ResponseField>
-<ResponseField name="company_name" type="str">
-  The name of the company related to the user or the data being accessed.
-</ResponseField>
+| Parameter | Type | Default | Description |
+| --- | --- | --- | --- |
+| `username` | `str` | - | The username used for authentication or identification purposes. |
+| `password` | `str` | - | The password associated with the username for authentication purposes. |
+| `company_name` | `str` | - | The name of the company related to the user or the data being accessed. |
 
 ## Toolkit Functions
 
-<ResponseField name="search_zendesk">
-  This function searches for articles in Zendesk Help Center that match the
-  given search string.
-</ResponseField>
+| Function | Description |
+| --- | --- |
+| `search_zendesk` | This function searches for articles in Zendesk Help Center that match the given search string. |

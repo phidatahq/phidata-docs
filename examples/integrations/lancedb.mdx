@@ -63,36 +63,16 @@ if __name__ == "__main__":
 
 ## LanceDb Params
 
-<ResponseField name="uri" type="str">
-  The URI to connect to.
-</ResponseField>
-<ResponseField name="table" type="LanceTable">
-  The Lance table to use.
-</ResponseField>
-<ResponseField name="table_name" type="str">
-  The name of the table to use.
-</ResponseField>
-<ResponseField name="connection" type="DBConnection">
-  The database connection to use.
-</ResponseField>
-<ResponseField name="api_key" type="str">
-  The API key to use.
-</ResponseField>
-<ResponseField name="embedder" type="Embedder">
-  The embedder to use.
-</ResponseField>
-<ResponseField name="search_type" type="SearchType">
-  The search type to use.
-</ResponseField>
-<ResponseField name="distance" type="Distance">
-  The distance to use.
-</ResponseField>
-<ResponseField name="nprobes" type="int">
-  The number of probes to use.
-</ResponseField>
-<ResponseField name="reranker" type="Reranker">
-  The reranker to use.
-</ResponseField>
-<ResponseField name="use_tantivy" type="bool">
-  Whether to use tantivy.
-</ResponseField>
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `uri` | `str` | - | The URI to connect to. |
+| `table` | `LanceTable` | - | The Lance table to use. |
+| `table_name` | `str` | - | The name of the table to use. |
+| `connection` | `DBConnection` | - | The database connection to use. |
+| `api_key` | `str` | - | The API key to use. |
+| `embedder` | `Embedder` | - | The embedder to use. |
+| `search_type` | `SearchType` | - | The search type to use. |
+| `distance` | `Distance` | - | The distance to use. |
+| `nprobes` | `int` | - | The number of probes to use. |
+| `reranker` | `Reranker` | - | The reranker to use. |
+| `use_tantivy` | `bool` | - | Whether to use tantivy. |

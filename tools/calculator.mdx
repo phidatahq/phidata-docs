@@ -33,58 +33,26 @@ agent.print_response("What is 10*5 then to the power of 2, do it step by step")
 
 ## Toolkit Params
 
-<ResponseField name="add" type="bool" default="True">
-  Enables the functionality to perform addition.
-</ResponseField>
-<ResponseField name="subtract" type="bool" default="True">
-  Enables the functionality to perform subtraction.
-</ResponseField>
-<ResponseField name="multiply" type="bool" default="True">
-  Enables the functionality to perform multiplication.
-</ResponseField>
-<ResponseField name="divide" type="bool" default="True">
-  Enables the functionality to perform division.
-</ResponseField>
-<ResponseField name="exponentiate" type="bool" default="False">
-  Enables the functionality to perform exponentiation.
-</ResponseField>
-<ResponseField name="factorial" type="bool" default="False">
-  Enables the functionality to calculate the factorial of a number.
-</ResponseField>
-<ResponseField name="is_prime" type="bool" default="False">
-  Enables the functionality to check if a number is prime.
-</ResponseField>
-<ResponseField name="square_root" type="bool" default="False">
-  Enables the functionality to calculate the square root of a number.
-</ResponseField>
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `add` | `bool` | `True` | Enables the functionality to perform addition. |
+| `subtract` | `bool` | `True` | Enables the functionality to perform subtraction. |
+| `multiply` | `bool` | `True` | Enables the functionality to perform multiplication. |
+| `divide` | `bool` | `True` | Enables the functionality to perform division. |
+| `exponentiate` | `bool` | `False` | Enables the functionality to perform exponentiation. |
+| `factorial` | `bool` | `False` | Enables the functionality to calculate the factorial of a number. |
+| `is_prime` | `bool` | `False` | Enables the functionality to check if a number is prime. |
+| `square_root` | `bool` | `False` | Enables the functionality to calculate the square root of a number. |
 
 ## Toolkit Functions
 
-<ResponseField name="add">
-  Adds two numbers and returns the result.
-</ResponseField>
-<ResponseField name="subtract">
-  Subtracts the second number from the first and returns the result.
-</ResponseField>
-<ResponseField name="multiply">
-  Multiplies two numbers and returns the result.
-</ResponseField>
-<ResponseField name="divide">
-  Divides the first number by the second and returns the result. Handles
-  division by zero.
-</ResponseField>
-<ResponseField name="exponentiate">
-  Raises the first number to the power of the second number and returns the
-  result.
-</ResponseField>
-<ResponseField name="factorial">
-  Calculates the factorial of a number and returns the result. Handles negative
-  numbers.
-</ResponseField>
-<ResponseField name="is_prime">
-  Checks if a number is prime and returns the result.
-</ResponseField>
-<ResponseField name="square_root">
-  Calculates the square root of a number and returns the result. Handles
-  negative numbers.
-</ResponseField>
+| Function | Description |
+|----------|-------------|
+| `add` | Adds two numbers and returns the result. |
+| `subtract` | Subtracts the second number from the first and returns the result. |
+| `multiply` | Multiplies two numbers and returns the result. |
+| `divide` | Divides the first number by the second and returns the result. Handles division by zero. |
+| `exponentiate` | Raises the first number to the power of the second number and returns the result. |
+| `factorial` | Calculates the factorial of a number and returns the result. Handles negative numbers. |
+| `is_prime` | Checks if a number is prime and returns the result. |
+| `square_root` | Calculates the square root of a number and returns the result. Handles negative numbers. |

@@ -48,33 +48,15 @@ agent.print_response("Share a 2 sentence horror story.")
 </CodeGroup>
 
 ## Params
-<ResponseField name="id" type="str" default="gemini-1.5-flash">
-  The specific model ID used for generating responses.
-</ResponseField>
-<ResponseField name="name" type="str" default="Gemini">
-  The name identifier for the agent.
-</ResponseField>
-<ResponseField name="provider" type="str" default="Google">
-  The provider of the model.
-</ResponseField>
-<ResponseField name="function_declarations" type="Optional[List[FunctionDeclaration]]">
-  A list of function declarations that the model can utilize during the response generation process.
-</ResponseField>
-<ResponseField name="generation_config" type="Optional[Any]">
-  Configuration settings for the generation process, such as parameters for controlling output behavior.
-</ResponseField>
-<ResponseField name="safety_settings" type="Optional[Any]">
-  Settings related to safety measures, ensuring the generation of appropriate and safe content.
-</ResponseField>
-<ResponseField name="generative_model_kwargs" type="Optional[Dict[str, Any]]">
-  Additional keyword arguments for the generative model.
-</ResponseField>
-<ResponseField name="api_key" type="Optional[str]">
-  The API key for authenticating requests to the Google AI Studio service.
-</ResponseField>
-<ResponseField name="client_params" type="Optional[Dict[str, Any]]">
-  Additional parameters for client configuration.
-</ResponseField>
-<ResponseField name="client" type="Optional[GenerativeModel]">
-  A pre-configured instance of the Gemini client.
-</ResponseField>
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `id` | `str` | `"gemini-1.5-flash"` | The specific model ID used for generating responses. |
+| `name` | `str` | `"Gemini"` | The name identifier for the agent. |
+| `provider` | `str` | `"Google"` | The provider of the model. |
+| `function_declarations` | `Optional[List[FunctionDeclaration]]` | - | A list of function declarations that the model can utilize during the response generation process. |
+| `generation_config` | `Optional[Any]` | - | Configuration settings for the generation process, such as parameters for controlling output behavior. |
+| `safety_settings` | `Optional[Any]` | - | Settings related to safety measures, ensuring the generation of appropriate and safe content. |
+| `generative_model_kwargs` | `Optional[Dict[str, Any]]` | - | Additional keyword arguments for the generative model. |
+| `api_key` | `Optional[str]` | - | The API key for authenticating requests to the Google AI Studio service. |
+| `client_params` | `Optional[Dict[str, Any]]` | - | Additional parameters for client configuration. |
+| `client` | `Optional[GenerativeModel]` | - | A pre-configured instance of the Gemini client. |

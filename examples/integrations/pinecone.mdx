@@ -69,49 +69,20 @@ if __name__ == "__main__":
 
 ## PineconeDB Params
 
-<ResponseField name="name" type="str">
-  The name of the table to use.
-</ResponseField>
-<ResponseField name="dimension" type="int">
-  The dimension of the table to use.
-</ResponseField>
-<ResponseField name="spec" type="Union[Dict, ServerlessSpec, PodSpec]">
-  The spec of the table to use.
-</ResponseField>
-<ResponseField name="embedder" type="Optional[Embedder]">
-  The embedder to use for encoding vectors. If not provided, a default embedder will be used.
-</ResponseField>
-<ResponseField name="metric" type="Optional[str]">
-  The distance metric to use for similarity search. Default is "cosine".
-</ResponseField>
-<ResponseField name="additional_headers" type="Optional[Dict[str, str]]">
-  Additional headers to include in API requests.
-</ResponseField>
-<ResponseField name="pool_threads" type="Optional[int]">
-  The number of threads to use for the connection pool. Default is 1.
-</ResponseField>
-<ResponseField name="namespace" type="Optional[str]">
-  The namespace to use for the index.
-</ResponseField>
-<ResponseField name="timeout" type="Optional[int]">
-  The timeout for API requests in seconds.
-</ResponseField>
-<ResponseField name="index_api" type="Optional[Any]">
-  A custom index API implementation to use instead of the default.
-</ResponseField>
-<ResponseField name="api_key" type="Optional[str]">
-  The API key for authentication with Pinecone.
-</ResponseField>
-<ResponseField name="host" type="Optional[str]">
-  The host URL for the Pinecone service.
-</ResponseField>
-<ResponseField name="config" type="Optional[Config]">
-  Additional configuration options for the Pinecone client.
-</ResponseField>
-<ResponseField name="use_hybrid_search" type="bool">
-  Whether to use hybrid search (combining vector and keyword search). Default is False.
-</ResponseField>
-<ResponseField name="hybrid_alpha" type="float">
-  The alpha parameter for hybrid search, balancing between vector and keyword search. Default is 0.5.
-</ResponseField>
-
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `name` | `str` | - | The name of the table to use. |
+| `dimension` | `int` | - | The dimension of the table to use. |
+| `spec` | `Union[Dict, ServerlessSpec, PodSpec]` | - | The spec of the table to use. |
+| `embedder` | `Optional[Embedder]` | `None` | The embedder to use for encoding vectors. If not provided, a default embedder will be used. |
+| `metric` | `Optional[str]` | `"cosine"` | The distance metric to use for similarity search. |
+| `additional_headers` | `Optional[Dict[str, str]]` | `None` | Additional headers to include in API requests. |
+| `pool_threads` | `Optional[int]` | `1` | The number of threads to use for the connection pool. |
+| `namespace` | `Optional[str]` | `None` | The namespace to use for the index. |
+| `timeout` | `Optional[int]` | `None` | The timeout for API requests in seconds. |
+| `index_api` | `Optional[Any]` | `None` | A custom index API implementation to use instead of the default. |
+| `api_key` | `Optional[str]` | `None` | The API key for authentication with Pinecone. |
+| `host` | `Optional[str]` | `None` | The host URL for the Pinecone service. |
+| `config` | `Optional[Config]` | `None` | Additional configuration options for the Pinecone client. |
+| `use_hybrid_search` | `bool` | `False` | Whether to use hybrid search (combining vector and keyword search). |
+| `hybrid_alpha` | `float` | `0.5` | The alpha parameter for hybrid search, balancing between vector and keyword search. |

@@ -67,46 +67,19 @@ if __name__ == "__main__":
 
 ## Qdrant Params
 
-<ResponseField name="collection" type="str">
-  The name of the collection to use.
-</ResponseField>
-<ResponseField name="embedder" type="Embedder">
-  The embedder to use.
-</ResponseField>
-<ResponseField name="distance" type="Distance">
-  The distance to use.
-</ResponseField>
-<ResponseField name="location" type="Optional[str]">
-  The location of the Qdrant database.
-</ResponseField>
-<ResponseField name="url" type="Optional[str]">
-  The URL of the Qdrant server.
-</ResponseField>
-<ResponseField name="port" type="Optional[int]">
-  The port number for the Qdrant server. Default is 6333.
-</ResponseField>
-<ResponseField name="grpc_port" type="int">
-  The gRPC port number. Default is 6334.
-</ResponseField>
-<ResponseField name="prefer_grpc" type="bool">
-  Whether to prefer gRPC over HTTP. Default is False.
-</ResponseField>
-<ResponseField name="https" type="Optional[bool]">
-  Whether to use HTTPS for connection.
-</ResponseField>
-<ResponseField name="api_key" type="Optional[str]">
-  The API key for authentication.
-</ResponseField>
-<ResponseField name="prefix" type="Optional[str]">
-  The prefix to use for the Qdrant client.
-</ResponseField>
-<ResponseField name="timeout" type="Optional[float]">
-  The timeout for requests in seconds.
-</ResponseField>
-<ResponseField name="host" type="Optional[str]">
-  The host address of the Qdrant server.
-</ResponseField>
-<ResponseField name="path" type="Optional[str]">
-  The path to the Qdrant database.
-</ResponseField>
-
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `collection` | `str` | - | The name of the collection to use. |
+| `embedder` | `Embedder` | - | The embedder to use. |
+| `distance` | `Distance` | - | The distance to use. |
+| `location` | `Optional[str]` | `None` | The location of the Qdrant database. |
+| `url` | `Optional[str]` | `None` | The URL of the Qdrant server. |
+| `port` | `Optional[int]` | `6333` | The port number for the Qdrant server. |
+| `grpc_port` | `int` | `6334` | The gRPC port number. |
+| `prefer_grpc` | `bool` | `False` | Whether to prefer gRPC over HTTP. |
+| `https` | `Optional[bool]` | `None` | Whether to use HTTPS for connection. |
+| `api_key` | `Optional[str]` | `None` | The API key for authentication. |
+| `prefix` | `Optional[str]` | `None` | The prefix to use for the Qdrant client. |
+| `timeout` | `Optional[float]` | `None` | The timeout for requests in seconds. |
+| `host` | `Optional[str]` | `None` | The host address of the Qdrant server. |
+| `path` | `Optional[str]` | `None` | The path to the Qdrant database. |

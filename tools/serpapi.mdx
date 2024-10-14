@@ -23,18 +23,14 @@ agent.print_response("Whats happening in the USA?", markdown=True)
 
 ## Toolkit Params
 
-<ResponseField name="api_key" type="str">
-  API key for authentication purposes.
-</ResponseField>
-<ResponseField name="search_youtube" type="bool" default="False">
-  Enables the functionality to search for content on YouTube.
-</ResponseField>
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `api_key` | `str` | - | API key for authentication purposes. |
+| `search_youtube` | `bool` | `False` | Enables the functionality to search for content on YouTube. |
 
 ## Toolkit Functions
 
-<ResponseField name="search_google">
-  This function searches Google for a query.
-</ResponseField>
-<ResponseField name="search_youtube">
-  Searches YouTube for a query.
-</ResponseField>
+| Function | Description |
+|----------|-------------|
+| `search_google` | This function searches Google for a query. |
+| `search_youtube` | Searches YouTube for a query. |

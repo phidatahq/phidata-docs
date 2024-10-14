@@ -21,20 +21,13 @@ agent.print_response(
 
 ## Toolkit Params
 
-<ResponseField name="email" type="str" default="your_email@example.com">
-  Specifies the email address to use. The default value is
-  "your_email@example.com".
-</ResponseField>
-<ResponseField name="max_results" type="int" default="None">
-  Optional parameter to specify the maximum number of results to return. The
-  default value is None.
-</ResponseField>
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `email` | `str` | `"your_email@example.com"` | Specifies the email address to use. |
+| `max_results` | `int` | `None` | Optional parameter to specify the maximum number of results to return. |
 
 ## Toolkit Functions
 
-<ResponseField name="search_pubmed">
-  Searches PubMed for articles based on a specified query. Parameters include
-  'query' for the search term and 'max_results' for the maximum number of
-  results to return (default is 10). Returns a JSON string containing the search
-  results, including publication date, title, and summary.
-</ResponseField>
+| Function | Description |
+|----------|-------------|
+| `search_pubmed` | Searches PubMed for articles based on a specified query. Parameters include `query` for the search term and `max_results` for the maximum number of results to return (default is 10). Returns a JSON string containing the search results, including publication date, title, and summary. |

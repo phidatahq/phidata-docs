@@ -47,22 +47,11 @@ agent.print_response("Share a 2 sentence horror story.")
 </CodeGroup>
 
 ## Params
-<ResponseField name="id" type="str" default="mistralai/Mixtral-8x7B-Instruct-v0.1">
-  The specific model ID used for generating responses.
-</ResponseField>
-<ResponseField name="name" type="str" default="Together">
-  The name identifier for the Together agent.
-</ResponseField>
-<ResponseField name="provider" type="str">
-  The provider of the model, combining "Together" with the model ID.
-</ResponseField>
-<ResponseField name="api_key" type="Optional[str]">
-  The API key for authenticating requests to the Together service. Retrieved
-  from the environment variable `TOGETHER_API_KEY`.
-</ResponseField>
-<ResponseField name="base_url" type="str" default="https://api.together.xyz/v1">
-  The base URL for making API requests to the Together service.
-</ResponseField>
-<ResponseField name="monkey_patch" type="bool" default="False">
-  Whether to apply monkey patching.
-</ResponseField>
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| id | str | "mistralai/Mixtral-8x7B-Instruct-v0.1" | The specific model ID used for generating responses. |
+| name | str | "Together" | The name identifier for the Together agent. |
+| provider | str | - | The provider of the model, combining "Together" with the model ID. |
+| api_key | Optional[str] | - | The API key for authenticating requests to the Together service. Retrieved from the environment variable `TOGETHER_API_KEY`. |
+| base_url | str | "https://api.together.xyz/v1" | The base URL for making API requests to the Together service. |
+| monkey_patch | bool | False | Whether to apply monkey patching. |

@@ -118,33 +118,12 @@ agent.print_response("What have we been talking about, do you know my name?", st
 
 ## Attributes
 
-<ResponseField name="memory" type="AgentMemory" default="AgentMemory()">
-  Agent's memory object used for storing and retrieving information.
-</ResponseField>
-<ResponseField
-  name="add_history_to_messages"
-  type="bool"
-  default="False"
-  alias="add_chat_history_to_messages"
->
-  If true, adds the chat history to the messages sent to the Model.
-</ResponseField>
-<ResponseField name="num_history_responses" type="int" default="3">
-  Number of historical responses to add to the messages.
-</ResponseField>
-<ResponseField name="create_user_memories" type="bool" default="False">
-  If true, create and store personalized memories for the user.
-</ResponseField>
-<ResponseField name="update_user_memories_after_run" type="bool" default="True">
-  If true, update memories for the user after each run.
-</ResponseField>
-<ResponseField name="create_session_summary" type="bool" default="False">
-  If true, create and store session summaries.
-</ResponseField>
-<ResponseField
-  name="update_session_summary_after_run"
-  type="bool"
-  default="True"
->
-  If true, update session summaries after each run.
-</ResponseField>
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `memory` | `AgentMemory` | `AgentMemory()` | Agent's memory object used for storing and retrieving information. |
+| `add_history_to_messages` | `bool` | `False` | If true, adds the chat history to the messages sent to the Model. Also known as `add_chat_history_to_messages`. |
+| `num_history_responses` | `int` | `3` | Number of historical responses to add to the messages. |
+| `create_user_memories` | `bool` | `False` | If true, create and store personalized memories for the user. |
+| `update_user_memories_after_run` | `bool` | `True` | If true, update memories for the user after each run. |
+| `create_session_summary` | `bool` | `False` | If true, create and store session summaries. |
+| `update_session_summary_after_run` | `bool` | `True` | If true, update session summaries after each run. |

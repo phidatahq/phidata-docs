@@ -87,83 +87,35 @@ user_prompt += f"""Use the following information from the knowledge base if it h
 
 The Agent creates a default system message, which can be disabled by setting `use_default_system_message=False`. The default system message can be customized using:
 
-<ResponseField name="description" type="str" default="None">
-  A description of the Agent that is added to the start of the system message.
-</ResponseField>
-<ResponseField name="task" type="str" default="None">
-  Describe the task the agent should achieve.
-</ResponseField>
-<ResponseField name="instructions" type="List[str]" default="None">
-  List of instructions added to the system prompt in `<instructions>` tags. Default instructions are also created depending on values for `markdown`, `output_model` etc.
-</ResponseField>
-<ResponseField name="additional_context" type="str" default="None">
-  Additional context added to the end of the system message.
-</ResponseField>
-<ResponseField name="expected_output" type="str" default="None">
-  Provide the expected output from the Agent. This is added to the end of the system message.
-</ResponseField>
-<ResponseField name="extra_instructions" type="List[str]" default="None">
-  List of extra instructions added to the default system prompt. Use these when you want to add some extra instructions at the end of the default instructions.
-</ResponseField>
-<ResponseField name="prevent_hallucinations" type="bool" default="False">
-  If True, add instructions to return "I don't know" when the agent does not know the answer.
-</ResponseField>
-<ResponseField name="prevent_prompt_injection" type="bool" default="False">
-  If True, add instructions to prevent prompt injection attacks.
-</ResponseField>
-<ResponseField name="limit_tool_access" type="bool" default="False">
-  If True, add instructions for limiting tool access to the default system prompt if tools are provided
-</ResponseField>
-<ResponseField name="markdown" type="bool" default="False">
-  Add an instruction to format the output using markdown.
-</ResponseField>
-<ResponseField name="add_datetime_to_instructions" type="bool" default="False">
-  If True, add the current datetime to the prompt to give the agent a sense of time. This allows for relative times like "tomorrow" to be used in the prompt
-</ResponseField>
-<ResponseField name="system_prompt" type="str" default="None">
-  System prompt: provide the system prompt as a string
-</ResponseField>
-<ResponseField name="system_prompt" type="str" default="None">
-  Provide the system prompt as a string.
-</ResponseField>
-<ResponseField name="system_prompt_template" type="PromptTemplate" default="None">
-  Provide the system prompt as a PromptTemplate.
-</ResponseField>
-<ResponseField name="use_default_system_message" type="bool" default="True">
-  If True, build a default system message using agent settings and use that.
-</ResponseField>
-<ResponseField name="system_message_role" type="str" default="system">
-  Role for the system message.
-</ResponseField>
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `description` | `str` | `None` | A description of the Agent that is added to the start of the system message. |
+| `task` | `str` | `None` | Describe the task the agent should achieve. |
+| `instructions` | `List[str]` | `None` | List of instructions added to the system prompt in `<instructions>` tags. Default instructions are also created depending on values for `markdown`, `output_model` etc. |
+| `additional_context` | `str` | `None` | Additional context added to the end of the system message. |
+| `expected_output` | `str` | `None` | Provide the expected output from the Agent. This is added to the end of the system message. |
+| `extra_instructions` | `List[str]` | `None` | List of extra instructions added to the default system prompt. Use these when you want to add some extra instructions at the end of the default instructions. |
+| `prevent_hallucinations` | `bool` | `False` | If True, add instructions to return "I don't know" when the agent does not know the answer. |
+| `prevent_prompt_injection` | `bool` | `False` | If True, add instructions to prevent prompt injection attacks. |
+| `limit_tool_access` | `bool` | `False` | If True, add instructions for limiting tool access to the default system prompt if tools are provided |
+| `markdown` | `bool` | `False` | Add an instruction to format the output using markdown. |
+| `add_datetime_to_instructions` | `bool` | `False` | If True, add the current datetime to the prompt to give the agent a sense of time. This allows for relative times like "tomorrow" to be used in the prompt |
+| `system_prompt` | `str` | `None` | System prompt: provide the system prompt as a string |
+| `system_prompt_template` | `PromptTemplate` | `None` | Provide the system prompt as a PromptTemplate. |
+| `use_default_system_message` | `bool` | `True` | If True, build a default system message using agent settings and use that. |
+| `system_message_role` | `str` | `system` | Role for the system message. |
 
 ## Default user message
 
 The Agent creates a default user message, which is either the input message or a message with the `context` if `enable_rag=True`. You can disable this by setting `use_default_user_message=False`. The user message can be customized using:
 
-<ResponseField name="enable_rag" type="bool" default="False">
-  Enable RAG by adding references from the knowledge base to the prompt.
-</ResponseField>
-<ResponseField name="add_rag_instructions" type="bool" default="False">
-  If True, adds instructions for using the RAG to the system prompt (if
-  knowledge is also provided). For example: add an instruction to prefer
-  information from the knowledge base over its training data.
-</ResponseField>
-<ResponseField name="add_history_to_messages" type="bool" default="False">
-  If true, adds the chat history to the messages sent to the Model.
-</ResponseField>
-<ResponseField name="num_history_responses" type="int" default="3">
-  Number of historical responses to add to the messages.
-</ResponseField>
-<ResponseField name="user_prompt" type="Union[List, Dict, str]" default="None">
-  Provide the user prompt as a string. Note: this will ignore the message sent
-  to the run function.
-</ResponseField>
-<ResponseField name="user_prompt_template" type="PromptTemplate" default="None">
-  Provide the user prompt as a PromptTemplate.
-</ResponseField>
-<ResponseField name="use_default_user_message" type="bool" default="True">
-  If True, build a default user prompt using references and chat history.
-</ResponseField>
-<ResponseField name="user_message_role" type="str" default="user">
-  Role for the user message.
-</ResponseField>
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `enable_rag` | `bool` | `False` | Enable RAG by adding references from the knowledge base to the prompt. |
+| `add_rag_instructions` | `bool` | `False` | If True, adds instructions for using the RAG to the system prompt (if knowledge is also provided). For example: add an instruction to prefer information from the knowledge base over its training data. |
+| `add_history_to_messages` | `bool` | `False` | If true, adds the chat history to the messages sent to the Model. |
+| `num_history_responses` | `int` | `3` | Number of historical responses to add to the messages. |
+| `user_prompt` | `Union[List, Dict, str]` | `None` | Provide the user prompt as a string. Note: this will ignore the message sent to the run function. |
+| `user_prompt_template` | `PromptTemplate` | `None` | Provide the user prompt as a PromptTemplate. |
+| `use_default_user_message` | `bool` | `True` | If True, build a default user prompt using references and chat history. |
+| `user_message_role` | `str` | `user` | Role for the user message. |

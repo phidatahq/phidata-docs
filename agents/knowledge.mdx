@@ -225,30 +225,10 @@ Set `search_knowledge=True` and `read_chat_history=True`, giving the Agent tools
 
 ## Attributes
 
-<ResponseField
-  name="knowledge"
-  type="AgentKnowledge"
-  default="None"
-  alias="knowledge_base"
->
-  Provides the knowledge base used by the agent.
-</ResponseField>
-<ResponseField name="enable_rag" type="bool" default="False">
-  Enable RAG by adding references from AgentKnowledge to the user prompt.
-</ResponseField>
-<ResponseField
-  name="retriever"
-  type="Callable[..., Optional[list[dict]]]"
-  default="None"
->
-  Function to get context to add to the user message. This function is called
-  when enable_rag is True.
-</ResponseField>
-<ResponseField name="rag_format" type="Literal['json', 'yaml']" default="json">
-  Specifies the format for RAG, either "json" or "yaml".
-</ResponseField>
-<ResponseField name="add_rag_instructions" type="bool" default="False">
-  If True, adds instructions for using the RAG to the system prompt (if
-  knowledge is also provided). For example: add an instruction to prefer
-  information from the knowledge base over its training data.
-</ResponseField>
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `knowledge` | `AgentKnowledge` | `None` | Provides the knowledge base used by the agent. |
+| `enable_rag` | `bool` | `False` | Enable RAG by adding references from AgentKnowledge to the user prompt. |
+| `retriever` | `Callable[..., Optional[list[dict]]]` | `None` | Function to get context to add to the user message. This function is called when enable_rag is True. |
+| `rag_format` | `Literal['json', 'yaml']` | `json` | Specifies the format for RAG, either "json" or "yaml". |
+| `add_rag_instructions` | `bool` | `False` | If True, adds instructions for using the RAG to the system prompt (if knowledge is also provided). For example: add an instruction to prefer information from the knowledge base over its training data. |

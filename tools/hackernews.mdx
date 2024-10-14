@@ -28,22 +28,14 @@ hn_agent.print_response(
 
 ## Toolkit Params
 
-<ResponseField name="get_top_stories" type="bool" default="True">
-  Enables fetching top stories. The default value is True.
-</ResponseField>
-<ResponseField name="get_user_details" type="bool" default="True">
-  Enables fetching user details. The default value is True.
-</ResponseField>
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `get_top_stories` | `bool` | `True` | Enables fetching top stories. |
+| `get_user_details` | `bool` | `True` | Enables fetching user details. |
 
 ## Toolkit Functions
 
-<ResponseField name="get_top_hackernews_stories">
-  Retrieves the top stories from Hacker News. Parameters include 'num_stories'
-  to specify the number of stories to return (default is 10). Returns the top
-  stories in JSON format.
-</ResponseField>
-<ResponseField name="get_user_details">
-  Retrieves the details of a Hacker News user by their username. Parameters
-  include 'username' to specify the user. Returns the user details in JSON
-  format.
-</ResponseField>
+| Function | Description |
+|----------|-------------|
+| `get_top_hackernews_stories` | Retrieves the top stories from Hacker News. Parameters include `num_stories` to specify the number of stories to return (default is 10). Returns the top stories in JSON format. |
+| `get_user_details` | Retrieves the details of a Hacker News user by their username. Parameters include `username` to specify the user. Returns the user details in JSON format. |

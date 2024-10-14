@@ -24,21 +24,11 @@ agent = Agent(storage=storage)
 
 ## Params
 
-<ResponseField name="table_name" type="str">
-  Name of the table to be used.
-</ResponseField>
-<ResponseField name="schema" type="Optional[str]" default="ai">
-  Schema name, default is "ai".
-</ResponseField>
-<ResponseField name="db_url" type="Optional[str]" default="None">
-  Database URL, if provided.
-</ResponseField>
-<ResponseField name="db_engine" type="Optional[Engine]" default="None">
-  Database engine to be used.
-</ResponseField>
-<ResponseField name="schema_version" type="int" default="1">
-  Version of the schema, default is 1.
-</ResponseField>
-<ResponseField name="auto_upgrade_schema" type="bool" default="False">
-  If true, automatically upgrades the schema when necessary.
-</ResponseField>
+| Parameter | Type | Default | Description |
+| --- | --- | --- | --- |
+| `table_name` | `str` | - | Name of the table to be used. |
+| `schema` | `Optional[str]` | `"ai"` | Schema name, default is "ai". |
+| `db_url` | `Optional[str]` | `None` | Database URL, if provided. |
+| `db_engine` | `Optional[Engine]` | `None` | Database engine to be used. |
+| `schema_version` | `int` | `1` | Version of the schema, default is 1. |
+| `auto_upgrade_schema` | `bool` | `False` | If true, automatically upgrades the schema when necessary. |

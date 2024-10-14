@@ -18,18 +18,13 @@ agent.print_response("Search web page: 'https://docs.phidata.com/introduction'",
 
 ## Toolkit Params
 
-<ResponseField name="knowledge_base" type="WebsiteKnowledgeBase">
-  The knowledge base associated with the website, containing various data and
-  resources linked to the website's content.
-</ResponseField>
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `knowledge_base` | `WebsiteKnowledgeBase` | - | The knowledge base associated with the website, containing various data and resources linked to the website's content. |
 
 ## Toolkit Functions
 
-<ResponseField name="add_website_to_knowledge_base">
-  This function adds a websites content to the knowledge base. NOTE: The website
-  must start with https:// and should be a valid website. Use this function to
-  get information about products from the internet
-</ResponseField>
-<ResponseField name="read_url">
-  This function reads a URL and returns the contents.
-</ResponseField>
+| Function | Description |
+|----------|-------------|
+| `add_website_to_knowledge_base` | This function adds a website's content to the knowledge base. **NOTE:** The website must start with `https://` and should be a valid website. Use this function to get information about products from the internet. |
+| `read_url` | This function reads a URL and returns the contents. |
