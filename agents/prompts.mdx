@@ -2,7 +2,9 @@
 title: Prompts
 ---
 
-Under the hood an Agent will convert its `description` and `instructions` into the **system** prompt and send the input message as the **user** prompt. Understanding how these prompts are created will help you build better Agents.
+We prompt Agents using `description` and `instructions` and a number of other settings. These settings are used to build the **system** prompt that is sent to the language model.
+
+Understanding how these prompts are created will help you build better Agents.
 
 <Note>
   This is merely a formatting benefit, we do not alter or abstract any
@@ -11,7 +13,7 @@ Under the hood an Agent will convert its `description` and `instructions` into t
 
 ## System message
 
-The system message is created using `description`, `instructions` and a number of other settings. The `description` is added to the start of the system message and `instructions` are added as a numbered list inside `<instructions></instructions>` tags. For example:
+The system message is created using `description`, `instructions` and a number of other settings. The `description` is added to the start of the system message and `instructions` are added as a list after `## Instructions`. For example:
 
 ```python instructions.py
 from phi.agent import Agent
@@ -25,21 +27,33 @@ agent = Agent(
 agent.print_response("Tell me a 2 sentence horror story.", stream=True)
 ```
 
-Will translate to:
+Will translate to (set `debug_mode=True` to view the logs):
 
 ```js
 DEBUG    ============== system ==============
 DEBUG    You are a famous short story writer asked to write for a magazine
-         You must follow these instructions carefully:
-         <instructions>
-         1. You are a pilot on a plane flying from Hawaii to Japan.
-         2. Use markdown to format your answers.
-         </instructions>
+
+         ## Instructions
+
+         - You are a pilot on a plane flying from Hawaii to Japan.
+         - Use markdown to format your answers.
 DEBUG    ============== user ==============
 DEBUG    Tell me a 2 sentence horror story.
-DEBUG    Time to first token: 0.4431s
-DEBUG    Time per output token: 0.0147s
-DEBUG    Throughput: 68.1266 tokens/s
+DEBUG    ============== assistant ==============
+DEBUG    As the autopilot disengaged inexplicably mid-flight over the Pacific, the pilot glanced at the copilot's seat
+         only to find it empty despite his every recall of a full crew boarding. Hands trembling, he looked into the
+         cockpit's rearview mirror and found his own reflection grinning back with blood-red eyes, whispering,
+         "There's no escape, not at 30,000 feet."
+DEBUG    **************** METRICS START ****************
+DEBUG    * Time to first token:         0.4518s
+DEBUG    * Time to generate response:   1.2594s
+DEBUG    * Tokens per second:           63.5243 tokens/s
+DEBUG    * Input tokens:                59
+DEBUG    * Output tokens:               80
+DEBUG    * Total tokens:                139
+DEBUG    * Prompt tokens details:       {'cached_tokens': 0}
+DEBUG    * Completion tokens details:   {'reasoning_tokens': 0}
+DEBUG    **************** METRICS END ******************
 ```
 
 ## Set the system message directly
@@ -55,25 +69,23 @@ agent.print_response("Love in the year 12000.")
 
 ## User message
 
-In most cases, the user message is simply the input `message` sent to the Agent.
+The input `message` sent to the `Agent.run()` or `Agent.print_response()` functions is used as the user message.
 
-If `knowledge` is provided and `enable_rag=True`, the user message is updated to include:
+### User message with RAG
+
+If the Agent is provided `knowledge`, and the `enable_rag=True`, the user message is set to:
 
 ```python
 user_prompt += f"""Use the following information from the knowledge base if it helps:"
-<knowledge>
+
+## Context
 {context}
-</knowledge>
 """
 ```
 
 ## Default system message
 
-By default, an Agent will create a default system message. You can disable this by setting `use_default_system_message=False`.
-
-## Customize the system message
-
-The system message can be customized using:
+The Agent creates a default system message, which can be disabled by setting `use_default_system_message=False`. The default system message can be customized using:
 
 <ResponseField name="description" type="str" default="None">
   A description of the Agent that is added to the start of the system message.
@@ -126,11 +138,7 @@ The system message can be customized using:
 
 ## Default user message
 
-By default, an Agent will create a default user message, which is either the input message or a message with the `context` if `enable_rag=True`. You can disable this by setting `use_default_user_message=False`.
-
-## Customize the user message
-
-The user message can be customized using:
+The Agent creates a default user message, which is either the input message or a message with the `context` if `enable_rag=True`. You can disable this by setting `use_default_user_message=False`. The user message can be customized using:
 
 <ResponseField name="enable_rag" type="bool" default="False">
   Enable RAG by adding references from the knowledge base to the prompt.

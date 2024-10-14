@@ -2,9 +2,9 @@
 title: Storage
 ---
 
-Agents come with built-in memory but it only lasts while the session is active. To continue conversations across sessions, we store Agent sessions in a database like PostgreSQL.
+**Agents use storage to persist sessions across multiple runs by storing them in a database.**.
 
-Storage is a necessary component when building user facing AI products as any production application will require users to be able to "continue" their conversation with the Agent.
+Agents come with built-in memory but it only lasts while the session is active. To continue conversations across sessions, we store Agent sessions in a database like PostgreSQL.
 
 The general syntax for adding storage to an Agent looks like:
 
@@ -51,50 +51,50 @@ agent.print_response("Which country are we speaking about?")
 
     ```python
     import typer
-    from rich.prompt import Prompt
     from typing import Optional, List
     from phi.agent import Agent
     from phi.storage.agent.postgres import PgAgentStorage
     from phi.knowledge.pdf import PDFUrlKnowledgeBase
-    from phi.vectordb.pgvector import PgVector
+    from phi.vectordb.pgvector import PgVector, SearchType
 
     db_url = "postgresql+psycopg://ai:ai@localhost:5532/ai"
-
     knowledge_base = PDFUrlKnowledgeBase(
         urls=["https://phi-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"],
-        vector_db=PgVector(table_name="recipes", db_url=db_url),
+        vector_db=PgVector(table_name="recipes", db_url=db_url, search_type=SearchType.hybrid),
     )
-    # Comment out after first run
-    knowledge_base.load()
-
+    # Load the knowledge base: Comment after first run
+    knowledge_base.load(upsert=True)
     storage = PgAgentStorage(table_name="pdf_agent", db_url=db_url)
 
-
     def pdf_agent(new: bool = False, user: str = "user"):
-        run_id: Optional[str] = None
+        session_id: Optional[str] = None
 
         if not new:
-            existing_run_ids: List[str] = storage.get_all_run_ids(user)
-            if len(existing_run_ids) > 0:
-                run_id = existing_run_ids[0]
+            existing_sessions: List[str] = storage.get_all_session_ids(user)
+            if len(existing_sessions) > 0:
+                session_id = existing_sessions[0]
 
         agent = Agent(
-            run_id=run_id,
+            session_id=session_id,
             user_id=user,
-            knowledge_base=knowledge_base,
+            knowledge=knowledge_base,
             storage=storage,
             # Show tool calls in the response
             show_tool_calls=True,
-            # Enable the agent to search the knowledge base
-            search_knowledge=True,
             # Enable the agent to read the chat history
             read_chat_history=True,
+            # We can also automatically add the chat history to the messages sent to the model
+            # But giving the model the chat history is not always useful, so we give it a tool instead
+            # to only use when needed.
+            # add_history_to_messages=True,
+            # Number of historical responses to add to the messages.
+            # num_history_responses=3,
         )
-        if run_id is None:
-            run_id = agent.run_id
-            print(f"Started Run: {run_id}\n")
+        if session_id is None:
+            session_id = agent.session_id
+            print(f"Started Session: {session_id}\n")
         else:
-            print(f"Continuing Run: {run_id}\n")
+            print(f"Continuing Session: {session_id}\n")
 
         # Runs the agent as a cli app
         agent.cli_app(markdown=True)

@@ -2,7 +2,7 @@
 title: Structured Output
 ---
 
-One of our favorite features is using Agents to generate structured data (i.e. a pydantic model). Use this feature to extract features, generate movie scripts, produce fake data etc. The best part is that they work with function calls, knowledge bases and all other features.
+One of our favorite features is using Agents to generate structured data (i.e. a pydantic model). Use this feature to extract features, classify data, produce fake data etc. The best part is that they work with function calls, knowledge bases and all other features.
 
 ## Example
 
@@ -33,7 +33,6 @@ json_mode_agent = Agent(
     description="You write movie scripts.",
     response_model=MovieScript,
 )
-
 # Agent that uses structured outputs
 structured_output_agent = Agent(
     model=OpenAIChat(id="gpt-4o-2024-08-06"),

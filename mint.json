@@ -62,8 +62,8 @@
   ],
   "navigation": [
     {
-      "group": "Getting Started",
-      "pages": ["quickstart"]
+      "group": "Getting started",
+      "pages": ["quickstart", "playground", "templates"]
     },
     {
       "group": "Documentation",
@@ -211,20 +211,19 @@
           ]
         },
         {
-          "group": "Agent Teams",
+          "group": "Models",
           "pages": [
-            "examples/teams/research",
-            "examples/teams/journalist",
-            "examples/teams/investment",
-            "examples/teams/hackernews"
-          ]
-        },
-        {
-          "group": "Use Cases",
-          "pages": [
-            "examples/use-case/sql",
-            "examples/use-case/worldbuilding",
-            "examples/use-case/arxiv-research"
+            "examples/provider/openai",
+            "examples/provider/azure",
+            "examples/provider/claude",
+            "examples/provider/cohere",
+            "examples/provider/fireworks",
+            "examples/provider/gemini",
+            "examples/provider/groq",
+            "examples/provider/hermes2",
+            "examples/provider/mistral",
+            "examples/provider/ollama",
+            "examples/provider/together"
           ]
         },
         {
@@ -239,19 +238,20 @@
           ]
         },
         {
-          "group": "Model Providers",
+          "group": "Agent Teams",
           "pages": [
-            "examples/provider/openai",
-            "examples/provider/azure",
-            "examples/provider/claude",
-            "examples/provider/cohere",
-            "examples/provider/fireworks",
-            "examples/provider/gemini",
-            "examples/provider/groq",
-            "examples/provider/hermes2",
-            "examples/provider/mistral",
-            "examples/provider/ollama",
-            "examples/provider/together"
+            "examples/teams/research",
+            "examples/teams/journalist",
+            "examples/teams/investment",
+            "examples/teams/hackernews"
+          ]
+        },
+        {
+          "group": "Use Cases",
+          "pages": [
+            "examples/use-case/sql",
+            "examples/use-case/worldbuilding",
+            "examples/use-case/arxiv-research"
           ]
         }
       ]
@@ -277,10 +277,6 @@
             "templates/agent-api/run-local",
             "templates/agent-api/run-aws"
           ]
-        },
-        {
-          "group": "LLM OS",
-          "pages": ["templates/llm-os/run-local", "templates/llm-os/run-aws"]
         },
         {
           "group": "Streamlit App",

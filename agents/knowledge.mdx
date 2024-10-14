@@ -2,7 +2,9 @@
 title: Knowledge
 ---
 
-A **knowledge base** is a database of information that an agent can search to improve its responses. This information is stored in a vector database and provides agents with business context, helping them respond in a context-aware manner. The general syntax is:
+**Agents use knowledge to supplement their training data with domain expertise**.
+
+Knowledge is stored in a vector database and provides agents with business context at query time, helping them respond in a context-aware manner. The general syntax is:
 
 ```python
 from phi.agent import Agent, AgentKnowledge
@@ -59,9 +61,9 @@ docker run -d \
   phidata/pgvector:16
 ```
 
-### Step 2: Basic RAG
+### Step 2: Traditional RAG
 
-Retrieval Augmented Generation means **"stuffing the prompt with relevant information"** to improve the model's response. This is a 2 step process:
+Retrieval Augmented Generation (RAG) means **"stuffing the prompt with relevant information"** to improve the model's response. This is a 2 step process:
 
 1. Retrieve relevant information from the knowledge base.
 2. Augment the prompt to provide context to the model.
@@ -101,13 +103,16 @@ Let's build a **Basic RAG Agent** that answers questions from a PDF of recipes.
         # Store embeddings in the `ai.recipes` table
         vector_db=PgVector(table_name="recipes", db_url=db_url, search_type=SearchType.hybrid),
     )
-    # Load the knowledge base: Comment out after first run
+    # Load the knowledge base: Comment after first run
     knowledge_base.load(upsert=True)
 
     agent = Agent(
         model=OpenAIChat(id="gpt-4o"),
         knowledge=knowledge_base,
+        # Enable RAG by adding references from AgentKnowledge to the user prompt.
         enable_rag=True,
+        # Set as False because Agents default to `search_knowledge=True`
+        search_knowledge=False,
         markdown=True,
         # debug_mode=True,
     )
@@ -218,7 +223,7 @@ Set `search_knowledge=True` and `read_chat_history=True`, giving the Agent tools
   </Step>
 </Steps>
 
-## Params
+## Attributes
 
 <ResponseField
   name="knowledge"

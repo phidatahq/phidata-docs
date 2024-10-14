@@ -2,28 +2,33 @@
 title: Introduction
 ---
 
-We use phidata to build AI Agents that can be served using **Streamlit**, **FastApi** or **Django**. This process requires setting up infrastructure like database, containers and networking.
+To run agents in production, we need to serve them using an application like **FastApi**, **Django** or **Streamlit** and store their sessions, memory and knowlege in a database. Phidata not only makes building Agents easy, but also manages the infrastructure required to run them at scale.
 
-To simplify this process, phidata provides pre-built templates that you can run locally using docker or deploy to AWS. Here's how they work:
+Phidata provides pre-built templates that come with all the infrastructure you need to run agents at scale (database, containers, loadbalancer, etc), in your own cloud.
+
+You can run the templates locally using docker or deploy to AWS. Here's how they work:
 
 - Create your codebase using a template: `phi ws create`
 - Run your app locally: `phi ws up`
 - Run your app on AWS: `phi ws up prd:aws`
 
-## Available Templates
+<Note>
+We strongly believe that data used by AI applications should be stored securely in your own cloud, inside your VPC. Therefore fully support BYOC (Bring Your Own Cloud).
+</Note>
+
+## Templates
+
+We recommend using the `agent-app` template for starting with a simple app that you can extend with your own agents.
 
 <CardGroup cols={2}>
-  <Card title="LLM OS" icon="rocket" href="/templates/llm-os/run-local">
-    The LLM OS built using FastApi, Streamlit and PgVector
+  <Card title="Agent App" icon="books" href="/templates/agent-app/run-local">
+    Serve agents using FastApi, Streamlit and store memory and knowlege in Postgres
   </Card>
-  <Card title="AI App" icon="books" href="/templates/ai-app/run-local">
-    An AI App built using FastApi, Streamlit and PgVector
-  </Card>
-  <Card title="AI Api" icon="bolt" href="/templates/ai-api/run-local">
-    An AI Api built using FastApi and PostgreSQL
+  <Card title="Agent Api" icon="bolt" href="/templates/agent-api/run-local">
+    Serve agents using FastApi and store memory and knowlege in Postgres
   </Card>
   <Card title="Streamlit App" icon="ghost" href="/templates/streamlit-app/run-local">
-    Web App built using Streamlit and PostgreSQL
+    Serve agents using Streamlit and store memory and knowlege in Postgres
   </Card>
   <Card title="Django App" icon="globe" href="/templates/django-app/run-local">
     Full-stack web app built using Django and PostgreSQL

@@ -2,9 +2,9 @@
 title: Tools
 ---
 
-Tools are **functions** that an Agent can run like searching the web, running SQL, sending an email or calling APIs. Use tools integrate Agents with external systems.
+**Agents use tools to take actions and interact with external systems**.
 
-You can use any python function as a tool or use a pre-built **toolkit**. The general syntax is:
+Tools are functions that an Agent can run to achieve tasks. For example: searching the web, running SQL, sending an email or calling APIs. You can use any python function as a tool or use a pre-built **toolkit**. The general syntax is:
 
 ```python
 from phi.agent import Agent
@@ -96,9 +96,9 @@ Read more about:
 - [Available toolkits](/tools/toolkits)
 - [Using functions as tools](/tools/functions)
 
-## Params
+## Attributes
 
-The following fields allow an `Agent` to use tools
+The following attributes allow an `Agent` to use tools
 
 <ResponseField name="tools" type="List[Union[Tool, Toolkit, Callable, Dict, Function]">
  A list of tools provided to the Model. Tools are fuctions the model may generate JSON inputs for.

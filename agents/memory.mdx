@@ -2,16 +2,19 @@
 title: Memory
 ---
 
-Every Agent comes with built-in memory that can be used to access the **Chat history** or the **Run messages**. Access the agent memory using `agent.memory`
+**Agents use memory to store chat history, user preferences and conversation summaries**.
+
+## Built-in Memory
+
+Every Agent comes with built-in memory that can be used to access the **chat history** and **run messages**, but this only lasts while the session is active. Access it using `agent.memory`
 
 - **Chat History:** The messages between the User and Agent.
 - **Run Messages:** The full list of messages sent to the model, including system prompt, tool calls etc.
 
-## Example
+### Example
 
 ```python agent_memory.py
 from rich.pretty import pprint
-
 from phi.agent import Agent, AgentMemory
 from phi.tools.yfinance import YFinanceTools
 
@@ -23,22 +26,97 @@ agent.print_response("What is the price of AAPL?", stream=True)
 # -*- Get the memory
 memory: AgentMemory = agent.memory
 
-# -*- Print Chat History
-print("============ Chat History ============")
-pprint(memory.chat_history)
+# -*- Print Chats
+print("============ Chats ============")
+pprint(memory.chats)
 
-# -*- Print Run Messages
-print("============ Run Messages ============")
-pprint(memory.run_messages)
+# -*- Print messages
+print("============ Messages ============")
+pprint(memory.messages)
 ```
 
-<Warning>
+## Persistent Memory
 
-AgentMemory only lasts while the session is active. To provide memory across sessions, add `Storage` to the `Agent`.
+Built-in memory only lasts while the session is active. To persist memory across sessions, we store Agent sessions in a database like PostgreSQL using `AgentStorage`.
 
-</Warning>
+Storage is a necessary component when building user facing AI products as any production application will require users to be able to "continue" their conversation with the Agent.
 
-## Params
+The general syntax for adding storage to an Agent looks like:
+
+```python
+from phi.agent import Agent
+from phi.model.openai import OpenAIChat
+from phi.storage.agent.postgres import PgAgentStorage
+
+agent = Agent(
+    model=OpenAIChat(id="gpt-4o"),
+    storage=PgAgentStorage(table_name="agent_sessions", db_url="postgresql+psycopg://ai:ai@localhost:5532/ai"),
+    # This will automatically add the chat history to the messages sent to the model
+    add_history_to_messages=True,
+    # Number of historical responses to add to the messages.
+    num_history_responses=3,
+)
+```
+
+Read more in the [storage](/agents/storage) section.
+
+## User preferences and conversation summaries
+
+Along with storing chat history and run messages, `AgentMemory` can be extended to automatically classify and store user preferences and conversation summaries.
+
+To do this, add a `db` to `AgentMemory` and set `create_user_memories=True` and `create_session_summary=True`
+
+User memories are stored in the `AgentMemory.db` whereas session summaries are stored in the `AgentStorage` table with the rest of the session information.
+
+## Example
+
+```python personalized_memories_and_summaries.py
+from rich.pretty import pprint
+
+from phi.agent import Agent, AgentMemory
+from phi.model.openai import OpenAIChat
+from phi.memory.db.postgres import PgMemoryDb
+from phi.storage.agent.postgres import PgAgentStorage
+
+db_url = "postgresql+psycopg://ai:ai@localhost:5532/ai"
+agent = Agent(
+    model=OpenAIChat(id="gpt-4o"),
+    # Store the memories and summary in a database
+    memory=AgentMemory(
+        db=PgMemoryDb(table_name="agent_memory", db_url=db_url), create_user_memories=True, create_session_summary=True
+    ),
+    # Store agent sessions in a database
+    storage=PgAgentStorage(table_name="personalized_agent_sessions", db_url=db_url),
+    # Show debug logs so you can see the memory being created
+    # debug_mode=True,
+)
+
+# -*- Share personal information
+agent.print_response("My name is john billings?", stream=True)
+# -*- Print memories
+pprint(agent.memory.memories)
+# -*- Print summary
+pprint(agent.memory.summary)
+
+# -*- Share personal information
+agent.print_response("I live in nyc?", stream=True)
+# -*- Print memories
+pprint(agent.memory.memories)
+# -*- Print summary
+pprint(agent.memory.summary)
+
+# -*- Share personal information
+agent.print_response("I'm going to a concert tomorrow?", stream=True)
+# -*- Print memories
+pprint(agent.memory.memories)
+# -*- Print summary
+pprint(agent.memory.summary)
+
+# Ask about the conversation
+agent.print_response("What have we been talking about, do you know my name?", stream=True)
+```
+
+## Attributes
 
 <ResponseField name="memory" type="AgentMemory" default="AgentMemory()">
   Agent's memory object used for storing and retrieving information.

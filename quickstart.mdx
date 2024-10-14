@@ -1,12 +1,12 @@
 ---
 title: Quickstart
-description: Phidata is a framework for building agentic systems.
 ---
 
-Engineers use phidata to:
+**Phidata is a framework for building agentic systems**, use phidata to:
+
 - **Build powerful AI Agents with memory, knowledge, tools and reasoning.** Phidata will manage the agent's state, memory and knowledge in a database.
 - **Run those agents as a software application (with a database, vectordb and api).** Phidata will manage your infrastructure, both local and cloud (BYOC).
-- **Monitor, evaluate and optimize your agents and application.** Phidata will monitor your sessions and metrics to help you understand and improve your agentic system.
+- **Monitor, evaluate and optimize your agents and application.** Phidata will log your sessions and metrics to help you understand and improve your agentic system.
 
 Let's start by building some agents.
 
@@ -156,7 +156,9 @@ If using tools with `reasoning=True`, set `structured_outputs=False` because gpt
 
 ## RAG Agent
 
-Let's create an agent that can search its knowledge base and answer questions. Instead of always inserting the "context" into the prompt, this agent searches the vector database for what it needs, when it needs. This saves tokens and improves response quality.
+Instead of always inserting the "context" into the prompt, the RAG Agent can search its knowledge base (vector db) for the specific information it needs to achieve its task.
+
+This saves tokens and improves response quality.
 
 <Steps>
   <Step title="Create an agent with a knowledge base">
@@ -209,7 +211,9 @@ Let's create an agent that can search its knowledge base and answer questions. I
 
 ## Structured Outputs
 
-Structured outputs allow you to enforce the structure of the output from an agent. The agent will return a pydantic object.
+Use structured outputs to enforce the structure of the output from an agent.
+
+The agent will return a pydantic object.
 
 <Steps>
   <Step title="Create an agent that returns structured output">
@@ -298,7 +302,7 @@ A team of agents can work together to solve complex problems. Here's a simple ex
         team=[hn_researcher, web_searcher, article_reader],
         instructions=[
             "First, search hackernews for what the user is asking about.",
-            "Next, ask the article reader to read the links for the stories to get more information.",
+            "Then, ask the article reader to read the links for the stories to get more information.",
             "Important: you must provide the article reader with the links to read.",
             "Then, ask the web searcher to search for each story to get more information.",
             "Finally, provide a thoughtful and engaging summary.",
@@ -328,7 +332,7 @@ A team of agents can work together to solve complex problems. Here's a simple ex
 
 ## Ready to build?
 
-You can either start by building your own agents or use one of our templates to build a full-stack agentic system.
+Start by building your own agents or use a template to build a full-stack agentic system.
 
 <CardGroup cols={1}>
   <Card title="Agents" icon="user-astronaut" iconType="duotone" href="/agents/introduction">

@@ -2,7 +2,7 @@
 title: Introduction
 ---
 
-Language Models are machine-learning programs that are trained to understand natural language and code. They are quickly emerging as the building block of a new computing paradigm.
+Language Models are machine-learning programs that are trained to understand natural language and code. They provide reasoning and planning capabilities to Agents.
 
 Use any `model` with an Agent like:
 
@@ -11,7 +11,7 @@ from phi.agent import Agent
 from phi.model.openai import OpenAIChat
 
 agent = Agent(
-    model=OpenAIChat(id="gpt-4-turbo"),
+    model=OpenAIChat(id="gpt-4o"),
     description="Share 15 minute healthy recipes.",
     markdown=True,
 )
