@@ -4,6 +4,28 @@ title: SQL
 
 **SQLTools** enable an Agent to run SQL queries and interact with databases.
 
+## Prerequisites
+
+The following example requires the `sqlalchemy` library and a database URL.
+
+```shell
+pip install -U sqlalchemy
+```
+
+You will also need a database. The following example uses a Postgres database running in a Docker container.
+
+```shell
+ docker run -d \
+  -e POSTGRES_DB=ai \
+  -e POSTGRES_USER=ai \
+  -e POSTGRES_PASSWORD=ai \
+  -e PGDATA=/var/lib/postgresql/data/pgdata \
+  -v pgvolume:/var/lib/postgresql/data \
+  -p 5532:5432 \
+  --name pgvector \
+  phidata/pgvector:16
+```
+
 ## Example
 
 The following agent will run a SQL query to list all tables in the database and describe the contents of one of the tables.
@@ -14,13 +36,7 @@ from phi.tools.sql import SQLTools
 
 db_url = "postgresql+psycopg://ai:ai@localhost:5532/ai"
 
-agent = Agent(
-    tools=[SQLTools(
-        db_url=db_url,
-    )],
-    show_tool_calls=True,
-)
-
+agent = Agent(tools=[SQLTools(db_url=db_url)])
 agent.print_response("List the tables in the database. Tell me about contents of one of the tables", markdown=True)
 ```
 

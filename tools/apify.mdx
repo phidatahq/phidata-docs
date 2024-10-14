@@ -2,11 +2,23 @@
 title: Apify
 ---
 
-**ApifyTools** enable an Agent to access the Apify API.
+**ApifyTools** enable an Agent to access the Apify API and run actors.
+
+## Prerequisites
+
+The following example requires the `apify-client` library and an API token which can be obtained from [Apify](https://apify.com/).
+
+```shell
+pip install -U apify-client
+```
+
+```shell
+export MY_APIFY_TOKEN=***
+```
 
 ## Example
 
-The following agent will use Apify to crawl the webpage: "https://docs.phidata.com/introduction" and summarize it.
+The following agent will use Apify to crawl the webpage: https://docs.phidata.com/introduction and summarize it.
 
 ```python cookbook/tools/apify_tools.py
 from phi.agent import Agent
