@@ -1,5 +1,43 @@
 ---
-title: Monitoring
+title: Monitoring Agents
 ---
 
-These docs are under construction, please check back soon!
+Phidata comes with monitoring built in. You can manually set `monitoring=True` on any agent or set `PHI_MONITORING=true` in your environment.
+
+<Note>
+Run `phi auth` first to authenticate your local account.
+</Note>
+
+<Steps>
+  <Step title="Create an agent to test monitoring">
+
+    ```python monitoring_test.py
+    from phi.agent import Agent
+
+    agent = Agent(markdown=True, monitoring=True)
+    agent.print_response("Share a 2 sentence horror story")
+    ```
+  </Step>
+  <Step title="Create an agent to test monitoring">
+
+    ```python monitoring_test.py
+    from phi.agent import Agent
+
+    agent = Agent(markdown=True, monitoring=True)
+    agent.print_response("Share a 2 sentence horror story")
+    ```
+  </Step>
+</Steps>
+
+Run the agent and monitor the results on [phidata.app/sessions](https://www.phidata.app/sessions)
+
+```shell
+# You can also set the environment variable
+# export PHI_MONITORING=true
+
+python agent_monitor.py
+```
+
+View the agent session on [phidata.app/sessions](https://www.phidata.app/sessions)
+
+![Agent Session](https://github.com/user-attachments/assets/45f3e460-9538-4b1f-96ba-bd46af3c89a8)

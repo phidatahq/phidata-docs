@@ -62,8 +62,8 @@
   ],
   "navigation": [
     {
-      "group": "Getting started",
-      "pages": ["quickstart", "playground", "monitoring", "templates"]
+      "group": "Quickstart",
+      "pages": ["agents", "ui", "monitoring", "templates"]
     },
     {
       "group": "Documentation",

@@ -1,0 +1,95 @@
+---
+title: Agent UI
+---
+
+Phidata gives you a UI for interacting with your agents.
+
+<Note>
+When using the UI, phidata does not store any data, all data is stored locally on your machine.
+</Note>
+
+<img
+  height="200"
+  src="/images/agent_playground.png"
+  style={{ borderRadius: '8px' }}
+/>
+
+Let's take it for a spin, create a file `playground.py`
+
+```python playground.py
+from phi.agent import Agent
+from phi.model.openai import OpenAIChat
+from phi.storage.agent.sqlite import SqlAgentStorage
+from phi.tools.duckduckgo import DuckDuckGo
+from phi.tools.yfinance import YFinanceTools
+from phi.playground import Playground, serve_playground_app
+
+web_agent = Agent(
+    name="Web Agent",
+    role="Search the web for information",
+    model=OpenAIChat(id="gpt-4o"),
+    tools=[DuckDuckGo()],
+    storage=SqlAgentStorage(table_name="web_agent", db_file="agents.db"),
+    add_history_to_messages=True,
+    markdown=True,
+)
+
+finance_agent = Agent(
+    name="Finance Agent",
+    role="Get financial data",
+    model=OpenAIChat(id="gpt-4o"),
+    tools=[YFinanceTools(stock_price=True, analyst_recommendations=True, company_info=True, company_news=True)],
+    instructions=["Always use tables to display data"],
+    storage=SqlAgentStorage(table_name="finance_agent", db_file="agents.db"),
+    add_history_to_messages=True,
+    markdown=True,
+)
+
+app = Playground(agents=[finance_agent, web_agent]).get_app()
+
+if __name__ == "__main__":
+    serve_playground_app("playground:app", reload=True)
+```
+
+### Authenticate with phidata
+
+```shell
+phi auth
+```
+
+### Run the playground
+
+- Install dependencies
+
+```shell
+pip install 'fastapi[standard]' sqlalchemy
+```
+
+- Run the playground
+
+```shell
+python playground.py
+```
+
+### View the playground
+
+- Open your link provided or navigate to `http://phidata.app/playground`
+- Select your endpoint, agent and chat with your agents!
+
+<video
+  autoPlay
+  muted
+  controls
+  className="w-full aspect-video"
+  src="/images/AgentPlayground.mp4"
+></video>
+
+## Demo Agents
+
+The Agent Playground includes a few demo agents that you can test with. If you have recommendations for other demo agents, please let us know by creating a post on our [community forum](https://community.phidata.com/).
+
+<img
+  height="200"
+  src="/images/demo_agents.png"
+  style={{ borderRadius: '8px' }}
+/>
