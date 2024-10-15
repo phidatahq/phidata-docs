@@ -4,14 +4,15 @@ title: Prompts
 
 We prompt Agents using `description` and `instructions` and a number of other settings. These settings are used to build the **system** prompt that is sent to the language model.
 
-Understanding how these prompts are created will help you build better Agents. The 2 key elements are:
+Understanding how these prompts are created will help you build better Agents.
+
+The 2 key elements are:
 
 1. **Description**: A description that guides the overall behaviour of the agent.
-2. **Instructions**: A list of precise, task-specific directions that will help the agent achieve the goal.
+2. **Instructions**: A list of precise, task-specific instructions on how to achieve its goal.
 
 <Note>
-  This is merely a formatting benefit, we do not alter or abstract any
-  information.
+  Description and instructions only provide a formatting benefit, we do not alter or abstract any information and you can always use `system_prompt` to provide your own system prompt.
 </Note>
 
 ## System message
@@ -37,7 +38,6 @@ DEBUG    ============== system ==============
 DEBUG    You are a famous short story writer asked to write for a magazine
 
          ## Instructions
-
          - You are a pilot on a plane flying from Hawaii to Japan.
          - Use markdown to format your answers.
 DEBUG    ============== user ==============

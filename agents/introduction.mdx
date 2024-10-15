@@ -1,5 +1,5 @@
 ---
-title: What are Agents?
+title: Agents
 description: Agents are intelligent programs that can achieve complex tasks by taking actions. Use them to automate repeatable workflows and build new user experiences.
 sidebarTitle: Introduction
 ---
@@ -19,7 +19,7 @@ sidebarTitle: Introduction
 
 ## Example: Research Agent
 
-Let's create an Agent that can write a research report by searching the web and reading the top links. We **"prompt"** the Agent using `description` and `instructions`.
+Let's create a research agent that can search the web, read the top links and write a report for us. We **"prompt"** the agent using `description` and `instructions`.
 
 <Steps>
   <Step title="Create Research Agent">
@@ -66,15 +66,16 @@ Let's create an Agent that can write a research report by searching the web and 
 </Steps>
 
 <Note>
-Under the hood, the description and instructions are converted to the system prompt and the input is passed as the user prompt.
+Under the hood, the description and instructions are converted to the system prompt and the input (e.g. `Simulation theory`) is passed as the user prompt.
 
-Use `debug_mode=True` to view the raw messages used by the agent.
-
+Use `debug_mode=True` to view the raw logs behind the scenes.
 </Note>
 
-## Return Agent response as a variable
+## Capturing the Agent's response in a variable
 
-Use the `Agent.run()` function to capture the response as a variable.
+While `Agent.print_response()` is useful for quick experiments, you will typically want to capture the agent's response in a variable to either pass to your frontend, another agent or use in your application.
+
+The `Agent.run()` function returns the response as a `RunResponse` object.
 
 ```python
 from phi.agent import Agent, RunResponse
@@ -88,7 +89,7 @@ response: RunResponse = agent.run("Simulation theory")
 pprint_run_response(response, markdown=True)
 ```
 
-By default `stream=False`, set `stream=True` to return a stream.
+By default `stream=False`, set `stream=True` to return a stream of `RunResponse` objects.
 
 ```python
 from typing import Iterator
@@ -101,9 +102,9 @@ pprint_run_response(response_stream, markdown=True, show_time=True)
 
 ## RunResponse
 
-The `Agent.run()` function returns a `RunResponse` object or an stream of `RunResponse` objects if `stream=True`.
+The `Agent.run()` function returns a `RunResponse` object or an `Iterator[RunResponse]` if `stream=True`.
 
-### Attributes
+### RunResponse Attributes
 
 | Attribute | Type | Default | Description |
 |-----------|------|---------|-------------|
