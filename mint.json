@@ -91,6 +91,8 @@
             "models/ollama",
             "models/groq",
             "models/openai-like",
+            "models/deepseek",
+            "models/sambanova",
             "models/aws-bedrock",
             "models/together",
             "models/fireworks",
