@@ -63,7 +63,7 @@
   "navigation": [
     {
       "group": "Getting started",
-      "pages": ["quickstart", "playground", "templates"]
+      "pages": ["quickstart", "playground", "monitoring", "templates"]
     },
     {
       "group": "Documentation",
@@ -276,20 +276,6 @@
           "pages": [
             "templates/agent-api/run-local",
             "templates/agent-api/run-aws"
-          ]
-        },
-        {
-          "group": "Streamlit App",
-          "pages": [
-            "templates/streamlit-app/run-local",
-            "templates/streamlit-app/run-aws"
-          ]
-        },
-        {
-          "group": "Django App",
-          "pages": [
-            "templates/django-app/run-local",
-            "templates/django-app/run-aws"
           ]
         }
       ]
