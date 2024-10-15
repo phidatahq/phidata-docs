@@ -31,22 +31,15 @@ agent.print_response("Summarize this video https://www.youtube.com/watch?v=Iv9de
 
 ## Toolkit Params
 
-<ResponseField name="get_video_captions" type="bool" default="True">
-  Enables the functionality to retrieve video captions.
-</ResponseField>
-<ResponseField name="get_video_data" type="bool" default="True">
-  Enables the functionality to retrieve video metadata and other related data.
-</ResponseField>
-<ResponseField name="languages" type="List[str]">
-  Specifies the list of languages for which data should be retrieved, if
-  applicable.
-</ResponseField>
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| `get_video_captions` | `bool` | `True` | Enables the functionality to retrieve video captions. |
+| `get_video_data` | `bool` | `True` | Enables the functionality to retrieve video metadata and other related data. |
+| `languages` | `List[str]` | - | Specifies the list of languages for which data should be retrieved, if applicable. |
 
 ## Toolkit Functions
 
-<ResponseField name="get_youtube_video_captions">
-  This function retrieves the captions of a YouTube video.
-</ResponseField>
-<ResponseField name="get_youtube_video_data">
-  This function retrieves the metadata of a YouTube video.
-</ResponseField>
+| Function | Description |
+| --- | --- |
+| `get_youtube_video_captions` | This function retrieves the captions of a YouTube video. |
+| `get_youtube_video_data` | This function retrieves the metadata of a YouTube video. |

@@ -53,59 +53,22 @@ agent.print_response("Share a 2 sentence horror story.")
 </CodeGroup>
 
 ## Params
-<ResponseField name="id" type="str" default="mistral-large-latest">
-  The specific model ID used for generating responses.
-</ResponseField>
-<ResponseField name="name" type="str" default="MistralChat">
-  The name identifier for the agent.
-</ResponseField>
-<ResponseField name="provider" type="str" default="Mistral">
-  The provider of the model.
-</ResponseField>
-<ResponseField name="temperature" type="Optional[float]">
-  The sampling temperature to use, between 0 and 2. Higher values like 0.8 will
-  make the output more random, while lower values like 0.2 will make it more
-  focused and deterministic.
-</ResponseField>
-<ResponseField name="max_tokens" type="Optional[int]">
-  The maximum number of tokens to generate in the response.
-</ResponseField>
-<ResponseField name="top_p" type="Optional[float]">
-  The nucleus sampling parameter. The model considers the results of the tokens
-  with top_p probability mass.
-</ResponseField>
-<ResponseField name="random_seed" type="Optional[int]">
-  The seed for random number generation to ensure reproducibility of results.
-</ResponseField>
-<ResponseField name="safe_mode" type="bool" default="False">
-  Enable safe mode to filter potentially harmful or inappropriate content.
-</ResponseField>
-<ResponseField name="safe_prompt" type="bool" default="False">
-  Enable safe prompt mode to filter potentially harmful or inappropriate
-  prompts.
-</ResponseField>
-<ResponseField name="response_format" type="Optional[Union[Dict[str, Any], ChatCompletionResponse]]">
-  The format of the response, either as a dictionary or as a
-  ChatCompletionResponse object.
-</ResponseField>
-<ResponseField name="request_params" type="Optional[Dict[str, Any]]">
-  Additional parameters to include in the request.
-</ResponseField>
-<ResponseField name="api_key" type="Optional[str]">
-  The API key for authenticating requests to the service.
-</ResponseField>
-<ResponseField name="endpoint" type="Optional[str]">
-  The API endpoint URL for making requests to the service.
-</ResponseField>
-<ResponseField name="max_retries" type="Optional[int]">
-  The maximum number of retry attempts for failed requests.
-</ResponseField>
-<ResponseField name="timeout" type="Optional[int]">
-  The timeout duration for requests, specified in seconds.
-</ResponseField>
-<ResponseField name="client_params" type="Optional[Dict[str, Any]]">
-  Additional parameters for client configuration.
-</ResponseField>
-<ResponseField name="mistral_client" type="Optional[Mistral]">
-  An instance of Mistral client provided for making API requests.
-</ResponseField>
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `id` | `str` | `"mistral-large-latest"` | The specific model ID used for generating responses. |
+| `name` | `str` | `"MistralChat"` | The name identifier for the agent. |
+| `provider` | `str` | `"Mistral"` | The provider of the model. |
+| `temperature` | `Optional[float]` | - | The sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic. |
+| `max_tokens` | `Optional[int]` | - | The maximum number of tokens to generate in the response. |
+| `top_p` | `Optional[float]` | - | The nucleus sampling parameter. The model considers the results of the tokens with top_p probability mass. |
+| `random_seed` | `Optional[int]` | - | The seed for random number generation to ensure reproducibility of results. |
+| `safe_mode` | `bool` | `False` | Enable safe mode to filter potentially harmful or inappropriate content. |
+| `safe_prompt` | `bool` | `False` | Enable safe prompt mode to filter potentially harmful or inappropriate prompts. |
+| `response_format` | `Optional[Union[Dict[str, Any], ChatCompletionResponse]]` | - | The format of the response, either as a dictionary or as a ChatCompletionResponse object. |
+| `request_params` | `Optional[Dict[str, Any]]` | - | Additional parameters to include in the request. |
+| `api_key` | `Optional[str]` | - | The API key for authenticating requests to the service. |
+| `endpoint` | `Optional[str]` | - | The API endpoint URL for making requests to the service. |
+| `max_retries` | `Optional[int]` | - | The maximum number of retry attempts for failed requests. |
+| `timeout` | `Optional[int]` | - | The timeout duration for requests, specified in seconds. |
+| `client_params` | `Optional[Dict[str, Any]]` | - | Additional parameters for client configuration. |
+| `mistral_client` | `Optional[Mistral]` | - | An instance of Mistral client provided for making API requests. |

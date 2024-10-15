@@ -46,22 +46,10 @@ agent.print_response("Share a 2 sentence horror story")
 
 ## Params
 
-<ResponseField
-  name="id"
-  type="str"
-  default="Meta-Llama-3.1-8B-Instruct"
->
-  The specific model ID used for generating responses.
-</ResponseField>
-<ResponseField name="name" type="str" default="Sambanova">
-  The name identifier for the Sambanova model.
-</ResponseField>
-<ResponseField name="provider" type="str" default="Sambanova">
-  The provider of the model.
-</ResponseField>
-<ResponseField name="api_key" type="Optional[str]">
-  The API key used for authenticating requests to the Sambanova service. Retrieved from the environment variable SAMBANOVA_API_KEY.
-</ResponseField>
-<ResponseField name="base_url" type="str" default="https://api.sambanova.ai/v1">
-  The base URL for making API requests to the Sambanova service.
-</ResponseField>
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `id` | `str` | `"Meta-Llama-3.1-8B-Instruct"` | The specific model ID used for generating responses. |
+| `name` | `str` | `"Sambanova"` | The name identifier for the Sambanova model. |
+| `provider` | `str` | `"Sambanova"` | The provider of the model. |
+| `api_key` | `Optional[str]` | - | The API key used for authenticating requests to the Sambanova service. Retrieved from the environment variable `SAMBANOVA_API_KEY`. |
+| `base_url` | `str` | `"https://api.sambanova.ai/v1"` | The base URL for making API requests to the Sambanova service. |

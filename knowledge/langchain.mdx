@@ -44,12 +44,8 @@ conv.print_response("What did the president say about technology?")
 
 ## Params
 
-<ResponseField name="retriever" type="Any" default="None">
-  LangChain retriever.
-</ResponseField>
-<ResponseField name="vectorstore" type="Any" default="None">
-  LangChain vector store used to create a retriever.
-</ResponseField>
-<ResponseField name="search_kwargs" type="dict" default="None">
-  Search kwargs when creating a retriever using the langchain vector store.
-</ResponseField>
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `retriever` | `Any` | `None` | LangChain retriever. |
+| `vectorstore` | `Any` | `None` | LangChain vector store used to create a retriever. |
+| `search_kwargs` | `dict` | `None` | Search kwargs when creating a retriever using the langchain vector store. |

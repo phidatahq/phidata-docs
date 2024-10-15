@@ -26,14 +26,12 @@ agent.print_response("Tell me about https://github.com/phidatahq/phidata."
 
 ## Toolkit Params
 
-<ResponseField name="max_length" type="int" default="1000">
-  Specifies the maximum length of the text from the webpage to be returned.
-</ResponseField>
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `max_length` | `int` | `1000` | Specifies the maximum length of the text from the webpage to be returned. |
 
 ## Toolkit Functions
 
-<ResponseField name="web_crawler">
-  Crawls a website using crawl4ai's WebCrawler. Parameters include 'url' for the
-  URL to crawl and an optional 'max_length' to limit the length of extracted
-  content. The default value for 'max_length' is 1000.
-</ResponseField>
+| Function | Description |
+|----------|-------------|
+| `web_crawler` | Crawls a website using crawl4ai's WebCrawler. Parameters include 'url' for the URL to crawl and an optional 'max_length' to limit the length of extracted content. The default value for 'max_length' is 1000. |

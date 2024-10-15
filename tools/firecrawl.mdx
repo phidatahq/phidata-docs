@@ -30,33 +30,17 @@ agent.print_response("Summarize this https://finance.yahoo.com/")
 
 ## Toolkit Params
 
-<ResponseField name="api_key" type="str" default="None">
-  API key for Firecrawl.
-</ResponseField>
-<ResponseField name="formats" type="List[str]" default="None">
-  Optional list of formats to be used for the operation.
-</ResponseField>
-<ResponseField name="limit" type="int" default="10">
-  Maximum number of items to retrieve. The default value is 10.
-</ResponseField>
-<ResponseField name="scrape" type="bool" default="True">
-  Enables the scraping functionality. Default is True.
-</ResponseField>
-<ResponseField name="crawl" type="bool" default="False">
-  Enables the crawling functionality. Default is False.
-</ResponseField>
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `api_key` | `str` | `None` | Optional API key for authentication purposes. |
+| `formats` | `List[str]` | `None` | Optional list of formats to be used for the operation. |
+| `limit` | `int` | `10` | Maximum number of items to retrieve. The default value is 10. |
+| `scrape` | `bool` | `True` | Enables the scraping functionality. Default is True. |
+| `crawl` | `bool` | `False` | Enables the crawling functionality. Default is False. |
 
 ## Toolkit Functions
 
-<ResponseField name="scrape_website">
-  Scrapes a website using Firecrawl. Parameters include 'url' to specify the URL
-  to scrape. The function supports optional formats if specified. Returns the
-  results of the scraping in JSON format.
-</ResponseField>
-<ResponseField name="crawl_website">
-  Crawls a website using Firecrawl. Parameters include 'url' to specify the URL
-  to crawl, and an optional 'limit' to define the maximum number of pages to
-  crawl. The function supports optional formats and returns the crawling results
-  in JSON format.
-</ResponseField>
-```
+| Function | Description |
+|----------|-------------|
+| `scrape_website` | Scrapes a website using Firecrawl. Parameters include `url` to specify the URL to scrape. The function supports optional formats if specified. Returns the results of the scraping in JSON format. |
+| `crawl_website` | Crawls a website using Firecrawl. Parameters include `url` to specify the URL to crawl, and an optional `limit` to define the maximum number of pages to crawl. The function supports optional formats and returns the crawling results in JSON format. |

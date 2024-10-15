@@ -26,28 +26,16 @@ agent.print_response("Summarize: https://github.com/phidatahq")
 
 ## Toolkit Params
 
-<ResponseField name="api_key" type="str">
-  Jina API key.
-</ResponseField>
-<ResponseField name="base_url" type="str">
-  The base URL of the API, retrieved from the configuration.
-</ResponseField>
-<ResponseField name="search_url" type="str">
-  The URL used for search queries, retrieved from the configuration.
-</ResponseField>
-<ResponseField name="max_content_length" type="int">
-  The maximum length of content allowed, retrieved from the configuration.
-</ResponseField>
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `api_key` | `str` | - | The API key for authentication purposes, retrieved from the configuration. |
+| `base_url` | `str` | - | The base URL of the API, retrieved from the configuration. |
+| `search_url` | `str` | - | The URL used for search queries, retrieved from the configuration. |
+| `max_content_length` | `int` | - | The maximum length of content allowed, retrieved from the configuration. |
 
 ## Toolkit Functions
 
-<ResponseField name="read_url">
-  Reads the content of a specified URL using Jina Reader API. Parameters include
-  'url' for the URL to read. Returns the truncated content or an error message
-  if the request fails.
-</ResponseField>
-<ResponseField name="search_query">
-  Performs a web search using Jina Reader API based on a specified query.
-  Parameters include 'query' for the search term. Returns the truncated search
-  results or an error message if the request fails.
-</ResponseField>
+| Function | Description |
+|----------|-------------|
+| `read_url` | Reads the content of a specified URL using Jina Reader API. Parameters include `url` for the URL to read. Returns the truncated content or an error message if the request fails. |
+| `search_query` | Performs a web search using Jina Reader API based on a specified query. Parameters include `query` for the search term. Returns the truncated search results or an error message if the request fails. |

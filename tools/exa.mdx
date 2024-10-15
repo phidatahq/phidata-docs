@@ -30,22 +30,16 @@ agent.print_response("Search for AAPL news", markdown=True)
 
 ## Toolkit Params
 
-<ResponseField name="api_key" type="str">
-  API key for authentication purposes.
-</ResponseField>
-<ResponseField name="search" type="bool" default="False">
-  Determines whether to enable search functionality.
-</ResponseField>
-<ResponseField name="search_with_contents" type="bool" default="True">
-  Indicates whether to include contents in the search results.
-</ResponseField>
-<ResponseField name="show_results" type="bool" default="False">
-  Controls whether to display search results directly.
-</ResponseField>
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `api_key` | `str` | - | API key for authentication purposes. |
+| `search` | `bool` | `False` | Determines whether to enable search functionality. |
+| `search_with_contents` | `bool` | `True` | Indicates whether to include contents in the search results. |
+| `show_results` | `bool` | `False` | Controls whether to display search results directly. |
 
 ## Toolkit Functions
 
-<ResponseField name="search_exa">Searches Exa for a query.</ResponseField>
-<ResponseField name="search_exa_with_contents">
-  Searches Exa for a query and returns the contents from the search results.
-</ResponseField>
+| Function | Description |
+|----------|-------------|
+| `search_exa` | Searches Exa for a query. |
+| `search_exa_with_contents` | Searches Exa for a query and returns the contents from the search results. |

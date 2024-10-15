@@ -101,42 +101,18 @@ The `Agent.run()` function returns a `RunResponse` object or an stream of `RunRe
 
 ### Attributes
 
-<ResponseField name="content" type="Any" default="None">
-  Content of the response.
-</ResponseField>
-<ResponseField name="content_type" type="str" default="str">
-  Specifies the data type of the content.
-</ResponseField>
-<ResponseField name="context" type="List[MessageContext]" default="None">
-  The context added to the response for RAG.
-</ResponseField>
-<ResponseField name="event" type="str" default="RunEvent.run_response.value">
-  Event type of the response.
-</ResponseField>
-<ResponseField name="event_data" type="Dict[str, Any]" default="None">
-  Data associated with the event.
-</ResponseField>
-<ResponseField name="messages" type="List[Message]" default="None">
-  A list of messages included in the response.
-</ResponseField>
-<ResponseField name="metrics" type="Dict[str, Any]" default="None">
-  Usage metrics of the run.
-</ResponseField>
-<ResponseField name="model" type="str" default="None">
-  The model used in the run.
-</ResponseField>
-<ResponseField name="run_id" type="str" default="None">
-  Run Id.
-</ResponseField>
-<ResponseField name="agent_id" type="str" default="None">
-  Agent Id for the run.
-</ResponseField>
-<ResponseField name="session_id" type="str" default="None">
-  Session Id for the run.
-</ResponseField>
-<ResponseField name="tools" type="List[Dict[str, Any]]" default="None">
-  List of tools provided to the model.
-</ResponseField>
-<ResponseField name="created_at" type="int">
-  Unix timestamp of the response creation.
-</ResponseField>
+| Attribute | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `content` | `Any` | `None` | Content of the response. |
+| `content_type` | `str` | `"str"` | Specifies the data type of the content. |
+| `context` | `List[MessageContext]` | `None` | The context added to the response for RAG. |
+| `event` | `str` | `RunEvent.run_response.value` | Event type of the response. |
+| `event_data` | `Dict[str, Any]` | `None` | Data associated with the event. |
+| `messages` | `List[Message]` | `None` | A list of messages included in the response. |
+| `metrics` | `Dict[str, Any]` | `None` | Usage metrics of the run. |
+| `model` | `str` | `None` | The model used in the run. |
+| `run_id` | `str` | `None` | Run Id. |
+| `agent_id` | `str` | `None` | Agent Id for the run. |
+| `session_id` | `str` | `None` | Session Id for the run. |
+| `tools` | `List[Dict[str, Any]]` | `None` | List of tools provided to the model. |
+| `created_at` | `int` | - | Unix timestamp of the response creation. |

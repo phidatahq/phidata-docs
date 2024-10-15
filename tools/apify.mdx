@@ -30,22 +30,15 @@ agent.print_response("Tell me about https://docs.phidata.com/introduction", mark
 
 ## Toolkit Params
 
-<ResponseField name="api_key" type="str">
-  API key for authentication purposes.
-</ResponseField>
-<ResponseField name="website_content_crawler" type="bool" default="True">
-  Enables the functionality to crawl a website using website-content-crawler
-  actor.
-</ResponseField>
-<ResponseField name="web_scraper" type="bool" default="False">
-  Enables the functionality to crawl a website using web_scraper actor.
-</ResponseField>
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `api_key` | `str` | - | API key for authentication purposes. |
+| `website_content_crawler` | `bool` | `True` | Enables the functionality to crawl a website using website-content-crawler actor. |
+| `web_scraper` | `bool` | `False` | Enables the functionality to crawl a website using web_scraper actor. |
 
 ## Toolkit Functions
 
-<ResponseField name="website_content_crawler">
-  Crawls a website using Apify's website-content-crawler actor.
-</ResponseField>
-<ResponseField name="web_scrapper">
-  Scrapes a website using Apify's web-scraper actor.
-</ResponseField>
+| Function | Description |
+|----------|-------------|
+| `website_content_crawler` | Crawls a website using Apify's website-content-crawler actor. |
+| `web_scrapper` | Scrapes a website using Apify's web-scraper actor. |

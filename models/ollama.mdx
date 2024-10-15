@@ -43,39 +43,17 @@ agent.print_response("Share a 2 sentence horror story.")
 </CodeGroup>
 
 ## Params
-<ResponseField name="id" type="str" default="llama3.2">
-  The name of the model to be used.
-</ResponseField>
-<ResponseField name="name" type="str" default="Ollama">
-  The name identifier for the agent.
-</ResponseField>
-<ResponseField name="provider" type="str" default="Ollama {id}">
-  The provider of the model, combining "Ollama" with the model ID.
-</ResponseField>
-<ResponseField name="format" type="Optional[str]">
-  The response format, either None for default or a specific format like "json".
-</ResponseField>
-<ResponseField name="options" type="Optional[Any]">
-  Additional options to include with the request, e.g., temperature or stop sequences.
-</ResponseField>
-<ResponseField name="keep_alive" type="Optional[Union[float, str]]">
-  The keep-alive duration for maintaining persistent connections, specified in seconds or as a string.
-</ResponseField>
-<ResponseField name="request_params" type="Optional[Dict[str, Any]]">
-  Additional parameters to include in the request.
-</ResponseField>
-<ResponseField name="host" type="Optional[str]">
-  The host URL for making API requests to the Ollama service.
-</ResponseField>
-<ResponseField name="timeout" type="Optional[Any]">
-  The timeout duration for requests, can be specified in seconds.
-</ResponseField>
-<ResponseField name="client_params" type="Optional[Dict[str, Any]]">
-  Additional parameters for client configuration.
-</ResponseField>
-<ResponseField name="client" type="Optional[OllamaClient]">
-  An instance of OllamaClient provided for making API requests.
-</ResponseField>
-<ResponseField name="async_client" type="Optional[AsyncOllamaClient]">
-  An instance of AsyncOllamaClient for making asynchronous API requests.
-</ResponseField>
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `id` | `str` | `"llama3.2"` | The name of the model to be used. |
+| `name` | `str` | `"Ollama"` | The name identifier for the agent. |
+| `provider` | `str` | `"Ollama {id}"` | The provider of the model, combining "Ollama" with the model ID. |
+| `format` | `Optional[str]` | - | The response format, either None for default or a specific format like "json". |
+| `options` | `Optional[Any]` | - | Additional options to include with the request, e.g., temperature or stop sequences. |
+| `keep_alive` | `Optional[Union[float, str]]` | - | The keep-alive duration for maintaining persistent connections, specified in seconds or as a string. |
+| `request_params` | `Optional[Dict[str, Any]]` | - | Additional parameters to include in the request. |
+| `host` | `Optional[str]` | - | The host URL for making API requests to the Ollama service. |
+| `timeout` | `Optional[Any]` | - | The timeout duration for requests, can be specified in seconds. |
+| `client_params` | `Optional[Dict[str, Any]]` | - | Additional parameters for client configuration. |
+| `client` | `Optional[OllamaClient]` | - | An instance of OllamaClient provided for making API requests. |
+| `async_client` | `Optional[AsyncOllamaClient]` | - | An instance of AsyncOllamaClient for making asynchronous API requests. |

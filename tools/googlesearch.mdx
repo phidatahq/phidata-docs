@@ -36,27 +36,16 @@ agent.print_response("Mistral AI", markdown=True)
 
 ## Toolkit Params
 
-<ResponseField name="fixed_max_results" type="int" default="None">
-  Optional fixed maximum number of results to return. The default is None.
-</ResponseField>
-<ResponseField name="fixed_language" type="str" default="None">
-  Optional fixed language for the requests. The default is None.
-</ResponseField>
-<ResponseField name="headers" type="Any" default="None">
-  Optional headers to include in the requests. The default is None.
-</ResponseField>
-<ResponseField name="proxy" type="str" default="None">
-  Optional proxy to be used for the requests. The default is None.
-</ResponseField>
-<ResponseField name="timeout" type="int" default="None">
-  Optional timeout for the requests, in seconds. The default is None.
-</ResponseField>
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `fixed_max_results` | `int` | `None` | Optional fixed maximum number of results to return. |
+| `fixed_language` | `str` | `None` | Optional fixed language for the requests. |
+| `headers` | `Any` | `None` | Optional headers to include in the requests. |
+| `proxy` | `str` | `None` | Optional proxy to be used for the requests. |
+| `timeout` | `int` | `None` | Optional timeout for the requests, in seconds. |
 
 ## Toolkit Functions
 
-<ResponseField name="google_search">
-  Searches Google for a specified query. Parameters include 'query' for the
-  search term, 'max_results' for the maximum number of results (default is 5),
-  and 'language' for the language of the search results (default is "en").
-  Returns the search results as a JSON formatted string.
-</ResponseField>
+| Function | Description |
+|----------|-------------|
+| `google_search` | Searches Google for a specified query. Parameters include `query` for the search term, `max_results` for the maximum number of results (default is 5), and `language` for the language of the search results (default is "en"). Returns the search results as a JSON formatted string. |
