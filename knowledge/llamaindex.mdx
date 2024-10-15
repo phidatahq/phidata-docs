@@ -68,9 +68,7 @@ agent.print_response("Explain what this text means: low end eats the high end", 
 
 ## Params
 
-<ResponseField name="retriever" type="BaseRetriever" default="None">
-  LlamaIndex retriever used for querying the knowledge base.
-</ResponseField>
-<ResponseField name="loader" type="Optional[Callable]" default="None">
-  Optional callable function to load documents into the knowledge base.
-</ResponseField>
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `retriever` | `BaseRetriever` | `None` | LlamaIndex retriever used for querying the knowledge base. |
+| `loader` | `Optional[Callable]` | `None` | Optional callable function to load documents into the knowledge base. |
