@@ -4,6 +4,14 @@ title: Newspaper
 
 **NewspaperTools** enable an Agent to read news articles using the Newspaper4k library.
 
+## Prerequisites
+
+The following example requires the `newspaper3k` library.
+
+```shell
+pip install -U newspaper3k
+```
+
 ## Example
 
 The following agent will summarize the wikipedia article on language models.
@@ -13,7 +21,6 @@ from phi.agent import Agent
 from phi.tools.newspaper_tools import NewspaperTools
 
 agent = Agent(tools=[NewspaperTools()])
-
 agent.print_response("Please summarize https://en.wikipedia.org/wiki/Language_model")
 ```
 

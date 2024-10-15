@@ -1,37 +1,38 @@
 ---
-title: Google Search
+title: Github
 ---
 
-**GoogleSearch** enables an Agent to perform web crawling and scraping tasks.
+**GithubTools** enables an Agent to access Github repositories and perform tasks such as listing open pull requests, issues and more.
 
 ## Prerequisites
 
-The following examples requires the `googlesearch` and `pycountry` libraries.
+The following examples requires the `PyGithub` library and a Github access token which can be obtained from [here](https://github.com/settings/tokens).
 
 ```shell
-pip install -U googlesearch-python pycountry
+pip install -U PyGithub
+```
+
+```shell
+export GITHUB_ACCESS_TOKEN=***
 ```
 
 ## Example
 
 The following agent will search Google for the latest news about "Mistral AI":
 
-```python cookbook/tools/googlesearch_tools.py
+```python cookbook/tools/github_tools.py
 from phi.agent import Agent
-from phi.tools.googlesearch import GoogleSearch
+from phi.tools.github import GithubTools
 
 agent = Agent(
-    tools=[GoogleSearch()],
-    description="You are a news agent that helps users find the latest news.",
     instructions=[
-        "Given a topic by the user, respond with 4 latest news items about that topic.",
-        "Search for 10 news items and select the top 4 unique items.",
-        "Search in English and in French.",
+        "Use your tools to answer questions about the repo: phidatahq/phidata",
+        "Do not create any issues or pull requests unless explicitly asked to do so",
     ],
+    tools=[GithubTools()],
     show_tool_calls=True,
-    debug_mode=True,
 )
-agent.print_response("Mistral AI", markdown=True)
+agent.print_response("List open pull requests", markdown=True)
 ```
 
 ## Toolkit Params

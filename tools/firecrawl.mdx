@@ -4,28 +4,34 @@ title: Firecrawl
 
 **FirecrawlTools** enable an Agent to perform web crawling and scraping tasks.
 
+## Prerequisites
+
+The following example requires the `firecrawl-py` library and an API key which can be obtained from [Firecrawl](https://firecrawl.dev).
+
+```shell
+pip install -U firecrawl-py
+```
+
+```shell
+export FIRECRAWL_API_KEY=***
+```
+
 ## Example
 
-The following agent will scrape the content from "https://finance.yahoo.com/" and return a summary of the content:
+The following agent will scrape the content from https://finance.yahoo.com/ and return a summary of the content:
 
 ```python cookbook/tools/firecrawl_tools.py
-import os
-
 from phi.agent import Agent
 from phi.tools.firecrawl import FirecrawlTools
 
-api_key = os.getenv("FIRECRAWL_API_KEY")
-
-agent = Agent(
-    tools=[FirecrawlTools(api_key=api_key, scrape=False, crawl=True)], show_tool_calls=True, markdown=True
-)
-agent.print_response("summarize this https://finance.yahoo.com/")
+agent = Agent(tools=[FirecrawlTools(scrape=False, crawl=True)], show_tool_calls=True, markdown=True)
+agent.print_response("Summarize this https://finance.yahoo.com/")
 ```
 
 ## Toolkit Params
 
 <ResponseField name="api_key" type="str" default="None">
-  Optional API key for authentication purposes.
+  API key for Firecrawl.
 </ResponseField>
 <ResponseField name="formats" type="List[str]" default="None">
   Optional list of formats to be used for the operation.
@@ -53,3 +59,4 @@ agent.print_response("summarize this https://finance.yahoo.com/")
   crawl. The function supports optional formats and returns the crawling results
   in JSON format.
 </ResponseField>
+```
