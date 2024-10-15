@@ -37,7 +37,7 @@ Follow these steps to only run Streamlit without Postgres.
 
 <Accordion title="Run Streamlit without Postgres">
 
-A common use case is to just use Streamlit without the database. In that case, deactivate the database from the `workspace/settings.py` file and update the assistants to not use storage or knowledge base.
+A common use case is to just use Streamlit without the database. In that case, deactivate the database from the `workspace/settings.py` file and update the agents to not use storage or knowledge base.
 
 <Steps>
   <Step title="Disable database">
@@ -53,25 +53,25 @@ A common use case is to just use Streamlit without the database. In that case, d
     ```
 
   </Step>
-  <Step title="Remove knowledge base and storage from the Assistants">
+  <Step title="Remove knowledge base and storage from the Agents">
 
-    Update each file in the `ai/assistants` folder to remove the storage and knowledge base from the `Assistants`.
+    Update each file in the `ai/agents` folder to remove the storage and knowledge base from the `Agents`.
 
     <CodeGroup>
 
     ```bash pdf_auto.py
-    return Assistant(
+    return Agent(
         ...
-        # storage=pdf_assistant_storage,
+        # storage=pdf_agent_storage,
         # knowledge_base=pdf_knowledge_base,
         ...
     )
     ```
 
     ```bash pdf_rag.py
-    return Assistant(
+    return Agent(
         ...
-        # storage=pdf_assistant_storage,
+        # storage=pdf_agent_storage,
         # knowledge_base=pdf_knowledge_base,
         # This setting adds references from the knowledge_base to the user prompt
         # add_references_to_prompt=True,
@@ -80,26 +80,26 @@ A common use case is to just use Streamlit without the database. In that case, d
     ```
 
     ```bash vision.py
-    return Assistant(
+    return Agent(
         ...
-        # storage=vision_assistant_storage,
+        # storage=vision_agent_storage,
         ...
     )
     ```
 
     ```bash website_auto.py
-    return Assistant(
+    return Agent(
         ...
-        # storage=website_assistant_storage,
+        # storage=website_agent_storage,
         # knowledge_base=website_knowledge_base,
         ...
     )
     ```
 
     ```bash website_rag.py
-    return Assistant(
+    return Agent(
         ...
-        # storage=website_assistant_storage,
+        # storage=website_agent_storage,
         # knowledge_base=website_knowledge_base,
         # This setting adds references from the knowledge_base to the user prompt
         # add_references_to_prompt=True,
@@ -115,11 +115,11 @@ A common use case is to just use Streamlit without the database. In that case, d
 
 </Note>
 
-<Snippet file="ai-app-pdf-assistant.mdx" />
+<Snippet file="ai-app-pdf-agent.mdx" />
 
-<Snippet file="ai-app-image-assistant.mdx" />
+<Snippet file="ai-app-image-agent.mdx" />
 
-<Snippet file="ai-app-website-assistant.mdx" />
+<Snippet file="ai-app-website-agent.mdx" />
 
 <Snippet file="ai-app-add-data.mdx" />
 

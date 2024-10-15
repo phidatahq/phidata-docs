@@ -1,0 +1,46 @@
+---
+title: Firecrawl
+---
+
+**FirecrawlTools** enable an Agent to perform web crawling and scraping tasks.
+
+## Prerequisites
+
+The following example requires the `firecrawl-py` library and an API key which can be obtained from [Firecrawl](https://firecrawl.dev).
+
+```shell
+pip install -U firecrawl-py
+```
+
+```shell
+export FIRECRAWL_API_KEY=***
+```
+
+## Example
+
+The following agent will scrape the content from https://finance.yahoo.com/ and return a summary of the content:
+
+```python cookbook/tools/firecrawl_tools.py
+from phi.agent import Agent
+from phi.tools.firecrawl import FirecrawlTools
+
+agent = Agent(tools=[FirecrawlTools(scrape=False, crawl=True)], show_tool_calls=True, markdown=True)
+agent.print_response("Summarize this https://finance.yahoo.com/")
+```
+
+## Toolkit Params
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `api_key` | `str` | `None` | Optional API key for authentication purposes. |
+| `formats` | `List[str]` | `None` | Optional list of formats to be used for the operation. |
+| `limit` | `int` | `10` | Maximum number of items to retrieve. The default value is 10. |
+| `scrape` | `bool` | `True` | Enables the scraping functionality. Default is True. |
+| `crawl` | `bool` | `False` | Enables the crawling functionality. Default is False. |
+
+## Toolkit Functions
+
+| Function | Description |
+|----------|-------------|
+| `scrape_website` | Scrapes a website using Firecrawl. Parameters include `url` to specify the URL to scrape. The function supports optional formats if specified. Returns the results of the scraping in JSON format. |
+| `crawl_website` | Crawls a website using Firecrawl. Parameters include `url` to specify the URL to crawl, and an optional `limit` to define the maximum number of pages to crawl. The function supports optional formats and returns the crawling results in JSON format. |

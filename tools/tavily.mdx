@@ -2,53 +2,46 @@
 title: Tavily
 ---
 
+**TavilyTools** enable an Agent to search the web using the Tavily API.
+
+## Prerequisites
+
+The following examples requires the `tavily-python` library and an API key from [Tavily](https://tavily.com/).
+
+```shell
+pip install -U tavily-python
+```
+
+```shell
+export TAVILY_API_KEY=***
+```
+
 ## Example
 
-The following assistant will run a search on Tavily for "language models" and print the response.
+The following agent will run a search on Tavily for "language models" and print the response.
 
 ```python cookbook/tools/tavily_tools.py
-from phi.assistant import Assistant
+from phi.agent import Agent
 from phi.tools.tavily import TavilyTools
 
-assistant = Assistant(tools=[TavilyTools()], show_tool_calls=True)
-assistant.print_response("Search tavily for 'language models'", markdown=True)
+agent = Agent(tools=[TavilyTools()], show_tool_calls=True)
+agent.print_response("Search tavily for 'language models'", markdown=True)
 ```
 
 ## Toolkit Params
 
-<ResponseField name="api_key" type="str">
-  The API key used for authentication to access the service.
-</ResponseField>
-<ResponseField name="search" type="bool" default="True">
-  Determines whether search functionality is enabled.
-</ResponseField>
-<ResponseField name="max_tokens" type="int" default="6000">
-  The maximum number of tokens to use in operations.
-</ResponseField>
-<ResponseField name="include_answer" type="bool" default="True">
-  Specifies if the answer should be included in the response.
-</ResponseField>
-<ResponseField
-  name="search_depth"
-  type="Literal['basic', 'advanced']"
-  default="advanced"
->
-  Defines the depth of search, either 'basic' or 'advanced'.
-</ResponseField>
-<ResponseField
-  name="format"
-  type="Literal['json', 'markdown']"
-  default="markdown"
->
-  The format of the output, either 'json' or 'markdown'.
-</ResponseField>
-<ResponseField name="use_search_context" type="bool" default="False">
-  Indicates if the search should consider the context provided in the request.
-</ResponseField>
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `api_key` | `str` | - | The API key used for authentication to access the service. |
+| `search` | `bool` | `True` | Determines whether search functionality is enabled. |
+| `max_tokens` | `int` | `6000` | The maximum number of tokens to use in operations. |
+| `include_answer` | `bool` | `True` | Specifies if the answer should be included in the response. |
+| `search_depth` | `Literal['basic', 'advanced']` | `'advanced'` | Defines the depth of search, either 'basic' or 'advanced'. |
+| `format` | `Literal['json', 'markdown']` | `'markdown'` | The format of the output, either 'json' or 'markdown'. |
+| `use_search_context` | `bool` | `False` | Indicates if the search should consider the context provided in the request. |
 
 ## Toolkit Functions
 
-<ResponseField name="web_search_using_tavily">
-  This function uses the Tavily API to provide realtime online information about
-  the query.
-</ResponseField>
+| Function | Description |
+|----------|-------------|
+| `web_search_using_tavily` | This function uses the Tavily API to provide realtime online information about the query. |

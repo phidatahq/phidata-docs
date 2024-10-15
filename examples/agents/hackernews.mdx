@@ -1,0 +1,77 @@
+---
+title: Hackernews Agent
+---
+
+An agent showcasing how to use function calling with LLMs. This agent has access to a function `get_top_hackernews_stories` that it can call to get top stories from Hacker News.
+
+```python
+import json
+import httpx
+
+from phi.agent import Agent
+
+
+def get_top_hackernews_stories(num_stories: int = 10) -> str:
+    """Use this function to get top stories from Hacker News.
+
+    Args:
+        num_stories (int): Number of stories to return. Defaults to 10.
+
+    Returns:
+        str: JSON string of top stories.
+    """
+
+    # Fetch top story IDs
+    response = httpx.get("https://hacker-news.firebaseio.com/v0/topstories.json")
+    story_ids = response.json()
+
+    # Fetch story details
+    stories = []
+    for story_id in story_ids[:num_stories]:
+        story_response = httpx.get(f"https://hacker-news.firebaseio.com/v0/item/{story_id}.json")
+        story = story_response.json()
+        if "text" in story:
+            story.pop("text", None)
+        stories.append(story)
+    return json.dumps(stories)
+
+
+agent = Agent(tools=[get_top_hackernews_stories], show_tool_calls=True)
+agent.print_response("Summarize the top stories on hackernews?", markdown=True)
+```
+
+## Usage
+
+<Steps>
+  <Snippet file="create-venv-step.mdx" />
+
+  <Step title="Install libraries">
+
+    ```bash
+    pip install openai phidata
+    ```
+
+  </Step>
+
+  <Step title="Run the agent">
+
+    <CodeGroup>
+
+    ```bash Mac
+    python cookbook/agents/hackernews.py
+    ```
+
+    ```bash Windows
+    python cookbook/agents/hackernews.py
+    ```
+
+    </CodeGroup>
+
+  </Step>
+
+</Steps>
+
+## Information
+
+- View on [Github](https://github.com/phidatahq/phidata/blob/main/cookbook/agents/hackernews.py)
+- Read about [Tools](/agents/tools)

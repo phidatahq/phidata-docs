@@ -2,34 +2,29 @@
 title: Pubmed
 ---
 
-**PubmedTools** enable an Assistant to search for Pubmed for articles.
+**PubmedTools** enable an Agent to search for Pubmed for articles.
 
 ## Example
 
-The following assistant will search Pubmed for articles related to "ulcerative colitis".
+The following agent will search Pubmed for articles related to "ulcerative colitis".
 
-```python cookbook/tools/resend_tools.py
-from phi.assistant import Assistant
+```python cookbook/tools/pubmed.py
+from phi.agent import Agent
 from phi.tools.pubmed import PubmedTools
 
-assistant = Assistant(tools=[PubmedTools()], debug_mode=True, show_tool_calls=True)
-assistant.print_response(
-    "ulcerative colitis.",
-    markdown=True,
-)
+agent = Agent(tools=[PubmedTools()], show_tool_calls=True)
+agent.print_response("Tell me about ulcerative colitis.")
 ```
 
 ## Toolkit Params
 
-<ResponseField name="email" type="str" default="your_email@example.com">
-  The email address to be used for sending or receiving information.
-</ResponseField>
-<ResponseField name="max_results" type="int">
-  The maximum number of results to return from a query or operation.
-</ResponseField>
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `email` | `str` | `"your_email@example.com"` | Specifies the email address to use. |
+| `max_results` | `int` | `None` | Optional parameter to specify the maximum number of results to return. |
 
 ## Toolkit Functions
 
-<ResponseField name="search_pubmed">
-  Search Pubmed for articles related to a query.
-</ResponseField>
+| Function | Description |
+|----------|-------------|
+| `search_pubmed` | Searches PubMed for articles based on a specified query. Parameters include `query` for the search term and `max_results` for the maximum number of results to return (default is 10). Returns a JSON string containing the search results, including publication date, title, and summary. |

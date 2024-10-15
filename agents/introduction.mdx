@@ -1,0 +1,122 @@
+---
+title: What are Agents?
+description: Agents are intelligent programs that can achieve complex tasks by taking actions. Use them to automate repeatable workflows and build new user experiences.
+sidebarTitle: Introduction
+---
+
+## Phidata Agents
+
+- Use language models for reasoning and planning.
+- Use tools to take actions and interact with external systems.
+- Store memory and state in a database, remembering chat history, user preferences and conversation summaries.
+- Store knowledge in vector databases to supplement their training data with domain expertise.
+
+<img
+  height="200"
+  src="/images/agent.png"
+  style={{ borderRadius: '8px' }}
+/>
+
+## Example: Research Agent
+
+Let's create an Agent that can write a research report by searching the web and reading the top links. We **"prompt"** the Agent using `description` and `instructions`.
+
+<Steps>
+  <Step title="Create Research Agent">
+    Create a file `research_agent.py`
+
+    ```python research_agent.py
+    from phi.agent import Agent
+    from phi.model.openai import OpenAIChat
+    from phi.tools.duckduckgo import DuckDuckGo
+    from phi.tools.newspaper4k import Newspaper4k
+
+    agent = Agent(
+        model=OpenAIChat(id="gpt-4o"),
+        tools=[DuckDuckGo(), Newspaper4k()],
+        description="You are a senior NYT researcher writing an article on a topic.",
+        instructions=[
+            "For a given topic, search for the top 5 links.",
+            "Then read each URL and extract the article text, if a URL isn't available, ignore it.",
+            "Analyse and prepare an NYT worthy article based on the information.",
+        ],
+        markdown=True,
+        show_tool_calls=True,
+        add_datetime_to_instructions=True,
+        # debug_mode=True,
+    )
+    agent.print_response("Simulation theory", stream=True)
+    ```
+
+  </Step>
+  <Step title="Run the agent">
+    Install libraries
+
+    ```shell
+    pip install phidata openai duckduckgo-search newspaper4k lxml_html_clean
+    ```
+
+    Run the agent
+
+    ```shell
+    python research_agent.py
+    ```
+
+  </Step>
+</Steps>
+
+<Note>
+Under the hood, the description and instructions are converted to the system prompt and the input is passed as the user prompt.
+
+Use `debug_mode=True` to view the raw messages used by the agent.
+
+</Note>
+
+## Return Agent response as a variable
+
+Use the `Agent.run()` function to capture the response as a variable.
+
+```python
+from phi.agent import Agent, RunResponse
+from phi.utils.pprint import pprint_run_response
+
+agent = Agent(...)
+
+# Run agent and return the response as a variable
+response: RunResponse = agent.run("Simulation theory")
+# Print the response in markdown format
+pprint_run_response(response, markdown=True)
+```
+
+By default `stream=False`, set `stream=True` to return a stream.
+
+```python
+from typing import Iterator
+
+# Run agent and return the response as a stream
+response_stream: Iterator[RunResponse] = agent.run("Simulation theory", stream=True)
+# Print the response stream in markdown format
+pprint_run_response(response_stream, markdown=True, show_time=True)
+```
+
+## RunResponse
+
+The `Agent.run()` function returns a `RunResponse` object or an stream of `RunResponse` objects if `stream=True`.
+
+### Attributes
+
+| Attribute | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `content` | `Any` | `None` | Content of the response. |
+| `content_type` | `str` | `"str"` | Specifies the data type of the content. |
+| `context` | `List[MessageContext]` | `None` | The context added to the response for RAG. |
+| `event` | `str` | `RunEvent.run_response.value` | Event type of the response. |
+| `event_data` | `Dict[str, Any]` | `None` | Data associated with the event. |
+| `messages` | `List[Message]` | `None` | A list of messages included in the response. |
+| `metrics` | `Dict[str, Any]` | `None` | Usage metrics of the run. |
+| `model` | `str` | `None` | The model used in the run. |
+| `run_id` | `str` | `None` | Run Id. |
+| `agent_id` | `str` | `None` | Agent Id for the run. |
+| `session_id` | `str` | `None` | Session Id for the run. |
+| `tools` | `List[Dict[str, Any]]` | `None` | List of tools provided to the model. |
+| `created_at` | `int` | - | Unix timestamp of the response creation. |

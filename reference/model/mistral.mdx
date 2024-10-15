@@ -1,0 +1,51 @@
+---
+title: Mistral
+---
+
+## Example
+
+<CodeGroup>
+
+```python agent.py
+from phi.agent import Agent
+from phi.llm.Mistral import Mistral
+
+agent = Agent(
+    llm=Mistral(model="mistral-large-latest"),
+    description="You help people with their health and fitness goals.",
+)
+agent.print_response("Share a quick healthy breakfast recipe.", markdown=True)
+```
+
+</CodeGroup>
+
+## Mistral Params
+
+<ResponseField name="name" type="str" default="Mistral"></ResponseField>
+<ResponseField
+  name="model"
+  type="str"
+  default="mistral-large-latest"
+></ResponseField>
+<ResponseField name="temperature" type="float"></ResponseField>
+<ResponseField name="max_tokens" type="int" default="1024"></ResponseField>
+<ResponseField name="top_p" type="float"></ResponseField>
+<ResponseField name="random_seed" type="int"></ResponseField>
+<ResponseField name="safe_mode" type="bool"></ResponseField>
+<ResponseField name="safe_prompt" type="bool"></ResponseField>
+<ResponseField
+  name="response_format"
+  type="Union[Dict[str, Any], ChatCompletionResponseFormat]"
+></ResponseField>
+
+<ResponseField name="api_key" type="str"></ResponseField>
+<ResponseField name="endpoint" type="str"></ResponseField>
+<ResponseField name="max_retries" type="int"></ResponseField>
+<ResponseField name="timeout" type="int"></ResponseField>
+<ResponseField name="mistral_client" type="MistralClient"></ResponseField>
+
+## LLM Params
+
+`Mistral` is a subclass of the `LLM` class and has access to the same params
+
+<Snippet file="llm-base-reference.mdx" />

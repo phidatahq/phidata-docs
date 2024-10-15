@@ -1,0 +1,40 @@
+---
+title: Together
+---
+
+## Example
+
+<CodeGroup>
+
+```python agent.py
+from phi.agent import Agent
+from phi.llm.together import Together
+
+agent = Agent(
+    llm=Together(model="mistralai/Mixtral-8x7B-Instruct-v0.1"),
+    description="You help people with their health and fitness goals.",
+)
+agent.print_response("Share a quick healthy breakfast recipe.", markdown=True)
+```
+
+</CodeGroup>
+
+## Together Params
+
+<ResponseField name="name" type="str" default="Together"></ResponseField>
+<ResponseField
+  name="model"
+  type="str"
+  default="mistralai/Mixtral-8x7B-Instruct-v0.1"
+></ResponseField>
+<ResponseField name="api_key" type="str"></ResponseField>
+<ResponseField
+  name="base_url"
+  type="str"
+  default="https://api.together.xyz/v1"
+></ResponseField>
+## LLM Params
+
+`Together` is a subclass of the `LLM` class and has access to the same params
+
+<Snippet file="llm-base-reference.mdx" />

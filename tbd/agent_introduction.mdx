@@ -1,0 +1,128 @@
+---
+title: What are Agents?
+description: Agents are intelligent software programs that can achieve complex tasks described as natural language.
+sidebarTitle: Introduction
+---
+
+## Agents
+
+- Use language models for intelligence, reasoning and planning
+- Use tools to interact with external systems and the real world
+- Use memory to remember past interactions and preferences
+- Use knowledge to supplement their training data with domain expertise
+
+![Agent Architecture](/images/agent.png)
+
+## Example: Research Agent
+
+Let's create an Agent that can help us research a topic by searching the web. We **"prompt"** the Agent using `description` and `instructions`, for example:
+
+<Steps>
+  <Step title="Create Research Agent">
+    Create a file `research_agent.py`
+
+    ```python research_agent.py
+    from phi.agent import Agent
+    from phi.model.openai import OpenAIChat
+    from phi.tools.duckduckgo import DuckDuckGo
+    from phi.tools.newspaper4k import Newspaper4k
+
+    agent = Agent(
+        model=OpenAIChat(id="gpt-4o"),
+        tools=[DuckDuckGo(), Newspaper4k()],
+        description="You are a senior NYT researcher writing an article on a topic.",
+        instructions=[
+            "For a given topic, search for the top 3 links.",
+            "Then read each URL and extract the article text, if a URL isn't available, ignore and let it be.",
+            "Analyse and prepare an NYT worthy article based on the information.",
+        ],
+        markdown=True,
+        show_tool_calls=True,
+        add_datetime_to_instructions=True,
+        # debug_mode=True,
+    )
+    agent.print_response("Simulation theory", stream=True)
+    ```
+
+  </Step>
+  <Step title="Run the agent">
+    Install libraries
+
+    ```shell
+    pip install phidata openai duckduckgo-search newspaper4k lxml_html_clean
+    ```
+
+    Run the agent
+
+    ```shell
+    python research_agent.py
+    ```
+
+  </Step>
+</Steps>
+
+<Note>
+Under the hood, the description and instructions are converted to the system prompt and the input is passed as the user prompt. Use `debug_mode=True` to log the messages sent to the LLM.
+</Note>
+
+## Return Agent response as a variable
+
+Use the `Agent.run()` function to capture the response as a variable.
+
+```python
+from phi.agent import Agent, RunResponse
+from phi.utils.pprint import pprint_run_response
+
+agent = Agent(...)
+
+# Run agent and return the response as a variable
+response: RunResponse = agent.run("Simulation theory")
+# Print the response in markdown format
+pprint_run_response(response, markdown=True)
+```
+
+By default `stream=False`, set `stream=True` to return a stream.
+
+```python
+from typing import Iterator
+
+# Run agent and return the response as a stream
+response_stream: Iterator[RunResponse] = agent.run("Simulation theory", stream=True)
+# Print the response stream in markdown format
+pprint_run_response(response_stream, markdown=True, show_time=True)
+```
+
+## Run the agent as a CLI app
+
+Run the agent as a command line application using `agent.cli_app()`
+
+```python
+from phi.agent import Agent
+from phi.tools.duckduckgo import DuckDuckGo
+
+agent = Agent(tools=[DuckDuckGo()], show_tool_calls=True, read_chat_history=True)
+agent.cli_app(markdown=True)
+```
+
+Ask
+
+```
+Whats happening in france?
+```
+
+Then ask:
+
+```
+Summarize the last response
+```
+
+## Manually set the system prompt
+
+You can manually set the system prompt using the `system_prompt` variable. The `description` and `instructions` only provide a formatting benefit. Learn more in the [instructions](/agents/instructions) guide.
+
+```python
+from phi.agent import Agent
+
+agent = Agent(system_prompt="Share a 2 sentence story about")
+agent.print_response("Love in the year 12000.")
+```

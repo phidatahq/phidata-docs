@@ -1,0 +1,74 @@
+---
+title: Mistral
+---
+
+Mistral is a platform for providing endpoints for Large Language models.
+
+## Authentication
+
+Set your `MISTRAL_API_KEY` environment variable.
+
+<CodeGroup>
+
+```bash Mac
+export MISTRAL_API_KEY=***
+```
+
+```bash Windows
+setx MISTRAL_API_KEY ***
+```
+
+</CodeGroup>
+
+## Example
+
+Use `Mistral` with your `Agent`:
+
+<CodeGroup>
+
+```python agent.py
+import os
+
+from phi.agent import Agent, RunResponse
+from phi.model.mistral import MistralChat
+
+mistral_api_key = os.getenv("MISTRAL_API_KEY")
+
+agent = Agent(
+    model=MistralChat(
+        id="mistral-large-latest",
+        api_key=mistral_api_key,
+    ),
+)
+
+# Get the response in a variable
+# run: RunResponse = agent.run("Share a 2 sentence horror story.")
+# print(run.content)
+
+# Print the response on the terminal
+agent.print_response("Share a 2 sentence horror story.")
+
+```
+
+</CodeGroup>
+
+## Params
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `id` | `str` | `"mistral-large-latest"` | The specific model ID used for generating responses. |
+| `name` | `str` | `"MistralChat"` | The name identifier for the agent. |
+| `provider` | `str` | `"Mistral"` | The provider of the model. |
+| `temperature` | `Optional[float]` | - | The sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic. |
+| `max_tokens` | `Optional[int]` | - | The maximum number of tokens to generate in the response. |
+| `top_p` | `Optional[float]` | - | The nucleus sampling parameter. The model considers the results of the tokens with top_p probability mass. |
+| `random_seed` | `Optional[int]` | - | The seed for random number generation to ensure reproducibility of results. |
+| `safe_mode` | `bool` | `False` | Enable safe mode to filter potentially harmful or inappropriate content. |
+| `safe_prompt` | `bool` | `False` | Enable safe prompt mode to filter potentially harmful or inappropriate prompts. |
+| `response_format` | `Optional[Union[Dict[str, Any], ChatCompletionResponse]]` | - | The format of the response, either as a dictionary or as a ChatCompletionResponse object. |
+| `request_params` | `Optional[Dict[str, Any]]` | - | Additional parameters to include in the request. |
+| `api_key` | `Optional[str]` | - | The API key for authenticating requests to the service. |
+| `endpoint` | `Optional[str]` | - | The API endpoint URL for making requests to the service. |
+| `max_retries` | `Optional[int]` | - | The maximum number of retry attempts for failed requests. |
+| `timeout` | `Optional[int]` | - | The timeout duration for requests, specified in seconds. |
+| `client_params` | `Optional[Dict[str, Any]]` | - | Additional parameters for client configuration. |
+| `mistral_client` | `Optional[Mistral]` | - | An instance of Mistral client provided for making API requests. |

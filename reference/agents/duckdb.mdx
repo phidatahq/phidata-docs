@@ -1,0 +1,96 @@
+---
+title: DuckDb Agent
+sidebarTitle: DuckDb
+---
+
+## Example
+
+```python duckdb_agent.py
+import json
+from phi.agent.duckdb import DuckDbAgent
+
+tables = [
+    {
+        "name": "movies",
+        "description": "Contains information about movies from IMDB.",
+        "path": "s3://phidata-public/demo_data/IMDB-Movie-Data.csv",
+    },
+]
+
+duckdb_agent = DuckDbAgent(
+    show_function_calls=True,
+    semantic_model=json.dumps({"tables": tables}, indent=4),
+)
+
+duckdb_agent.print_response("What is the average rating of movies?")
+```
+
+## DuckDbAgent Params
+
+<ResponseField name="name" type="str" default="DuckDbAgent">
+  Name of the agent.
+</ResponseField>
+<ResponseField name="semantic_model" type="str" default="None">
+  Semantic model for the agent. Use the to describe the available tables, their
+  description, data path and relations between tables.
+</ResponseField>
+<ResponseField name="add_chat_history_to_messages" type="bool" default="True">
+  If the chat history should be added to the messages.
+</ResponseField>
+<ResponseField name="num_history_messages" type="int" default="6">
+  Number of history messages to add to the response.
+</ResponseField>
+<ResponseField name="followups" type="bool" default="False">
+  If the DuckDbAgent is allowed to run followup queries.
+</ResponseField>
+<ResponseField name="read_tool_call_history" type="bool" default="True">
+  If the DuckDbAgent is allowed to read the tool call history.
+</ResponseField>
+<ResponseField name="db_path" type="str" default="None">
+  Path to the DuckDb database file.
+</ResponseField>
+<ResponseField name="connection" type="DuckDBPyConnection" default="None">
+  Provide an existing duckdb connection.
+</ResponseField>
+<ResponseField name="init_commands" type="List[str]" default="None">
+  Commands ran when the duckdb connection is initialized.
+</ResponseField>
+<ResponseField name="read_only" type="bool" default="False">
+  If the database is read-only.
+</ResponseField>
+<ResponseField name="config" type="dict" default="None">
+  database config used to initialize the duckdb connection.
+</ResponseField>
+<ResponseField name="run_queries" type="bool" default="True">
+  If the DuckDbAgent is allowed to run queries.
+</ResponseField>
+<ResponseField name="inspect_queries" type="bool" default="True">
+  If the DuckDbAgent is allowed to inspect queries.
+</ResponseField>
+<ResponseField name="create_tables" type="bool" default="True">
+  If the DuckDbAgent is allowed to create tables.
+</ResponseField>
+<ResponseField name="summarize_tables" type="bool" default="True">
+  If the DuckDbAgent is allowed to summarize tables.
+</ResponseField>
+<ResponseField name="export_tables" type="bool" default="True">
+  If the DuckDbAgent is allowed to export tables.
+</ResponseField>
+<ResponseField name="base_dir" type="Path" default=".">
+  Where to save SQL files if needed.
+</ResponseField>
+<ResponseField name="save_files" type="bool" default="True">
+  If the DuckDbAgent is allowed to save SQL files.
+</ResponseField>
+<ResponseField name="read_files" type="bool" default="False">
+  If the DuckDbAgent is allowed to read SQL files.
+</ResponseField>
+<ResponseField name="list_files" type="bool" default="False">
+  If the DuckDbAgent is allowed to list SQL files.
+</ResponseField>
+
+## Agent Reference
+
+`DuckDbAgent` is a subclass of the `Agent` class and has access to the same params
+
+<Snippet file="agent-reference.mdx" />

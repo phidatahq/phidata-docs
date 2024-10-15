@@ -1,0 +1,59 @@
+---
+title: Ollama
+---
+
+Run Large Language Models locally with Ollama
+
+[Ollama](https://ollama.com) is a fantastic tool for running models locally. Install [ollama](https://ollama.com) and run a model using
+
+<CodeGroup>
+
+```bash run model
+ollama run llama2
+```
+
+```bash serve
+ollama serve
+```
+
+</CodeGroup>
+
+After you have the local model running, use the `Ollama` model to access them
+
+## Example
+
+<CodeGroup>
+
+```python agent.py
+from phi.agent import Agent
+from phi.model.ollama import Ollama
+
+agent = Agent(
+    model=Ollama(id="llama3"),
+    description="You help people with their health and fitness goals.",
+)
+# Get the response in a variable
+# run: RunResponse = agent.run("Share a 2 sentence horror story.")
+# print(run.content)
+
+# Print the response in the terminal
+agent.print_response("Share a 2 sentence horror story.")
+```
+
+</CodeGroup>
+
+## Params
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `id` | `str` | `"llama3.2"` | The name of the model to be used. |
+| `name` | `str` | `"Ollama"` | The name identifier for the agent. |
+| `provider` | `str` | `"Ollama {id}"` | The provider of the model, combining "Ollama" with the model ID. |
+| `format` | `Optional[str]` | - | The response format, either None for default or a specific format like "json". |
+| `options` | `Optional[Any]` | - | Additional options to include with the request, e.g., temperature or stop sequences. |
+| `keep_alive` | `Optional[Union[float, str]]` | - | The keep-alive duration for maintaining persistent connections, specified in seconds or as a string. |
+| `request_params` | `Optional[Dict[str, Any]]` | - | Additional parameters to include in the request. |
+| `host` | `Optional[str]` | - | The host URL for making API requests to the Ollama service. |
+| `timeout` | `Optional[Any]` | - | The timeout duration for requests, can be specified in seconds. |
+| `client_params` | `Optional[Dict[str, Any]]` | - | Additional parameters for client configuration. |
+| `client` | `Optional[OllamaClient]` | - | An instance of OllamaClient provided for making API requests. |
+| `async_client` | `Optional[AsyncOllamaClient]` | - | An instance of AsyncOllamaClient for making asynchronous API requests. |

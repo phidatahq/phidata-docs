@@ -19,7 +19,7 @@ Install `textract` using `pip install textract`
 
 </Note>
 
-```python knowledge_base.py
+```python
 from phi.knowledge.docx import DocxKnowledgeBase
 from phi.vectordb.pgvector import PgVector
 
@@ -27,50 +27,34 @@ knowledge_base = DocxKnowledgeBase(
     path="data/docs",
     # Table name: ai.docx_documents
     vector_db=PgVector(
-        collection="docx_documents",
+        table_name="docx_documents",
         db_url="postgresql+psycopg://ai:ai@localhost:5532/ai",
     ),
 )
 ```
 
-Then use the `knowledge_base` with an `Assistant`:
+Then use the `knowledge_base` with an `Agent`:
 
-```python assistant.py
-from phi.assistant import Assistant
+```python
+from phi.agent import Agent
 from knowledge_base import knowledge_base
 
-assistant = Assistant(
+agent = Agent(
     knowledge_base=knowledge_base,
     add_references_to_prompt=True,
 )
-assistant.knowledge_base.load(recreate=False)
+agent.knowledge_base.load(recreate=False)
 
-assistant.print_response("Ask me about something from the knowledge base")
+agent.print_response("Ask me about something from the knowledge base")
 ```
 
 ## Params
 
-<ResponseField name="path" type="Union[str, Path]">
-  Path to text files.
-
-Can point to a single docx file or a directory of docx files.
-
-</ResponseField>
-<ResponseField name="formats" type="List[str]">
-  Formats accepted by this knowledge base.
-
-Default: `[".doc", ".docx"]`
-
-</ResponseField>
-<ResponseField name="vector_db" type="VectorDb">
-  Vector Database for the Knowledge Base.
-</ResponseField>
-<ResponseField name="reader" type="DocxReader">
-  A `DocxReader` that converts the text files into `Documents` for the vector database.
-</ResponseField>
-<ResponseField name="num_documents" type="int">
-  Number of documents to return on search. (default: `5`)
-</ResponseField>
-<ResponseField name="optimize_on" type="int">
-  Number of documents to optimize the vector db on.
-</ResponseField>
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `path` | `Union[str, Path]` | - | Path to text files. Can point to a single docx file or a directory of docx files. |
+| `formats` | `List[str]` | `[".doc", ".docx"]` | Formats accepted by this knowledge base. |
+| `vector_db` | `VectorDb` | - | Vector Database for the Knowledge Base. |
+| `reader` | `DocxReader` | - | A `DocxReader` that converts the text files into `Documents` for the vector database. |
+| `num_documents` | `int` | `5` | Number of documents to return on search. |
+| `optimize_on` | `int` | - | Number of documents to optimize the vector db on. |

@@ -51,15 +51,15 @@ And, that's it! With just this, you can start logging all of your Phidata reques
 3. **Let's Run your Agent**
 
 ```python
-from phi.assistant import Assistant
+from phi.agent import Agent
 
-assistant = Assistant(
+agent = Agent(
     llm=llm,
     description="You help people with their health and fitness goals.",
     instructions=["Recipes should be under 5 ingredients"],
 )
 # -*- Print a response to the client
-assistant.print_response("Share a breakfast recipe.", markdown=True)
+agent.print_response("Share a breakfast recipe.", markdown=True)
 ```
 
 Here's the output from your Agent's run on Portkey's dashboard.

@@ -1,0 +1,123 @@
+---
+title: PDF Agent with Storage
+---
+
+Create an Agent that can
+
+- Read PDFs and store them in a knowledge base
+- Store the runs in PostgreSQL to provide long-term memory across sessions
+
+```python
+import typer
+from typing import Optional, List
+from phi.agent import Agent
+from phi.storage.agent.postgres import PgAgentStorage
+from phi.knowledge.pdf import PDFUrlKnowledgeBase
+from phi.vectordb.pgvector import PgVector, SearchType
+
+db_url = "postgresql+psycopg://ai:ai@localhost:5532/ai"
+knowledge_base = PDFUrlKnowledgeBase(
+    urls=["https://phi-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"],
+    vector_db=PgVector(table_name="recipes", db_url=db_url, search_type=SearchType.hybrid),
+)
+# Load the knowledge base: Comment out after first run
+knowledge_base.load(upsert=True)
+
+storage = PgAgentStorage(table_name="pdf_agent", db_url=db_url)
+
+
+def pdf_agent(new: bool = False, user: str = "user"):
+    session_id: Optional[str] = None
+
+    if not new:
+        existing_sessions: List[str] = storage.get_all_session_ids(user)
+        if len(existing_sessions) > 0:
+            session_id = existing_sessions[0]
+
+    agent = Agent(
+        session_id=session_id,
+        user_id=user,
+        knowledge=knowledge_base,
+        storage=storage,
+        # Show tool calls in the response
+        show_tool_calls=True,
+        # Enable the agent to read the chat history
+        read_chat_history=True,
+    )
+    if session_id is None:
+        session_id = agent.session_id
+        print(f"Started Session: {session_id}\n")
+    else:
+        print(f"Continuing Session: {session_id}\n")
+
+    # Runs the agent as a cli app
+    agent.cli_app(markdown=True)
+
+
+if __name__ == "__main__":
+    typer.run(pdf_agent)
+
+```
+
+## Usage
+
+<Steps>
+  <Snippet file="create-venv-step.mdx" />
+
+  <Snippet file="run-pgvector-step.mdx" />
+
+  <Step title="Install libraries">
+
+    ```bash
+    pip install -U pgvector pypdf "psycopg[binary]" sqlalchemy openai phidata
+    ```
+
+  </Step>
+
+  <Step title="Run the agent">
+
+    <CodeGroup>
+
+    ```bash Mac
+    python cookbook/agents/pdf_agent.py
+    ```
+
+    ```bash Windows
+    python cookbook/agents/pdf_agent.py
+    ```
+    </CodeGroup>
+
+    Now the agent continues across sessions. Ask a question:
+
+    ```
+    How do I make pad thai?
+    ```
+
+    Then message `bye` to exit, start the app again and ask:
+
+    ```
+    What was my last message?
+    ```
+
+  </Step>
+  <Step title="Start a new run">
+    Run the `agent_with_storage.py` file with the `--new` flag to start a new run.
+
+    ```bash
+    python agent_with_storage.py --new
+    ```
+
+  </Step>
+  <Step title="Stop PgVector">
+
+    ```bash
+    phi stop cookbook/rag/resources.py -y
+    ```
+
+  </Step>
+</Steps>
+
+## Information
+
+- View on [Github](https://github.com/phidatahq/phidata/tree/main/cookbook/agents/pdf_agent.py)
+- Read about [Agent Storage](/agents/storage)

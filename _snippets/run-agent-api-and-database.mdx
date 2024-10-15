@@ -1,0 +1,31 @@
+## Serve your Agents using FastApi
+
+[FastApi](https://fastapi.tiangolo.com/) is an exceptional framework for building RestApis. Its fast, well-designed and loved by everyone using it. Most production applications are built using a front-end framework like [next.js](https://nextjs.org) backed by a RestAPI, where FastApi shines.
+
+Your codebase comes pre-configured with [FastApi](https://fastapi.tiangolo.com/) and [PostgreSQL](https://www.postgresql.org/), along with some sample routes. Start your workspace using:
+
+<CodeGroup>
+
+```bash terminal
+phi ws up
+```
+
+```bash shorthand
+phi ws up dev:docker
+```
+
+</CodeGroup>
+
+**Press Enter** to confirm and give a few minutes for the image to download (only the first time). Verify container status and view logs on the docker dashboard.
+
+
+- Open [localhost:8000/docs](http://localhost:8000/docs) to view the API Endpoints.
+- Test the `/v1/playground/agent/run` endpoint with
+
+```json
+{
+  "message": "howdy",
+  "agent_id": "example-agent",
+  "stream": true
+}
+```

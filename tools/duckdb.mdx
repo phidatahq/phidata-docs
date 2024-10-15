@@ -2,115 +2,64 @@
 title: DuckDb
 ---
 
-**DuckDbTools** enable an Assistant to run SQL and analyze data using DuckDb.
+**DuckDbTools** enable an Agent to run SQL and analyze data using DuckDb.
 
-### Prerequisites
+## Prerequisites
 
-The following examples require DuckDB installed.
-To install `DuckDB`:
+The following example requires DuckDB library. To install DuckDB, run the following command:
 
-    ```shell
-    pip install duckdb --upgrade
-    ```
+```shell
+pip install duckdb
+```
 
 For more installation options, please refer to [DuckDB documentation](https://duckdb.org/docs/installation).
 
 ## Example
 
-The following assistant will analyze the movies file using SQL and return the result.
+The following agent will analyze the movies file using SQL and return the result.
 
 ```python cookbook/tools/duckdb_tools.py
-from phi.assistant import Assistant
+from phi.agent import Agent
 from phi.tools.duckdb import DuckDbTools
 
-assistant = Assistant(
+agent = Agent(
     tools=[DuckDbTools()],
     show_tool_calls=True,
     system_prompt="Use this file for Movies data: https://phidata-public.s3.amazonaws.com/demo_data/IMDB-Movie-Data.csv",
 )
-assistant.print_response("What is the average rating of movies?", markdown=True, stream=False)
+agent.print_response("What is the average rating of movies?", markdown=True, stream=False)
 ```
 
 ## Toolkit Params
 
-<ResponseField name="db_path" type="str">
-  Specifies the path to the database file.
-</ResponseField>
-<ResponseField name="connection" type="DuckDBPyConnection">
-  Provides an existing DuckDB connection object.
-</ResponseField>
-<ResponseField name="init_commands" type="List">
-  A list of initial SQL commands to run on database connection.
-</ResponseField>
-<ResponseField name="read_only" type="bool" default="False">
-  Configures the database connection to be read-only.
-</ResponseField>
-<ResponseField name="config" type="dict">
-  Configuration options for the database connection.
-</ResponseField>
-<ResponseField name="run_queries" type="bool" default="True">
-  Determines whether to run SQL queries during the operation.
-</ResponseField>
-<ResponseField name="inspect_queries" type="bool" default="False">
-  Enables inspection of SQL queries without executing them.
-</ResponseField>
-<ResponseField name="create_tables" type="bool" default="True">
-  Allows creation of tables in the database during the operation.
-</ResponseField>
-<ResponseField name="summarize_tables" type="bool" default="True">
-  Enables summarization of table data during the operation.
-</ResponseField>
-<ResponseField name="export_tables" type="bool" default="False">
-  Allows exporting tables to external formats during the operation.
-</ResponseField>
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `db_path` | `str` | - | Specifies the path to the database file. |
+| `connection` | `DuckDBPyConnection` | - | Provides an existing DuckDB connection object. |
+| `init_commands` | `List` | - | A list of initial SQL commands to run on database connection. |
+| `read_only` | `bool` | `False` | Configures the database connection to be read-only. |
+| `config` | `dict` | - | Configuration options for the database connection. |
+| `run_queries` | `bool` | `True` | Determines whether to run SQL queries during the operation. |
+| `inspect_queries` | `bool` | `False` | Enables inspection of SQL queries without executing them. |
+| `create_tables` | `bool` | `True` | Allows creation of tables in the database during the operation. |
+| `summarize_tables` | `bool` | `True` | Enables summarization of table data during the operation. |
+| `export_tables` | `bool` | `False` | Allows exporting tables to external formats during the operation. |
 
 ## Toolkit Functions
 
-<ResponseField name="show_tables">
-  Function to show tables in the database
-</ResponseField>
-<ResponseField name="describe_table">
-  Function to describe a table
-</ResponseField>
-<ResponseField name="inspect_query">
-  Function to inspect a query and return the query plan. Always inspect your
-  query before running them.
-</ResponseField>
-<ResponseField name="run_query">
-  Function that runs a query and returns the result.
-</ResponseField>
-<ResponseField name="summarize_table">
-  Function to compute a number of aggregates over a table. The function launches
-  a query that computes a number of aggregates over all columns, including min,
-  max, avg, std and approx_unique.
-</ResponseField>
-<ResponseField name="get_table_name_from_path">
-  Get the table name from a path
-</ResponseField>
-<ResponseField name="create_table_from_path">
-  Creates a table from a path
-</ResponseField>
-<ResponseField name="export_table_to_path">
-  Save a table in a desired format (default: parquet). If the path is provided,
-  the table will be saved under that path. Eg: If path is /tmp, the table will
-  be saved as /tmp/table.parquet. Otherwise it will be saved in the current
-  directory
-</ResponseField>
-<ResponseField name="load_local_path_to_table">
-  Load a local file into duckdb
-</ResponseField>
-<ResponseField name="load_local_csv_to_table">
-  Load a local CSV file into duckdb
-</ResponseField>
-<ResponseField name="load_s3_path_to_table">
-  Load a file from S3 into duckdb
-</ResponseField>
-<ResponseField name="load_s3_csv_to_table">
-  Load a CSV file from S3 into duckdb
-</ResponseField>
-<ResponseField name="create_fts_index">
-  Create a full text search index on a table
-</ResponseField>
-<ResponseField name="full_text_search">
-  Full text Search in a table column for a specific text/keyword
-</ResponseField>
+| Function | Description |
+|----------|-------------|
+| `show_tables` | Function to show tables in the database |
+| `describe_table` | Function to describe a table |
+| `inspect_query` | Function to inspect a query and return the query plan. Always inspect your query before running them. |
+| `run_query` | Function that runs a query and returns the result. |
+| `summarize_table` | Function to compute a number of aggregates over a table. The function launches a query that computes a number of aggregates over all columns, including min, max, avg, std and approx_unique. |
+| `get_table_name_from_path` | Get the table name from a path |
+| `create_table_from_path` | Creates a table from a path |
+| `export_table_to_path` | Save a table in a desired format (default: parquet). If the path is provided, the table will be saved under that path. Eg: If path is /tmp, the table will be saved as /tmp/table.parquet. Otherwise it will be saved in the current directory |
+| `load_local_path_to_table` | Load a local file into duckdb |
+| `load_local_csv_to_table` | Load a local CSV file into duckdb |
+| `load_s3_path_to_table` | Load a file from S3 into duckdb |
+| `load_s3_csv_to_table` | Load a CSV file from S3 into duckdb |
+| `create_fts_index` | Create a full text search index on a table |
+| `full_text_search` | Full text Search in a table column for a specific text/keyword |

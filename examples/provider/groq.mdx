@@ -1,0 +1,53 @@
+---
+title: Groq
+---
+
+## Example
+
+```python
+from phi.agent import Agent
+from phi.tools.duckduckgo import DuckDuckGo
+from phi.llm.groq import Groq
+
+agent = Agent(
+    llm=Groq(model="mixtral-8x7b-32768"),
+    tools=[DuckDuckGo()],
+    show_tool_calls=True,
+)
+agent.print_response("Whats happening in France?", markdown=True, stream=False)
+```
+
+## Usage
+
+<Steps>
+  <Snippet file="create-venv-step.mdx" />
+
+  <Step title="Install libraries">
+
+    ```bash
+    pip install -U groq duckduckgo-search phidata
+    ```
+
+  </Step>
+
+  <Step title="Export `GROQ_API_KEY`">
+
+    ```bash
+    export GROQ_API_KEY=xxx
+    ```
+
+  </Step>
+
+  <Step title="Run Groq Agent">
+
+    ```bash
+    python cookbook/llms/groq/agent.py
+    ```
+
+  </Step>
+
+  </Steps>
+
+## Information
+
+- View on [Github](https://github.com/phidatahq/phidata/tree/main/cookbook/llms/groq/agent.py)

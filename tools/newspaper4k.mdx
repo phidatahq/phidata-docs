@@ -2,41 +2,39 @@
 title: Newspaper4k
 ---
 
-**Newspaper4k** enable an Assistant to read news articles using the Newspaper4k library.
+**Newspaper4k** enables an Agent to read news articles using the Newspaper4k library.
+
+## Prerequisites
+
+The following example requires the `newspaper4k` and `lxml_html_clean` libraries.
+
+```shell
+pip install -U newspaper4k lxml_html_clean
+```
 
 ## Example
 
-The following assistant will summarize the article: "https://www.rockymountaineer.com/blog/experience-icefields-parkway-scenic-drive-lifetime".
+The following agent will summarize the article: https://www.rockymountaineer.com/blog/experience-icefields-parkway-scenic-drive-lifetime.
 
 ```python cookbook/tools/newspaper4k_tools.py
-from phi.assistant import Assistant
+from phi.agent import Agent
 from phi.tools.newspaper4k import Newspaper4k
 
-assistant = Assistant(tools=[Newspaper4k()], debug_mode=True, show_tool_calls=True)
-assistant.print_response(
-    "https://www.rockymountaineer.com/blog/experience-icefields-parkway-scenic-drive-lifetime",
-    markdown=True,
-)
+agent = Agent(tools=[Newspaper4k()], debug_mode=True, show_tool_calls=True)
+agent.print_response("Please summarize https://www.rockymountaineer.com/blog/experience-icefields-parkway-scenic-drive-lifetime")
 ```
 
 ## Toolkit Params
 
-<ResponseField name="read_article" type="bool" default="True">
-  Enables the functionality to read the full content of an article.
-</ResponseField>
-<ResponseField name="include_summary" type="bool" default="False">
-  Specifies whether to include a summary of the article along with the full
-  content.
-</ResponseField>
-<ResponseField name="article_length" type="int">
-  The maximum length of the article or its summary to be processed or returned.
-</ResponseField>
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `read_article` | `bool` | `True` | Enables the functionality to read the full content of an article. |
+| `include_summary` | `bool` | `False` | Specifies whether to include a summary of the article along with the full content. |
+| `article_length` | `int` | - | The maximum length of the article or its summary to be processed or returned. |
 
 ## Toolkit Functions
 
-<ResponseField name="get_article_data">
-  This function reads the full content and data of an article.
-</ResponseField>
-<ResponseField name="read_article">
-  This function reads the full content of an article.
-</ResponseField>
+| Function | Description |
+|----------|-------------|
+| `get_article_data` | This function reads the full content and data of an article. |
+| `read_article` | This function reads the full content of an article. |

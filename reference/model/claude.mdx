@@ -1,0 +1,44 @@
+---
+title: Claude
+---
+
+## Example
+
+<CodeGroup>
+
+```python agent.py
+from phi.agent import Agent
+from phi.llm.anthropic import Claude
+
+agent = Agent(
+    llm=Claude(model="claude-3-opus-20240229"),
+    description="You help people with their health and fitness goals.",
+)
+agent.print_response("Share a quick healthy breakfast recipe.", markdown=True)
+```
+
+</CodeGroup>
+
+## Claude Params
+
+<ResponseField name="name" type="str" default="Claude"></ResponseField>
+<ResponseField
+  name="models"
+  type="str"
+  default="claude-3-opus-20240229"
+></ResponseField>
+<ResponseField name="max_tokens" type="int" default="1024"></ResponseField>
+<ResponseField name="temperature" type="float"></ResponseField>
+<ResponseField name="stop_sequence" type="List[str]"></ResponseField>
+<ResponseField name="top_p" type="float"></ResponseField>
+<ResponseField name="top_k" type="int"></ResponseField>
+
+<ResponseField name="api_key" type="str"></ResponseField>
+<ResponseField name="base_url" type="str"></ResponseField>
+<ResponseField name="anthropic_client" type="AnthropicClient"></ResponseField>
+
+## LLM Params
+
+`Claude` is a subclass of the `LLM` class and has access to the same params
+
+<Snippet file="llm-base-reference.mdx" />

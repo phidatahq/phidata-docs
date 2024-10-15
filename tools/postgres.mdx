@@ -1,0 +1,77 @@
+---
+title: Postgres
+---
+
+**PostgresTools** enable an Agent to interact with a PostgreSQL database.
+
+## Prerequisites
+
+The following example requires the `psycopg2` library.
+
+```shell
+pip install -U psycopg2
+```
+
+You will also need a database. The following example uses a Postgres database running in a Docker container.
+
+```shell
+docker run -d \
+  -e POSTGRES_DB=ai \
+  -e POSTGRES_USER=ai \
+  -e POSTGRES_PASSWORD=ai \
+  -e PGDATA=/var/lib/postgresql/data/pgdata \
+  -v pgvolume:/var/lib/postgresql/data \
+  -p 5532:5432 \
+  --name pgvector \
+  phidata/pgvector:16
+```
+
+## Example
+
+The following agent will list all tables in the database.
+
+```python cookbook/tools/postgres.py
+from phi.agent import Agent
+from phi.tools.postgres import PostgresTools
+
+db_name = "ai"
+user = "ai"
+password = "ai"
+host = "localhost"
+port = 5532
+
+agent = Agent(tools=[PostgresTools(
+    db_name=db_name,
+    user=user,
+    password=password,
+    host=host,
+    port=port),
+])
+agent.print_response("List the tables in the database", markdown=True)
+```
+
+## Toolkit Params
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `connection` | `psycopg2.extensions.connection` | `None` | Optional database connection object. |
+| `db_name` | `str` | `None` | Optional name of the database to connect to. |
+| `user` | `str` | `None` | Optional username for database authentication. |
+| `password` | `str` | `None` | Optional password for database authentication. |
+| `host` | `str` | `None` | Optional host for the database connection. |
+| `port` | `int` | `None` | Optional port for the database connection. |
+| `run_queries` | `bool` | `True` | Enables running SQL queries. |
+| `inspect_queries` | `bool` | `False` | Enables inspecting SQL queries before execution. |
+| `summarize_tables` | `bool` | `True` | Enables summarizing table structures. |
+| `export_tables` | `bool` | `False` | Enables exporting tables from the database. |
+
+## Toolkit Functions
+
+| Function | Description |
+|----------|-------------|
+| `show_tables` | Retrieves and displays a list of tables in the database. Returns the list of tables. |
+| `describe_table` | Describes the structure of a specified table by returning its columns, data types, and maximum character length. Parameters include 'table' to specify the table name. Returns the table description. |
+| `summarize_table` | Summarizes a table by computing aggregates such as min, max, average, standard deviation, and non-null counts for numeric columns. Parameters include 'table' to specify the table name, and an optional 'table_schema' to specify the schema (default is "public"). Returns the summary of the table. |
+| `inspect_query` | Inspects an SQL query by returning the query plan. Parameters include 'query' to specify the SQL query. Returns the query plan. |
+| `export_table_to_path` | Exports a specified table in CSV format to a given path. Parameters include 'table' to specify the table name and an optional 'path' to specify where to save the file (default is the current directory). Returns the result of the export operation. |
+| `run_query` | Executes an SQL query and returns the result. Parameters include 'query' to specify the SQL query. Returns the result of the query execution. |

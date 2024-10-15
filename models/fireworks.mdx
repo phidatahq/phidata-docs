@@ -1,0 +1,56 @@
+---
+title: Fireworks
+---
+
+Fireworks is a platform for providing endpoints for Large Language models.
+
+## Authentication
+
+Set your `FIREWORKS_API_KEY` environment variable.
+
+<CodeGroup>
+
+```bash Mac
+export FIREWORKS_API_KEY=***
+```
+
+```bash Windows
+setx FIREWORKS_API_KEY ***
+```
+
+</CodeGroup>
+
+## Example
+
+Use `Fireworks` with your `Agent`:
+
+<CodeGroup>
+
+```python agent.py
+from phi.agent import Agent, RunResponse
+from phi.model.fireworks import Fireworks
+
+agent = Agent(
+    model=Fireworks(id="accounts/fireworks/models/firefunction-v2"),
+)
+
+# Get the response in a variable
+# run: RunResponse = agent.run("Share a 2 sentence horror story.")
+# print(run.content)
+
+# Print the response in the terminal
+agent.print_response("Share a 2 sentence horror story.")
+
+```
+
+</CodeGroup>
+
+## Params
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `id` | `str` | `"accounts/fireworks/models/firefunction-v2"` | The specific model ID used for generating responses. |
+| `name` | `str` | `"Fireworks: {id}"` | The name identifier for the agent. Defaults to "Fireworks: " followed by the model ID. |
+| `provider` | `str` | `"Fireworks"` | The provider of the model. |
+| `api_key` | `Optional[str]` | - | The API key for authenticating requests to the service. Retrieved from the environment variable FIREWORKS_API_KEY. |
+| `base_url` | `str` | `"https://api.fireworks.ai/inference/v1"` | The base URL for making API requests to the Fireworks service. |

@@ -2,36 +2,39 @@
 title: Arxiv
 ---
 
-**ArxivTools** enable an Assistant to search for papers on Arxiv.
+**ArxivTools** enable an Agent to search for publications on Arxiv.
+
+## Prerequisites
+
+The following example requires the `arxiv` and `pypdf` libraries.
+
+```shell
+pip install -U arxiv pypdf
+```
 
 ## Example
 
-The following assistant will run seach arXiv for "language models" and print the response.
+The following agent will run seach arXiv for "language models" and print the response.
 
 ```python cookbook/tools/arxiv_tools.py
-from phi.assistant import Assistant
+from phi.agent import Agent
 from phi.tools.arxiv_toolkit import ArxivToolkit
 
-assistant = Assistant(tools=[ArxivToolkit()], show_tool_calls=True)
-assistant.print_response("Search arxiv for 'language models'", markdown=True)
+agent = Agent(tools=[ArxivToolkit()], show_tool_calls=True)
+agent.print_response("Search arxiv for 'language models'", markdown=True)
 ```
 
 ## Toolkit Params
 
-<ResponseField name="search_arxiv" type="bool" default="True">
-  Enables the functionality to search the arXiv database.
-</ResponseField>
-<ResponseField name="read_arxiv_papers" type="bool" default="True">
-  Allows reading of arXiv papers directly.
-</ResponseField>
-<ResponseField name="download_dir" type="Path">
-  Specifies the directory path where downloaded files will be saved.
-</ResponseField>
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `search_arxiv` | `bool` | `True` | Enables the functionality to search the arXiv database. |
+| `read_arxiv_papers` | `bool` | `True` | Allows reading of arXiv papers directly. |
+| `download_dir` | `Path` | - | Specifies the directory path where downloaded files will be saved. |
 
 ## Toolkit Functions
 
-<ResponseField name="search_arxiv_and_update_knowledge_base">
-  This function searches arXiv for a topic, adds the results to the knowledge
-  base and returns them.
-</ResponseField>
-<ResponseField name="search_arxiv">Searches arXiv for a query.</ResponseField>
+| Function | Description |
+|----------|-------------|
+| `search_arxiv_and_update_knowledge_base` | This function searches arXiv for a topic, adds the results to the knowledge base and returns them. |
+| `search_arxiv` | Searches arXiv for a query. |

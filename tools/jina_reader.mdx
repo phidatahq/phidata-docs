@@ -1,0 +1,41 @@
+---
+title: Jina Reader
+---
+
+**JinaReaderTools** enable an Agent to perform web search tasks using Jina.
+
+## Prerequisites
+
+The following example requires the `jina` library.
+
+```shell
+pip install -U jina
+```
+
+## Example
+
+The following agent will use Jina API to summarize the content of https://github.com/phidatahq
+
+```python cookbook/tools/jinareader_tools.py
+from phi.agent import Agent
+from phi.tools.jina_tools import JinaReaderTools
+
+agent = Agent(tools=[JinaReaderTools()])
+agent.print_response("Summarize: https://github.com/phidatahq")
+```
+
+## Toolkit Params
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `api_key` | `str` | - | The API key for authentication purposes, retrieved from the configuration. |
+| `base_url` | `str` | - | The base URL of the API, retrieved from the configuration. |
+| `search_url` | `str` | - | The URL used for search queries, retrieved from the configuration. |
+| `max_content_length` | `int` | - | The maximum length of content allowed, retrieved from the configuration. |
+
+## Toolkit Functions
+
+| Function | Description |
+|----------|-------------|
+| `read_url` | Reads the content of a specified URL using Jina Reader API. Parameters include `url` for the URL to read. Returns the truncated content or an error message if the request fails. |
+| `search_query` | Performs a web search using Jina Reader API based on a specified query. Parameters include `query` for the search term. Returns the truncated search results or an error message if the request fails. |

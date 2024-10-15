@@ -7,13 +7,27 @@
   },
   "favicon": "/favicon.png",
   "colors": {
-    "primary": "#0D9373",
-    "light": "#07C983",
-    "dark": "#0D9373",
-    "anchors": {
-      "from": "#0D9373",
-      "to": "#07C983"
+    "primary": "#FF4017",
+    "light": "#FF4017",
+    "dark": "#FF4017",
+    "background": {
+      "light": "#FFFFFF",
+      "dark": "#111113"
     }
+  },
+  "font": {
+    "headings": {
+      "family": "Inter",
+      "weight": 900
+    },
+    "body": {
+      "family": "Inter",
+      "weight": 400
+    }
+  },
+  "layout": "sidenav",
+  "sidebar": {
+    "items": "undecorated"
   },
   "feedback": {
     "thumbsRating": true,
@@ -26,8 +40,11 @@
     }
   ],
   "topbarCtaButton": {
-    "type": "github",
-    "url": "https://github.com/phidatahq/phidata"
+    "type": "link",
+    "url": "https://phidata.app/login",
+    "name": "Get Started",
+    "style": "roundedRectangle",
+    "arrow": true
   },
   "tabs": [
     {
@@ -45,43 +62,43 @@
   ],
   "navigation": [
     {
-      "group": "Getting Started",
-      "pages": ["introduction", "basics"]
+      "group": "Getting started",
+      "pages": ["quickstart", "playground", "monitoring", "templates"]
     },
     {
       "group": "Documentation",
       "pages": [
         {
-          "group": "Assistants",
+          "group": "Agents",
           "pages": [
-            "assistants/introduction",
-            "assistants/instructions",
-            "assistants/tools",
-            "assistants/knowledge",
-            "assistants/memory",
-            "assistants/storage",
-            "assistants/structured-output",
-            "assistants/teams"
+            "agents/introduction",
+            "agents/prompts",
+            "agents/tools",
+            "agents/knowledge",
+            "agents/memory",
+            "agents/storage",
+            "agents/structured-output",
+            "agents/teams"
           ]
         },
         {
-          "group": "LLMs",
+          "group": "Models",
           "pages": [
-            "llms/introduction",
-            "llms/openai",
-            "llms/openai-like",
-            "llms/ollama",
-            "llms/aws-claude",
-            "llms/together",
-            "llms/anyscale",
-            "llms/fireworks",
-            "llms/mistral",
-            "llms/groq",
-            "llms/google_ai_studio",
-            "llms/google_vertex_ai",
-            "llms/azure",
-            "llms/claude",
-            "llms/cohere"
+            "models/introduction",
+            "models/openai",
+            "models/anthropic",
+            "models/cohere",
+            "models/ollama",
+            "models/groq",
+            "models/openai-like",
+            "models/deepseek",
+            "models/sambanova",
+            "models/aws-bedrock",
+            "models/together",
+            "models/fireworks",
+            "models/mistral",
+            "models/google_ai_studio",
+            "models/azure"
           ]
         },
         {
@@ -91,26 +108,39 @@
             "tools/functions",
             "tools/toolkits",
             "tools/custom-toolkits",
-            "tools/arxiv",
             "tools/apify",
+            "tools/arxiv",
+            "tools/calculator",
             "tools/composio",
+            "tools/crawl4ai",
             "tools/csv",
             "tools/duckdb",
             "tools/duckduckgo",
             "tools/email",
             "tools/exa",
             "tools/file",
+            "tools/firecrawl",
+            "tools/github",
+            "tools/googlesearch",
+            "tools/hackernews",
+            "tools/jina_reader",
+            "tools/jira",
+            "tools/newspaper",
             "tools/newspaper4k",
             "tools/openbb",
+            "tools/pandas",
+            "tools/postgres",
             "tools/pubmed",
+            "tools/python",
             "tools/resend",
+            "tools/searxng",
             "tools/serpapi",
             "tools/shell",
             "tools/spider",
             "tools/sql",
             "tools/tavily",
-            "tools/wikipedia",
             "tools/website",
+            "tools/wikipedia",
             "tools/yfinance",
             "tools/youtube",
             "tools/zendesk"
@@ -130,6 +160,7 @@
             "knowledge/arxiv",
             "knowledge/combined",
             "knowledge/langchain",
+            "knowledge/llamaindex",
             "knowledge/manual"
           ]
         },
@@ -138,7 +169,7 @@
           "pages": [
             "vectordb/introduction",
             "vectordb/pgvector",
-            "vectordb/singlestore",
+            "vectordb/qdrant",
             "vectordb/pinecone",
             "vectordb/lancedb"
           ]
@@ -148,11 +179,12 @@
           "pages": [
             "storage/introduction",
             "storage/postgres",
+            "storage/sqlite",
             "storage/singlestore"
           ]
         },
         {
-          "group": "Embedder",
+          "group": "Embeddings",
           "pages": [
             "embedder/introduction",
             "embedder/openai",
@@ -161,8 +193,7 @@
             "embedder/azure_openai",
             "embedder/mistral",
             "embedder/fireworks",
-            "embedder/together",
-            "embedder/anyscale"
+            "embedder/together"
           ]
         }
       ]
@@ -172,22 +203,47 @@
       "pages": [
         "examples/cookbook",
         {
-          "group": "Assistants",
+          "group": "Agents",
           "pages": [
-            "examples/assistants/basic",
-            "examples/assistants/rag",
-            "examples/assistants/auto",
-            "examples/assistants/pdf",
-            "examples/assistants/hackernews",
-            "examples/assistants/structured-output",
-            "examples/assistants/langchain-retriever",
-            "examples/assistants/python",
-            "examples/assistants/data-analyst",
-            "examples/assistants/vision"
+            "examples/agents/basic",
+            "examples/agents/rag",
+            "examples/agents/auto",
+            "examples/agents/pdf",
+            "examples/agents/hackernews",
+            "examples/agents/structured-output",
+            "examples/agents/data-analyst",
+            "examples/agents/vision"
           ]
         },
         {
-          "group": "Assistant Teams",
+          "group": "Models",
+          "pages": [
+            "examples/provider/openai",
+            "examples/provider/azure",
+            "examples/provider/claude",
+            "examples/provider/cohere",
+            "examples/provider/fireworks",
+            "examples/provider/gemini",
+            "examples/provider/groq",
+            "examples/provider/hermes2",
+            "examples/provider/mistral",
+            "examples/provider/ollama",
+            "examples/provider/together"
+          ]
+        },
+        {
+          "group": "Integrations",
+          "pages": [
+            "examples/integrations/composio",
+            "examples/integrations/pgvector",
+            "examples/integrations/singlestore",
+            "examples/integrations/lancedb",
+            "examples/integrations/pinecone",
+            "examples/integrations/portkey"
+          ]
+        },
+        {
+          "group": "Agent Teams",
           "pages": [
             "examples/teams/research",
             "examples/teams/journalist",
@@ -202,33 +258,6 @@
             "examples/use-case/worldbuilding",
             "examples/use-case/arxiv-research"
           ]
-        },
-        {
-          "group": "Integrations",
-          "pages": [
-            "examples/integrations/pgvector",
-            "examples/integrations/singlestore",
-            "examples/integrations/lancedb",
-            "examples/integrations/pinecone",
-            "examples/integrations/portkey"
-          ]
-        },
-        {
-          "group": "LLMs",
-          "pages": [
-            "examples/llms/openai",
-            "examples/llms/anyscale",
-            "examples/llms/azure",
-            "examples/llms/claude",
-            "examples/llms/cohere",
-            "examples/llms/fireworks",
-            "examples/llms/gemini",
-            "examples/llms/groq",
-            "examples/llms/hermes2",
-            "examples/llms/mistral",
-            "examples/llms/ollama",
-            "examples/llms/together"
-          ]
         }
       ]
     },
@@ -241,29 +270,17 @@
       "pages": [
         "templates/introduction",
         {
-          "group": "LLM OS",
-          "pages": ["templates/llm-os/run-local", "templates/llm-os/run-aws"]
-        },
-        {
-          "group": "AI App",
-          "pages": ["templates/ai-app/run-local", "templates/ai-app/run-aws"]
-        },
-        {
-          "group": "AI API",
-          "pages": ["templates/ai-api/run-local", "templates/ai-api/run-aws"]
-        },
-        {
-          "group": "Streamlit App",
+          "group": "Agent App",
           "pages": [
-            "templates/streamlit-app/run-local",
-            "templates/streamlit-app/run-aws"
+            "templates/agent-app/run-local",
+            "templates/agent-app/run-aws"
           ]
         },
         {
-          "group": "Django App",
+          "group": "Agent API",
           "pages": [
-            "templates/django-app/run-local",
-            "templates/django-app/run-aws"
+            "templates/agent-api/run-local",
+            "templates/agent-api/run-aws"
           ]
         }
       ]
@@ -336,62 +353,59 @@
     {
       "group": "Building Blocks",
       "pages": [
-        "reference/blocks/assistant",
+        "reference/agent",
         {
-          "group": "Custom Assistants",
-          "pages": [
-            "reference/blocks/assistants/python",
-            "reference/blocks/assistants/duckdb"
-          ]
+          "group": "Custom Agents",
+          "pages": ["reference/agents/python", "reference/agents/duckdb"]
         },
         {
-          "group": "LLMs",
+          "group": "Models",
           "pages": [
-            "reference/blocks/llm/base",
-            "reference/blocks/llm/openai",
-            "reference/blocks/llm/aws",
-            "reference/blocks/llm/together",
-            "reference/blocks/llm/ollama",
-            "reference/blocks/llm/fireworks",
-            "reference/blocks/llm/mistral",
-            "reference/blocks/llm/groq",
-            "reference/blocks/llm/gemini",
-            "reference/blocks/llm/azure",
-            "reference/blocks/llm/claude"
+            "reference/model/base",
+            "reference/model/openai",
+            "reference/model/aws",
+            "reference/model/together",
+            "reference/model/ollama",
+            "reference/model/fireworks",
+            "reference/model/mistral",
+            "reference/model/groq",
+            "reference/model/gemini",
+            "reference/model/azure",
+            "reference/model/claude"
           ]
         },
         {
           "group": "Storage",
           "pages": [
-            "reference/blocks/storage/assistant/postgres",
-            "reference/blocks/storage/assistant/sqlite",
-            "reference/blocks/storage/assistant/singlestore"
+            "reference/storage/postgres",
+            "reference/storage/sqlite",
+            "reference/storage/singlestore"
           ]
         },
         {
           "group": "Knowledge Base",
           "pages": [
-            "reference/blocks/kb/base",
-            "reference/blocks/kb/arxiv",
-            "reference/blocks/kb/combined",
-            "reference/blocks/kb/docx",
-            "reference/blocks/kb/json",
-            "reference/blocks/kb/langchain",
-            "reference/blocks/kb/pdf",
-            "reference/blocks/kb/pdf-url",
-            "reference/blocks/kb/text",
-            "reference/blocks/kb/website",
-            "reference/blocks/kb/wikipedia"
+            "reference/kb/base",
+            "reference/kb/arxiv",
+            "reference/kb/combined",
+            "reference/kb/docx",
+            "reference/kb/json",
+            "reference/kb/langchain",
+            "reference/kb/pdf",
+            "reference/kb/pdf-url",
+            "reference/kb/text",
+            "reference/kb/website",
+            "reference/kb/wikipedia"
           ]
         },
         {
           "group": "VectorDbs",
           "pages": [
-            "reference/blocks/vectordb/pgvector",
-            "reference/blocks/vectordb/pgvector2",
-            "reference/blocks/vectordb/singlestore",
-            "reference/blocks/vectordb/qdrant",
-            "reference/blocks/vectordb/lancedb"
+            "reference/vectordb/pgvector",
+            "reference/vectordb/pgvector2",
+            "reference/vectordb/singlestore",
+            "reference/vectordb/qdrant",
+            "reference/vectordb/lancedb"
           ]
         }
       ]
@@ -435,7 +449,7 @@
   ],
   "footerSocials": {
     "github": "https://github.com/phidatahq/phidata",
-    "discord": "https://discord.com/invite/4MtYHHrgA8",
+    "discord": "https://phidata.link/discord",
     "website": "https://phidata.com"
   }
 }

@@ -1,0 +1,53 @@
+---
+title: OpenAI
+---
+
+## Example
+
+```python
+from phi.agent import Agent
+from phi.llm.openai import OpenAIChat
+from phi.tools.duckduckgo import DuckDuckGo
+
+agent = Agent(
+    llm=OpenAIChat(model="gpt-4-turbo", max_tokens=500, temperature=0.3),
+    tools=[DuckDuckGo()],
+    show_tool_calls=True
+)
+agent.print_response("Whats happening in France?", markdown=True)
+```
+
+## Usage
+
+<Steps>
+  <Snippet file="create-venv-step.mdx" />
+
+  <Step title="Install libraries">
+
+    ```bash
+    pip install -U openai duckduckgo-search phidata
+    ```
+
+  </Step>
+
+  <Step title="Export `OPENAI_API_KEY`">
+
+    ```bash
+    export OPENAI_API_KEY=sk-xxx
+    ```
+
+  </Step>
+
+  <Step title="Run OpenAI Agent">
+
+    ```bash
+    python cookbook/llms/openai/agent.py
+    ```
+
+  </Step>
+
+  </Steps>
+
+## Information
+
+- View on [Github](https://github.com/phidatahq/phidata/tree/main/cookbook/llms/openai/agent.py)

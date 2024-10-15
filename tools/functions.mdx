@@ -2,15 +2,15 @@
 title: Functions
 ---
 
-Any python function can be used as a tool by an Assistant. **We highly recommend** creating functions specific to your workflow and adding them to your Assistants.
+Any python function can be used as a tool by an Agent. **We highly recommend** creating functions specific to your workflow and adding them to your Agents.
 
-For example, here's how to add a `get_top_hackernews_stories` tool:
+For example, here's how to use a `get_top_hackernews_stories` function as a tool:
 
-```python hn_assistant.py
+```python hn_agent.py
 import json
 import httpx
 
-from phi.assistant import Assistant
+from phi.agent import Agent
 
 
 def get_top_hackernews_stories(num_stories: int = 10) -> str:
@@ -37,6 +37,6 @@ def get_top_hackernews_stories(num_stories: int = 10) -> str:
         stories.append(story)
     return json.dumps(stories)
 
-assistant = Assistant(tools=[get_top_hackernews_stories], show_tool_calls=True)
-assistant.print_response("Summarize the top stories on hackernews?")
+agent = Agent(tools=[get_top_hackernews_stories], show_tool_calls=True, markdown=True)
+agent.print_response("Summarize the top 5 stories on hackernews?", stream=True)
 ```

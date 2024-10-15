@@ -1,0 +1,417 @@
+---
+title: Basics
+description: "Phidata is a framework for building AI Agents with memory, knowledge and tools."
+---
+
+- **Memory:** Stores chat history, summaries, facts in a database.
+- **Knowledge:** Stores business context in a vector database.
+- **Tools:** Let LLMs take actions like calling APIs, sending emails or querying a database.
+
+![Agent](/images/agent.png)
+
+Let's work through a few examples
+
+## Install & Setup
+
+<Steps>
+  <Step title="Create a virtual environment">
+    Open the `Terminal` and create a python virtual environment.
+
+    <CodeGroup>
+
+    ```bash Mac
+    python3 -m venv ~/.venvs/aienv
+    source ~/.venvs/aienv/bin/activate
+    ```
+
+    ```bash Windows
+    python3 -m venv aienv
+    aienv/scripts/activate
+    ```
+
+    </CodeGroup>
+
+  </Step>
+  <Step title="Install phidata">
+    Install the latest version of `phidata`
+
+    <CodeGroup>
+
+    ```bash Mac
+    pip install -U phidata
+    ```
+
+    ```bash Windows
+    pip install -U phidata
+    ```
+
+    </CodeGroup>
+
+  </Step>
+</Steps>
+
+## Agent with Tools
+
+Tools are **functions** that an Agent can run to achieve tasks like searching the web, running SQL, sending an email, calling APIs.
+
+### Example: Research Agent
+
+Let's create an Agent that prepares a research report by searching the web.
+
+<Steps>
+  <Step title="Create Research Agent">
+    Create a file `research.py`
+
+    ```python research.py
+    from phi.agent import Agent
+    from phi.tools.duckduckgo import DuckDuckGo
+    from phi.tools.newspaper4k import Newspaper4k
+
+    agent = Agent(
+        tools=[DuckDuckGo(), Newspaper4k()],
+        show_tool_calls=True,
+        description="You are a senior NYT researcher writing an article on a topic.",
+        instructions=[
+            "For the provided topic, search for the top 3 links.",
+            "Then read each URL and extract the article text, if a URL isn't available, ignore and let it be.",
+            "Analyse and prepare an NYT worthy article based on the information.",
+        ],
+        add_datetime_to_instructions=True,
+    )
+    agent.print_response("Latest developments in AI", markdown=True)
+    ```
+
+  </Step>
+  <Step title="Run the agent">
+    Agents use `OpenAI` by default. Set your `OPENAI_API_KEY`.
+
+    <CodeGroup>
+
+    ```bash Mac
+    export OPENAI_API_KEY=sk-***
+    ```
+
+    ```bash Windows
+    setx OPENAI_API_KEY sk-***
+    ```
+
+    </CodeGroup>
+
+    Install libraries
+
+    ```shell
+    pip install openai duckduckgo-search newspaper4k lxml_html_clean
+    ```
+
+    Run the agent
+
+    ```shell
+    python research.py
+    ```
+
+  </Step>
+</Steps>
+
+## Agent with Knowledge
+
+To provide LLMs with business context, we store information in a vector database that the Agent can search to improve its responses. Let's use **PgVector** as our vector store as it can also provide storage for our Agents.
+
+### Run PgVector
+
+Install [docker desktop](https://docs.docker.com/desktop/install/mac-install/) and run **PgVector** on port **5532** using:
+
+```bash
+docker run -d \
+  -e POSTGRES_DB=ai \
+  -e POSTGRES_USER=ai \
+  -e POSTGRES_PASSWORD=ai \
+  -e PGDATA=/var/lib/postgresql/data/pgdata \
+  -v pgvolume:/var/lib/postgresql/data \
+  -p 5532:5432 \
+  --name pgvector \
+  phidata/pgvector:16
+```
+
+### RAG Agent
+
+Retrieval Augmented Generation means **"stuffing the prompt with relevant information"** to improve LLM responses. This is a 2 step process:
+
+1. Retrieve relevant information from a vector database.
+2. Augment the prompt to provide context to the LLM.
+
+Let's build a **PDF Agent** that helps us with food recipes using RAG.
+
+<Steps>
+  <Step title="Install libraries">
+    Install the required libraries using pip
+
+    <CodeGroup>
+
+    ```bash Mac
+    pip install -U pgvector pypdf "psycopg[binary]" sqlalchemy
+    ```
+
+    ```bash Windows
+    pip install -U pgvector pypdf "psycopg[binary]" sqlalchemy
+    ```
+
+    </CodeGroup>
+
+  </Step>
+  <Step title="Create a RAG Agent">
+    Create a file `rag_agent.py` with the following contents
+
+    ```python rag_agent.py
+    from phi.agent import Agent
+    from phi.knowledge.pdf import PDFUrlKnowledgeBase
+    from phi.vectordb.pgvector import PgVector
+
+    knowledge_base = PDFUrlKnowledgeBase(
+        # Read PDF from this URL
+        urls=["https://phi-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"],
+        # Store embeddings in the `ai.recipes` table
+        vector_db=PgVector(
+            table_name="recipes",
+            db_url="postgresql+psycopg://ai:ai@localhost:5532/ai",
+        ),
+    )
+    # Load the knowledge base
+    knowledge_base.load(recreate=False)
+
+    agent = Agent(
+        knowledge_base=knowledge_base,
+        # The add_references_to_prompt will update the prompt with references from the knowledge base.
+        add_references_to_prompt=True,
+    )
+    agent.print_response("How do I make pad thai?", markdown=True)
+    ```
+
+  </Step>
+  <Step title="Run the agent">
+    Run the agent (it takes a few seconds to load the knowledge base).
+
+    <CodeGroup>
+
+    ```bash Mac
+    python rag_agent.py
+    ```
+
+    ```bash Windows
+    python rag_agent.py
+    ```
+
+    </CodeGroup>
+
+    <br />
+
+    <Note>
+    The Agent uses the `OpenAI` LLM and Embeddings by default.
+    </Note>
+
+  </Step>
+</Steps>
+
+<Accordion title="How to use local PDFs" icon="file-pdf" iconType="duotone">
+If you want to use local PDFs, use a `PDFKnowledgeBase` instead
+
+```python agent.py
+from phi.knowledge.pdf import PDFKnowledgeBase
+
+...
+knowledge_base = PDFKnowledgeBase(
+    path="data/pdfs",
+    vector_db=PgVector(
+        table_name="pdf_documents",
+        db_url=vector_db.get_db_connection_local(),
+    ),
+)
+...
+```
+
+</Accordion>
+
+### Autonomous Agent
+
+With the RAG agent above, the `add_references_to_prompt=True` always adds information from the knowledge base to the prompt, regardless of whether it is relevant to the question.
+
+With Autonomous agents, we let the LLM decide **if** it needs to access the knowledge base and what search parameters it needs to query the knowledge base.
+
+Make the `Agent` Autonomous by setting the `search_knowledge` and `read_chat_history` flags, giving it tools to search the knowledge base and chat history on demand.
+
+<Steps>
+  <Step title="Create an Autonomous Agent">
+    Create a file `auto_agent.py` with the following contents
+
+    ```python auto_agent.py
+    from phi.agent import Agent
+    from phi.knowledge.pdf import PDFUrlKnowledgeBase
+    from phi.vectordb.pgvector import PgVector
+
+    knowledge_base = PDFUrlKnowledgeBase(
+        urls=["https://phi-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"],
+        vector_db=PgVector(
+            table_name="recipes",
+            db_url="postgresql+psycopg://ai:ai@localhost:5532/ai",
+        ),
+    )
+    # Comment out as the knowledge base is already loaded.
+    # knowledge_base.load(recreate=False)
+
+    agent = Agent(
+        knowledge_base=knowledge_base,
+        # Show tool calls in the response
+        show_tool_calls=True,
+        # Enable the agent to search the knowledge base
+        search_knowledge=True,
+        # Enable the agent to read the chat history
+        read_chat_history=True,
+    )
+    agent.print_response("How do I make pad thai?", markdown=True)
+    agent.print_response("What was my last question?", markdown=True)
+    ```
+
+  </Step>
+  <Step title="Run the agent">
+    Run the agent
+
+    <CodeGroup>
+
+    ```bash Mac
+    python auto_agent.py
+    ```
+
+    ```bash Windows
+    python auto_agent.py
+    ```
+
+    </CodeGroup>
+
+    > Notice how it searches the knowledge base and chat history when needed
+
+  </Step>
+</Steps>
+
+## Agent with Memory, Knowledge & Tools
+
+Agents comes with built-in memory but it only lasts while the session is active. To continue conversations across sessions, we can store chat history in a database like PostgreSQL.
+
+Lets wrap up by building an Agent that can read PDFs, store them in a knowledge base and continue conversations across sessions by storing chat history in a database.
+
+Create a file `pdf_agent.py`
+
+```python pdf_agent.py
+import typer
+from rich.prompt import Prompt
+from typing import Optional, List
+from phi.agent import Agent
+from phi.storage.agent.postgres import PgAgentStorage
+from phi.knowledge.pdf import PDFUrlKnowledgeBase
+from phi.vectordb.pgvector import PgVector
+
+db_url = "postgresql+psycopg://ai:ai@localhost:5532/ai"
+
+knowledge_base = PDFUrlKnowledgeBase(
+    urls=["https://phi-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"],
+    vector_db=PgVector(table_name="recipes", db_url=db_url),
+)
+# Comment out after first run
+knowledge_base.load()
+
+storage = PgAgentStorage(table_name="pdf_agent", db_url=db_url)
+
+
+def pdf_agent(new: bool = False, user: str = "user"):
+    run_id: Optional[str] = None
+
+    if not new:
+        existing_run_ids: List[str] = storage.get_all_run_ids(user)
+        if len(existing_run_ids) > 0:
+            run_id = existing_run_ids[0]
+
+    agent = Agent(
+        run_id=run_id,
+        user_id=user,
+        knowledge_base=knowledge_base,
+        storage=storage,
+        # Show tool calls in the response
+        show_tool_calls=True,
+        # Enable the agent to search the knowledge base
+        search_knowledge=True,
+        # Enable the agent to read the chat history
+        read_chat_history=True,
+    )
+    if run_id is None:
+        run_id = agent.run_id
+        print(f"Started Run: {run_id}\n")
+    else:
+        print(f"Continuing Run: {run_id}\n")
+
+    # Runs the agent as a cli app
+    agent.cli_app(markdown=True)
+
+
+if __name__ == "__main__":
+    typer.run(pdf_agent)
+```
+
+**Run the agent**
+
+<CodeGroup>
+
+```bash Mac
+python pdf_agent.py
+```
+
+```bash Windows
+python pdf_agent.py
+```
+
+</CodeGroup>
+
+**Ask Questions**
+
+Now the conversation continues across sessions. Ask a question:
+
+```
+How do I make pad that?
+```
+
+Then message `bye` to exit, start the app again and ask:
+
+```
+What was my last message?
+```
+
+Run the `pdf_agent.py` file with the `--new` flag to start a new run.
+
+<CodeGroup>
+
+```bash Mac
+python pdf_agent.py --new
+```
+
+```bash Windows
+python pdf_agent.py --new
+```
+
+</CodeGroup>
+
+## Next
+
+Congratulations on building an AI Agent with memory, knowledge and tools. You can serve this Agent using `FastApi`, `Streamlit` or `Django`. Here's the architecture we just built:
+
+![Agent](/images/agent.png)
+
+Continue your journey by learning about:
+
+- [Agents](/agents/introduction)
+- [Tools](/tools/introduction)
+- [Knowledge](/knowledge/introduction)
+- [Storage](/storage/introduction)
+
+Or Checkout the following examples:
+
+- [SQL Agent](/examples/use-case/sql)
+- [ArXiv Research Agent](/examples/use-case/arxiv-research)
+
+If you need help, reach out to us on [Discord](https://discord.com/invite/4MtYHHrgA8).

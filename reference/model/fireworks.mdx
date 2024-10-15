@@ -1,0 +1,41 @@
+---
+title: Fireworks
+---
+
+## Example
+
+<CodeGroup>
+
+```python agent.py
+from phi.agent import Agent
+from phi.llm.fireworks import Fireworks
+
+agent = Agent(
+    llm=Fireworks(model="accounts/fireworks/models/firefunction-v1"),
+    description="You help people with their health and fitness goals.",
+)
+agent.print_response("Share a quick healthy breakfast recipe.", markdown=True)
+```
+
+</CodeGroup>
+
+## Fireworks Params
+
+<ResponseField name="name" type="str" default="Fireworks"></ResponseField>
+<ResponseField
+  name="model"
+  type="str"
+  default="accounts/fireworks/models/firefunction-v1"
+></ResponseField>
+<ResponseField name="api_key" type="str"></ResponseField>
+<ResponseField
+  name="base_url"
+  type="str"
+  default="https://api.fireworks.ai/inference/v1"
+></ResponseField>
+
+## LLM Params
+
+`Fireworks` is a subclass of the `LLM` class and has access to the same params
+
+<Snippet file="llm-base-reference.mdx" />

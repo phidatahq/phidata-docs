@@ -1,0 +1,41 @@
+---
+title: OpenAI Like
+---
+
+Many providers like Together and Groq support the OpenAI API format. Use the `OpenAILike` model to access them by replacing the `base_url`.
+
+## Example
+
+<CodeGroup>
+
+```python agent.py
+from os import getenv
+from phi.agent import Agent
+from phi.model.openai.like import OpenAILike
+
+agent = Agent(
+    model=OpenAILike(
+        id="mistralai/Mixtral-8x7B-Instruct-v0.1",
+        api_key=getenv("TOGETHER_API_KEY"),
+        base_url="https://api.together.xyz/v1",
+    )
+)
+# Get the response in a variable
+# run: RunResponse = agent.run("Share a 2 sentence horror story.")
+# print(run.content)
+
+# Print the response in the terminal
+agent.print_response("Share a 2 sentence horror story.")
+```
+
+</CodeGroup>
+
+## Params
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `id` | `str` | - | The name of the model to be used for generating responses. |
+| `api_key` | `str` | - | The API key for authenticating requests to the service. |
+| `base_url` | `str` | - | The base URL for making API requests to the service. |
+
+`OpenAILike` also support all the params of [OpenAIChat](/llms/openai)

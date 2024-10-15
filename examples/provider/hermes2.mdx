@@ -1,0 +1,56 @@
+---
+title: Hermes2
+---
+
+## Example
+
+```python
+from phi.agent import Agent
+from phi.tools.duckduckgo import DuckDuckGo
+from phi.llm.ollama import Hermes
+
+agent = Agent(
+    llm=Hermes(model="adrienbrault/nous-hermes2pro:Q8_0"),
+    tools=[DuckDuckGo()],
+    show_tool_calls=True
+)
+agent.print_response("Whats happening in France?", markdown=True, stream=False)
+```
+
+## Usage
+
+<Steps>
+
+  <Step>
+  Run your chat model
+
+```bash
+ollama run adrienbrault/nous-hermes2pro:Q8_0 'Hey!'
+```
+
+This will run the `hermes2pro` model, respond to "Hey!" and then exit.
+
+  </Step>
+  <Snippet file="create-venv-step.mdx" />
+
+  <Step title="Install libraries">
+
+    ```bash
+    pip install -U ollama duckduckgo-search phidata
+    ```
+
+  </Step>
+
+  <Step title="Run Hermes2 Agent">
+
+    ```bash
+    python cookbook/llms/hermes2/agent.py
+    ```
+
+  </Step>
+
+  </Steps>
+
+## Information
+
+- View on [Github](https://github.com/phidatahq/phidata/tree/main/cookbook/llms/hermes2/agent.py)

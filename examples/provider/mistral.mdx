@@ -1,0 +1,52 @@
+---
+title: Mistral
+---
+
+## Example
+
+```python
+from phi.agent import Agent
+from phi.llm.mistral import Mistral
+
+agent = Agent(
+    llm=Mistral(model="mistral-large-latest"),
+    description="You help people with their health and fitness goals.",
+)
+agent.print_response("Share a 2 sentence quick and healthy breakfast recipe.", markdown=True)
+
+```
+
+## Usage
+
+<Steps>
+  <Snippet file="create-venv-step.mdx" />
+
+  <Step title="Install libraries">
+
+    ```bash
+    pip install -U mistralai duckduckgo-search phidata
+    ```
+
+  </Step>
+
+  <Step title="Export `MISTRAL_API_KEY`">
+
+    ```bash
+    export MISTRAL_API_KEY=xxx
+    ```
+
+  </Step>
+
+  <Step title="Run Mistral Agent">
+
+    ```bash
+    python cookbook/llms/mistral/agent.py
+    ```
+
+  </Step>
+
+  </Steps>
+
+## Information
+
+- View on [Github](https://github.com/phidatahq/phidata/tree/main/cookbook/llms/mistral/agent.py)

@@ -21,56 +21,43 @@ Install `beautifulsoup4` using `pip install bs4`
 
 ```python knowledge_base.py
 from phi.knowledge.website import WebsiteKnowledgeBase
-from phi.vectordb.pgvector import PgVector2
+from phi.vectordb.pgvector import PgVector
 
 knowledge_base = WebsiteKnowledgeBase(
     urls=["https://docs.phidata.com/introduction"],
     # Number of links to follow from the seed URLs
     max_links=10,
     # Table name: ai.website_documents
-    vector_db=PgVector2(
-        collection="website_documents",
+    vector_db=PgVector(
+        table_name="website_documents",
         db_url="postgresql+psycopg://ai:ai@localhost:5532/ai",
     ),
 )
 ```
 
-Then use the `knowledge_base` with an `Assistant`:
+Then use the `knowledge_base` with an `Agent`:
 
-```python assistant.py
-from phi.assistant import Assistant
+```python agent.py
+from phi.agent import Agent
 from knowledge_base import knowledge_base
 
-assistant = Assistant(
+agent = Agent(
     knowledge_base=knowledge_base,
     add_references_to_prompt=True,
 )
-assistant.knowledge_base.load(recreate=False)
+agent.knowledge_base.load(recreate=False)
 
-assistant.print_response("Ask me about something from the knowledge base")
+agent.print_response("Ask me about something from the knowledge base")
 ```
 
 ## Params
 
-<ResponseField name="urls" type="List[str]">
-  URLs to read
-</ResponseField>
-<ResponseField name="max_depth" type="int">
-  Maximum depth to crawl. Default: `3`
-</ResponseField>
-<ResponseField name="max_links" type="int">
-  Number of links to crawl. Default: `10`
-</ResponseField>
-<ResponseField name="vector_db" type="VectorDb">
-  Vector Database for the Knowledge Base.
-</ResponseField>
-<ResponseField name="reader" type="WebsiteReader">
-  A `WebsiteReader` that reads the urls and converts them into `Documents` for
-  the vector database.
-</ResponseField>
-<ResponseField name="num_documents" type="int">
-  Number of documents to return on search. (default: `5`)
-</ResponseField>
-<ResponseField name="optimize_on" type="int">
-  Number of documents to optimize the vector db on.
-</ResponseField>
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `urls` | `List[str]` | - | URLs to read |
+| `max_depth` | `int` | `3` | Maximum depth to crawl. |
+| `max_links` | `int` | `10` | Number of links to crawl. |
+| `vector_db` | `VectorDb` | - | Vector Database for the Knowledge Base. |
+| `reader` | `WebsiteReader` | - | A `WebsiteReader` that reads the urls and converts them into `Documents` for the vector database. |
+| `num_documents` | `int` | `5` | Number of documents to return on search.|
+| `optimize_on` | `int` | - | Number of documents to optimize the vector db on. |

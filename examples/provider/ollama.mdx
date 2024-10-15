@@ -1,0 +1,54 @@
+---
+title: Ollama
+---
+
+## Example
+
+```python
+from phi.agent import Agent
+from phi.llm.ollama import Ollama
+
+agent = Agent(
+    llm=Ollama(model="openhermes"),
+    description="You help people with their health and fitness goals.",
+)
+agent.print_response("Share a 2 sentence quick and healthy breakfast recipe.", markdown=True)
+
+```
+
+## Usage
+
+<Steps>
+
+  <Step title="  Run your chat model">
+
+```bash
+ollama run openhermes
+```
+
+Message `/bye` to exit the chat model
+
+  </Step>
+  <Snippet file="create-venv-step.mdx" />
+
+  <Step title="Install libraries">
+
+    ```bash
+    pip install -U ollama phidata
+    ```
+
+  </Step>
+
+  <Step title="Run Ollama Agent">
+
+    ```bash
+    python cookbook/llms/ollama/agent.py
+    ```
+
+  </Step>
+
+  </Steps>
+
+## Information
+
+- View on [Github](https://github.com/phidatahq/phidata/tree/main/cookbook/llms/ollama/agent.py)

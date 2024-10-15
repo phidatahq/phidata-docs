@@ -2,38 +2,44 @@
 title: Exa
 ---
 
-**ExaTools** enable an Assistant to search the web using Exa.
+**ExaTools** enable an Agent to search the web using Exa.
+
+## Prerequisites
+
+The following examples requires the `exa-client` library and an API key which can be obtained from [Exa](https://exa.ai).
+
+```shell
+pip install -U exa-client
+```
+
+```shell
+export EXA_API_KEY=***
+```
 
 ## Example
 
-The following assistant will run seach exa for "language models" and print the response.
+The following agent will run seach exa for AAPL news and print the response.
 
 ```python cookbook/tools/exa_tools.py
-from phi.assistant import Assistant
+from phi.agent import Agent
 from phi.tools.exa import ExaTools
 
-assistant = Assistant(tools=[ExaTools()], show_tool_calls=True)
-assistant.print_response("Search exa for 'language models'", markdown=True)
+agent = Agent(tools=[ExaTools(include_domains=["cnbc.com", "reuters.com", "bloomberg.com"])], show_tool_calls=True)
+agent.print_response("Search for AAPL news", markdown=True)
 ```
 
 ## Toolkit Params
 
-<ResponseField name="api_key" type="str">
-  API key for authentication purposes.
-</ResponseField>
-<ResponseField name="search" type="bool" default="False">
-  Determines whether to enable search functionality.
-</ResponseField>
-<ResponseField name="search_with_contents" type="bool" default="True">
-  Indicates whether to include contents in the search results.
-</ResponseField>
-<ResponseField name="show_results" type="bool" default="False">
-  Controls whether to display search results directly.
-</ResponseField>
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `api_key` | `str` | - | API key for authentication purposes. |
+| `search` | `bool` | `False` | Determines whether to enable search functionality. |
+| `search_with_contents` | `bool` | `True` | Indicates whether to include contents in the search results. |
+| `show_results` | `bool` | `False` | Controls whether to display search results directly. |
 
 ## Toolkit Functions
 
-<ResponseField name="search_exa">Searches Exa for a query.</ResponseField>
-<ResponseField name="search_exa_with_contents">
-  Searches Exa for a query and returns the contents from the search results.
-</ResponseField>
+| Function | Description |
+|----------|-------------|
+| `search_exa` | Searches Exa for a query. |
+| `search_exa_with_contents` | Searches Exa for a query and returns the contents from the search results. |

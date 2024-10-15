@@ -2,32 +2,44 @@
 title: Resend
 ---
 
-**ResendTools** enable an Assistant to send emails using Resend
+**ResendTools** enable an Agent to send emails using Resend
+
+## Prerequisites
+
+The following example requires the `resend` library and an API key from [Resend](https://resend.com/).
+
+```shell
+pip install -U resend
+```
+
+```shell
+export RESEND_API_KEY=***
+```
 
 ## Example
 
-The following assistant will send an email using Resend
+The following agent will send an email using Resend
 
 ```python cookbook/tools/resend_tools.py
-from phi.assistant import Assistant
+from phi.agent import Agent
 from phi.tools.resend_tools import ResendTools
 
-assistant = Assistant(tools=[ResendTools(from_email="<enter_from_email>")], debug_mode=True)
+from_email = "<enter_from_email>"
+to_email = "<enter_to_email>"
 
-assistant.print_response("send email to <enter_to_email> greeting them with hello world")
+agent = Agent(tools=[ResendTools(from_email=from_email)], show_tool_calls=True)
+agent.print_response(f"Send an email to {to_email} greeting them with hello world")
 ```
 
 ## Toolkit Params
 
-<ResponseField name="api_key" type="str">
-  API key for authentication purposes.
-</ResponseField>
-<ResponseField name="from_email" type="str">
-  The email address used as the sender in email communications.
-</ResponseField>
+| Parameter | Type | Default | Description |
+| --------- | ---- | ------- | ----------- |
+| `api_key` | `str` | - | API key for authentication purposes. |
+| `from_email` | `str` | - | The email address used as the sender in email communications. |
 
 ## Toolkit Functions
 
-<ResponseField name="send_email">
-  Send an email using the Resend API.
-</ResponseField>
+| Function | Description |
+| -------- | ----------- |
+| `send_email` | Send an email using the Resend API. |

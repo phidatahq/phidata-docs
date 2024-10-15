@@ -8,7 +8,7 @@ The **LangchainKnowledgeBase** allows us to use a LangChain retriever or vector 
 ## Usage
 
 ```python langchain_kb.py
-from phi.assistant import Assistant
+from phi.agent import Agent
 from phi.knowledge.langchain import LangChainKnowledgeBase
 
 from langchain.embeddings import OpenAIEmbeddings
@@ -38,18 +38,14 @@ retriever = db.as_retriever()
 # -*- Create a knowledge base from the vector store
 knowledge_base = LangChainKnowledgeBase(retriever=retriever)
 
-assistant = Assistant(knowledge_base=knowledge_base, add_references_to_prompt=True)
+agent = Agent(knowledge_base=knowledge_base, add_references_to_prompt=True)
 conv.print_response("What did the president say about technology?")
 ```
 
 ## Params
 
-<ResponseField name="retriever" type="Any" default="None">
-  LangChain retriever.
-</ResponseField>
-<ResponseField name="vectorstore" type="Any" default="None">
-  LangChain vector store used to create a retriever.
-</ResponseField>
-<ResponseField name="search_kwargs" type="dict" default="None">
-  Search kwargs when creating a retriever using the langchain vector store.
-</ResponseField>
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `retriever` | `Any` | `None` | LangChain retriever. |
+| `vectorstore` | `Any` | `None` | LangChain vector store used to create a retriever. |
+| `search_kwargs` | `dict` | `None` | Search kwargs when creating a retriever using the langchain vector store. |

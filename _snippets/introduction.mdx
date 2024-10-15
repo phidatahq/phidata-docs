@@ -1,0 +1,142 @@
+---
+title: What are Agents?
+description: Agents are intelligent programs that can achieve complex tasks by taking actions. Use them to automate repeatable workflows and build new user experiences.
+sidebarTitle: Introduction
+---
+
+## Phidata Agents
+
+- Use language models for reasoning and planning.
+- Use tools to take actions and interact with external systems.
+- Store memory and state in a database, remembering chat history, user preferences and conversation summaries.
+- Store knowledge in vector databases to supplement their training data with domain expertise.
+
+![Agent Architecture](/images/agent.png)
+
+## Example: Research Agent
+
+Let's create an Agent that can write a research report by searching the web and reading the top links. We **"prompt"** the Agent using `description` and `instructions`.
+
+<Steps>
+  <Step title="Create Research Agent">
+    Create a file `research_agent.py`
+
+    ```python research_agent.py
+    from phi.agent import Agent
+    from phi.model.openai import OpenAIChat
+    from phi.tools.duckduckgo import DuckDuckGo
+    from phi.tools.newspaper4k import Newspaper4k
+
+    agent = Agent(
+        model=OpenAIChat(id="gpt-4o"),
+        tools=[DuckDuckGo(), Newspaper4k()],
+        description="You are a senior NYT researcher writing an article on a topic.",
+        instructions=[
+            "For a given topic, search for the top 5 links.",
+            "Then read each URL and extract the article text, if a URL isn't available, ignore it.",
+            "Analyse and prepare an NYT worthy article based on the information.",
+        ],
+        markdown=True,
+        show_tool_calls=True,
+        add_datetime_to_instructions=True,
+        # debug_mode=True,
+    )
+    agent.print_response("Simulation theory", stream=True)
+    ```
+
+  </Step>
+  <Step title="Run the agent">
+    Install libraries
+
+    ```shell
+    pip install phidata openai duckduckgo-search newspaper4k lxml_html_clean
+    ```
+
+    Run the agent
+
+    ```shell
+    python research_agent.py
+    ```
+
+  </Step>
+</Steps>
+
+<Note>
+Under the hood, the description and instructions are converted to the system prompt and the input is passed as the user prompt.
+
+Use `debug_mode=True` to view the raw messages used by the agent.
+
+</Note>
+
+## Return Agent response as a variable
+
+Use the `Agent.run()` function to capture the response as a variable.
+
+```python
+from phi.agent import Agent, RunResponse
+from phi.utils.pprint import pprint_run_response
+
+agent = Agent(...)
+
+# Run agent and return the response as a variable
+response: RunResponse = agent.run("Simulation theory")
+# Print the response in markdown format
+pprint_run_response(response, markdown=True)
+```
+
+By default `stream=False`, set `stream=True` to return a stream.
+
+```python
+from typing import Iterator
+
+# Run agent and return the response as a stream
+response_stream: Iterator[RunResponse] = agent.run("Simulation theory", stream=True)
+# Print the response stream in markdown format
+pprint_run_response(response_stream, markdown=True, show_time=True)
+```
+
+## RunResponse
+
+The `Agent.run()` function returns a `RunResponse` object or an stream of `RunResponse` objects if `stream=True`.
+
+### Attributes
+
+<ResponseField name="content" type="Any" default="None">
+  Content of the response.
+</ResponseField>
+<ResponseField name="content_type" type="str" default="str">
+  Specifies the data type of the content.
+</ResponseField>
+<ResponseField name="context" type="List[MessageContext]" default="None">
+  The context added to the response for RAG.
+</ResponseField>
+<ResponseField name="event" type="str" default="RunEvent.run_response.value">
+  Event type of the response.
+</ResponseField>
+<ResponseField name="event_data" type="Dict[str, Any]" default="None">
+  Data associated with the event.
+</ResponseField>
+<ResponseField name="messages" type="List[Message]" default="None">
+  A list of messages included in the response.
+</ResponseField>
+<ResponseField name="metrics" type="Dict[str, Any]" default="None">
+  Usage metrics of the run.
+</ResponseField>
+<ResponseField name="model" type="str" default="None">
+  The model used in the run.
+</ResponseField>
+<ResponseField name="run_id" type="str" default="None">
+  Run Id.
+</ResponseField>
+<ResponseField name="agent_id" type="str" default="None">
+  Agent Id for the run.
+</ResponseField>
+<ResponseField name="session_id" type="str" default="None">
+  Session Id for the run.
+</ResponseField>
+<ResponseField name="tools" type="List[Dict[str, Any]]" default="None">
+  List of tools provided to the model.
+</ResponseField>
+<ResponseField name="created_at" type="int">
+  Unix timestamp of the response creation.
+</ResponseField>

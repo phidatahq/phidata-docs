@@ -2,28 +2,32 @@
 title: Introduction
 ---
 
-Assistants come with built-in memory but it only lasts while the session is active. To continue conversations across sessions, we store Assistant runs in a database like PostgreSQL.
+Agents come with built-in memory but it only lasts while the session is active. To continue conversations across sessions, we store Agent sessions in a database like PostgreSQL.
 
-Storage is a necessary component when building user facing AI products as any production application will require users to be able to "continue" their conversation with the AI.
+Storage is a necessary component when building user facing AI products as any production application will require users to be able to "continue" their conversation with the Agent.
 
-The general syntax for adding storage to an Assistant looks like:
+The general syntax for adding storage to an Agent looks like:
 
 ```python storage.py
-from phi.storage.assistant.postgres import PgAssistantStorage
+from phi.agent import Agent
+from phi.model.openai import OpenAIChat
+from phi.tools.duckduckgo import DuckDuckGo
+from phi.storage.agent.postgres import PgAgentStorage
 
-# Create a storage backend using the Postgres database
-storage = PgAssistantStorage(
-    # store runs in the ai.assistant_runs table
-    table_name="assistant_runs",
-    # db_url: Postgres database URL
-    db_url=db_url,
+agent = Agent(
+    model=OpenAIChat(id="gpt-4o"),
+    storage=PgAgentStorage(table_name="agent_sessions", db_url="postgresql+psycopg://ai:ai@localhost:5532/ai"),
+    tools=[DuckDuckGo()],
+    show_tool_calls=True,
+    add_history_to_messages=True,
 )
-
-# Add storage to the Assistant
-assistant = Assistant(storage=storage)
+agent.print_response("How many people live in Canada?")
+agent.print_response("What is their national anthem called?")
+agent.print_response("Which country are we speaking about?")
 ```
 
 The following databases are supported as a storage backend:
 
 - [PostgreSQL](/storage/postgres)
+- [Sqllite](/storage/sqllite)
 - [SingleStore](/storage/singlestore)

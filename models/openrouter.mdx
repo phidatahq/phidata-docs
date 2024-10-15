@@ -1,0 +1,60 @@
+---
+title: OpenRouter
+---
+
+OpenRouter is a platform for providing endpoints for Large Language models.
+
+## Authentication
+
+Set your `OPENROUTER_API_KEY` environment variable.
+
+<CodeGroup>
+
+```bash Mac
+export OPENROUTER_API_KEY=***
+```
+
+```bash Windows
+setx OPENROUTER_API_KEY ***
+```
+
+</CodeGroup>
+
+## Example
+
+Use `OpenRouter` with your `Agent`:
+
+<CodeGroup>
+
+```python agent.py
+from phi.agent import Agent, RunResponse
+from phi.model.openrouter import OpenRouter
+
+agent = Agent(
+    model=OpenRouter(id="gpt-4o"),
+    tools=[YFinanceTools(stock_price=True)],
+    show_tool_calls=True,
+    markdown=True,
+)
+
+# Get the response in a variable
+# run: RunResponse = agent.run("Share a 2 sentence horror story.")
+# print(run.content)
+
+# Print the response in the terminal
+agent.print_response("Share a 2 sentence horror story.")
+
+```
+
+</CodeGroup>
+
+## Params
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `id` | `str` | `"gpt-4o"` | The specific model ID used for generating responses. |
+| `name` | `str` | `"OpenRouter"` | The name identifier for the OpenRouter agent. |
+| `provider` | `str` | - | The provider of the model, combining "OpenRouter" with the model ID. |
+| `api_key` | `Optional[str]` | - | The API key for authenticating requests to the OpenRouter service. Retrieved from the environment variable `OPENROUTER_API_KEY`. |
+| `base_url` | `str` | `"https://openrouter.ai/api/v1"` | The base URL for making API requests to the OpenRouter service. |
+| `max_tokens` | `int` | `1024` | The maximum number of tokens to generate in the response. |

@@ -1,0 +1,53 @@
+---
+title: Cohere
+---
+
+## Example
+
+```python
+from phi.agent import Agent
+from phi.tools.duckduckgo import DuckDuckGo
+from phi.llm.cohere import CohereChat
+
+agent = Agent(
+    llm=CohereChat(model="command-r"),
+    tools=[DuckDuckGo()],
+    show_tool_calls=True,
+)
+agent.print_response("Whats happening in France?", markdown=True)
+```
+
+## Usage
+
+<Steps>
+  <Snippet file="create-venv-step.mdx" />
+
+  <Step title="Install libraries">
+
+    ```bash
+    pip install -U cohere duckduckgo-search phidata
+    ```
+
+  </Step>
+
+  <Step title="Export `CO_API_KEY`">
+
+    ```bash
+    export CO_API_KEY=xxx
+    ```
+
+  </Step>
+
+  <Step title="Run Cohere Agent">
+
+    ```bash
+    python cookbook/llms/cohere/agent.py
+    ```
+
+  </Step>
+
+  </Steps>
+
+## Information
+
+- View on [Github](https://github.com/phidatahq/phidata/tree/main/cookbook/llms/cohere/agent.py)

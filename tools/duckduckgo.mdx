@@ -3,50 +3,41 @@ title: DuckDuckGo
 sidebarTitle: DuckDuckGo
 ---
 
-**DuckDuckGo** enables an Assistant to search the web for information.
+**DuckDuckGo** enables an Agent to search the web for information.
+
+## Prerequisites
+
+The following example requires the `duckduckgo-search` library. To install DuckDuckGo, run the following command:
+
+```shell
+pip install -U duckduckgo-search
+```
 
 ## Example
 
 ```python cookbook/tools/duckduckgo.py
-from phi.assistant import Assistant
+from phi.agent import Agent
 from phi.tools.duckduckgo import DuckDuckGo
 
-assistant = Assistant(tools=[DuckDuckGo()], show_tool_calls=True)
-assistant.print_response("Whats happening in France?", markdown=True)
+agent = Agent(tools=[DuckDuckGo()], show_tool_calls=True)
+agent.print_response("Whats happening in France?", markdown=True)
 ```
 
 ## Toolkit Params
 
-<ResponseField name="search" type="bool" default="True">
-  Enables the use of the `duckduckgo_search` function to search DuckDuckGo for a
-  query.
-</ResponseField>
-<ResponseField name="news" type="bool" default="True">
-  Enables the use of the `duckduckgo_news` function to fetch the latest news via
-  DuckDuckGo.
-</ResponseField>
-<ResponseField name="fixed_max_results" type="int">
-  Sets a fixed number of maximum results to return. No default is provided, must
-  be specified if used.
-</ResponseField>
-<ResponseField name="headers" type="Any">
-  Accepts any type of header values to be sent with HTTP requests.
-</ResponseField>
-<ResponseField name="proxy" type="str">
-  Specifies a single proxy address as a string to be used for the HTTP requests.
-</ResponseField>
-<ResponseField name="proxies" type="Any">
-  Accepts a dictionary of proxies to be used for HTTP requests.
-</ResponseField>
-<ResponseField name="timeout" type="int" default="10">
-  Sets the timeout for HTTP requests, in seconds. Default is 10 seconds.
-</ResponseField>
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `search` | `bool` | `True` | Enables the use of the `duckduckgo_search` function to search DuckDuckGo for a query. |
+| `news` | `bool` | `True` | Enables the use of the `duckduckgo_news` function to fetch the latest news via DuckDuckGo. |
+| `fixed_max_results` | `int` | - | Sets a fixed number of maximum results to return. No default is provided, must be specified if used. |
+| `headers` | `Any` | - | Accepts any type of header values to be sent with HTTP requests. |
+| `proxy` | `str` | - | Specifies a single proxy address as a string to be used for the HTTP requests. |
+| `proxies` | `Any` | - | Accepts a dictionary of proxies to be used for HTTP requests. |
+| `timeout` | `int` | `10` | Sets the timeout for HTTP requests, in seconds. |
 
 ## Toolkit Functions
 
-<ResponseField name="duckduckgo_search">
-  Use this function to search DuckDuckGo for a query.
-</ResponseField>
-<ResponseField name="duckduckgo_news">
-  Use this function to get the latest news from DuckDuckGo.
-</ResponseField>
+| Function | Description |
+|----------|-------------|
+| `duckduckgo_search` | Use this function to search DuckDuckGo for a query. |
+| `duckduckgo_news` | Use this function to get the latest news from DuckDuckGo. |

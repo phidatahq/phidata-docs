@@ -1,0 +1,35 @@
+## Create your codebase
+
+Create your codebase using the `agent-app` template
+
+<CodeGroup>
+
+```bash Mac
+phi ws create -t agent-app -n agent-app
+```
+
+```bash Windows
+phi ws create -t agent-app -n agent-app
+```
+
+</CodeGroup>
+
+This will create a folder `agent-app` with the following structure:
+
+```bash
+agent-app                     # root directory
+├── agents                  # add your Agents here
+├── app                     # add streamlit apps here
+├── api                     # add fastApi routes here
+├── db                      # add database tables here
+├── Dockerfile              # Dockerfile for the application
+├── pyproject.toml          # python project definition
+├── requirements.txt        # python dependencies generated using pyproject.toml
+├── scripts                 # helper scripts
+├── utils                   # shared utilities
+└── workspace               # phidata workspace directory
+    ├── dev_resources.py    # dev resources running locally
+    ├── prd_resources.py    # production resources running on AWS
+    ├── secrets             # secrets
+    └── settings.py         # phidata workspace settings
+```

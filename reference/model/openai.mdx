@@ -1,0 +1,37 @@
+---
+title: OpenAI
+---
+
+## Example
+
+<CodeGroup>
+
+```python agent.py
+from phi.agent import Agent
+from phi.llm.openai import OpenAIChat
+
+agent = Agent(
+    llm=OpenAIChat(
+        model="gpt-4",
+        max_tokens=1024,
+        temperature=0.9,
+    )
+)
+
+# -*- Print a response
+agent.print_response('Share a 5 word horror story.')
+```
+
+</CodeGroup>
+
+## OpenAI Params
+
+<Snippet file="llm-openai-reference.mdx" />
+
+For more information, please refer to the [OpenAI docs](https://platform.openai.com/docs/api-reference/chat/create) as well.
+
+## LLM Params
+
+`OpenAIChat` is a subclass of the `LLM` class and has access to the same params
+
+<Snippet file="llm-base-reference.mdx" />

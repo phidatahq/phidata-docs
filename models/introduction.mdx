@@ -1,0 +1,36 @@
+---
+title: Introduction
+---
+
+Language Models are machine-learning programs that are trained to understand natural language and code. They provide reasoning and planning capabilities to Agents.
+
+Use any `model` with an Agent like:
+
+```python
+from phi.agent import Agent
+from phi.model.openai import OpenAIChat
+
+agent = Agent(
+    model=OpenAIChat(id="gpt-4o"),
+    description="Share 15 minute healthy recipes.",
+    markdown=True,
+)
+agent.print_response("Share a breakfast recipe.", stream=True)
+```
+
+Phidata supports the following model providers:
+
+- [OpenAI](/models/openai)
+- [Anthropic](/models/anthropic)
+- [Cohere](/models/cohere)
+- [Ollama](/models/ollama)
+- [Groq](/models/groq)
+- [OpenAI Like](/models/openai-like)
+- [AWS Bedrock](/models/aws-bedrock)
+- [Together](/models/together)
+- [Fireworks](/models/fireworks)
+- [Mistral](/models/mistral)
+- [Gemini - AI Studio](/models/google_ai_studio)
+- [Azure](/models/azure)
+- [DeepSeek](/models/deepseek)
+- [Sambanova](/models/sambanova)

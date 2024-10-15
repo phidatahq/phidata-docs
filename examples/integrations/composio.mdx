@@ -1,0 +1,43 @@
+---
+title: Composio
+---
+
+[**ComposioTools**](https://docs.composio.dev/framework/phidata) enables an Agent to work with sofware tools like Gmail, Salesforce, Github, etc.
+
+## Example
+
+The following agent will use Github Tool from Composio Toolkit to star a repo.
+
+```bash Run the following commands to setup the agent
+pip install composio-phidata
+composio add github # Launches GitHub login in browser
+```
+
+```python
+from phi.agent import Agent
+from composio_phidata import Action, ComposioToolSet
+
+
+toolset = ComposioToolSet()
+composio_tools = toolset.get_tools(
+  actions=[Action.GITHUB_STAR_A_REPOSITORY_FOR_THE_AUTHENTICATED_USER]
+) # get starring action for Github
+
+agent = Agent(tools=composio_tools, show_tool_calls=True)
+
+agent.print_response("Can you star phidatahq/phidata repo?")
+```
+
+## Toolkit Params
+
+The following parameters are used when calling the GitHub star repository action:
+
+| Parameter | Type | Default | Description |
+| --------- | ---- | ------- | ----------- |
+| `owner`   | `str` | - | The owner of the repository to star. |
+| `repo`    | `str` | - | The name of the repository to star. |
+
+## Toolkit Functions
+
+Composio Toolkit provides 1000+ functions to connect to different software tools.
+Open this [link](https://composio.dev/tools) to view the complete list of functions.

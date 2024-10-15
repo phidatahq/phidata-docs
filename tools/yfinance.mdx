@@ -2,86 +2,58 @@
 title: Yfinance
 ---
 
-**YFinanceTools** enable an Assistant to access stock data, financial information and more from Yahoo Finance.
+**YFinanceTools** enable an Agent to access stock data, financial information and more from Yahoo Finance.
+
+## Prerequisites
+
+The following example requires the `yfinance` library.
+
+```shell
+pip install -U yfinance
+```
 
 ## Example
 
-The following assistant will provide information about the stock price and analyst recommendations for NVDA (Nvidia Corporation).
+The following agent will provide information about the stock price and analyst recommendations for NVDA (Nvidia Corporation).
 
 ```python cookbook/tools/yfinance_tools.py
-from phi.assistant import Assistant
+from phi.agent import Agent
 from phi.tools.yfinance import YFinanceTools
-from phi.llm.openai import OpenAIChat
 
-assistant = Assistant(
-    name="Finance Assistant",
-    llm=OpenAIChat(model="gpt-4-turbo"),
+agent = Agent(
     tools=[YFinanceTools(stock_price=True, analyst_recommendations=True, stock_fundamentals=True)],
     show_tool_calls=True,
     description="You are an investment analyst that researches stock prices, analyst recommendations, and stock fundamentals.",
     instructions=["Format your response using markdown and use tables to display data where possible."],
 )
-assistant.print_response("Share the NVDA stock price and analyst recommendations", markdown=True)
-
+agent.print_response("Share the NVDA stock price and analyst recommendations", markdown=True)
 
 ```
 
 ## Toolkit Params
 
-<ResponseField name="stock_price" type="bool" default="True">
-  Enables the functionality to retrieve current stock price information.
-</ResponseField>
-<ResponseField name="company_info" type="bool" default="False">
-  Enables the functionality to retrieve detailed company information.
-</ResponseField>
-<ResponseField name="stock_fundamentals" type="bool" default="False">
-  Enables the functionality to retrieve fundamental data about a stock.
-</ResponseField>
-<ResponseField name="income_statements" type="bool" default="False">
-  Enables the functionality to retrieve income statements of a company.
-</ResponseField>
-<ResponseField name="key_financial_ratios" type="bool" default="False">
-  Enables the functionality to retrieve key financial ratios for a company.
-</ResponseField>
-<ResponseField name="analyst_recommendations" type="bool" default="False">
-  Enables the functionality to retrieve analyst recommendations for a stock.
-</ResponseField>
-<ResponseField name="company_news" type="bool" default="False">
-  Enables the functionality to retrieve the latest news related to a company.
-</ResponseField>
-<ResponseField name="technical_indicators" type="bool" default="False">
-  Enables the functionality to retrieve technical indicators for stock analysis.
-</ResponseField>
-<ResponseField name="historical_prices" type="bool" default="False">
-  Enables the functionality to retrieve historical price data for a stock.
-</ResponseField>
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `stock_price` | bool | `True` | Enables the functionality to retrieve current stock price information. |
+| `company_info` | bool | `False` | Enables the functionality to retrieve detailed company information. |
+| `stock_fundamentals` | bool | `False` | Enables the functionality to retrieve fundamental data about a stock. |
+| `income_statements` | bool | `False` | Enables the functionality to retrieve income statements of a company. |
+| `key_financial_ratios` | bool | `False` | Enables the functionality to retrieve key financial ratios for a company. |
+| `analyst_recommendations` | bool | `False` | Enables the functionality to retrieve analyst recommendations for a stock. |
+| `company_news` | bool | `False` | Enables the functionality to retrieve the latest news related to a company. |
+| `technical_indicators` | bool | `False` | Enables the functionality to retrieve technical indicators for stock analysis. |
+| `historical_prices` | bool | `False` | Enables the functionality to retrieve historical price data for a stock. |
 
 ## Toolkit Functions
 
-<ResponseField name="get_current_stock_price">
-  This function retrieves the current stock price of a company.
-</ResponseField>
-<ResponseField name="get_company_info">
-  This function retrieves detailed information about a company.
-</ResponseField>
-<ResponseField name="get_historical_stock_prices">
-  This function retrieves historical stock prices for a company.
-</ResponseField>
-<ResponseField name="get_stock_fundamentals">
-  This function retrieves fundamental data about a stock.
-</ResponseField>
-<ResponseField name="get_income_statements">
-  This function retrieves income statements of a company.
-</ResponseField>
-<ResponseField name="get_key_financial_ratios">
-  This function retrieves key financial ratios for a company.
-</ResponseField>
-<ResponseField name="get_analyst_recommendations">
-  This function retrieves analyst recommendations for a stock.
-</ResponseField>
-<ResponseField name="get_company_news">
-  This function retrieves the latest news related to a company.
-</ResponseField>
-<ResponseField name="get_technical_indicators">
-  This function retrieves technical indicators for stock analysis.
-</ResponseField>
+| Function | Description |
+|----------|-------------|
+| `get_current_stock_price` | This function retrieves the current stock price of a company. |
+| `get_company_info` | This function retrieves detailed information about a company. |
+| `get_historical_stock_prices` | This function retrieves historical stock prices for a company. |
+| `get_stock_fundamentals` | This function retrieves fundamental data about a stock. |
+| `get_income_statements` | This function retrieves income statements of a company. |
+| `get_key_financial_ratios` | This function retrieves key financial ratios for a company. |
+| `get_analyst_recommendations` | This function retrieves analyst recommendations for a stock. |
+| `get_company_news` | This function retrieves the latest news related to a company. |
+| `get_technical_indicators` | This function retrieves technical indicators for stock analysis. |

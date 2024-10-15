@@ -1,0 +1,37 @@
+## Delete local resources
+
+Play around and stop the workspace using:
+
+<CodeGroup>
+
+```bash terminal
+phi ws down
+```
+
+```bash full options
+phi ws down --env dev --infra docker
+```
+
+```bash shorthand
+phi ws down dev:docker
+```
+
+</CodeGroup>
+
+or stop individual Apps using:
+
+<CodeGroup>
+
+```bash app
+phi ws down --group app
+```
+
+```bash api
+phi ws down --group api
+```
+
+```bash database
+phi ws down --group db
+```
+
+</CodeGroup>

@@ -21,48 +21,39 @@ Install `pypdf` using `pip install pypdf`
 
 ```python knowledge_base.py
 from phi.knowledge.pdf import PDFUrlKnowledgeBase
-from phi.vectordb.pgvector import PgVector2
+from phi.vectordb.pgvector import PgVector
 
 knowledge_base = PDFUrlKnowledgeBase(
     urls=["pdf_url"],
     # Table name: ai.pdf_documents
-    vector_db=PgVector2(
-        collection="pdf_documents",
+    vector_db=PgVector(
+        table_name="pdf_documents",
         db_url="postgresql+psycopg://ai:ai@localhost:5532/ai",
     ),
 )
 ```
 
-Then use the `knowledge_base` with an Assistant:
+Then use the `knowledge_base` with an Agent:
 
-```python assistant.py
-from phi.assistant import Assistant
+```python agent.py
+from phi.agent import Agent
 from knowledge_base import knowledge_base
 
-assistant = Assistant(
+agent = Agent(
     knowledge_base=knowledge_base,
     add_references_to_prompt=True,
 )
-assistant.knowledge_base.load(recreate=False)
+agent.knowledge_base.load(recreate=False)
 
-assistant.print_response("Ask me about something from the knowledge base")
+agent.print_response("Ask me about something from the knowledge base")
 ```
 
 ## Params
 
-<ResponseField name="urls" type="List[str]">
-  URLs for `PDF` files.
-</ResponseField>
-<ResponseField name="vector_db" type="VectorDb">
-  Vector Database for the Knowledge Base.
-</ResponseField>
-<ResponseField name="reader" type="PDFUrlReader">
-  A `PDFUrlReader` that converts the `PDFs` into `Documents` for the vector
-  database.
-</ResponseField>
-<ResponseField name="num_documents" type="int">
-  Number of documents to return on search. (default: `5`)
-</ResponseField>
-<ResponseField name="optimize_on" type="int">
-  Number of documents to optimize the vector db on.
-</ResponseField>
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `urls` | `List[str]` | - | URLs for `PDF` files. |
+| `vector_db` | `VectorDb` | - | Vector Database for the Knowledge Base. |
+| `reader` | `PDFUrlReader` | - | A `PDFUrlReader` that converts the `PDFs` into `Documents` for the vector database. |
+| `num_documents` | `int` | `5` | Number of documents to return on search.|
+| `optimize_on` | `int` | - | Number of documents to optimize the vector db on. |

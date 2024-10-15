@@ -1,0 +1,55 @@
+---
+title: Sambanova
+---
+
+Sambanova is a platform for providing endpoints for Large Language models. Note that Sambanova currently does not support function calling.
+
+## Authentication
+
+Set your `SAMBANOVA_API_KEY` environment vairable.
+
+<CodeGroup>
+
+```bash Mac
+export SAMBANOVA_API_KEY=***
+```
+
+```bash Windows
+setx SAMBANOVA_API_KEY ***
+```
+
+</CodeGroup>
+
+## Example
+
+Use `Sambanova` with your `Agent`: 
+
+<CodeGroup>
+
+```python agent.py
+from phi.agent import Agent, RunResponse
+from phi.model.sambanova import Sambanova
+
+agent = Agent(model=Sambanova(), markdown=True)
+
+# Get the response in a variable
+# run: RunResponse = agent.run("Share a 2 sentence horror story")
+# print(run.content)
+
+# Print the response in the terminal
+agent.print_response("Share a 2 sentence horror story")
+
+
+```
+
+</CodeGroup>
+
+## Params
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `id` | `str` | `"Meta-Llama-3.1-8B-Instruct"` | The specific model ID used for generating responses. |
+| `name` | `str` | `"Sambanova"` | The name identifier for the Sambanova model. |
+| `provider` | `str` | `"Sambanova"` | The provider of the model. |
+| `api_key` | `Optional[str]` | - | The API key used for authenticating requests to the Sambanova service. Retrieved from the environment variable `SAMBANOVA_API_KEY`. |
+| `base_url` | `str` | `"https://api.sambanova.ai/v1"` | The base URL for making API requests to the Sambanova service. |

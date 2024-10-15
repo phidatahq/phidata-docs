@@ -1,0 +1,48 @@
+---
+title: Templates
+---
+
+To run agents in production, we need to:
+1. Serve them using an application like **FastApi**, **Django** or **Streamlit**.
+2. Manage their sessions, memory and knowlege in a database.
+3. Monitor, evaluate and improve their performance.
+
+Phidata not only makes building Agents easy but also provides templates that can be deployed to AWS with 1 command. Here's how they work:
+
+- Create your codebase using a template: `phi ws create`
+- Run your application locally: `phi ws up`
+- Run your application on AWS: `phi ws up prd:aws`
+
+<Note>
+We strongly believe that data used by AI applications should be stored securely inside your VPC.
+
+We fully support BYOC (Bring Your Own Cloud) and encourage you to use your own AWS account.
+</Note>
+
+## Agent App
+
+Let's build an `agent-app` which includes a Streamlit UI, FastApi server and Postgres database for memory and knowledge. Run it locally using docker or deploy to production on AWS.
+
+<Snippet file="setup.mdx" />
+
+<Snippet file="create-agent-app-codebase.mdx" />
+
+<Snippet file="run-agent-app-streamlit.mdx" />
+
+<Snippet file="run-agent-app-fastapi.mdx" />
+
+<Snippet file="agent-app-build-your-ai-product.mdx" />
+
+<Snippet file="agent-app-delete-local-resources.mdx" />
+
+## Next
+
+Congratulations on running an Agent App locally. Next Steps:
+
+- [Run your Agent App on AWS](/templates/agent-app/run-aws)
+- Read how to [update workspace settings](/templates/how-to/workspace-settings)
+- Read how to [create a git repository for your workspace](/templates/how-to/git-repo)
+- Read how to [manage the development application](/templates/how-to/development-app)
+- Read how to [format and validate your code](/templates/how-to/format-and-validate)
+- Read how to [add python libraries](/templates/how-to/install)
+- Chat with us on [discord](https://discord.gg/4MtYHHrgA8)
