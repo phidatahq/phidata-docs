@@ -1,30 +1,18 @@
 ---
-title: "Build an AI API"
+title: "Building an Agent API"
 sidebarTitle: "Run locally"
 ---
 
-This templates provides an AI API built with [FastApi](https://fastapi.tiangolo.com/) and [PostgreSQL](https://www.postgresql.org/).
+The Agent Api let's us serve agents using a [FastApi](https://fastapi.tiangolo.com/) server and store memory and knowledge in a Postgres database. Run it locally using docker or deploy to production on AWS.
 
-**By the end of this guide you'll have an AI API built with:**
-
-- **FastApi** for serving Agents
-- **PostgreSQL** for knowledge and storage
-- **Docker** for running locally
-- **AWS** for running in production
 
 <Snippet file="setup.mdx" />
 
-<Snippet file="create-ai-api-codebase.mdx" />
+<Snippet file="create-agent-api-codebase.mdx" />
 
-<Snippet file="set-openai-key.mdx" />
+<Snippet file="run-agent-api-and-database.mdx" />
 
-<Snippet file="local-api-and-database.mdx" />
-
-<Snippet file="ai-api-view-api-endpoints.mdx" />
-
-<Snippet file="ai-api-add-data.mdx" />
-
-<Snippet file="ai-api-build-ai-product.mdx" />
+<Snippet file="agent-api-build-your-ai-product.mdx" />
 
 <Snippet file="stop-local-workspace.mdx" />
 
@@ -32,7 +20,7 @@ This templates provides an AI API built with [FastApi](https://fastapi.tiangolo.
 
 Congratulations on running your AI API locally. Next Steps:
 
-- [Run your AI API on AWS](/templates/ai-api/run-aws)
+- [Run your Agent API on AWS](/templates/agent-api/run-aws)
 - Read how to [update workspace settings](/templates/how-to/workspace-settings)
 - Read how to [create a git repository for your workspace](/templates/how-to/git-repo)
 - Read how to [manage the development application](/templates/how-to/development-app)

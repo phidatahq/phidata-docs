@@ -1,0 +1,21 @@
+## Test your Agents using Streamlit
+
+[Streamlit](https://streamlit.io/) allows us to build micro front-ends for testing our Agents. Start the `app` using:
+
+<CodeGroup>
+
+```bash terminal
+phi ws up --group app
+```
+
+```bash shorthand
+phi ws up dev:docker:app
+```
+
+</CodeGroup>
+
+**Press Enter** to confirm and give a few minutes for the image to download (only the first time). Verify container status and view logs on the docker dashboard.
+
+- Open [localhost:8501](http://localhost:8501) to view your AI Agent.
+- The streamlit apps are defined in the `app` folder
+- The `Agents` are defined in the `agents` folder.

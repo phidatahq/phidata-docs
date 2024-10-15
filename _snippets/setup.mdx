@@ -2,10 +2,8 @@
 
 <Steps>
   <Step title="Create a virtual environment">
-    Open the `Terminal` and create a python virtual environment.
 
     <CodeGroup>
-
     ```bash Mac
     python3 -m venv ~/.venvs/aienv
     source ~/.venvs/aienv/bin/activate
@@ -15,15 +13,12 @@
     python3 -m venv aienv
     aienv/scripts/activate
     ```
-
     </CodeGroup>
 
   </Step>
   <Step title="Install phidata">
-    Install `phidata` using pip
 
     <CodeGroup>
-
     ```bash Mac
     pip install -U "phidata[aws]"
     ```
@@ -31,11 +26,26 @@
     ```bash Windows
     pip install -U "phidata[aws]"
     ```
-
     </CodeGroup>
 
   </Step>
   <Step title="Install docker">
     Install [docker desktop](https://docs.docker.com/desktop/install/mac-install/) to run your app locally
+  </Step>
+  <Step title="Export your OpenAI key">
+
+    <CodeGroup>
+    ```bash Mac
+    export OPENAI_API_KEY=sk-***
+    ```
+
+    ```bash Windows
+    setx OPENAI_API_KEY sk-***
+    ```
+    </CodeGroup>
+
+    <Tip>
+    You can get an API key from [here](https://platform.openai.com/account/api-keys).
+    </Tip>
   </Step>
 </Steps>

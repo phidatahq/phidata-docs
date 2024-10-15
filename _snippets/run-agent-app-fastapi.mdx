@@ -1,0 +1,28 @@
+## Serve your Agents using FastApi
+
+Streamlit is great for building micro front-ends but any production application will be built using a front-end framework like [next.js](https://nextjs.org) backed by a RestApi built using [FastApi](https://fastapi.tiangolo.com/).
+
+Your Agent App comes ready-to-use with FastApi endpoints. Start the `api` using:
+
+<CodeGroup>
+
+```bash terminal
+phi ws up --group api
+```
+
+```bash shorthand
+phi ws up dev:docker:api
+```
+
+</CodeGroup>
+
+- Open [localhost:8000/docs](http://localhost:8000/docs) to view the API Endpoints.
+- Test the `/v1/playground/agent/run` endpoint with
+
+```json
+{
+  "message": "howdy",
+  "agent_id": "example-agent",
+  "stream": true
+}
+```
