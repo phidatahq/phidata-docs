@@ -78,7 +78,8 @@
             "agents/memory",
             "agents/storage",
             "agents/structured-output",
-            "agents/teams"
+            "agents/teams",
+            "agents/reasoning"
           ]
         },
         {

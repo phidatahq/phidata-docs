@@ -1,0 +1,198 @@
+---
+title: Reasoning
+---
+
+Agents use reasoning to work through problems step-by-step, backtracking and correcting as needed. Reasoning enables agents to solve complex tasks that would be impossible with a simple prompt-response. Let's test it out by solving a simple task that `gpt-4o` fails at.
+
+Create a file `reasoning_agent.py`
+
+```python reasoning_agent.py
+from phi.agent import Agent
+from phi.model.openai import OpenAIChat
+from phi.cli.console import console
+
+regular_agent = Agent(model=OpenAIChat(id="gpt-4o"), markdown=True)
+reasoning_agent = Agent(
+    model=OpenAIChat(id="gpt-4o-2024-08-06"),
+    reasoning=True,
+    markdown=True,
+    structured_outputs=True,
+)
+
+task = "How many 'r' are in the word 'supercalifragilisticexpialidocious'?"
+
+console.rule("[bold green]Regular Agent[/bold green]")
+regular_agent.print_response(task, stream=True)
+console.rule("[bold yellow]Reasoning Agent[/bold yellow]")
+reasoning_agent.print_response(task, stream=True, show_full_reasoning=True)
+```
+
+Run the Reasoning Agent:
+
+```shell
+python reasoning_agent.py
+```
+
+The regular agent fails to provide the correct answer, while the reasoning agent provides the correct answer and shows its full reasoning.
+
+<img
+  height="200"
+  src="/images/regular_agent.png"
+  style={{ borderRadius: '8px' }}
+/>
+
+<img
+  height="200"
+  src="/images/reasoning_agent.png"
+  style={{ borderRadius: '8px' }}
+/>
+
+
+## How does reasoning work?
+
+Reasoning enables an `Agent` to think through a problem step-by-step before jumping into a response. The Agent works through different ideas, validating and correcting as needed. Once it reaches a final answer, it will validate its answer and provide a response.
+
+## How to use reasoning
+
+To use reasoning, set the `reasoning=True`. You can also optionally provide a `reasoning_model` to use a different model for reasoning. When using reasoning with tools, do not use `structured_outputs=True` as gpt-4o cannot use tools with structured outputs.
+
+```python
+reasoning_agent = Agent(
+    model=OpenAIChat(id="gpt-4o-2024-08-06"),
+    reasoning=True,
+    markdown=True,
+    structured_outputs=True,
+)
+```
+
+## Reasoning with tools
+
+You can also use tools with a reasoning agent, but do not use `structured_outputs=True` as gpt-4o cannot use tools with structured outputs. Lets create a finance agent that can reason.
+
+```python finance_reasoning.py
+from phi.agent import Agent
+from phi.model.openai import OpenAIChat
+from phi.tools.yfinance import YFinanceTools
+
+reasoning_agent = Agent(
+    model=OpenAIChat(id="gpt-4o"),
+    tools=[YFinanceTools(stock_price=True, analyst_recommendations=True, company_info=True, company_news=True)],
+    instructions=["Use tables to show data"],
+    show_tool_calls=True,
+    markdown=True,
+    reasoning=True,
+)
+reasoning_agent.print_response("Write a report comparing NVDA to TSLA", stream=True, show_full_reasoning=True)
+```
+
+## More reasoning examples
+
+### Logical puzzles
+
+```python logical_puzzle.py
+from phi.agent import Agent
+from phi.model.openai import OpenAIChat
+
+task = (
+    "Three missionaries and three cannibals need to cross a river. "
+    "They have a boat that can carry up to two people at a time. "
+    "If, at any time, the cannibals outnumber the missionaries on either side of the river, the cannibals will eat the missionaries. "
+    "How can all six people get across the river safely? Provide a step-by-step solution and show the solutions as an ascii diagram"
+)
+
+reasoning_agent = Agent(
+    model=OpenAIChat(id="gpt-4o-2024-08-06"), reasoning=True, markdown=True, structured_outputs=True
+)
+
+reasoning_agent.print_response(task, stream=True, show_full_reasoning=True)
+```
+
+### Mathematical proofs
+
+```python mathematical_proof.py
+from phi.agent import Agent
+from phi.model.openai import OpenAIChat
+
+task = "Prove that for any positive integer n, the sum of the first n odd numbers is equal to n squared. Provide a detailed proof."
+
+reasoning_agent = Agent(
+    model=OpenAIChat(id="gpt-4o-2024-08-06"), reasoning=True, markdown=True, structured_outputs=True
+)
+
+reasoning_agent.print_response(task, stream=True, show_full_reasoning=True)
+```
+
+### Scientific research
+
+```python scientific_research.py
+from phi.agent import Agent
+from phi.model.openai import OpenAIChat
+
+task = (
+    "Read the following abstract of a scientific paper and provide a critical evaluation of its methodology,"
+    "results, conclusions, and any potential biases or flaws:\n\n"
+    "Abstract: This study examines the effect of a new teaching method on student performance in mathematics. "
+    "A sample of 30 students was selected from a single school and taught using the new method over one semester. "
+    "The results showed a 15% increase in test scores compared to the previous semester. "
+    "The study concludes that the new teaching method is effective in improving mathematical performance among high school students."
+)
+
+reasoning_agent = Agent(
+    model=OpenAIChat(id="gpt-4o-2024-08-06"), reasoning=True, markdown=True, structured_outputs=True
+)
+
+reasoning_agent.print_response(task, stream=True, show_full_reasoning=True)
+```
+
+### Ethical dilemma
+
+```python ethical_dilemma.py
+from phi.agent import Agent
+from phi.model.openai import OpenAIChat
+
+task = (
+    "You are a train conductor faced with an emergency: the brakes have failed, and the train is heading towards "
+    "five people tied on the track. You can divert the train onto another track, but there is one person tied there. "
+    "Do you divert the train, sacrificing one to save five? Provide a well-reasoned answer considering utilitarian "
+    "and deontological ethical frameworks. "
+    "Provide your answer also as an ascii art diagram."
+)
+
+reasoning_agent = Agent(
+    model=OpenAIChat(id="gpt-4o-2024-08-06"), reasoning=True, markdown=True, structured_outputs=True
+)
+
+reasoning_agent.print_response(task, stream=True, show_full_reasoning=True)
+```
+
+### Planning an itinerary
+
+
+```python planning_itinerary.py
+from phi.agent import Agent
+from phi.model.openai import OpenAIChat
+
+task = "Plan an itinerary from Los Angeles to Las Vegas"
+
+reasoning_agent = Agent(
+    model=OpenAIChat(id="gpt-4o-2024-08-06"), reasoning=True, markdown=True, structured_outputs=True
+)
+
+reasoning_agent.print_response(task, stream=True, show_full_reasoning=True)
+```
+
+### Creative writing
+
+```python creative_writing.py
+from phi.agent import Agent
+from phi.model.openai import OpenAIChat
+
+task = "Write a short story about life in 5000000 yearslife"
+
+reasoning_agent = Agent(
+    model=OpenAIChat(id="gpt-4o-2024-08-06"), reasoning=True, markdown=True, structured_outputs=True
+)
+
+reasoning_agent.print_response(task, stream=True, show_full_reasoning=True)
+```
+
