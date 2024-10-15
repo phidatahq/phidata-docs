@@ -2,35 +2,30 @@
 title: Introduction
 ---
 
-To run agents in production, we need to serve them using an application like **FastApi**, **Django** or **Streamlit** and store their sessions, memory and knowlege in a database. Phidata not only makes building Agents easy, but also manages the infrastructure required to run them at scale.
+To run agents in production, we need to:
+1. Serve them using an application like **FastApi**, **Django** or **Streamlit**
+2. Store their sessions, memory and knowlege in a database.
+3. Continously monitor and evaluate their performance.
 
-Phidata provides pre-built templates that come with all the infrastructure you need to run agents at scale (database, containers, loadbalancer, etc), in your own cloud.
-
-You can run the templates locally using docker or deploy to AWS. Here's how they work:
+Phidata not only makes building Agents easy but also helps you run them in production by providing templates with all the infrastructure already pre-configured. You can run the templates locally using docker or deploy to your AWS account. Here's how they work:
 
 - Create your codebase using a template: `phi ws create`
 - Run your app locally: `phi ws up`
 - Run your app on AWS: `phi ws up prd:aws`
 
 <Note>
-We strongly believe that data used by AI applications should be stored securely in your own cloud, inside your VPC. Therefore fully support BYOC (Bring Your Own Cloud).
+We strongly believe that data used by AI applications should be stored securely in your own cloud, inside your VPC. We fully support BYOC (Bring Your Own Cloud).
 </Note>
 
 ## Templates
 
-We recommend using the `agent-app` template for starting with a simple app that you can extend with your own agents.
+We recommend starting with the `agent-app` template and adding your own agents.
 
 <CardGroup cols={2}>
   <Card title="Agent App" icon="books" href="/templates/agent-app/run-local">
-    Serve agents using FastApi, Streamlit and store memory and knowlege in Postgres
+    Run agents using FastApi, Streamlit and store memory and knowlege in Postgres
   </Card>
   <Card title="Agent Api" icon="bolt" href="/templates/agent-api/run-local">
-    Serve agents using FastApi and store memory and knowlege in Postgres
-  </Card>
-  <Card title="Streamlit App" icon="ghost" href="/templates/streamlit-app/run-local">
-    Serve agents using Streamlit and store memory and knowlege in Postgres
-  </Card>
-  <Card title="Django App" icon="globe" href="/templates/django-app/run-local">
-    Full-stack web app built using Django and PostgreSQL
+    Run agents using FastApi and store memory and knowlege in Postgres
   </Card>
 </CardGroup>
