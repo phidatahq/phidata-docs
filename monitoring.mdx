@@ -6,17 +6,14 @@ title: Monitoring & Debugging
 
 Phidata comes with built-in monitoring. You can set `monitoring=True` on any agent to track sessions or set `PHI_MONITORING=true` in your environment.
 
-<Note>
-Run `phi auth` first to authenticate your local account.
-</Note>
+<Note>Run `phi auth` first to authenticate your local account.</Note>
 
-```python monitoring.py
+```python agent_monitor.py
 from phi.agent import Agent
 
 agent = Agent(markdown=True, monitoring=True)
 agent.print_response("Share a 2 sentence horror story")
 ```
-
 
 Run the agent and monitor the results on [phidata.app/sessions](https://www.phidata.app/sessions)
 
@@ -32,7 +29,7 @@ View the agent session on [phidata.app/sessions](https://www.phidata.app/session
 <img
   height="200"
   src="/images/monitoring.png"
-  style={{ borderRadius: '8px' }}
+  style={{ borderRadius: "8px" }}
 />
 
 ## Debugging
@@ -55,9 +52,4 @@ Run the agent to view debug logs in the terminal:
 python debugging.py
 ```
 
-
-<img
-  height="200"
-  src="/images/debugging.png"
-  style={{ borderRadius: '8px' }}
-/>
+<img height="200" src="/images/debugging.png" style={{ borderRadius: "8px" }} />
