@@ -4,6 +4,18 @@ title: Serpapi
 
 **SerpApiTools** enable an Agent to search Google and YouTube for a query.
 
+## Prerequisites
+
+The following example requires the `google-search-results` library and an API key from [SerpApi](https://serpapi.com/).
+
+```shell
+pip install -U google-search-results
+```
+
+```shell
+export SERPAPI_API_KEY=***
+```
+
 ## Example
 
 The following agent will search Google for the query: "Whats happening in the USA" and share results.
@@ -12,12 +24,7 @@ The following agent will search Google for the query: "Whats happening in the US
 from phi.agent import Agent
 from phi.tools.serpapi_tools import SerpApiTools
 
-agent = Agent(
-    tools=[SerpApiTools()],
-    show_tool_calls=True,
-    debug_mode=True,
-)
-
+agent = Agent(tools=[SerpApiTools()])
 agent.print_response("Whats happening in the USA?", markdown=True)
 ```
 

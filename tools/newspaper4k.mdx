@@ -4,19 +4,24 @@ title: Newspaper4k
 
 **Newspaper4k** enables an Agent to read news articles using the Newspaper4k library.
 
+## Prerequisites
+
+The following example requires the `newspaper4k` and `lxml_html_clean` libraries.
+
+```shell
+pip install -U newspaper4k lxml_html_clean
+```
+
 ## Example
 
-The following agent will summarize the article: "https://www.rockymountaineer.com/blog/experience-icefields-parkway-scenic-drive-lifetime".
+The following agent will summarize the article: https://www.rockymountaineer.com/blog/experience-icefields-parkway-scenic-drive-lifetime.
 
 ```python cookbook/tools/newspaper4k_tools.py
 from phi.agent import Agent
 from phi.tools.newspaper4k import Newspaper4k
 
 agent = Agent(tools=[Newspaper4k()], debug_mode=True, show_tool_calls=True)
-agent.print_response(
-    "https://www.rockymountaineer.com/blog/experience-icefields-parkway-scenic-drive-lifetime",
-    markdown=True,
-)
+agent.print_response("Please summarize https://www.rockymountaineer.com/blog/experience-icefields-parkway-scenic-drive-lifetime")
 ```
 
 ## Toolkit Params

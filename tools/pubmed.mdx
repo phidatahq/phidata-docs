@@ -12,18 +12,14 @@ The following agent will search Pubmed for articles related to "ulcerative colit
 from phi.agent import Agent
 from phi.tools.pubmed import PubmedTools
 
-agent = Agent(tools=[PubmedTools()], debug_mode=True, show_tool_calls=True)
-agent.print_response(
-    "ulcerative colitis.",
-    markdown=True,
-)
+agent = Agent(tools=[PubmedTools()], show_tool_calls=True)
+agent.print_response("Tell me about ulcerative colitis.")
 ```
 
 ## Toolkit Params
 
 <ResponseField name="email" type="str" default="your_email@example.com">
-  Specifies the email address to use. The default value is
-  "your_email@example.com".
+  Specifies the email address to use.
 </ResponseField>
 <ResponseField name="max_results" type="int" default="None">
   Optional parameter to specify the maximum number of results to return. The
