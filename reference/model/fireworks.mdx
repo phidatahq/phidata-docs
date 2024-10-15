@@ -16,23 +16,16 @@ agent = Agent(
 )
 agent.print_response("Share a quick healthy breakfast recipe.", markdown=True)
 ```
-
 </CodeGroup>
 
 ## Fireworks Params
 
-<ResponseField name="name" type="str" default="Fireworks"></ResponseField>
-<ResponseField
-  name="model"
-  type="str"
-  default="accounts/fireworks/models/firefunction-v1"
-></ResponseField>
-<ResponseField name="api_key" type="str"></ResponseField>
-<ResponseField
-  name="base_url"
-  type="str"
-  default="https://api.fireworks.ai/inference/v1"
-></ResponseField>
+| Parameter | Type | Default | Description |
+| --------- | ---- | ------- | ----------- |
+| `name` | `str` | `"Fireworks"` | The name of the Fireworks LLM instance |
+| `model` | `str` | `"accounts/fireworks/models/firefunction-v1"` | The Fireworks model to use |
+| `api_key` | `str` |`None` | Your Fireworks API key |
+| `base_url` | `str` | `"https://api.fireworks.ai/inference/v1"` | The base URL for Fireworks API |
 
 ## LLM Params
 

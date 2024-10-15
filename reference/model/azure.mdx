@@ -21,19 +21,17 @@ agent.print_response("Share a quick healthy breakfast recipe.", markdown=True)
 
 ## Azure Params
 
-<ResponseField name="name" type="str" default="AzureOpenAIChat"></ResponseField>
-<ResponseField name="model" type="str" required="true"></ResponseField>
-<ResponseField name="api_key" type="str"></ResponseField>
-<ResponseField
-  name="api_version"
-  type="str"
-  default="2023-12-01-preview"
-></ResponseField>
-<ResponseField name="azure_deployment" type="str"></ResponseField>
-<ResponseField name="base_url" type="str"></ResponseField>
-<ResponseField name="azure_ad_token" type="str"></ResponseField>
-<ResponseField name="azure_ad_token_provider" type="str"></ResponseField>
-<ResponseField name="openai_client" type="AzureOpenAIClient"></ResponseField>
+| Parameter | Type | Default | Description |
+| --- | --- | --- | --- |
+| `name` | `str` | `"AzureOpenAIChat"` | The name of the Azure OpenAI Chat model. |
+| `model` | `str` | - | The specific model to use for Azure OpenAI Chat. |
+| `api_key` | `str` | - | The API key for Azure OpenAI. |
+| `api_version` | `str` | `"2023-12-01-preview"` | The API version to use for Azure OpenAI. |
+| `azure_deployment` | `str` | - | The Azure deployment name for the model. |
+| `base_url` | `str` | - | The base URL for the Azure OpenAI API. |
+| `azure_ad_token` | `str` | - | The Azure AD token for authentication. |
+| `azure_ad_token_provider` | `str` | - | The provider for Azure AD token. |
+| `openai_client` | `AzureOpenAIClient` | - | An instance of AzureOpenAIClient, if already created. |
 
 ## LLM Params
 

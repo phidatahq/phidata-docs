@@ -21,18 +21,10 @@ agent = Agent(
 
 ## PgAgentStorage Params
 
-<ResponseField name="table_name" type="str">
-  The name of the table to store agent conversations in.
-</ResponseField>
-<ResponseField name="schema" type="str" default="llm">
-  The schema to store the table in.
-</ResponseField>
-<ResponseField name="db_url" type="str">
-  The database URL to connect to.
-</ResponseField>
-<ResponseField name="db_engine" type="Engine">
-  The database engine to use.
-</ResponseField>
-<ResponseField name="metadata" type="MetaData">
-  The metadata to use.
-</ResponseField>
+| Parameter | Type | Default | Description |
+| --- | --- | --- | --- |
+| `table_name` | `str` | - | The name of the table to store agent conversations in. |
+| `schema` | `str` | `"llm"` | The schema to store the table in. |
+| `db_url` | `str` | - | The database URL to connect to. |
+| `db_engine` | `Engine` | - | The database engine to use. |
+| `metadata` | `MetaData` | - | The metadata to use. |

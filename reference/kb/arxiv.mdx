@@ -29,13 +29,10 @@ knowledge_base = ArxivKnowledgeBase(
 
 ## ArxivKnowledgeBase Params
 
-<ResponseField name="queries" type="List[str]">
-  Queries to search
-</ResponseField>
-<ResponseField name="reader" type="ArxivReader">
-  A `ArxivReader` that reads the articles and converts them into `Documents` for
-  the vector database.
-</ResponseField>
+| Parameter | Type | Default | Description |
+| --- | --- | --- | --- |
+| `queries` | `List[str]` | - | Queries to search |
+| `reader` | `ArxivReader` | - | A `ArxivReader` that reads the articles and converts them into `Documents` for the vector database |
 
 ## AgentKnowledge Params
 
