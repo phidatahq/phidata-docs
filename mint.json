@@ -35,16 +35,15 @@
   },
   "topbarLinks": [
     {
-      "name": "Support",
-      "url": "https://discord.com/invite/4MtYHHrgA8"
+      "name": "Community",
+      "url": "https://community.phidata.com/"
     }
   ],
   "topbarCtaButton": {
     "type": "link",
     "url": "https://phidata.app/login",
     "name": "Get Started",
-    "style": "roundedRectangle",
-    "arrow": true
+    "style": "roundedRectangle"
   },
   "tabs": [
     {
