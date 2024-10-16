@@ -4,7 +4,7 @@ title: Monitoring & Debugging
 
 ## Monitoring
 
-Phidata comes with built-in monitoring. You can set `monitoring=True` on any agent to track sessions or set `PHI_MONITORING=true` in your environment.
+Phidata comes with built-in monitoring. You can set `monitoring=True` on any agent to track sessions or set `PHI_MONITORING=true` in your environment to log all agent sessions.
 
 <Note>Run `phi auth` first to authenticate your local account.</Note>
 
@@ -15,7 +15,7 @@ agent = Agent(markdown=True, monitoring=True)
 agent.print_response("Share a 2 sentence horror story")
 ```
 
-Run the agent and monitor the results on [phidata.app/sessions](https://www.phidata.app/sessions)
+Run the agent and view the session on [phidata.app/sessions](https://www.phidata.app/sessions)
 
 ```shell
 # You can also set the environment variable
@@ -23,8 +23,6 @@ Run the agent and monitor the results on [phidata.app/sessions](https://www.phid
 
 python agent_monitor.py
 ```
-
-View the agent session on [phidata.app/sessions](https://www.phidata.app/sessions)
 
 <img
   height="200"
@@ -34,7 +32,7 @@ View the agent session on [phidata.app/sessions](https://www.phidata.app/session
 
 ## Debugging
 
-Phidata also includes a built-in debugger that will show debug logs in the terminal. You can set `debug_mode=True` on any agent to track sessions or set `PHI_DEBUG=true` in your environment.
+Phidata also includes a built-in debugger that will show debug logs in the terminal. You can set `debug_mode=True` on any agent to view debug logs or set `PHI_DEBUG=true` in your environment.
 
 ```python debugging.py
 from phi.agent import Agent

@@ -63,7 +63,7 @@
   "navigation": [
     {
       "group": "Quickstart",
-      "pages": ["agents", "ui", "monitoring", "templates"]
+      "pages": ["agents", "ui", "monitoring", "reasoning", "templates"]
     },
     {
       "group": "Documentation",
