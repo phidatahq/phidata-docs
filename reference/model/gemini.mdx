@@ -25,19 +25,14 @@ agent.print_response("Share a quick healthy breakfast recipe.", markdown=True)
 
 ## Gemini Params
 
-<ResponseField name="name" type="str" default="Gemini"></ResponseField>
-<ResponseField
-  name="model"
-  type="str"
-  default="gemini-1.0-pro-vision"
-></ResponseField>
-<ResponseField name="generation_config" type="Any"></ResponseField>
-<ResponseField name="safety_settings" type="Any"></ResponseField>
-<ResponseField
-  name="function_declarations"
-  type="List[FunctionDeclaration]"
-></ResponseField>
-<ResponseField name="generative_model" type="GenerativeModel"></ResponseField>
+| Parameter | Type | Default | Description |
+| --- | --- | --- | --- |
+| `name` | `str` | `"Gemini"` | The name of the Gemini model. |
+| `model` | `str` | `"gemini-1.0-pro-vision"` | The specific Gemini model to use. |
+| `generation_config` | `Any` | - | Configuration for text generation. |
+| `safety_settings` | `Any` | - | Safety settings for the model. |
+| `function_declarations` | `List[FunctionDeclaration]` | - | List of function declarations for the model. |
+| `generative_model` | `GenerativeModel` | - | The underlying generative model. |
 
 ## LLM Params
 

@@ -1,88 +1,27 @@
-<ResponseField name="name" type="str" default="OpenAIChat">
-</ResponseField>
-<ResponseField name="model" type="str" default="gpt-4-1106-preview">
-  OpenAI model ID.
-</ResponseField>
-<ResponseField name="frequency_penalty" type="float">
-  Number between -2.0 and 2.0. Positive values penalize new tokens based on
-  their existing frequency in the text so far, decreasing the model's likelihood
-  to repeat the same line verbatim.
-</ResponseField>
-<ResponseField name="logit_bias" type="Any">
-  Modify the likelihood of specified tokens appearing in the completion. Accepts
-  a json object that maps tokens (specified by their token ID in the tokenizer)
-  to an associated bias value from -100 to 100.
-</ResponseField>
-<ResponseField name="logprobs" type="bool">
-  Include the log probabilities on the logprobs most likely tokens, as well as the chosen tokens.
-</ResponseField>
-<ResponseField name="max_tokens" type="int">
-  The maximum number of tokens to generate in the chat completion.
-</ResponseField>
-<ResponseField name="presence_penalty" type="float">
-  Number between -2.0 and 2.0. Positive values penalize new tokens based on
-  whether they appear in the text so far, increasing the model's likelihood to
-  talk about new topics.
-</ResponseField>
-<ResponseField name="response_format" type="Dict[str, Any]">
-  An object specifying the format that the model must output.
-  Setting to `{ "type": "json_object" }` enables JSON mode, which guarantees the message the model generates is valid JSON.
-</ResponseField>
-<ResponseField name="seed" type="int">
-  If specified, openai system will make a best effort to sample
-  deterministically, such that repeated requests with the same `seed` and
-  parameters should return the same result.
-</ResponseField>
-<ResponseField name="stop" type="Union[str, List[str]]">
-  Up to 4 sequences where the API will stop generating further tokens.
-</ResponseField>
-<ResponseField name="temperature" type="float">
-  What sampling temperature to use, between 0 and 2. Higher values like 0.8 will
-  make the output more random, while lower values like 0.2 will make it more
-  focused and deterministic.
-</ResponseField>
-<ResponseField name="top_logprobs" type="int">
-  An integer between 0 and 5 specifying the number of most likely tokens to return at each token position, 
-  each with an associated log probability. logprobs must be set to true if this parameter is used.
-</ResponseField>
-<ResponseField name="user" type="str">
-  A unique identifier representing your end-user, which can help OpenAI to
-  monitor and detect abuse.
-</ResponseField>
-<ResponseField name="top_p" type="float">
-  An alternative to sampling with temperature, called nucleus sampling, where
-  the model considers the results of the tokens with top_p probability mass.
-</ResponseField>
-<ResponseField name="extra_headers" type="Any">
-  Additional headers to be added to the OpenAI request.
-</ResponseField>
-<ResponseField name="extra_query" type="Any">
-  Additional query parameters to be added to the OpenAI request.
-</ResponseField>
-<ResponseField name="api_key" type="str">
-  OpenAI API Key
-</ResponseField>
-<ResponseField name="organization" type="str">
-  OpenAI organization
-</ResponseField>
-<ResponseField name="base_url" type="Union[str, httpx.URL]">
-  OpenAI Base URL
-</ResponseField>
-<ResponseField name="timeout" type="float">
-  Timeout for the OpenAI request
-</ResponseField>
-<ResponseField name="max_retries" type="int">
-  Maximum number of retries for the OpenAI request
-</ResponseField>
-<ResponseField name="default_headers" type="Any">
-  Default headers to be added to the OpenAI request.
-</ResponseField>
-<ResponseField name="default_query" type="Any">
-  Default query parameters to be added to the OpenAI request.
-</ResponseField>
-<ResponseField name="client_kwargs" type="Dict[str, Any]">
-  Additional `kwargs` added when creating the `OpenAI()` client.
-</ResponseField>
-<ResponseField name="openai_client" type="OpenAIClient">
-  Provide your own OpenAI() client to use
-</ResponseField>
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `name` | `str` | `"OpenAIChat"` | |
+| `model` | `str` | `"gpt-4-1106-preview"` | OpenAI model ID. |
+| `frequency_penalty` | `float` | - | Number between -2.0 and 2.0. Positive values penalize new tokens based on their existing frequency in the text so far, decreasing the model's likelihood to repeat the same line verbatim. |
+| `logit_bias` | `Any` | - | Modify the likelihood of specified tokens appearing in the completion. Accepts a json object that maps tokens (specified by their token ID in the tokenizer) to an associated bias value from -100 to 100. |
+| `logprobs` | `bool` | - | Include the log probabilities on the logprobs most likely tokens, as well as the chosen tokens. |
+| `max_tokens` | `int` | - | The maximum number of tokens to generate in the chat completion. |
+| `presence_penalty` | `float` | - | Number between -2.0 and 2.0. Positive values penalize new tokens based on whether they appear in the text so far, increasing the model's likelihood to talk about new topics. |
+| `response_format` | `Dict[str, Any]` | - | An object specifying the format that the model must output. Setting to `{ "type": "json_object" }` enables JSON mode, which guarantees the message the model generates is valid JSON. |
+| `seed` | `int` | - | If specified, openai system will make a best effort to sample deterministically, such that repeated requests with the same `seed` and parameters should return the same result. |
+| `stop` | `Union[str, List[str]]` | - | Up to 4 sequences where the API will stop generating further tokens. |
+| `temperature` | `float` | - | What sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic. |
+| `top_logprobs` | `int` | - | An integer between 0 and 5 specifying the number of most likely tokens to return at each token position, each with an associated log probability. logprobs must be set to true if this parameter is used. |
+| `user` | `str` | - | A unique identifier representing your end-user, which can help OpenAI to monitor and detect abuse. |
+| `top_p` | `float` | - | An alternative to sampling with temperature, called nucleus sampling, where the model considers the results of the tokens with top_p probability mass. |
+| `extra_headers` | `Any` | - | Additional headers to be added to the OpenAI request. |
+| `extra_query` | `Any` | - | Additional query parameters to be added to the OpenAI request. |
+| `api_key` | `str` | - | OpenAI API Key |
+| `organization` | `str` | - | OpenAI organization |
+| `base_url` | `Union[str, httpx.URL]` | - | OpenAI Base URL |
+| `timeout` | `float` | - | Timeout for the OpenAI request |
+| `max_retries` | `int` | - | Maximum number of retries for the OpenAI request |
+| `default_headers` | `Any` | - | Default headers to be added to the OpenAI request. |
+| `default_query` | `Any` | - | Default query parameters to be added to the OpenAI request. |
+| `client_kwargs` | `Dict[str, Any]` | - | Additional `kwargs` added when creating the `OpenAI()` client. |
+| `openai_client` | `OpenAIClient` | - | Provide your own OpenAI() client to use |

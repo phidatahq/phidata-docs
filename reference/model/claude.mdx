@@ -21,21 +21,18 @@ agent.print_response("Share a quick healthy breakfast recipe.", markdown=True)
 
 ## Claude Params
 
-<ResponseField name="name" type="str" default="Claude"></ResponseField>
-<ResponseField
-  name="models"
-  type="str"
-  default="claude-3-opus-20240229"
-></ResponseField>
-<ResponseField name="max_tokens" type="int" default="1024"></ResponseField>
-<ResponseField name="temperature" type="float"></ResponseField>
-<ResponseField name="stop_sequence" type="List[str]"></ResponseField>
-<ResponseField name="top_p" type="float"></ResponseField>
-<ResponseField name="top_k" type="int"></ResponseField>
-
-<ResponseField name="api_key" type="str"></ResponseField>
-<ResponseField name="base_url" type="str"></ResponseField>
-<ResponseField name="anthropic_client" type="AnthropicClient"></ResponseField>
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `name` | `str` | `"Claude"` | Name of the Claude model |
+| `model` | `str` | `"claude-3-opus-20240229"` | The specific Claude model to use |
+| `max_tokens` | `int` | `1024` | Maximum number of tokens to generate |
+| `temperature` | `float` | - | Controls randomness in output generation |
+| `stop_sequence` | `List[str]` | - | Sequences where the model should stop generating |
+| `top_p` | `float` | - | Controls diversity of output |
+| `top_k` | `int` | - | Limits vocabulary for next-word selection |
+| `api_key` | `str` | - | API key for Anthropic |
+| `base_url` | `str` | - | Base URL for the Anthropic API |
+| `anthropic_client` | `AnthropicClient` | - | Custom Anthropic client, if provided |
 
 ## LLM Params
 

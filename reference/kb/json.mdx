@@ -23,13 +23,10 @@ knowledge_base = JSONKnowledgeBase(
 
 ## JSONKnowledgeBase Params
 
-<ResponseField name="path" type="Union[str, Path]">
-  Path to `JSON` files.
-  Can point to a single JSON file or a directory of JSON files.
-</ResponseField>
-<ResponseField name="reader" type="JSONReader">
-  A `JSONReader` that converts the `JSON` files into `Documents` for the vector database.
-</ResponseField>
+| Parameter | Type | Default | Description |
+| --- | --- | --- | --- |
+| `path` | `Union[str, Path]` | - | Path to `JSON` files.<br/>Can point to a single JSON file or a directory of JSON files. |
+| `reader` | `JSONReader` | - | A `JSONReader` that converts the `JSON` files into `Documents` for the vector database. |
 
 ## AgentKnowledge Params
 

@@ -29,17 +29,11 @@ knowledge_base = TextKnowledgeBase(
 
 ## TextKnowledgeBase Params
 
-<ResponseField name="path" type="Union[str, Path]">
-  Path to text files. Can point to a single docx file or a directory of docx
-  files.
-</ResponseField>
-<ResponseField name="formats" type="List[str]">
-  Formats accepted by this knowledge base. Default: `[".txt"]`
-</ResponseField>
-<ResponseField name="reader" type="TextReader">
-  A `TextReader` that converts the text files into `Documents` for the vector
-  database.
-</ResponseField>
+| Parameter | Type | Default | Description |
+| --- | --- | --- | --- |
+| `path` | `Union[str, Path]` | - | Path to text files. Can point to a single docx file or a directory of docx files. |
+| `formats` | `List[str]` | `[".txt"]` | Formats accepted by this knowledge base. |
+| `reader` | `TextReader` | - | A `TextReader` that converts the text files into `Documents` for the vector database. |
 
 ## AgentKnowledge Params
 
