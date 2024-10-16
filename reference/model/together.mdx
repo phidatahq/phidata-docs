@@ -21,18 +21,13 @@ agent.print_response("Share a quick healthy breakfast recipe.", markdown=True)
 
 ## Together Params
 
-<ResponseField name="name" type="str" default="Together"></ResponseField>
-<ResponseField
-  name="model"
-  type="str"
-  default="mistralai/Mixtral-8x7B-Instruct-v0.1"
-></ResponseField>
-<ResponseField name="api_key" type="str"></ResponseField>
-<ResponseField
-  name="base_url"
-  type="str"
-  default="https://api.together.xyz/v1"
-></ResponseField>
+| Parameter | Type | Default | Description |
+| --------- | ---- | ------- | ----------- |
+| `name` | `str` | `"Together"` | The name of the Together LLM instance.|
+| `model` | `str` | `"mistralai/Mixtral-8x7B-Instruct-v0.1"` | The model to use for generating responses.|
+| `api_key` | `str` | - | Your Together API key. |
+| `base_url` | `str` | `"https://api.together.xyz/v1"` | The base URL for the Together API. |
+
 ## LLM Params
 
 `Together` is a subclass of the `LLM` class and has access to the same params

@@ -27,67 +27,28 @@ duckdb_agent.print_response("What is the average rating of movies?")
 
 ## DuckDbAgent Params
 
-<ResponseField name="name" type="str" default="DuckDbAgent">
-  Name of the agent.
-</ResponseField>
-<ResponseField name="semantic_model" type="str" default="None">
-  Semantic model for the agent. Use the to describe the available tables, their
-  description, data path and relations between tables.
-</ResponseField>
-<ResponseField name="add_chat_history_to_messages" type="bool" default="True">
-  If the chat history should be added to the messages.
-</ResponseField>
-<ResponseField name="num_history_messages" type="int" default="6">
-  Number of history messages to add to the response.
-</ResponseField>
-<ResponseField name="followups" type="bool" default="False">
-  If the DuckDbAgent is allowed to run followup queries.
-</ResponseField>
-<ResponseField name="read_tool_call_history" type="bool" default="True">
-  If the DuckDbAgent is allowed to read the tool call history.
-</ResponseField>
-<ResponseField name="db_path" type="str" default="None">
-  Path to the DuckDb database file.
-</ResponseField>
-<ResponseField name="connection" type="DuckDBPyConnection" default="None">
-  Provide an existing duckdb connection.
-</ResponseField>
-<ResponseField name="init_commands" type="List[str]" default="None">
-  Commands ran when the duckdb connection is initialized.
-</ResponseField>
-<ResponseField name="read_only" type="bool" default="False">
-  If the database is read-only.
-</ResponseField>
-<ResponseField name="config" type="dict" default="None">
-  database config used to initialize the duckdb connection.
-</ResponseField>
-<ResponseField name="run_queries" type="bool" default="True">
-  If the DuckDbAgent is allowed to run queries.
-</ResponseField>
-<ResponseField name="inspect_queries" type="bool" default="True">
-  If the DuckDbAgent is allowed to inspect queries.
-</ResponseField>
-<ResponseField name="create_tables" type="bool" default="True">
-  If the DuckDbAgent is allowed to create tables.
-</ResponseField>
-<ResponseField name="summarize_tables" type="bool" default="True">
-  If the DuckDbAgent is allowed to summarize tables.
-</ResponseField>
-<ResponseField name="export_tables" type="bool" default="True">
-  If the DuckDbAgent is allowed to export tables.
-</ResponseField>
-<ResponseField name="base_dir" type="Path" default=".">
-  Where to save SQL files if needed.
-</ResponseField>
-<ResponseField name="save_files" type="bool" default="True">
-  If the DuckDbAgent is allowed to save SQL files.
-</ResponseField>
-<ResponseField name="read_files" type="bool" default="False">
-  If the DuckDbAgent is allowed to read SQL files.
-</ResponseField>
-<ResponseField name="list_files" type="bool" default="False">
-  If the DuckDbAgent is allowed to list SQL files.
-</ResponseField>
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `name` | `str` | `"DuckDbAgent"` | Name of the agent. |
+| `semantic_model` | `str` | `None` | Semantic model for the agent. Use this to describe the available tables, their description, data path and relations between tables. |
+| `add_chat_history_to_messages` | `bool` | `True` | If the chat history should be added to the messages. |
+| `num_history_messages` | `int` | `6` | Number of history messages to add to the response. |
+| `followups` | `bool` | `False` | If the DuckDbAgent is allowed to run followup queries. |
+| `read_tool_call_history` | `bool` | `True` | If the DuckDbAgent is allowed to read the tool call history. |
+| `db_path` | `str` | `None` | Path to the DuckDb database file. |
+| `connection` | `DuckDBPyConnection` | `None` | Provide an existing duckdb connection. |
+| `init_commands` | `List[str]` | `None` | Commands ran when the duckdb connection is initialized. |
+| `read_only` | `bool` | `False` | If the database is read-only. |
+| `config` | `dict` | `None` | Database config used to initialize the duckdb connection. |
+| `run_queries` | `bool` | `True` | If the DuckDbAgent is allowed to run queries. |
+| `inspect_queries` | `bool` | `True` | If the DuckDbAgent is allowed to inspect queries. |
+| `create_tables` | `bool` | `True` | If the DuckDbAgent is allowed to create tables. |
+| `summarize_tables` | `bool` | `True` | If the DuckDbAgent is allowed to summarize tables. |
+| `export_tables` | `bool` | `True` | If the DuckDbAgent is allowed to export tables. |
+| `base_dir` | `Path` | `.` | Where to save SQL files if needed. |
+| `save_files` | `bool` | `True` | If the DuckDbAgent is allowed to save SQL files. |
+| `read_files` | `bool` | `False` | If the DuckDbAgent is allowed to read SQL files. |
+| `list_files` | `bool` | `False` | If the DuckDbAgent is allowed to list SQL files. |
 
 ## Agent Reference
 

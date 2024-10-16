@@ -24,17 +24,11 @@ knowledge_base = DocxKnowledgeBase(
 
 ## DocxKnowledgeBase Params
 
-<ResponseField name="path" type="Union[str, Path]">
-  Path to text files.
-Can point to a single docx file or a directory of docx files.
-</ResponseField>
-<ResponseField name="formats" type="List[str]">
-  Formats accepted by this knowledge base.
-Default: `[".doc", ".docx"]`
-</ResponseField>
-<ResponseField name="reader" type="DocxReader">
-  A `DocxReader` that converts the docx files into `Documents` for the vector database.
-</ResponseField>
+| Parameter | Type | Default | Description |
+| --- | --- | --- | --- |
+| `path` | `Union[str, Path]` | - | Path to text files. Can point to a single docx file or a directory of docx files. |
+| `formats` | `List[str]` | `[".doc", ".docx"]` | Formats accepted by this knowledge base. |
+| `reader` | `DocxReader` | - | A `DocxReader` that converts the docx files into `Documents` for the vector database. |
 
 ## AgentKnowledge Params
 

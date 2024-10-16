@@ -5,19 +5,13 @@ sidebarTitle: AWS Bedrock
 
 ## AWS Bedrock Params
 
-<ResponseField name="name" type="str" default="AwsBedrock"></ResponseField>
-<ResponseField
-  name="model"
-  type="str"
-  default="anthropic.claude-v2"
-></ResponseField>
-<ResponseField name="aws_region" type="str" default="None"></ResponseField>
-<ResponseField name="aws_profile" type="str" default="None"></ResponseField>
-<ResponseField
-  name="aws_client"
-  type="AwsApiClient"
-  default="None"
-></ResponseField>
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `name` | `str` | `"AwsBedrock"` | Name of the AWS Bedrock model |
+| `model` | `str` | `"anthropic.claude-v2"` | The specific model to use from AWS Bedrock |
+| `aws_region` | `str` | `None` | AWS region to use for the Bedrock service |
+| `aws_profile` | `str` | `None` | AWS profile to use for authentication |
+| `aws_client` | `AwsApiClient` | `None` | Custom AWS API client to use, if provided |
 
 ## LLM Params
 

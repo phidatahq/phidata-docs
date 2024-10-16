@@ -4,21 +4,11 @@ title: LanceDb
 
 ## LanceDb Params
 
-<ResponseField
-  name="embedder"
-  type="embedder"
-  default="OpenAIEmbedder()"
-></ResponseField>
-<ResponseField
-  name="distance"
-  type="Distance"
-  default="Distance.cosine"
-></ResponseField>
-<ResponseField
-  name="connection"
-  type="ancedb.db.LanceTable"
-  default="None"
-></ResponseField>
-<ResponseField name="uri" type="str" default="/tmp/lancedb"></ResponseField>
-<ResponseField name="table_name" type="str" default="phi"></ResponseField>
-<ResponseField name="nprobs" type="int" default="20"></ResponseField>
+| Parameter | Type | Default | Description |
+| --- | --- | --- | --- |
+| `embedder` | `embedder` | `OpenAIEmbedder()` |  |
+| `distance` | `Distance` | `Distance.cosine` |  |
+| `connection` | `lancedb.db.LanceTable` | `None` |  |
+| `uri` | `str` | `/tmp/lancedb` |  |
+| `table_name` | `str` | `phi` |  |
+| `nprobs` | `int` | `20` |  |

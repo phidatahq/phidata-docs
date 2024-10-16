@@ -29,13 +29,10 @@ knowledge_base = PDFUrlKnowledgeBase(
 
 ## PDFUrlKnowledgeBase Params
 
-<ResponseField name="urls" type="List[str]">
-  URLs for `PDF` files.
-</ResponseField>
-<ResponseField name="reader" type="PDFUrlReader">
-  A `PDFUrlReader` that converts the `PDFs` into `Documents` for the vector
-  database.
-</ResponseField>
+| Parameter | Type | Default | Description |
+| --- | --- | --- | --- |
+| `urls` | `List[str]` | - | URLs for `PDF` files. |
+| `reader` | `PDFUrlReader` | - | A `PDFUrlReader` that converts the `PDFs` into `Documents` for the vector database. |
 
 ## AgentKnowledge Params
 

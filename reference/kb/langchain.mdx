@@ -42,18 +42,12 @@ conv.print_response("What did the president say about technology?")
 
 ## LangChainKnowledgeBase Params
 
-<ResponseField name="loader" type="Callable">
-  LangChain retriever.
-</ResponseField>
-<ResponseField name="vectorstore" type="Any">
-  LangChain vector store used to create a retriever.
-</ResponseField>
-<ResponseField name="search_kwargs" type="dict" >
-  Search kwargs when creating a retriever using the langchain vector store.
-</ResponseField>
-<ResponseField name="retriever" type="Any">
-  LangChain retriever.
-</ResponseField>
+| Parameter | Type | Default | Description |
+| --- | --- | --- | --- |
+| `loader` | `Callable` | - | LangChain retriever. |
+| `vectorstore` | `Any` | - | LangChain vector store used to create a retriever. |
+| `search_kwargs` | `dict` | - | Search kwargs when creating a retriever using the langchain vector store. |
+| `retriever` | `Any` | - | LangChain retriever. |
 
 ## AgentKnowledge Params
 

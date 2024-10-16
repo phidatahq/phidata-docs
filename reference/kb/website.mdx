@@ -31,19 +31,12 @@ knowledge_base = WebsiteKnowledgeBase(
 
 ## WebsiteKnowledgeBase Params
 
-<ResponseField name="urls" type="List[str]">
-  URLs to read
-</ResponseField>
-<ResponseField name="reader" type="WebsiteReader">
-  A `WebsiteReader` that reads the urls and converts them into `Documents` for
-  the vector database.
-</ResponseField>
-<ResponseField name="max_depth" type="int">
-  Maximum depth to crawl. Default: `3`
-</ResponseField>
-<ResponseField name="max_links" type="int">
-  Number of links to crawl. Default: `10`
-</ResponseField>
+| Parameter | Type | Default | Description |
+| --- | --- | --- | --- |
+| `urls` | `List[str]` | - | URLs to read |
+| `reader` | `WebsiteReader` | - | A `WebsiteReader` that reads the urls and converts them into `Documents` for the vector database. |
+| `max_depth` | `int` | `3` | Maximum depth to crawl. |
+| `max_links` | `int` | `10` | Number of links to crawl. |
 
 ## AgentKnowledge Params
 
