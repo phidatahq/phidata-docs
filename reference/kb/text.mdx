@@ -31,9 +31,9 @@ knowledge_base = TextKnowledgeBase(
 
 | Parameter | Type | Default | Description |
 | --- | --- | --- | --- |
-| `path` | `Union[str, Path]` | - | Path to text files. Can point to a single docx file or a directory of docx files. |
+| `path` | `Union[str, Path]` | - | Path to text files. Can point to a single text file or a directory of text files. |
 | `formats` | `List[str]` | `[".txt"]` | Formats accepted by this knowledge base. |
-| `reader` | `TextReader` | - | A `TextReader` that converts the text files into `Documents` for the vector database. |
+| `reader` | `TextReader` | `TextReader()` | A `TextReader` that converts the text files into `Documents` for the vector database. |
 
 ## AgentKnowledge Params
 

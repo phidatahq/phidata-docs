@@ -1,6 +1,7 @@
 | Parameter | Type | Default | Description |
 | --- | --- | --- | --- |
-| `reader` | `Reader` | `None` | |
-| `vector_db` | `VectorDb` | `None` | |
-| `num_documents` | `int` | `5` | |
-| `optimize_on` | `int` | `1000` | |
+| `reader` | `Optional[Reader]` | `None` | Reader to read the documents |
+| `vector_db` | `Optional[VectorDb]` | `None` | Vector db to store the knowledge base |
+| `num_documents` | `int` | `2` | Number of relevant documents to return on search |
+| `optimize_on` | `Optional[int]` | `1000` | Number of documents to optimize the vector db on |
+| `driver` | `str` | `"knowledge"` | Driver for the Assistant knowledge |

@@ -7,18 +7,22 @@ title: Gemini
 <CodeGroup>
 
 ```python agent.py
-import vertexai
-from phi.agent import Agent
-from phi.llm.gemini import Gemini
+"""Run `pip install yfinance` to install dependencies."""
 
-# *********** Initialize VertexAI ***********
-vertexai.init(project=getenv("PROJECT_ID"), location=getenv("LOCATION"))
+from phi.agent import Agent
+from phi.model.google import Gemini
+from phi.tools.yfinance import YFinanceTools
 
 agent = Agent(
-    llm=Gemini(model="gemini-1.0-pro-vision"),
-    description="You help people with their health and fitness goals.",
+    model=Gemini(id="gemini-1.5-flash"),
+    tools=[YFinanceTools(stock_price=True)],
+    show_tool_calls=True,
+    markdown=True,
 )
-agent.print_response("Share a quick healthy breakfast recipe.", markdown=True)
+
+# Print the response in the terminal
+agent.print_response("What is the stock price of NVDA and TSLA")
+
 ```
 
 </CodeGroup>
@@ -27,15 +31,19 @@ agent.print_response("Share a quick healthy breakfast recipe.", markdown=True)
 
 | Parameter | Type | Default | Description |
 | --- | --- | --- | --- |
-| `name` | `str` | `"Gemini"` | The name of the Gemini model. |
-| `model` | `str` | `"gemini-1.0-pro-vision"` | The specific Gemini model to use. |
-| `generation_config` | `Any` | - | Configuration for text generation. |
-| `safety_settings` | `Any` | - | Safety settings for the model. |
-| `function_declarations` | `List[FunctionDeclaration]` | - | List of function declarations for the model. |
-| `generative_model` | `GenerativeModel` | - | The underlying generative model. |
+| `id` | `str` | `"gemini-1.5-flash"` | The specific Gemini model ID to use. |
+| `name` | `str` | `"Gemini"` | The name of this Gemini model instance. |
+| `provider` | `str` | `"Google"` | The provider of the model. |
+| `function_declarations` | `Optional[List[FunctionDeclaration]]` | `None` | List of function declarations for the model. |
+| `generation_config` | `Optional[Any]` | `None` | Configuration for text generation. |
+| `safety_settings` | `Optional[Any]` | `None` | Safety settings for the model. |
+| `generative_model_kwargs` | `Optional[Dict[str, Any]]` | `None` | Additional keyword arguments for the generative model. |
+| `api_key` | `Optional[str]` | `None` | API key for authentication. |
+| `client_params` | `Optional[Dict[str, Any]]` | `None` | Additional parameters for the client. |
+| `client` | `Optional[GenerativeModel]` | `None` | The underlying generative model client. |
 
-## LLM Params
+## Model Params
 
-`Gemini` is a subclass of the `LLM` class and has access to the same params
+`Gemini` is a subclass of the `Model` class and has access to the same params
 
-<Snippet file="llm-base-reference.mdx" />
+<Snippet file="model-base-reference.mdx" />

@@ -3,18 +3,41 @@ title: Aws Bedrock
 sidebarTitle: AWS Bedrock
 ---
 
+<CodeGroup>
+
+```python agent.py
+"""Run `pip install yfinance` to install dependencies."""
+
+from phi.agent import Agent
+from phi.model.aws.claude import Claude
+from phi.tools.yfinance import YFinanceTools
+
+agent = Agent(
+    model=Claude(id="anthropic.claude-3-5-sonnet-20240620-v1:0"),
+    tools=[YFinanceTools(stock_price=True)],
+    show_tool_calls=True,
+    markdown=True,
+    debug_mode=True,
+)
+
+# Print the response in the terminal
+agent.print_response("What is the stock price of NVDA and TSLA")
+```
+</CodeGroup>
+
 ## AWS Bedrock Params
 
 | Parameter | Type | Default | Description |
 |-----------|------|---------|-------------|
 | `name` | `str` | `"AwsBedrock"` | Name of the AWS Bedrock model |
 | `model` | `str` | `"anthropic.claude-v2"` | The specific model to use from AWS Bedrock |
-| `aws_region` | `str` | `None` | AWS region to use for the Bedrock service |
-| `aws_profile` | `str` | `None` | AWS profile to use for authentication |
-| `aws_client` | `AwsApiClient` | `None` | Custom AWS API client to use, if provided |
+| `aws_region` | `Optional[str]` | `None` | The AWS region to use |
+| `aws_profile` | `Optional[str]` | `None` | The AWS profile to use |
+| `aws_client` | `Optional[AwsApiClient]` | `None` | The AWS client to use |
+| `request_params` | `Optional[Dict[str, Any]]` | `None` | The request parameters to use |
 
-## LLM Params
+## Model Params
 
-`AwsBedrock` is a subclass of the `LLM` class and has access to the same params
+`AwsBedrock` is a subclass of the `Model` class and has access to the same params
 
-<Snippet file="llm-base-reference.mdx" />
+<Snippet file="model-base-reference.mdx" />

@@ -7,19 +7,22 @@ title: OpenAI
 <CodeGroup>
 
 ```python agent.py
+"""Run `pip install yfinance` to install dependencies."""
+
 from phi.agent import Agent
-from phi.llm.openai import OpenAIChat
+from phi.model.openai import OpenAIChat
+from phi.tools.yfinance import YFinanceTools
 
 agent = Agent(
-    llm=OpenAIChat(
-        model="gpt-4",
-        max_tokens=1024,
-        temperature=0.9,
-    )
+    model=OpenAIChat(id="gpt-4o"),
+    tools=[YFinanceTools(stock_price=True)],
+    show_tool_calls=True,
+    markdown=True,
 )
 
-# -*- Print a response
-agent.print_response('Share a 5 word horror story.')
+# Print the response in the terminal
+agent.print_response("What is the stock price of NVDA and TSLA")
+
 ```
 
 </CodeGroup>
@@ -30,8 +33,8 @@ agent.print_response('Share a 5 word horror story.')
 
 For more information, please refer to the [OpenAI docs](https://platform.openai.com/docs/api-reference/chat/create) as well.
 
-## LLM Params
+## Model Params
 
-`OpenAIChat` is a subclass of the `LLM` class and has access to the same params
+`OpenAIChat` is a subclass of the `Model` class and has access to the same params
 
-<Snippet file="llm-base-reference.mdx" />
+<Snippet file="model-base-reference.mdx" />

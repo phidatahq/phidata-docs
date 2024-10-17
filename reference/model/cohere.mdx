@@ -1,0 +1,57 @@
+---
+title: Cohere
+sidebarTitle: Cohere
+---
+
+<CodeGroup>
+```python agent.py
+"""Run `pip install yfinance` to install dependencies."""
+
+from phi.agent import Agent
+from phi.model.cohere import CohereChat
+from phi.tools.yfinance import YFinanceTools
+
+agent = Agent(
+    model=CohereChat(id="command-r-08-2024"),
+    tools=[
+        YFinanceTools(
+            company_info=True,
+            stock_fundamentals=True,
+        )
+    ],
+    show_tool_calls=True,
+    debug_mode=True,
+    markdown=True,
+)
+
+# Print the response on the terminal
+agent.print_response("Give me in-depth analysis of NVDA and TSLA")
+
+```
+</CodeGroup>
+
+
+## Cohere Params
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `name` | `str` | `"cohere"` | Name of the Cohere model |
+| `id` | `str` | `"command-r-plus"` | The specific model ID to use from Cohere |
+| `provider` | `str` | `"Cohere"` | The provider of the model |
+| `temperature` | `Optional[float]` | `None` | Controls randomness in output generation |
+| `max_tokens` | `Optional[int]` | `None` | Maximum number of tokens to generate |
+| `top_k` | `Optional[int]` | `None` | Limits token selection to top K options |
+| `top_p` | `Optional[float]` | `None` | Nucleus sampling threshold |
+| `frequency_penalty` | `Optional[float]` | `None` | Penalizes frequent tokens |
+| `presence_penalty` | `Optional[float]` | `None` | Penalizes repeated tokens |
+| `request_params` | `Optional[Dict[str, Any]]` | `None` | Additional request parameters |
+| `add_chat_history` | `bool` | `False` | Whether to add chat history to Cohere messages |
+| `api_key` | `Optional[str]` | `None` | Cohere API key |
+| `client_params` | `Optional[Dict[str, Any]]` | `None` | Additional client parameters |
+| `cohere_client` | `Optional[CohereClient]` | `None` | Manually provided Cohere client |
+
+## Model Params
+
+`Cohere` is a subclass of the `Model` class and has access to the same params
+
+<Snippet file="model-base-reference.mdx" />

@@ -1,0 +1,59 @@
+---
+title: DynamoDB Agent Storage
+sidebarTitle: DynamoDB
+---
+
+<CodeGroup>
+```python agent.py
+import typer
+from typing import Optional, List
+from phi.agent import Agent
+from phi.storage.agent.dynamodb import DynamoDbAgentStorage
+
+storage = DynamoDbAgentStorage(table_name="dynamo_agent", region_name="us-east-1")
+
+
+def dynamodb_agent(new: bool = False, user: str = "user"):
+    session_id: Optional[str] = None
+
+    if not new:
+        existing_sessions: List[str] = storage.get_all_session_ids(user)
+        if len(existing_sessions) > 0:
+            session_id = existing_sessions[0]
+
+    agent = Agent(
+        session_id=session_id,
+        user_id=user,
+        storage=storage,
+        show_tool_calls=True,
+        # Enable the agent to read the chat history
+        read_chat_history=True,
+        add_history_to_messages=True,
+        debug_mode=True,
+    )
+    if session_id is None:
+        session_id = agent.session_id
+        print(f"Started Session: {session_id}\n")
+    else:
+        print(f"Continuing Session: {session_id}\n")
+
+    # Runs the agent as a cli app
+    agent.cli_app(markdown=True)
+
+
+if __name__ == "__main__":
+    typer.run(dynamodb_agent)
+
+```
+</CodeGroup>
+
+## DynamoDBAgentStorage Params
+
+| Parameter | Type | Default | Description |
+| --- | --- | --- | --- |
+| `table_name` | `str` | - | Name of the DynamoDB table to store Agent sessions. |
+| `region_name` | `Optional[str]` | `None` | AWS region name. |
+| `aws_access_key_id` | `Optional[str]` | `None` | AWS access key ID. |
+| `aws_secret_access_key` | `Optional[str]` | `None` | AWS secret access key. |
+| `endpoint_url` | `Optional[str]` | `None` | The complete URL to use for the constructed client. |
+| `create_table_if_not_exists` | `bool` | `True` | Whether to create the table if it does not exist. |

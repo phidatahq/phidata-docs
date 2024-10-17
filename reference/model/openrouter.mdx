@@ -1,0 +1,42 @@
+---
+title: OpenRouter
+sidebarTitle: OpenRouter
+---
+
+<CodeGroup>
+```python agent.py
+"""Run `pip install yfinance` to install dependencies."""
+
+from phi.agent import Agent
+from phi.model.openrouter import OpenRouter
+from phi.tools.yfinance import YFinanceTools
+
+agent = Agent(
+    model=OpenRouter(id="gpt-4o"),
+    tools=[YFinanceTools(stock_price=True)],
+    show_tool_calls=True,
+    markdown=True,
+)
+
+# Print the response in the terminal
+agent.print_response("What is the stock price of NVDA and TSLA")
+
+```
+</CodeGroup>
+
+## OpenRouter Params
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `id` | `str` | `"gpt-4o"` | The model id |
+| `name` | `str` | `"OpenRouter"` | The model name |
+| `provider` | `str` | `"OpenRouter: " + id` | The provider name |
+| `api_key` | `Optional[str]` | `None` | The API key (defaults to environment variable OPENROUTER_API_KEY) |
+| `base_url` | `str` | `"https://openrouter.ai/api/v1"` | The base URL for API requests |
+| `max_tokens` | `int` | `1024` | The maximum number of tokens |
+
+## Model Params
+
+`OpenRouter` is a subclass of the `Model` class and has access to the same params
+
+<Snippet file="model-base-reference.mdx" />
