@@ -3,6 +3,30 @@ title: Sqlite Agent Storage
 sidebarTitle: Sqlite
 ---
 
+<CodeGroup>
+```python agent.py
+from phi.agent import Agent
+from phi.storage.agent.sqlite import SqlAgentStorage
+from phi.model.ollama import Ollama
+
+# Set up SQL storage for the agent's data
+storage = SqlAgentStorage(table_name="recipes", db_file="data.db")
+storage.create()  # Create the storage if it doesn't exist
+
+# Initialize the Agent with Sqlite storage
+agent = Agent(
+    session_id="session_id",  # use any unique identifier to identify the run
+    user_id="user",  # user identifier to identify the user
+    model=Ollama(model="llama2"),
+    storage=storage,
+)
+
+# Use the agent to generate and print a response
+agent.print_response("What's a simple recipe for pancakes?")
+
+```
+</CodeGroup>
+
 ## SqlAgentStorage Params
 
 | Parameter | Type | Default | Description |

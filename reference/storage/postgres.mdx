@@ -5,19 +5,27 @@ sidebarTitle: PostgreSQL
 
 ## Example
 
+<CodeGroup>
 ```python agent_with_storage.py
 from phi.agent import Agent
+from phi.model.openai import OpenAIChat
+from phi.tools.yfinance import YFinanceTools
 from phi.storage.agent.postgres import PgAgentStorage
 
 agent = Agent(
+    model=OpenAIChat(id="gpt-4o"),
+    tools=[YFinanceTools(stock_price=True)],
     # -*- Add storage to the agent
     storage = PgAgentStorage(
-        # Table name: ai.agent_runs
         table_name="agent_runs",
         db_url=db_url,
     )
 )
+
+# Print the response in the terminal
+agent.print_response("What is the stock price of NVDA and TSLA")
 ```
+</CodeGroup>
 
 ## PgAgentStorage Params
 

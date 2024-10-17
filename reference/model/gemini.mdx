@@ -7,18 +7,22 @@ title: Gemini
 <CodeGroup>
 
 ```python agent.py
-import vertexai
-from phi.agent import Agent
-from phi.llm.gemini import Gemini
+"""Run `pip install yfinance` to install dependencies."""
 
-# *********** Initialize VertexAI ***********
-vertexai.init(project=getenv("PROJECT_ID"), location=getenv("LOCATION"))
+from phi.agent import Agent
+from phi.model.google import Gemini
+from phi.tools.yfinance import YFinanceTools
 
 agent = Agent(
-    llm=Gemini(model="gemini-1.0-pro-vision"),
-    description="You help people with their health and fitness goals.",
+    model=Gemini(id="gemini-1.5-flash"),
+    tools=[YFinanceTools(stock_price=True)],
+    show_tool_calls=True,
+    markdown=True,
 )
-agent.print_response("Share a quick healthy breakfast recipe.", markdown=True)
+
+# Print the response in the terminal
+agent.print_response("What is the stock price of NVDA and TSLA")
+
 ```
 
 </CodeGroup>
