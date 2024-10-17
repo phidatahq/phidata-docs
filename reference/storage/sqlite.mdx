@@ -7,7 +7,9 @@ sidebarTitle: Sqlite
 
 | Parameter | Type | Default | Description |
 | --- | --- | --- | --- |
-| `table_name` | `str` | - | The name of the table to store agent conversations in. |
-| `db_url` | `str` | - | The database URL to connect to. |
-| `db_engine` | `Engine` | - | The database engine to use. |
-| `metadata` | `MetaData` | - | The metadata to use for the database. |
+| `table_name` | `str` | - | The name of the table to store Agent sessions. |
+| `db_url` | `Optional[str]` | `None` | The database URL to connect to. |
+| `db_file` | `Optional[str]` | `None` | The database file to connect to. |
+| `db_engine` | `Optional[Engine]` | `None` | The database engine to use. |
+| `schema_version` | `int` | `1` | Version of the schema. |
+| `auto_upgrade_schema` | `bool` | `False` | Automatically upgrade schema if True. |

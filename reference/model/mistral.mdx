@@ -23,23 +23,26 @@ agent.print_response("Share a quick healthy breakfast recipe.", markdown=True)
 
 | Parameter | Type | Default | Description |
 | -- | ---- | --- | ----------- |
-| `name` | `str` | `"Mistral"` | The name of the LLM. |
-| `model` | `str` | `"mistral-large-latest"` | The Mistral model to use. |
-| `temperature` | `float` | - | Controls randomness in output generation. |
-| `max_tokens` | `int` | `1024` | Maximum number of tokens to generate. |
-| `top_p` | `float` | - | Controls diversity of output generation. |
-| `random_seed` | `int` | - | Seed for random number generation. |
-| `safe_mode` | `bool` | - | Enables content filtering. |
-| `safe_prompt` | `bool` | - | Applies content filtering to prompts. |
-| `response_format` | `Union[Dict[str, Any], ChatCompletionResponseFormat]` | - | Specifies the desired response format. |
-| `api_key` | `str` | - | Your Mistral API key. |
-| `endpoint` | `str` | - | Custom API endpoint URL. |
-| `max_retries` | `int` | - | Maximum number of API call retries. |
-| `timeout` | `int` | - | Timeout for API calls in seconds. |
-| `mistral_client` | `MistralClient` | - | Custom Mistral client instance. |
+| `id` | `str` | `"mistral-large-latest"` | The ID of the model. |
+| `name` | `str` | `"MistralChat"` | The name of the model. |
+| `provider` | `str` | `"Mistral"` | The provider of the model. |
+| `temperature` | `Optional[float]` | `None` | Controls randomness in output generation. |
+| `max_tokens` | `Optional[int]` | `None` | Maximum number of tokens to generate. |
+| `top_p` | `Optional[float]` | `None` | Controls diversity of output generation. |
+| `random_seed` | `Optional[int]` | `None` | Seed for random number generation. |
+| `safe_mode` | `bool` | `False` | Enables content filtering. |
+| `safe_prompt` | `bool` | `False` | Applies content filtering to prompts. |
+| `response_format` | `Optional[Union[Dict[str, Any], ChatCompletionResponse]]` | `None` | Specifies the desired response format. |
+| `request_params` | `Optional[Dict[str, Any]]` | `None` | Additional request parameters. |
+| `api_key` | `Optional[str]` | `None` | Your Mistral API key. |
+| `endpoint` | `Optional[str]` | `None` | Custom API endpoint URL. |
+| `max_retries` | `Optional[int]` | `None` | Maximum number of API call retries. |
+| `timeout` | `Optional[int]` | `None` | Timeout for API calls in seconds. |
+| `client_params` | `Optional[Dict[str, Any]]` | `None` | Additional client parameters. |
+| `mistral_client` | `Optional[Mistral]` | `None` | Custom Mistral client instance. |
 
 ## LLM Params
 
-`Mistral` is a subclass of the `LLM` class and has access to the same params
+`Mistral` is a subclass of the `Model` class and has access to the same params
 
-<Snippet file="llm-base-reference.mdx" />
+<Snippet file="model-base-reference.mdx" />

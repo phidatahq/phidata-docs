@@ -22,13 +22,14 @@ agent.print_response("Share a quick healthy breakfast recipe.", markdown=True)
 
 | Parameter | Type | Default | Description |
 | --------- | ---- | ------- | ----------- |
-| `name` | `str` | `"Fireworks"` | The name of the Fireworks LLM instance |
-| `model` | `str` | `"accounts/fireworks/models/firefunction-v1"` | The Fireworks model to use |
-| `api_key` | `str` |`None` | Your Fireworks API key |
+| `id` | `str` | `"accounts/fireworks/models/firefunction-v2"` | The model ID to use |
+| `name` | `str` | `"Fireworks: " + id` | The name of the Fireworks LLM instance |
+| `provider` | `str` | `"Fireworks"` | The provider of the model |
+| `api_key` | `Optional[str]` | `None` | Your Fireworks API key (defaults to FIREWORKS_API_KEY environment variable) |
 | `base_url` | `str` | `"https://api.fireworks.ai/inference/v1"` | The base URL for Fireworks API |
 
 ## LLM Params
 
-`Fireworks` is a subclass of the `LLM` class and has access to the same params
+`Fireworks` is a subclass of the `Model` class and has access to the same params
 
-<Snippet file="llm-base-reference.mdx" />
+<Snippet file="model-base-reference.mdx" />

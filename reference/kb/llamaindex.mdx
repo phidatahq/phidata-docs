@@ -1,0 +1,17 @@
+---
+title: LlamaIndex KnowledgeBase
+sidebarTitle: LlamaIndex
+---
+
+## LlamaIndexKnowledgeBase Params
+
+| Parameter | Type | Default | Description |
+| --- | --- | --- | --- |
+| `retriever` | `BaseRetriever` | - | LlamaIndex retriever used for querying the knowledge base |
+| `loader` | `Optional[Callable]` | `None` | Optional loader function to load documents into the knowledge base |
+
+## AgentKnowledge Params
+
+`LlamaIndexKnowledgeBase` is a subclass of the `AgentKnowledge` class and has access to the same params
+
+<Snippet file="kb-base-reference.mdx" />

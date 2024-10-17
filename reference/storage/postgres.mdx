@@ -23,8 +23,9 @@ agent = Agent(
 
 | Parameter | Type | Default | Description |
 | --- | --- | --- | --- |
-| `table_name` | `str` | - | The name of the table to store agent conversations in. |
-| `schema` | `str` | `"llm"` | The schema to store the table in. |
-| `db_url` | `str` | - | The database URL to connect to. |
-| `db_engine` | `Engine` | - | The database engine to use. |
-| `metadata` | `MetaData` | - | The metadata to use. |
+| `table_name` | `str` | - | Name of the table to store Agent sessions. |
+| `schema` | `Optional[str]` | `"ai"` | Schema to store the table in. |
+| `db_url` | `Optional[str]` | `None` | Database URL for connection. |
+| `db_engine` | `Optional[Engine]` | `None` | SQLAlchemy database engine. |
+| `schema_version` | `int` | `1` | Version of the schema. |
+| `auto_upgrade_schema` | `bool` | `False` | Automatically upgrade schema if True. |

@@ -1,0 +1,12 @@
+---
+title: ChromaDb
+---
+
+## ChromaDb Params
+| Parameter | Type | Default | Description |
+| --- | --- | --- | --- |
+| `collection` | `str` | - | Name of the Chroma collection |
+| `embedder` | `Embedder` | `OpenAIEmbedder()` | Embedder for embedding the document contents |
+| `distance` | `Distance` | `Distance.cosine` | Distance metric for similarity search |
+| `path` | `str` | `"tmp/chromadb"` | Path to store Chroma database |
+| `persistent_client` | `bool` | `False` | Whether to use a persistent Chroma client |

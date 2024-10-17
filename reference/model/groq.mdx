@@ -24,33 +24,35 @@ agent.print_response("Share a quick healthy breakfast recipe.", markdown=True)
 
 | Parameter | Type | Default | Description |
 |-----------|------|---------|-------------|
-| `name` | `str` | `"Groq"` | Name of the Groq model |
-| `model` | `str` | `"mixtral-8x7b-32768"` | The specific Groq model to use |
-| `frequency_penalty` | `float` | - | Number between -2.0 and 2.0. Positive values penalize new tokens based on their existing frequency in the text so far, decreasing the model's likelihood to repeat the same line verbatim. |
-| `logit_bias` | `Any` | - | Modify the likelihood of specified tokens appearing in the completion. Accepts a json object that maps tokens (specified by their token ID in the tokenizer) to an associated bias value from -100 to 100. |
-| `logprobs` | `int` | - | - |
-| `max_tokens` | `int` | - | The maximum number of tokens to generate in the chat completion. |
-| `presence_penalty` | `float` | - | Number between -2.0 and 2.0. Positive values penalize new tokens based on whether they appear in the text so far, increasing the model's likelihood to talk about new topics. |
-| `response_format` | `Dict[str, Any]` | - | An object specifying the format that the model must output. Setting to `{ "type": "json_object" }` enables JSON mode, which guarantees the message the model generates is valid JSON. |
-| `seed` | `int` | - | If specified, the system will make a best effort to sample deterministically, such that repeated requests with the same `seed` and parameters should return the same result. |
-| `stop` | `Union[str, List[str]]` | - | Up to 4 sequences where the API will stop generating further tokens. |
-| `temperature` | `float` | - | What sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic. |
-| `top_logprobs` | `int` | - | - |
-| `top_p` | `float` | - | An alternative to sampling with temperature, called nucleus sampling, where the model considers the results of the tokens with top_p probability mass. |
-| `user` | `str` | - | A unique identifier representing your end-user, which can help OpenAI to monitor and detect abuse. |
-| `extra_headers` | `Any` | - | - |
-| `extra_query` | `Any` | - | - |
-| `api_key` | `str` | - | API key for Groq |
-| `organization` | `str` | - | - |
-| `base_url` | `str` | - | Base URL for the Groq API |
-| `timeout` | `float` | - | - |
-| `max_retries` | `int` | - | - |
-| `default_headers` | `Any` | - | - |
-| `default_query` | `Any` | - | - |
-| `groq_client` | `GroqClient` | - | Custom Groq client, if provided |
+| `id` | `str` | `"llama3-groq-70b-8192-tool-use-preview"` | The model ID to use |
+| `name` | `str` | `"Groq"` | The name of the Groq model instance |
+| `provider` | `str` | `"Groq"` | The provider of the model |
+| `frequency_penalty` | `Optional[float]` | `None` | Number between -2.0 and 2.0. Positive values penalize new tokens based on their existing frequency in the text so far, decreasing the model's likelihood to repeat the same line verbatim. |
+| `logit_bias` | `Optional[Any]` | `None` | Modify the likelihood of specified tokens appearing in the completion. |
+| `logprobs` | `Optional[bool]` | `None` | Whether to return log probabilities of the output tokens. |
+| `max_tokens` | `Optional[int]` | `None` | The maximum number of tokens to generate in the chat completion. |
+| `presence_penalty` | `Optional[float]` | `None` | Number between -2.0 and 2.0. Positive values penalize new tokens based on whether they appear in the text so far, increasing the model's likelihood to talk about new topics. |
+| `response_format` | `Optional[Dict[str, Any]]` | `None` | An object specifying the format that the model must output. |
+| `seed` | `Optional[int]` | `None` | If specified, the system will make a best effort to sample deterministically. |
+| `stop` | `Optional[Union[str, List[str]]]` | `None` | Up to 4 sequences where the API will stop generating further tokens. |
+| `temperature` | `Optional[float]` | `None` | What sampling temperature to use, between 0 and 2. Higher values make the output more random, while lower values make it more focused and deterministic. |
+| `top_logprobs` | `Optional[int]` | `None` | The number of most likely tokens to return at each token position, along with their log probabilities. |
+| `top_p` | `Optional[float]` | `None` | An alternative to sampling with temperature, called nucleus sampling. |
+| `user` | `Optional[str]` | `None` | A unique identifier representing your end-user, which can help to monitor and detect abuse. |
+| `extra_headers` | `Optional[Any]` | `None` | Additional headers to send with the request. |
+| `extra_query` | `Optional[Any]` | `None` | Additional query parameters to send with the request. |
+| `request_params` | `Optional[Dict[str, Any]]` | `None` | Additional parameters to include in the request. |
+| `api_key` | `Optional[str]` | `None` | API key for Groq |
+| `base_url` | `Optional[Union[str, httpx.URL]]` | `None` | Base URL for the Groq API |
+| `timeout` | `Optional[int]` | `None` | Timeout for API requests in seconds |
+| `max_retries` | `Optional[int]` | `None` | Maximum number of retries for API requests |
+| `default_headers` | `Optional[Any]` | `None` | Default headers to send with every request |
+| `default_query` | `Optional[Any]` | `None` | Default query parameters to send with every request |
+| `client_params` | `Optional[Dict[str, Any]]` | `None` | Additional parameters for configuring the client |
+| `groq_client` | `Optional[GroqClient]` | `None` | Custom Groq client, if provided |
 
 ## LLM Params
 
-`Groq` is a subclass of the `LLM` class and has access to the same params
+`Groq` is a subclass of the `Model` class and has access to the same params
 
-<Snippet file="llm-base-reference.mdx" />
+<Snippet file="model-base-reference.mdx" />

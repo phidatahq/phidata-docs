@@ -44,10 +44,10 @@ conv.print_response("What did the president say about technology?")
 
 | Parameter | Type | Default | Description |
 | --- | --- | --- | --- |
-| `loader` | `Callable` | - | LangChain retriever. |
-| `vectorstore` | `Any` | - | LangChain vector store used to create a retriever. |
-| `search_kwargs` | `dict` | - | Search kwargs when creating a retriever using the langchain vector store. |
-| `retriever` | `Any` | - | LangChain retriever. |
+| `loader` | `Optional[Callable]` | `None` | LangChain loader. |
+| `vectorstore` | `Optional[Any]` | `None` | LangChain vector store used to create a retriever. |
+| `search_kwargs` | `Optional[dict]` | `None` | Search kwargs when creating a retriever using the langchain vector store. |
+| `retriever` | `Optional[Any]` | `None` | LangChain retriever. |
 
 ## AgentKnowledge Params
 

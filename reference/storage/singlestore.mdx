@@ -3,4 +3,13 @@ title: Single Store Agent Storage
 sidebarTitle: Single Store
 ---
 
-<Snippet file="coming-soon.mdx" />
+## SingleStoreAgentStorage Params
+
+| Parameter | Type | Default | Description |
+| --- | --- | --- | --- |
+| `table_name` | `str` | - | Name of the table to store Agent sessions. |
+| `schema` | `Optional[str]` | `"ai"` | Schema to store the table in. |
+| `db_url` | `Optional[str]` | `None` | Database URL for connection. |
+| `db_engine` | `Optional[Engine]` | `None` | SQLAlchemy database engine. |
+| `schema_version` | `int` | `1` | Version of the schema. |
+| `auto_upgrade_schema` | `bool` | `False` | Automatically upgrade schema if True. |

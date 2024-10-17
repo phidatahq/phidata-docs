@@ -23,20 +23,21 @@ agent.print_response("Share a quick healthy breakfast recipe.", markdown=True)
 
 | Parameter | Type | Default | Description |
 | --- | --- | --- | --- |
-| `name` | `str` | `"Ollama"` | Name for this LLM. Note: This is not sent to the LLM API. |
-| `model` | `str` | `"llama2"` | ID of the model to use. |
-| `host` | `str` | - | |
-| `timeout` | `Any` | - | |
-| `format` | `str` | - | The format to return a response in. Currently the only accepted value is `json` |
-| `options` | `Any` | - | Additional model parameters such as temperature |
-| `keep_alive` | `Union[float, str]` | - | Controls how long the model will stay loaded into memory following the request. |
-| `function_call_limit` | `int` | `10` | Maximum number of function calls allowed across all iterations. |
-| `deactivate_tools_after_use` | `bool` | `False` | Deactivate tool calls by turning off JSON mode after 1 tool call |
-| `add_user_message_after_tool_call` | `bool` | `True` | After a tool call is run, add the user message as a reminder to the LLM |
-| `ollama_client` | `OllamaClient` | - | |
+| `id` | `str` | `"llama3.2"` | The ID of the model to use. |
+| `name` | `str` | `"Ollama"` | The name of the model. |
+| `provider` | `str` | `"Ollama llama3.2"` | The provider of the model. |
+| `format` | `Optional[str]` | `None` | The format of the response. |
+| `options` | `Optional[Any]` | `None` | Additional options to pass to the model. |
+| `keep_alive` | `Optional[Union[float, str]]` | `None` | The keep alive time for the model. |
+| `request_params` | `Optional[Dict[str, Any]]` | `None` | Additional parameters to pass to the request. |
+| `host` | `Optional[str]` | `None` | The host to connect to. |
+| `timeout` | `Optional[Any]` | `None` | The timeout for the connection. |
+| `client_params` | `Optional[Dict[str, Any]]` | `None` | Additional parameters to pass to the client. |
+| `client` | `Optional[OllamaClient]` | `None` | A pre-configured instance of the Ollama client. |
+| `async_client` | `Optional[AsyncOllamaClient]` | `None` | A pre-configured instance of the asynchronous Ollama client. |
 
 ## LLM Params
 
-`Ollama` is a subclass of the `LLM` class and has access to the same params
+`Ollama` is a subclass of the `Model` class and has access to the same params
 
-<Snippet file="llm-base-reference.mdx" />
+<Snippet file="model-base-reference.mdx" />

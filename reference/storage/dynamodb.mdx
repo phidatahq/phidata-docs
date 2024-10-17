@@ -1,0 +1,15 @@
+---
+title: DynamoDB Agent Storage
+sidebarTitle: DynamoDB
+---
+
+## DynamoDBAgentStorage Params
+
+| Parameter | Type | Default | Description |
+| --- | --- | --- | --- |
+| `table_name` | `str` | - | Name of the DynamoDB table to store Agent sessions. |
+| `region_name` | `Optional[str]` | `None` | AWS region name. |
+| `aws_access_key_id` | `Optional[str]` | `None` | AWS access key ID. |
+| `aws_secret_access_key` | `Optional[str]` | `None` | AWS secret access key. |
+| `endpoint_url` | `Optional[str]` | `None` | The complete URL to use for the constructed client. |
+| `create_table_if_not_exists` | `bool` | `True` | Whether to create the table if it does not exist. |

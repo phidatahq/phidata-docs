@@ -9,12 +9,13 @@ sidebarTitle: AWS Bedrock
 |-----------|------|---------|-------------|
 | `name` | `str` | `"AwsBedrock"` | Name of the AWS Bedrock model |
 | `model` | `str` | `"anthropic.claude-v2"` | The specific model to use from AWS Bedrock |
-| `aws_region` | `str` | `None` | AWS region to use for the Bedrock service |
-| `aws_profile` | `str` | `None` | AWS profile to use for authentication |
-| `aws_client` | `AwsApiClient` | `None` | Custom AWS API client to use, if provided |
+| `aws_region` | `Optional[str]` | `None` | The AWS region to use |
+| `aws_profile` | `Optional[str]` | `None` | The AWS profile to use |
+| `aws_client` | `Optional[AwsApiClient]` | `None` | The AWS client to use |
+| `request_params` | `Optional[Dict[str, Any]]` | `None` | The request parameters to use |
 
 ## LLM Params
 
-`AwsBedrock` is a subclass of the `LLM` class and has access to the same params
+`AwsBedrock` is a subclass of the `Model` class and has access to the same params
 
-<Snippet file="llm-base-reference.mdx" />
+<Snippet file="model-base-reference.mdx" />

@@ -6,9 +6,14 @@ title: LanceDb
 
 | Parameter | Type | Default | Description |
 | --- | --- | --- | --- |
-| `embedder` | `embedder` | `OpenAIEmbedder()` |  |
-| `distance` | `Distance` | `Distance.cosine` |  |
-| `connection` | `lancedb.db.LanceTable` | `None` |  |
-| `uri` | `str` | `/tmp/lancedb` |  |
-| `table_name` | `str` | `phi` |  |
-| `nprobs` | `int` | `20` |  |
+| `uri` | `lancedb.URI` | `/tmp/lancedb` | URI for LanceDB connection |
+| `table` | `Optional[lancedb.db.LanceTable]` | `None` | LanceDB table instance |
+| `table_name` | `Optional[str]` | `None` | Name of the LanceDB table |
+| `connection` | `Optional[lancedb.DBConnection]` | `None` | LanceDB connection instance |
+| `api_key` | `Optional[str]` | `None` | API key for LanceDB connection |
+| `embedder` | `Optional[Embedder]` | `OpenAIEmbedder()` | Embedder for embedding document contents |
+| `search_type` | `SearchType` | `SearchType.vector` | Type of search to perform |
+| `distance` | `Distance` | `Distance.cosine` | Distance metric for similarity search |
+| `nprobes` | `Optional[int]` | `None` | Number of probes for approximate search |
+| `reranker` | `Optional[Reranker]` | `None` | Reranker for search results |
+| `use_tantivy` | `bool` | `True` | Whether to use Tantivy for full-text search |

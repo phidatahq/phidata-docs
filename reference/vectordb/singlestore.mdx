@@ -6,9 +6,9 @@ title: Single Store
 
 | Parameter | Type | Default | Description |
 | --- | --- | --- | --- |
-| `collection` | `str` | - | |
-| `schema` | `str` | `"ai"` | |
-| `db_url` | `str` | `None` | |
-| `db_engine` | `Engine` | `None` | |
-| `embedder` | `embedder` | `OpenAIEmbedder()` | |
-| `distance` | `Distance` | `Distance.cosine` | |
+| `collection` | `str` | - | Name of the collection to store vector data |
+| `schema` | `Optional[str]` | `"ai"` | Database schema name |
+| `db_url` | `Optional[str]` | `None` | Database connection URL |
+| `db_engine` | `Optional[Engine]` | `None` | SQLAlchemy database engine |
+| `embedder` | `Embedder` | `OpenAIEmbedder()` | Embedder instance for creating embeddings |
+| `distance` | `Distance` | `Distance.cosine` | Distance metric for vector comparisons |
