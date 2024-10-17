@@ -371,7 +371,11 @@
             "reference/model/groq",
             "reference/model/gemini",
             "reference/model/azure",
-            "reference/model/claude"
+            "reference/model/claude",
+            "reference/model/cohere",
+            "reference/model/deepseek",
+            "reference/model/openrouter",
+            "reference/model/sambanova"
           ]
         },
         {
@@ -379,7 +383,8 @@
           "pages": [
             "reference/storage/postgres",
             "reference/storage/sqlite",
-            "reference/storage/singlestore"
+            "reference/storage/singlestore",
+            "reference/storage/dynamodb"
           ]
         },
         {
@@ -388,9 +393,12 @@
             "reference/kb/base",
             "reference/kb/arxiv",
             "reference/kb/combined",
+            "reference/kb/csv",
             "reference/kb/docx",
+            "reference/kb/document",
             "reference/kb/json",
             "reference/kb/langchain",
+            "reference/kb/llamaindex",
             "reference/kb/pdf",
             "reference/kb/pdf-url",
             "reference/kb/text",
@@ -405,7 +413,9 @@
             "reference/vectordb/pgvector2",
             "reference/vectordb/singlestore",
             "reference/vectordb/qdrant",
-            "reference/vectordb/lancedb"
+            "reference/vectordb/lancedb",
+            "reference/vectordb/chromadb",
+            "reference/vectordb/pineconedb"
           ]
         }
       ]
