@@ -67,6 +67,10 @@
       "pages": ["agents", "ui", "monitoring", "reasoning", "templates"]
     },
     {
+      "group": "Migration Guide 2.5.0",
+      "pages": ["migration/guide"]
+    },
+    {
       "group": "Documentation",
       "pages": [
         {
