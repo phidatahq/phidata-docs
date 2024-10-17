@@ -37,13 +37,15 @@
     {
       "name": "Community",
       "url": "https://community.phidata.com/"
+    },
+    {
+      "name": "Log In",
+      "url": "https://phidata.app"
     }
   ],
   "topbarCtaButton": {
-    "type": "link",
-    "url": "https://phidata.app/login",
-    "name": "Get Started",
-    "style": "roundedRectangle"
+    "type": "github",
+    "url": "https://github.com/phidatahq/phidata"
   },
   "tabs": [
     {
