@@ -186,7 +186,8 @@
             "storage/introduction",
             "storage/postgres",
             "storage/sqlite",
-            "storage/singlestore"
+            "storage/singlestore",
+            "storage/dynamodb"
           ]
         },
         {

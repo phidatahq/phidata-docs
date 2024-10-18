@@ -1,0 +1,36 @@
+---
+title: DynamoDB Agent Storage
+sidebarTitle: DynamoDB
+---
+
+Phidata supports using DynamoDB as a storage backend for Agents using the `DynamoDbAgentStorage` class.
+
+## Usage
+
+You need to provide `aws_access_key_id` and `aws_secret_access_key` parameters to the `DynamoDbAgentStorage` class.
+
+```python storage.py
+from phi.storage.agent.dynamodb import DynamoDbAgentStorage
+
+# AWS Credentials
+AWS_ACCESS_KEY_ID = getenv("AWS_ACCESS_KEY_ID")
+AWS_SECRET_ACCESS_KEY = getenv("AWS_SECRET_ACCESS_KEY")
+
+storage = DynamoDbAgentStorage(
+    # store sessions in the ai.sessions table
+    table_name="agent_sessions",
+    # region_name: DynamoDB region name
+    region_name="us-east-1",
+    # aws_access_key_id: AWS access key id
+    aws_access_key_id=AWS_ACCESS_KEY_ID,
+    # aws_secret_access_key: AWS secret access key
+    aws_secret_access_key=AWS_SECRET_ACCESS_KEY,
+)
+
+# Add storage to the Agent
+agent = Agent(storage=storage)
+```
+
+## Params
+
+<Snippet file="storage-dynamodb-params.mdx" />
