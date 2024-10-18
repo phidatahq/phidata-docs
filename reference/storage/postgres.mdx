@@ -6,10 +6,10 @@ sidebarTitle: PostgreSQL
 ## Example
 
 ```python storage.py
-from phi.storage.agent.postgres import PostgresAgentStorage
+from phi.storage.agent.postgres import PgAgentStorage
 
 # Create a storage backend using the Postgres database
-storage = PostgresAgentStorage(
+storage = PgAgentStorage(
     # store sessions in the ai.sessions table
     table_name="agent_sessions",
     # db_url: Postgres database URL
