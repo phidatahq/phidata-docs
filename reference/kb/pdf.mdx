@@ -33,7 +33,7 @@ pdf_knowledge_base = PDFKnowledgeBase(
 | Parameter | Type | Default | Description |
 | --- | --- | --- | --- |
 | `path` | `Union[str, Path]` | - | Path to `PDF` files. Can point to a single PDF file or a directory of PDF files. |
-| `reader` | `PDFReader` | - | A `PDFReader` that converts the `PDFs` into `Documents` for the vector database. |
+| `reader` | `Union[PDFReader, PDFImageReader]` | `PDFReader()` | A `PDFReader` or `PDFImageReader` that converts the `PDFs` into `Documents` for the vector database. |
 
 ## AgentKnowledge Params
 

@@ -3,11 +3,37 @@ title: Sqlite Agent Storage
 sidebarTitle: Sqlite
 ---
 
+<CodeGroup>
+```python agent.py
+from phi.agent import Agent
+from phi.storage.agent.sqlite import SqlAgentStorage
+from phi.model.ollama import Ollama
+
+# Set up SQL storage for the agent's data
+storage = SqlAgentStorage(table_name="recipes", db_file="data.db")
+storage.create()  # Create the storage if it doesn't exist
+
+# Initialize the Agent with Sqlite storage
+agent = Agent(
+    session_id="session_id",  # use any unique identifier to identify the run
+    user_id="user",  # user identifier to identify the user
+    model=Ollama(model="llama2"),
+    storage=storage,
+)
+
+# Use the agent to generate and print a response
+agent.print_response("What's a simple recipe for pancakes?")
+
+```
+</CodeGroup>
+
 ## SqlAgentStorage Params
 
 | Parameter | Type | Default | Description |
 | --- | --- | --- | --- |
-| `table_name` | `str` | - | The name of the table to store agent conversations in. |
-| `db_url` | `str` | - | The database URL to connect to. |
-| `db_engine` | `Engine` | - | The database engine to use. |
-| `metadata` | `MetaData` | - | The metadata to use for the database. |
+| `table_name` | `str` | - | The name of the table to store Agent sessions. |
+| `db_url` | `Optional[str]` | `None` | The database URL to connect to. |
+| `db_file` | `Optional[str]` | `None` | The database file to connect to. |
+| `db_engine` | `Optional[Engine]` | `None` | The database engine to use. |
+| `schema_version` | `int` | `1` | Version of the schema. |
+| `auto_upgrade_schema` | `bool` | `False` | Automatically upgrade schema if True. |

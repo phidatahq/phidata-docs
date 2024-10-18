@@ -1,0 +1,33 @@
+---
+title: Sambanova
+sidebarTitle: Sambanova
+---
+
+<CodeGroup>
+```python agent.py
+from phi.agent import Agent
+from phi.model.sambanova import Sambanova
+
+agent = Agent(model=Sambanova(), markdown=True)
+
+# Print the response in the terminal
+agent.print_response("Share a 2 sentence horror story")
+
+```
+</CodeGroup>
+
+## Sambanova Params
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `id` | `str` | `"Meta-Llama-3.1-8B-Instruct"` | The id of the Sambanova model to use |
+| `name` | `str` | `"Sambanova"` | The name of this chat model instance |
+| `provider` | `str` | `"Sambanova"` | The provider of the model |
+| `api_key` | `Optional[str]` | `None` | The API key for authenticating with Sambanova (defaults to environment variable SAMBANOVA_API_KEY) |
+| `base_url` | `str` | `"https://api.sambanova.ai/v1"` | The base URL for API requests |
+
+## Model Params
+
+`Sambanova` is a subclass of the `Model` class and has access to the same params
+
+<Snippet file="model-base-reference.mdx" />

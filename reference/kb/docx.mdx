@@ -28,7 +28,7 @@ knowledge_base = DocxKnowledgeBase(
 | --- | --- | --- | --- |
 | `path` | `Union[str, Path]` | - | Path to text files. Can point to a single docx file or a directory of docx files. |
 | `formats` | `List[str]` | `[".doc", ".docx"]` | Formats accepted by this knowledge base. |
-| `reader` | `DocxReader` | - | A `DocxReader` that converts the docx files into `Documents` for the vector database. |
+| `reader` | `DocxReader` | `DocxReader()` | A `DocxReader` that converts the docx files into `Documents` for the vector database. |
 
 ## AgentKnowledge Params
 

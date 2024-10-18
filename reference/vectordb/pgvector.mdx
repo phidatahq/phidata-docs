@@ -2,14 +2,50 @@
 title: PgVector
 ---
 
+<CodeGroup>
+```python agent.py
+from phi.agent import Agent
+from phi.storage.agent.postgres import PgAgentStorage
+from phi.knowledge.pdf import PDFUrlKnowledgeBase
+from phi.vectordb.pgvector import PgVector2
+
+db_url = "postgresql+psycopg://ai:ai@localhost:5532/ai"
+
+agent = Agent(
+    storage=PgAgentStorage(table_name="recipe_agent", db_url=db_url),
+    knowledge_base=PDFUrlKnowledgeBase(
+        urls=["https://phi-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"],
+        vector_db=PgVector2(collection="recipe_documents", db_url=db_url),
+    ),
+    # Show tool calls in the response
+    show_tool_calls=True,
+    # Enable the agent to search the knowledge base
+    search_knowledge=True,
+    # Enable the agent to read the chat history
+    read_chat_history=True,
+)
+# Comment out after first run
+agent.knowledge_base.load(recreate=False)  # type: ignore
+
+agent.print_response("How do I make pad thai?", markdown=True)
+
+```
+</CodeGroup>
+
 ## PgVectorDb Params
 
 | Parameter | Type | Default | Description |
 | --------- | ---- | ------- | ----------- |
-| `collection` | `str` | - | |
-| `schema` | `str` | `"ai"` | |
-| `db_url` | `str` | `None` | |
-| `db_engine` | `Engine` | `None` | |
-| `embedder` | `embedder` | `OpenAIEmbedder()` | |
-| `distance` | `Distance` | `Distance.cosine` | |
-| `index` | `Union` | `HNSW()` | |
+| `table_name` | `str` | - | Name of the table to store vector data |
+| `schema` | `str` | `"ai"` | Database schema name |
+| `db_url` | `Optional[str]` | `None` | Database connection URL |
+| `db_engine` | `Optional[Engine]` | `None` | SQLAlchemy database engine |
+| `embedder` | `Optional[Embedder]` | `OpenAIEmbedder()` | Embedder instance for creating embeddings |
+| `search_type` | `SearchType` | `SearchType.vector` | Type of search to perform |
+| `vector_index` | `Union[Ivfflat, HNSW]` | `HNSW()` | Vector index configuration |
+| `distance` | `Distance` | `Distance.cosine` | Distance metric for vector comparisons |
+| `prefix_match` | `bool` | `False` | Enable prefix matching for full-text search |
+| `vector_score_weight` | `float` | `0.5` | Weight for vector similarity in hybrid search |
+| `content_language` | `str` | `"english"` | Language for full-text search |
+| `schema_version` | `int` | `1` | Version of the database schema |
+| `auto_upgrade_schema` | `bool` | `False` | Automatically upgrade schema if True |

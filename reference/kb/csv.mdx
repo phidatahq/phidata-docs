@@ -1,0 +1,17 @@
+---
+title: CSV KnowledgeBase
+sidebarTitle: CSV
+---
+
+## CSVKnowledgeBase Params
+
+| Parameter | Type | Default | Description |
+| --- | --- | --- | --- |
+| `path` | `Union[str, Path]` | - | Path to the CSV file |
+| `reader` | `CSVReader` | `CSVReader()` | A `CSVReader` that reads the CSV file and converts it into `Documents` for the vector database |
+
+## AgentKnowledge Params
+
+`CSVKnowledgeBase` is a subclass of the `AgentKnowledge` class and has access to the same params
+
+<Snippet file="kb-base-reference.mdx" />

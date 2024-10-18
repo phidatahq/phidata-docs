@@ -1,8 +1,7 @@
 ---
-title: LanceDb
+title: ChromaDb
 ---
 
-<CodeGroup>
 ```python agent.py
 import typer
 from rich.prompt import Prompt
@@ -10,14 +9,12 @@ from typing import Optional
 
 from phi.agent import Agent
 from phi.knowledge.pdf import PDFUrlKnowledgeBase
-from phi.vectordb.lancedb import LanceDb
+from phi.vectordb.chroma import ChromaDb
 
-# type: ignore
-db_url = "/tmp/lancedb"
 
 knowledge_base = PDFUrlKnowledgeBase(
     urls=["https://phi-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"],
-    vector_db=LanceDb(table_name="recipes", uri=db_url),
+    vector_db=ChromaDb(collection="recipes"),
 )
 
 # Comment out after first run
@@ -33,8 +30,7 @@ def pdf_agent(user: str = "user"):
         knowledge_base=knowledge_base,
         use_tools=True,
         show_tool_calls=True,
-        # Uncomment the following line to use traditional RAG
-        # add_references_to_prompt=True,
+        debug_mode=True,
     )
     if run_id is None:
         run_id = agent.run_id
@@ -53,20 +49,12 @@ if __name__ == "__main__":
     typer.run(pdf_agent)
 
 ```
-</CodeGroup>
 
-## LanceDb Params
-
+## ChromaDb Params
 | Parameter | Type | Default | Description |
 | --- | --- | --- | --- |
-| `uri` | `lancedb.URI` | `/tmp/lancedb` | URI for LanceDB connection |
-| `table` | `Optional[lancedb.db.LanceTable]` | `None` | LanceDB table instance |
-| `table_name` | `Optional[str]` | `None` | Name of the LanceDB table |
-| `connection` | `Optional[lancedb.DBConnection]` | `None` | LanceDB connection instance |
-| `api_key` | `Optional[str]` | `None` | API key for LanceDB connection |
-| `embedder` | `Optional[Embedder]` | `OpenAIEmbedder()` | Embedder for embedding document contents |
-| `search_type` | `SearchType` | `SearchType.vector` | Type of search to perform |
+| `collection` | `str` | - | Name of the Chroma collection |
+| `embedder` | `Embedder` | `OpenAIEmbedder()` | Embedder for embedding the document contents |
 | `distance` | `Distance` | `Distance.cosine` | Distance metric for similarity search |
-| `nprobes` | `Optional[int]` | `None` | Number of probes for approximate search |
-| `reranker` | `Optional[Reranker]` | `None` | Reranker for search results |
-| `use_tantivy` | `bool` | `True` | Whether to use Tantivy for full-text search |
+| `path` | `str` | `"tmp/chromadb"` | Path to store Chroma database |
+| `persistent_client` | `bool` | `False` | Whether to use a persistent Chroma client |
