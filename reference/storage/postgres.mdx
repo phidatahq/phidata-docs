@@ -5,35 +5,21 @@ sidebarTitle: PostgreSQL
 
 ## Example
 
-<CodeGroup>
-```python agent_with_storage.py
-from phi.agent import Agent
-from phi.model.openai import OpenAIChat
-from phi.tools.yfinance import YFinanceTools
-from phi.storage.agent.postgres import PgAgentStorage
+```python storage.py
+from phi.storage.agent.postgres import PostgresAgentStorage
 
-agent = Agent(
-    model=OpenAIChat(id="gpt-4o"),
-    tools=[YFinanceTools(stock_price=True)],
-    # -*- Add storage to the agent
-    storage = PgAgentStorage(
-        table_name="agent_runs",
-        db_url=db_url,
-    )
+# Create a storage backend using the Postgres database
+storage = PostgresAgentStorage(
+    # store sessions in the ai.sessions table
+    table_name="agent_sessions",
+    # db_url: Postgres database URL
+    db_url=db_url,
 )
 
-# Print the response in the terminal
-agent.print_response("What is the stock price of NVDA and TSLA")
+# Add storage to the Agent
+agent = Agent(storage=storage)
 ```
-</CodeGroup>
 
-## PgAgentStorage Params
+## Params
 
-| Parameter | Type | Default | Description |
-| --- | --- | --- | --- |
-| `table_name` | `str` | - | Name of the table to store Agent sessions. |
-| `schema` | `Optional[str]` | `"ai"` | Schema to store the table in. |
-| `db_url` | `Optional[str]` | `None` | Database URL for connection. |
-| `db_engine` | `Optional[Engine]` | `None` | SQLAlchemy database engine. |
-| `schema_version` | `int` | `1` | Version of the schema. |
-| `auto_upgrade_schema` | `bool` | `False` | Automatically upgrade schema if True. |
+<Snippet file="storage-postgres-params.mdx" />
