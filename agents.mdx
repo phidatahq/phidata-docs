@@ -206,14 +206,6 @@ A team of agents can work together to solve complex problems, create a file `age
 
 Reasoning is an experimental feature that helps agents work through a problem step-by-step, backtracking and correcting as needed. Create a file `reasoning_agent.py`.
 
-<Warning>
-Reasoning is an experimental feature and will break ~20% of the time. It is not a replacement for o1.
-
-It is an experiment fueled by curiosity, combining COT and tool use. Set your expectations very low for the first version.
-
-For example: It will not be able to count ‘r’s in ‘strawberry’ but will count them in ‘supercalifragilisticexpialidocious’.
-</Warning>
-
 <Steps>
   <Step title="Create a reasoning agent">
 
@@ -241,6 +233,12 @@ For example: It will not be able to count ‘r’s in ‘strawberry’ but will 
 
   </Step>
 </Steps>
+
+<Warning>
+Reasoning is an experimental feature and will break ~20% of the time. **It is not a replacement for o1.**
+
+It is an experiment fueled by curiosity, combining COT and tool use. Set your expectations very low for this initial release. For example: It will not be able to count ‘r’s in ‘strawberry’.
+</Warning>
 
 <Tip>
 If using tools with `reasoning=True`, set `structured_outputs=False` because gpt-4o doesnt support tools with structured outputs.

@@ -6,9 +6,9 @@ title: Monitoring & Debugging
 
 Phidata comes with built-in monitoring. You can set `monitoring=True` on any agent to track sessions or set `PHI_MONITORING=true` in your environment to log all agent sessions.
 
-<Note>Run `phi auth` first to authenticate your local account.</Note>
+<Note>Run `phi auth` to authenticate your local account or export the `PHI_API_KEY`</Note>
 
-```python agent_monitor.py
+```python monitoring.py
 from phi.agent import Agent
 
 agent = Agent(markdown=True, monitoring=True)
@@ -21,7 +21,7 @@ Run the agent and view the session on [phidata.app/sessions](https://www.phidata
 # You can also set the environment variable
 # export PHI_MONITORING=true
 
-python agent_monitor.py
+python monitoring.py
 ```
 
 <img
