@@ -64,7 +64,7 @@
   "navigation": [
     {
       "group": "Quickstart",
-      "pages": ["agents", "ui", "monitoring", "reasoning", "templates", "video"]
+      "pages": ["agents", "ui", "reasoning", "monitoring", "templates", "videos"]
     },
     {
       "group": "Migration Guide 2.5.0",
