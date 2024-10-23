@@ -20,7 +20,7 @@ qdrant_url = os.getenv("QDRANT_URL")
 collection_name = "thai-recipe-index"
 
 vector_db = Qdrant(
-    table_name=collection_name,
+    collection=collection_name,
     url=qdrant_url,
     api_key=api_key,
 )
