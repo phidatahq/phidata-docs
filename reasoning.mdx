@@ -2,16 +2,7 @@
 title: Reasoning
 ---
 
-Reasoning is an **experimental feature** that enables an `Agent` to think through a problem step-by-step before jumping into a response.
-
-The Agent works through different ideas, validating and correcting as needed. Once it reaches a final answer, it will validate and provide a response. Let's give it a try. Create a file `reasoning_agent.py`
-
-<Warning>
-
-Reasoning is currently limited to OpenAI models and will break about 20% of the time. **It is not a replacement for o1.**
-
-It is an experiment fueled by curiosity, combining COT and tool use. Set your expectations very low for this initial release. For example: It will not be able to count ‘r’s in ‘strawberry’.
-</Warning>
+Reasoning is an **experimental feature** that enables an `Agent` to think through a problem step-by-step before jumping into a response. The Agent works through different ideas, validating and correcting as needed. Once it reaches a final answer, it will validate and provide a response. Let's give it a try. Create a file `reasoning_agent.py`
 
 ```python reasoning_agent.py
 from phi.agent import Agent
@@ -33,6 +24,13 @@ Run the Reasoning Agent:
 ```shell
 python reasoning_agent.py
 ```
+
+<Warning>
+
+Reasoning is currently limited to OpenAI models and will break about 20% of the time. **It is not a replacement for o1.**
+
+It is an experiment fueled by curiosity, combining COT and tool use. Set your expectations very low for this initial release. For example: It will not be able to count ‘r’s in ‘strawberry’.
+</Warning>
 
 ## How to use reasoning
 

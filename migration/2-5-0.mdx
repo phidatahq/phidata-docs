@@ -1,6 +1,8 @@
-# Migration Guide: Assistant to Agent
+---
+title: Upgrade to v2.5.0
+---
 
-This guide will help you migrate your code from using the `Assistant` class to the new `Agent` class.
+This guide will help you migrate your code to v2.5.0
 
 ## Key Changes
 
@@ -26,7 +28,7 @@ from phi.model.openai import OpenAIChat
 from phi.storage.agent.postgres import PgAgentStorage
 ```
 
-### 2. Update Arguments 
+### 2. Update Arguments
 
 Replace `llm` with `model` and `model` with `id`.
 
