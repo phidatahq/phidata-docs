@@ -2,10 +2,10 @@
 title: Agent UI
 ---
 
-Phidata gives you a UI for interacting with your agents.
+Phidata provides a beautiful Agent UI for interacting with your agents. Let's take it for a spin, create a file `playground.py`
 
 <Note>
-When using the UI, phidata does not store any data, all data is stored locally on your machine.
+Phidata does not store any data, all agent data is stored locally in a sqlite database.
 </Note>
 
 <img
@@ -13,8 +13,6 @@ When using the UI, phidata does not store any data, all data is stored locally o
   src="/images/agent_playground.png"
   style={{ borderRadius: '8px' }}
 />
-
-Let's take it for a spin, create a file `playground.py`
 
 ```python playground.py
 from phi.agent import Agent
@@ -26,9 +24,9 @@ from phi.playground import Playground, serve_playground_app
 
 web_agent = Agent(
     name="Web Agent",
-    role="Search the web for information",
     model=OpenAIChat(id="gpt-4o"),
     tools=[DuckDuckGo()],
+    instructions=["Always include sources"],
     storage=SqlAgentStorage(table_name="web_agent", db_file="agents.db"),
     add_history_to_messages=True,
     markdown=True,
@@ -36,10 +34,9 @@ web_agent = Agent(
 
 finance_agent = Agent(
     name="Finance Agent",
-    role="Get financial data",
     model=OpenAIChat(id="gpt-4o"),
     tools=[YFinanceTools(stock_price=True, analyst_recommendations=True, company_info=True, company_news=True)],
-    instructions=["Always use tables to display data"],
+    instructions=["Use tables to display data"],
     storage=SqlAgentStorage(table_name="finance_agent", db_file="agents.db"),
     add_history_to_messages=True,
     markdown=True,
@@ -59,24 +56,24 @@ if __name__ == "__main__":
 phi auth
 ```
 
+<Note>
+If `phi auth` fails, you can set the `PHI_API_KEY` environment variable by copying it from [phidata.app](https://www.phidata.app)
+</Note>
+
 ### Run the playground
 
-- Install dependencies
+Install dependencies and run the Agent Playground:
 
-```shell
-pip install 'fastapi[standard]' sqlalchemy
 ```
+pip install 'fastapi[standard]' sqlalchemy
 
-- Run the playground
-
-```shell
 python playground.py
 ```
 
 ### View the playground
 
 - Open your link provided or navigate to `http://phidata.app/playground`
-- Select your endpoint, agent and chat with your agents!
+- Select the `localhost:7777` endpoint and start chatting with your agents!
 
 <video
   autoPlay
