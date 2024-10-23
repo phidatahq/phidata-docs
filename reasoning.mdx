@@ -2,34 +2,29 @@
 title: Reasoning
 ---
 
-Reasoning is an **experimental feature** that enables an `Agent` to think through a problem step-by-step before jumping into a response. The Agent works through different ideas, validating and correcting as needed. Once it reaches a final answer, it will validate the answer and provide a response. Let's give it a try. Create a file `reasoning_agent.py`
+Reasoning is an **experimental feature** that enables an `Agent` to think through a problem step-by-step before jumping into a response.
+
+The Agent works through different ideas, validating and correcting as needed. Once it reaches a final answer, it will validate and provide a response. Let's give it a try. Create a file `reasoning_agent.py`
 
 <Warning>
 
-Reasoning is currently limited to OpenAI models and will break about 20% of the time. This is not a replacement for the o1 models. This is an experiement that we are curious about and want to see where it goes.
+Reasoning is currently limited to OpenAI models and will break about 20% of the time. **It is not a replacement for o1.**
 
-For example: it will not be able to count 'r's in 'strawberry' but will count them in 'supercalifragilisticexpialidocious'.
-
+It is an experiment fueled by curiosity, combining COT and tool use. Set your expectations very low for this initial release. For example: It will not be able to count ‘r’s in ‘strawberry’.
 </Warning>
 
 ```python reasoning_agent.py
 from phi.agent import Agent
 from phi.model.openai import OpenAIChat
-from phi.cli.console import console
 
-regular_agent = Agent(model=OpenAIChat(id="gpt-4o"), markdown=True)
-reasoning_agent = Agent(
-    model=OpenAIChat(id="gpt-4o-2024-08-06"),
-    reasoning=True,
-    markdown=True,
-    structured_outputs=True,
+task = (
+    "Three missionaries and three cannibals need to cross a river. "
+    "They have a boat that can carry up to two people at a time. "
+    "If, at any time, the cannibals outnumber the missionaries on either side of the river, the cannibals will eat the missionaries. "
+    "How can all six people get across the river safely? Provide a step-by-step solution and show the solutions as an ascii diagram"
 )
 
-task = "How many 'r' are in the word 'supercalifragilisticexpialidocious'?"
-
-console.rule("[bold green]Regular Agent[/bold green]")
-regular_agent.print_response(task, stream=True)
-console.rule("[bold yellow]Reasoning Agent[/bold yellow]")
+reasoning_agent = Agent(model=OpenAIChat(id="gpt-4o"), reasoning=True, markdown=True, structured_outputs=True)
 reasoning_agent.print_response(task, stream=True, show_full_reasoning=True)
 ```
 
@@ -39,26 +34,9 @@ Run the Reasoning Agent:
 python reasoning_agent.py
 ```
 
-<AccordionGroup>
-  <Accordion title="The regular agent fails to provide the correct answer." icon="robot-astromech" iconType="duotone">
-    <img
-        height="200"
-        src="/images/regular_agent.png"
-        style={{ borderRadius: '8px' }}
-    />
-  </Accordion>
-  <Accordion title="The reasoning agent provides the correct answer and shows its full reasoning." icon="brain" iconType="duotone">
-    <img
-        height="200"
-        src="/images/reasoning_agent.png"
-        style={{ borderRadius: '8px' }}
-    />
-  </Accordion>
-</AccordionGroup>
-
 ## How to use reasoning
 
-To use reasoning, set the `reasoning=True`. When using reasoning with tools, do not use `structured_outputs=True` as gpt-4o cannot use tools with structured outputs.
+To add reasoning, set `reasoning=True`. When using reasoning with tools, do not use `structured_outputs=True` as gpt-4o cannot use tools with structured outputs.
 
 ```python
 reasoning_agent = Agent(
