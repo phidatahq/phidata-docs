@@ -64,7 +64,14 @@
   "navigation": [
     {
       "group": "Quickstart",
-      "pages": ["agents", "ui", "reasoning", "monitoring", "templates", "videos"]
+      "pages": [
+        "agents",
+        "ui",
+        "reasoning",
+        "monitoring",
+        "templates",
+        "videos"
+      ]
     },
     {
       "group": "Documentation",
@@ -457,7 +464,11 @@
     },
     {
       "group": "FAQs",
-      "pages": ["faq/could-not-connect-to-docker", "faq/environment_variables"]
+      "pages": [
+        "faq/could-not-connect-to-docker",
+        "faq/environment_variables",
+        "faq/phi-auth"
+      ]
     }
   ],
   "footerSocials": {

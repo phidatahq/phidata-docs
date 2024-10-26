@@ -1,0 +1,26 @@
+---
+title: Command line authentication
+sidebarTitle: Command line authentication
+---
+
+If you run `phi auth` and you get the error: `CLI authentication failed` or your CLI gets stuck on
+
+```
+Waiting for a response from browser...
+```
+
+It means that your CLI was not able to authenticate with your Phidata account on [phidata.app](https://phidata.app)
+
+The quickest fix for this is to export your `PHI_API_KEY` environment variable. You can do this by running the following command:
+
+```bash
+export PHI_API_KEY=<your_api_key>
+```
+
+Your API key can be found on [phidata.app](https://phidata.app) in the sidebar under `API Key`.
+
+![phi-api-key](/images/cli-faq.png)
+
+Reason for CLI authentication failure:
+
+- Some browsers like Safari and Brave block connection to the localhost domain. Browsers like Chrome work great with `phi auth`.
