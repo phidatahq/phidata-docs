@@ -2,19 +2,20 @@
 title: Templates
 ---
 
-To run agents in production, we need to:
+Running Agents in production is not an easy task, we need to:
+
 1. Serve them using an application like **FastApi**, **Django** or **Streamlit**.
 2. Manage their sessions, memory and knowlege in a database.
 3. Monitor, evaluate and improve their performance.
 
-Phidata not only makes building Agents easy but also provides templates that can be deployed to AWS with 1 command. Here's how they work:
+Phidata not only makes building, monitoring and improving Agents easy but also provides pre-built templates that you can deploy to AWS with 1 command. Here's how they work:
 
 - Create your codebase using a template: `phi ws create`
 - Run your application locally: `phi ws up`
 - Run your application on AWS: `phi ws up prd:aws`
 
 <Note>
-We strongly believe that data used by AI applications should be stored securely inside your VPC.
+We strongly believe that the data used by Agents should be stored securely inside your VPC.
 
 We fully support BYOC (Bring Your Own Cloud) and encourage you to use your own AWS account.
 </Note>

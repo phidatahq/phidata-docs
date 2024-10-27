@@ -1,18 +1,19 @@
 ---
 title: Agent UI
+description: Phidata provides a beautiful Agent UI for interacting with your agents.
 ---
 
-Phidata provides a beautiful Agent UI for interacting with your agents. This is what it looks like:
+<Frame caption="Agent Playground">
+  <img
+    height="200"
+    src="/images/agent_playground.png"
+    style={{ borderRadius: '8px' }}
+  />
+</Frame>
 
 <Note>
 No data is sent to phidata, all agent sessions are stored locally in a sqlite database.
 </Note>
-
-<img
-  height="200"
-  src="/images/agent_playground.png"
-  style={{ borderRadius: '8px' }}
-/>
 
 Let's take it for a spin, create a file `playground.py`
 
@@ -52,32 +53,13 @@ if __name__ == "__main__":
 
 <Tip>Make sure the `serve_playground_app()` points to the file that contains your `Playground` app.</Tip>
 
-### Authenticate with phidata
-
-You can authenticate with phidata by running the following command:
-
-```shell
-phi auth
-```
-
-**OR** by exporting the `PHI_API_KEY` for your workspace from [phidata.app](https://www.phidata.app)
-
-
-<CodeGroup>
-```bash Mac
-export PHI_API_KEY=phi-***
-```
-
-```bash Windows
-setx PHI_API_KEY phi-***
-```
-</CodeGroup>
+<Snippet file="authenticate-with-phidata.mdx" />
 
 ### Run the playground
 
 Install dependencies and run the Agent Playground:
 
-```
+```shell
 pip install 'fastapi[standard]' sqlalchemy
 
 python playground.py

@@ -2,61 +2,125 @@
 title: Memory
 ---
 
-**Agents use memory to store chat history, user preferences and conversation summaries**.
+Each conversation with an Agent is called a **session** and every interaction within that session is called a **run**. There can be multiple runs in a session.
+
+<Tip>
+**Sessions** are equivalent to **threads** in the OpenAI Assistant API.
+</Tip>
 
 ## Built-in Memory
 
-Every Agent comes with built-in memory that can be used to access the **chat history** and **run messages**, but this only lasts while the session is active. Access it using `agent.memory`
+Every Agent comes with built-in memory that can be used to access the historical **runs** and **messages**. Access it using `agent.memory`
 
-- **Chat History:** The messages between the User and Agent.
-- **Run Messages:** The full list of messages sent to the model, including system prompt, tool calls etc.
+<Expandable title="AgentMemory">
+    <ResponseField name="runs" type="list[AgentRun]">
+        The list of runs between the user and agent. Each run contains the input message and output response.
+    </ResponseField>
+
+    <ResponseField name="messages" type="list[Message]">
+        The full list of messages sent to the model, including system prompt, tool calls etc.
+    </ResponseField>
+</Expandable>
 
 ### Example
 
 ```python agent_memory.py
+from phi.agent import Agent
+from phi.model.openai import OpenAIChat
 from rich.pretty import pprint
-from phi.agent import Agent, AgentMemory
-from phi.tools.yfinance import YFinanceTools
 
-agent = Agent(tools=[YFinanceTools()])
 
-# -*- Print a response
-agent.print_response("What is the price of AAPL?", stream=True)
+agent = Agent(
+    model=OpenAIChat(id="gpt-4o"),
+    # Set add_history_to_messages=true to add the previous chat history to the messages sent to the Model.
+    add_history_to_messages=True,
+    # Number of historical responses to add to the messages.
+    num_history_responses=3,
+    description="You are a helpful assistant that always responds in a polite, upbeat and positive manner.",
+)
 
-# -*- Get the memory
-memory: AgentMemory = agent.memory
+# -*- Create a run
+agent.print_response("Share a 2 sentence horror story", stream=True)
+# -*- Print the messages in the memory
+pprint([m.model_dump(include={"role", "content"}) for m in agent.memory.messages])
 
-# -*- Print Chats
-print("============ Chats ============")
-pprint(memory.chats)
-
-# -*- Print messages
-print("============ Messages ============")
-pprint(memory.messages)
+# -*- Ask a follow up question that continues the conversation
+agent.print_response("What was my first message?", stream=True)
+# -*- Print the messages in the memory
+pprint([m.model_dump(include={"role", "content"}) for m in agent.memory.messages])
 ```
 
 ## Persistent Memory
 
-Built-in memory only lasts while the session is active. To persist memory across sessions, we store Agent sessions in a database like PostgreSQL using `AgentStorage`.
+The built-in memory only lasts while the session is active. To persist memory across sessions, we can store Agent sessions in a database using `AgentStorage`.
 
 Storage is a necessary component when building user facing AI products as any production application will require users to be able to "continue" their conversation with the Agent.
 
-The general syntax for adding storage to an Agent looks like:
+Let's test this out, create a file `persistent_memory.py` with the following code:
 
-```python
+```python persistent_memory.py
+import json
+
+from rich.console import Console
+from rich.panel import Panel
+from rich.json import JSON
+
 from phi.agent import Agent
 from phi.model.openai import OpenAIChat
-from phi.storage.agent.postgres import PgAgentStorage
+from phi.storage.agent.sqlite import SqlAgentStorage
+
 
 agent = Agent(
     model=OpenAIChat(id="gpt-4o"),
-    storage=PgAgentStorage(table_name="agent_sessions", db_url="postgresql+psycopg://ai:ai@localhost:5532/ai"),
-    # This will automatically add the chat history to the messages sent to the model
+    # Store agent sessions in a database
+    storage=SqlAgentStorage(table_name="agent_sessions", db_file="tmp/agent_storage.db"),
+    # Set add_history_to_messages=true to add the previous chat history to the messages sent to the Model.
     add_history_to_messages=True,
     # Number of historical responses to add to the messages.
     num_history_responses=3,
+    # The session_id is used to identify the session in the database
+    # You can resume any session by providing a session_id
+    # session_id="xxxx-xxxx-xxxx-xxxx",
+    # Description creates a system prompt for the agent
+    description="You are a helpful assistant that always responds in a polite, upbeat and positive manner.",
 )
+
+console = Console()
+
+
+def print_chat_history(agent):
+    # -*- Print history
+    console.print(
+        Panel(
+            JSON(json.dumps([m.model_dump(include={"role", "content"}) for m in agent.memory.messages]), indent=4),
+            title=f"Chat History for session_id: {agent.session_id}",
+            expand=True,
+        )
+    )
+
+
+# -*- Create a run
+agent.print_response("Share a 2 sentence horror story", stream=True)
+# -*- Print the chat history
+print_chat_history(agent)
+
+# -*- Ask a follow up question that continues the conversation
+agent.print_response("What was my first message?", stream=True)
+# -*- Print the chat history
+print_chat_history(agent)
 ```
+
+### Run the agent
+
+Install dependencies and run the agent:
+
+```shell
+pip install openai sqlalchemy phidata
+
+python persistent_memory.py
+```
+
+You can view the agent sessions in the sqlite database and continue any conversation by providing the same `session_id`.
 
 Read more in the [storage](/agents/storage) section.
 

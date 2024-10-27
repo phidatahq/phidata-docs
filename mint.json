@@ -67,11 +67,10 @@
   ],
   "navigation": [
     {
-      "group": "Quickstart",
+      "group": "Introduction",
       "pages": [
         "agents",
         "agent-ui",
-        "reasoning",
         "monitoring",
         "templates",
         "videos"
@@ -478,6 +477,7 @@
   "footerSocials": {
     "github": "https://github.com/phidatahq/phidata",
     "discord": "https://phidata.link/discord",
+    "youtube": "https://phidata.link/youtube",
     "website": "https://phidata.com"
   }
 }
