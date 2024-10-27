@@ -2,7 +2,11 @@
 title: Agent UI
 ---
 
-Phidata provides a beautiful Agent UI for interacting with your agents. Let's take it for a spin, create a file `playground.py`
+Phidata provides a beautiful Agent UI for interacting with your agents. This is what it looks like:
+
+<Note>
+No data is sent to phidata, all agent sessions are stored locally in a sqlite database.
+</Note>
 
 <img
   height="200"
@@ -10,9 +14,7 @@ Phidata provides a beautiful Agent UI for interacting with your agents. Let's ta
   style={{ borderRadius: '8px' }}
 />
 
-<Note>
-Phidata does not store any data, all agent data is stored locally in a sqlite database.
-</Note>
+Let's take it for a spin, create a file `playground.py`
 
 ```python playground.py
 from phi.agent import Agent
@@ -48,17 +50,28 @@ if __name__ == "__main__":
     serve_playground_app("playground:app", reload=True)
 ```
 
-<Tip>Make sure `serve_playground_app()` point to the file that contains your `Playground` app.</Tip>
+<Tip>Make sure the `serve_playground_app()` points to the file that contains your `Playground` app.</Tip>
 
 ### Authenticate with phidata
+
+You can authenticate with phidata by running the following command:
 
 ```shell
 phi auth
 ```
 
-<Note>
-If `phi auth` fails, you can set the `PHI_API_KEY` environment variable by copying it from [phidata.app](https://www.phidata.app)
-</Note>
+**OR** by exporting the `PHI_API_KEY` for your workspace from [phidata.app](https://www.phidata.app)
+
+
+<CodeGroup>
+```bash Mac
+export PHI_API_KEY=phi-***
+```
+
+```bash Windows
+setx PHI_API_KEY phi-***
+```
+</CodeGroup>
 
 ### Run the playground
 
@@ -85,7 +98,7 @@ python playground.py
 
 ## Demo Agents
 
-The Agent Playground includes a few demo agents that you can test with. If you have recommendations for other demo agents, please let us know in our [community forum](https://community.phidata.com/).
+The Agent Playground includes a few demo agents that you can test with. If you have recommendations for other agents we should build, please let us know in the [community forum](https://community.phidata.com/).
 
 <img
   height="200"
