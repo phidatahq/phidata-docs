@@ -68,7 +68,7 @@ Retrieval Augmented Generation (RAG) means **"stuffing the prompt with relevant 
 1. Retrieve relevant information from the knowledge base.
 2. Augment the prompt to provide context to the model.
 
-Let's build a **Basic RAG Agent** that answers questions from a PDF of recipes.
+Let's build a **traditional RAG** Agent that answers questions from a PDF of recipes.
 
 <Steps>
   <Step title="Install libraries">
@@ -87,10 +87,10 @@ Let's build a **Basic RAG Agent** that answers questions from a PDF of recipes.
     </CodeGroup>
 
   </Step>
-  <Step title="Create a Basic RAG Agent">
-    Create a file `basic_rag.py` with the following contents
+  <Step title="Create a Traditional RAG Agent">
+    Create a file `traditional_rag.py` with the following contents
 
-    ```python basic_rag.py
+    ```python traditional_rag.py
     from phi.agent import Agent
     from phi.model.openai import OpenAIChat
     from phi.knowledge.pdf import PDFUrlKnowledgeBase
@@ -110,7 +110,7 @@ Let's build a **Basic RAG Agent** that answers questions from a PDF of recipes.
         model=OpenAIChat(id="gpt-4o"),
         knowledge=knowledge_base,
         # Enable RAG by adding references from AgentKnowledge to the user prompt.
-        enable_rag=True,
+        add_context=True,
         # Set as False because Agents default to `search_knowledge=True`
         search_knowledge=False,
         markdown=True,
@@ -126,11 +126,11 @@ Let's build a **Basic RAG Agent** that answers questions from a PDF of recipes.
     <CodeGroup>
 
     ```bash Mac
-    python basic_rag.py
+    python traditional_rag.py
     ```
 
     ```bash Windows
-    python basic_rag.py
+    python traditional_rag.py
     ```
 
     </CodeGroup>
@@ -161,7 +161,7 @@ knowledge_base = PDFKnowledgeBase(
 
 ### Step 3: Agentic RAG
 
-With Basic RAG above, `enable_rag=True` always adds information from the knowledge base to the prompt, regardless of whether it is relevant to the question or helpful.
+With traditional RAG above, `add_context=True` always adds information from the knowledge base to the prompt, regardless of whether it is relevant to the question or helpful.
 
 With Agentic RAG, we let the Agent decide **if** it needs to access the knowledge base and what search parameters it needs to query the knowledge base.
 
@@ -228,7 +228,8 @@ Set `search_knowledge=True` and `read_chat_history=True`, giving the Agent tools
 | Parameter | Type | Default | Description |
 |-----------|------|---------|-------------|
 | `knowledge` | `AgentKnowledge` | `None` | Provides the knowledge base used by the agent. |
-| `enable_rag` | `bool` | `False` | Enable RAG by adding references from AgentKnowledge to the user prompt. |
-| `retriever` | `Callable[..., Optional[list[dict]]]` | `None` | Function to get context to add to the user message. This function is called when enable_rag is True. |
-| `rag_format` | `Literal['json', 'yaml']` | `json` | Specifies the format for RAG, either "json" or "yaml". |
-| `add_rag_instructions` | `bool` | `False` | If True, adds instructions for using the RAG to the system prompt (if knowledge is also provided). For example: add an instruction to prefer information from the knowledge base over its training data. |
+| `search_knowledge` | `bool` | `True` | Adds a tool that allows the Model to search the knowledge base (aka Agentic RAG). Enabled by default when `knowledge` is provided. |
+| `add_context` | `bool` | `False` | Enable RAG by adding references from AgentKnowledge to the user prompt. |
+| `retriever` | `Callable[..., Optional[list[dict]]]` | `None` | Function to get context to add to the user message. This function is called when add_context is True. |
+| `context_format` | `Literal['json', 'yaml']` | `json` | Specifies the format for RAG, either "json" or "yaml". |
+| `add_context_instructions` | `bool` | `False` | If True, add instructions for using the context to the system prompt (if knowledge is also provided). For example: add an instruction to prefer information from the knowledge base over its training data. |

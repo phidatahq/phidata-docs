@@ -6,7 +6,7 @@ We prompt Agents using `description` and `instructions` and a number of other se
 
 Understanding how these prompts are created will help you build better Agents.
 
-The 2 key elements are:
+The 2 key parameters are:
 
 1. **Description**: A description that guides the overall behaviour of the agent.
 2. **Instructions**: A list of precise, task-specific instructions on how to achieve its goal.
@@ -74,7 +74,7 @@ agent.print_response("Love in the year 12000.")
 
 The input `message` sent to the `Agent.run()` or `Agent.print_response()` functions is used as the user message.
 
-### User message with RAG
+### User message when `enable_rag=True`
 
 If the Agent is provided `knowledge`, and the `enable_rag=True`, the user message is set to:
 
@@ -88,7 +88,7 @@ user_prompt += f"""Use the following information from the knowledge base if it h
 
 ## Default system message
 
-The Agent creates a default system message, which can be disabled by setting `use_default_system_message=False`. The default system message can be customized using:
+The Agent creates a default system message that can be customized using the following parameters:
 
 | Parameter | Type | Default | Description |
 |-----------|------|---------|-------------|
@@ -108,9 +108,13 @@ The Agent creates a default system message, which can be disabled by setting `us
 | `use_default_system_message` | `bool` | `True` | If True, build a default system message using agent settings and use that. |
 | `system_message_role` | `str` | `system` | Role for the system message. |
 
+<Tip>
+Disable the default system message by setting `use_default_system_message=False`.
+</Tip>
+
 ## Default user message
 
-The Agent creates a default user message, which is either the input message or a message with the `context` if `enable_rag=True`. You can disable this by setting `use_default_user_message=False`. The user message can be customized using:
+The Agent creates a default user message, which is either the input message or a message with the `context` if `enable_rag=True`. The default user message can be customized using:
 
 | Parameter | Type | Default | Description |
 |-----------|------|---------|-------------|
@@ -122,3 +126,7 @@ The Agent creates a default user message, which is either the input message or a
 | `user_prompt_template` | `PromptTemplate` | `None` | Provide the user prompt as a PromptTemplate. |
 | `use_default_user_message` | `bool` | `True` | If True, build a default user prompt using references and chat history. |
 | `user_message_role` | `str` | `user` | Role for the user message. |
+
+<Tip>
+Disable the default user message by setting `use_default_user_message=False`.
+</Tip>

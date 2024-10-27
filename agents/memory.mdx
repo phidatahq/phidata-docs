@@ -2,7 +2,17 @@
 title: Memory
 ---
 
-Each conversation with an Agent is called a **session** and every interaction within that session is called a **run**. There can be multiple runs in a session.
+Phidata provides 3 types of memories for building a great Agent experience (AX):
+
+1. **Chat History:** previous messages from the conversation, we recommend sending the last 3-5 messages to the model.
+2. **User Memories:** notes and insights about the user, this helps the model personalize the response to the user.
+3. **Summaries:** a summary of the conversation, which is added to the prompt when chat history gets too long.
+
+Before we dive in, let's understand the terminology:
+
+- **Session:** Each conversation with an Agent is called a **session**. Sessions are identified by a `session_id`.
+- **Run:** Every interaction (i.e. chat) within a session is called a **run**. Runs are identified by a `run_id`.
+- **Messages:** are the individual messages sent to and received from the model. They have a `role` (`system`, `user` or `assistant`) and `content`.
 
 <Tip>
 **Sessions** are equivalent to **threads** in the OpenAI Assistant API.
