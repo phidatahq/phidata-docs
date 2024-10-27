@@ -39,7 +39,7 @@
       "url": "https://phidata.link/discord"
     },
     {
-      "name": "Support",
+      "name": "Community",
       "url": "https://community.phidata.com/"
     },
     {
@@ -475,9 +475,10 @@
     }
   ],
   "footerSocials": {
-    "github": "https://github.com/phidatahq/phidata",
-    "discord": "https://phidata.link/discord",
-    "youtube": "https://phidata.link/youtube",
-    "website": "https://phidata.com"
+      "x": "https://x.com/phidatahq",
+      "github": "https://github.com/phidatahq/phidata",
+      "discord": "https://phidata.link/discord",
+      "youtube": "https://phidata.link/youtube",
+      "website": "https://phidata.com"
   }
 }
