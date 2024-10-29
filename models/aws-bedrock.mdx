@@ -13,11 +13,13 @@ Set your `AWS_ACCESS_KEY_ID` `AWS_SECRET_ACCESS_KEY` and environment variables.
 ```bash Mac
 export AWS_ACCESS_KEY_ID=***
 export AWS_SECRET_ACCESS_KEY=***
+export AWS_DEFAULT_REGION=***
 ```
 
 ```bash Windows
 setx AWS_ACCESS_KEY_ID ***
 setx AWS_SECRET_ACCESS_KEY ***
+setx AWS_DEFAULT_REGION ***
 ```
 
 </CodeGroup>
@@ -29,14 +31,19 @@ Use `AWS BedrockClaude` with your `Agent`:
 <CodeGroup>
 
 ```python agent.py
-from phi.agent import Agent
+from phi.agent import Agent, RunResponse
 from phi.model.aws.claude import Claude
 
 agent = Agent(
-    model=Claude(id="anthropic.claude-3-5-sonnet-20240620-v1:0"),
-    description="You help people with their health and fitness goals.",
+    model=Claude(id="anthropic.claude-3-5-sonnet-20240620-v1:0")
 )
-agent.print_response("Share a quick healthy breakfast recipe.", markdown=True)
+
+# Get the response in a variable
+# run: RunResponse = agent.run("Share a 2 sentence horror story.")
+# print(run.content)
+
+# Print the response on the terminal
+agent.print_response("Share a 2 sentence horror story.")
 ```
 
 </CodeGroup>
