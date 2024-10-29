@@ -6,7 +6,7 @@ Sambanova is a platform for providing endpoints for Large Language models. Note 
 
 ## Authentication
 
-Set your `SAMBANOVA_API_KEY` environment vairable.
+Set your `SAMBANOVA_API_KEY` environment variable. Get your key from [here](https://cloud.sambanova.ai/apis).
 
 <CodeGroup>
 
@@ -30,7 +30,7 @@ Use `Sambanova` with your `Agent`:
 from phi.agent import Agent, RunResponse
 from phi.model.sambanova import Sambanova
 
-agent = Agent(model=Sambanova(), markdown=True)
+agent = Agent(model=Sambanova())
 
 # Get the response in a variable
 # run: RunResponse = agent.run("Share a 2 sentence horror story.")
@@ -52,3 +52,5 @@ agent.print_response("Share a 2 sentence horror story.")
 | `provider` | `str` | `"Sambanova"` | The provider of the model. |
 | `api_key` | `Optional[str]` | - | The API key used for authenticating requests to the Sambanova service. Retrieved from the environment variable `SAMBANOVA_API_KEY`. |
 | `base_url` | `str` | `"https://api.sambanova.ai/v1"` | The base URL for making API requests to the Sambanova service. |
+
+Sambanova also supports all the params of [OpenAI](/models/openai).
