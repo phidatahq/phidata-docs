@@ -3,7 +3,7 @@ title: Azure OpenAI Embedder
 sidebarTitle: Azure OpenAI
 ---
 
-The `AzureOpenAIEmbedder` class is used to embed text data into vectors using the Azure OpenAI API.
+The `AzureOpenAIEmbedder` class is used to embed text data into vectors using the Azure OpenAI API. Get your key from [here](https://ai.azure.com/).
 
 ## Usage
 
@@ -17,7 +17,7 @@ knowledge_base=AgentKnowledge(
     vector_db=PgVector(
         db_url=db_url,
         table_name=embeddings_table,
-        embedder=AzureOpenAIEmbedder(),
+        embedder=AzureOpenAIEmbedder(api_key=***),
     ),
     # 2 references are added to the prompt
     num_documents=2,

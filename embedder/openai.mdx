@@ -3,7 +3,7 @@ title: OpenAI Embedder
 sidebarTitle: OpenAI
 ---
 
-Phidata uses `OpenAIEmbedder` as the default embeder for the vector database. The `OpenAIEmbedder` class is used to embed text data into vectors using the OpenAI API.
+Phidata uses `OpenAIEmbedder` as the default embeder for the vector database. The `OpenAIEmbedder` class is used to embed text data into vectors using the OpenAI API. Get your key from [here](https://platform.openai.com/api-keys).
 
 ## Usage
 
@@ -17,7 +17,7 @@ knowledge_base=AgentKnowledge(
     vector_db=PgVector(
         db_url=db_url,
         table_name=embeddings_table,
-        embedder=OpenAIEmbedder(),
+        embedder=OpenAIEmbedder(api_key=***),
     ),
     # 2 references are added to the prompt
     num_documents=2,
