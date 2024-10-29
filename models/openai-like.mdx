@@ -10,7 +10,7 @@ Many providers like Together and Groq support the OpenAI API format. Use the `Op
 
 ```python agent.py
 from os import getenv
-from phi.agent import Agent
+from phi.agent import Agent, RunResponse
 from phi.model.openai.like import OpenAILike
 
 agent = Agent(
@@ -20,6 +20,7 @@ agent = Agent(
         base_url="https://api.together.xyz/v1",
     )
 )
+
 # Get the response in a variable
 # run: RunResponse = agent.run("Share a 2 sentence horror story.")
 # print(run.content)

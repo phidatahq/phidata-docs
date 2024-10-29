@@ -9,7 +9,7 @@ Run Large Language Models locally with Ollama
 <CodeGroup>
 
 ```bash run model
-ollama run llama2
+ollama run llama3.1
 ```
 
 ```bash serve
@@ -25,13 +25,13 @@ After you have the local model running, use the `Ollama` model to access them
 <CodeGroup>
 
 ```python agent.py
-from phi.agent import Agent
+from phi.agent import Agent, RunResponse
 from phi.model.ollama import Ollama
 
 agent = Agent(
-    model=Ollama(id="llama3"),
-    description="You help people with their health and fitness goals.",
+    model=Ollama(id="llama3.1")
 )
+
 # Get the response in a variable
 # run: RunResponse = agent.run("Share a 2 sentence horror story.")
 # print(run.content)

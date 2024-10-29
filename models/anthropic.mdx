@@ -27,15 +27,19 @@ Use `Claude` with your `Agent`:
 <CodeGroup>
 
 ```python agent.py
-from phi.agent import Agent
+from phi.agent import Agent, RunResponse
 from phi.model.anthropic import Claude
 
 agent = Agent(
     model=Claude(id="claude-3-5-sonnet-20240620"),
 )
 
-# -*- Print a response
-agent.print_response('Share a 5 word horror story.', markdown=True)
+# Get the response in a variable
+# run: RunResponse = agent.run("Share a 2 sentence horror story.")
+# print(run.content)
+
+# Print the response on the terminal
+agent.print_response("Share a 2 sentence horror story.")
 ```
 
 </CodeGroup>
