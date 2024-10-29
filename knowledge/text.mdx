@@ -18,7 +18,7 @@ from phi.knowledge.text import TextKnowledgeBase
 from phi.vectordb.pgvector import PgVector
 
 knowledge_base = TextKnowledgeBase(
-    path="data/docs",
+    path="data/txt_files",
     # Table name: ai.text_documents
     vector_db=PgVector(
         table_name="text_documents",
@@ -46,7 +46,7 @@ agent.print_response("Ask me about something from the knowledge base")
 
 | Parameter | Type | Default | Description |
 |-----------|------|---------|-------------|
-| `path` | `Union[str, Path]` | - | Path to text files. Can point to a single text file or a directory of text files. |
+| `path` | `Union[str, Path]` | - | Path to text files. Can point to a single txt file or a directory of txt files. |
 | `formats` | `List[str]` | `[".txt"]` | Formats accepted by this knowledge base. |
 | `vector_db` | `VectorDb` | - | Vector Database for the Knowledge Base. |
 | `reader` | `TextReader` | - | A `TextReader` that converts the text files into `Documents` for the vector database. |
