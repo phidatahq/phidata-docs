@@ -3,6 +3,10 @@ title: Pinecone Agent Knowledge
 sidebarTitle: Pinecone
 ---
 
+## Setup
+
+Follow the instructions in the [Pinecone Setup Guide](https://docs.pinecone.io/guides/get-started/quickstart) to get started quickly with Pinecone.
+
 ## Example
 
 ```python agent_with_knowledge.py
@@ -72,10 +76,10 @@ if __name__ == "__main__":
 | Parameter | Type | Default | Description |
 |-----------|------|---------|-------------|
 | `name` | `str` | - | The name of the table to use. |
-| `dimension` | `int` | - | The dimension of the table to use. |
-| `spec` | `Union[Dict, ServerlessSpec, PodSpec]` | - | The spec of the table to use. |
+| `dimension` | `int` | - | The dimension of the embeddings. |
+| `spec` | `Union[Dict, ServerlessSpec, PodSpec]` | - | The spec of the table to use. [More Info](https://docs.pinecone.io/guides/indexes/understanding-indexes) |
 | `embedder` | `Optional[Embedder]` | `None` | The embedder to use for encoding vectors. If not provided, a default embedder will be used. |
-| `metric` | `Optional[str]` | `"cosine"` | The distance metric to use for similarity search. |
+| `metric` | `Optional[str]` | `"cosine"` | The metric used for similarity search. |
 | `additional_headers` | `Optional[Dict[str, str]]` | `None` | Additional headers to include in API requests. |
 | `pool_threads` | `Optional[int]` | `1` | The number of threads to use for the connection pool. |
 | `namespace` | `Optional[str]` | `None` | The namespace to use for the index. |

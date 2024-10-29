@@ -3,6 +3,10 @@ title: Qdrant Agent Knowledge
 sidebarTitle: Qdrant
 ---
 
+## Setup
+
+Follow the instructions in the [Qdrant Setup Guide](https://qdrant.tech/documentation/guides/installation/) to install Qdrant locally. Here is a guide to get API keys: [Qdrant API Keys](https://qdrant.tech/documentation/cloud/authentication/).
+
 ## Example
 
 ```python agent_with_knowledge.py
@@ -70,8 +74,8 @@ if __name__ == "__main__":
 | Parameter | Type | Default | Description |
 |-----------|------|---------|-------------|
 | `collection` | `str` | - | The name of the collection to use. |
-| `embedder` | `Embedder` | - | The embedder to use. |
-| `distance` | `Distance` | - | The distance to use. |
+| `embedder` | `Embedder` | OpenAIEmbedder | The embedder to use. |
+| `distance` | `Distance` | cosine | The distance to use. |
 | `location` | `Optional[str]` | `None` | The location of the Qdrant database. |
 | `url` | `Optional[str]` | `None` | The URL of the Qdrant server. |
 | `port` | `Optional[int]` | `6333` | The port number for the Qdrant server. |

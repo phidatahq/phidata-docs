@@ -3,6 +3,20 @@ title: PgVector Agent Knowledge
 sidebarTitle: PgVector
 ---
 
+## Setup
+
+```shell
+docker run -d \
+  -e POSTGRES_DB=ai \
+  -e POSTGRES_USER=ai \
+  -e POSTGRES_PASSWORD=ai \
+  -e PGDATA=/var/lib/postgresql/data/pgdata \
+  -v pgvolume:/var/lib/postgresql/data \
+  -p 5532:5432 \
+  --name pgvector \
+  phidata/pgvector:16
+```
+
 ## Example
 
 ```python agent_with_knowledge.py
@@ -42,11 +56,11 @@ agent.print_response("What was my last question?", stream=True)
 | `db_url` | `str` | - | The database URL to connect to. |
 | `db_engine` | `Engine` | - | The database engine to use. |
 | `embedder` | `Embedder` | - | The embedder to use. |
-| `search_type` | `SearchType` | - | The search type to use. |
+| `search_type` | `SearchType` | vector | The search type to use. |
 | `vector_index` | `Union[Ivfflat, HNSW]` | - | The vector index to use. |
-| `distance` | `Distance` | - | The distance to use. |
+| `distance` | `Distance` | cosine | The distance to use. |
 | `prefix_match` | `bool` | - | Whether to use prefix matching. |
-| `vector_score_weight` | `float` | - | The weight of the vector score. |
+| `vector_score_weight` | `float` | 0.5 | Weight for vector similarity in hybrid search. Must be between 0 and 1. |
 | `content_language` | `str` | - | The content language to use. |
 | `schema_version` | `int` | - | The schema version to use. |
 | `auto_upgrade_schema` | `bool` | - | Whether to auto upgrade the schema. |
