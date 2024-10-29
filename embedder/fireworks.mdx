@@ -3,7 +3,7 @@ title: Fireworks Embedder
 sidebarTitle: Fireworks
 ---
 
-The `FireworksEmbedder` can be used to embed text data into vectors using the Fireworks API. Fireworks uses the OpenAI API specification, so the `FireworksEmbedder` class is similar to the `OpenAIEmbedder` class, incorporating adjustments to ensure compatibility with the Fireworks platform.
+The `FireworksEmbedder` can be used to embed text data into vectors using the Fireworks API. Fireworks uses the OpenAI API specification, so the `FireworksEmbedder` class is similar to the `OpenAIEmbedder` class, incorporating adjustments to ensure compatibility with the Fireworks platform. Get your key from [here](https://fireworks.ai/account/api-keys).
 
 ## Usage
 
@@ -17,7 +17,7 @@ knowledge_base=AgentKnowledge(
     vector_db=PgVector(
         db_url=db_url,
         table_name=embeddings_table,
-        embedder=FireworksEmbedder(),
+        embedder=FireworksEmbedder(api_key=***),
     ),
     # 2 references are added to the prompt
     num_documents=2,
