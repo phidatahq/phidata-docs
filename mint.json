@@ -172,8 +172,7 @@
             "knowledge/arxiv",
             "knowledge/combined",
             "knowledge/langchain",
-            "knowledge/llamaindex",
-            "knowledge/manual"
+            "knowledge/llamaindex"
           ]
         },
         {
