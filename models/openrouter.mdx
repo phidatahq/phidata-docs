@@ -6,7 +6,7 @@ OpenRouter is a platform for providing endpoints for Large Language models.
 
 ## Authentication
 
-Set your `OPENROUTER_API_KEY` environment variable.
+Set your `OPENROUTER_API_KEY` environment variable. Get your key from [here](https://openrouter.ai/settings/keys).
 
 <CodeGroup>
 
@@ -58,3 +58,5 @@ agent.print_response("Share a 2 sentence horror story.")
 | `api_key` | `Optional[str]` | - | The API key for authenticating requests to the OpenRouter service. Retrieved from the environment variable `OPENROUTER_API_KEY`. |
 | `base_url` | `str` | `"https://openrouter.ai/api/v1"` | The base URL for making API requests to the OpenRouter service. |
 | `max_tokens` | `int` | `1024` | The maximum number of tokens to generate in the response. |
+
+OpenRouter also supports all the params of [OpenAI](/models/openai).
