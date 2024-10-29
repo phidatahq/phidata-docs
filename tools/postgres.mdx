@@ -34,20 +34,23 @@ The following agent will list all tables in the database.
 from phi.agent import Agent
 from phi.tools.postgres import PostgresTools
 
-db_name = "ai"
-user = "ai"
-password = "ai"
-host = "localhost"
-port = 5532
+# Initialize PostgresTools with connection details
+postgres_tools = PostgresTools(
+    host="localhost",
+    port=5532,
+    db_name="ai",
+    user="ai", 
+    password="ai"
+)
 
-agent = Agent(tools=[PostgresTools(
-    db_name=db_name,
-    user=user,
-    password=password,
-    host=host,
-    port=port),
-])
-agent.print_response("List the tables in the database", markdown=True)
+# Create an agent with the PostgresTools
+agent = Agent(tools=[postgres_tools])
+
+# Example: Ask the agent to run a SQL query
+agent.print_response("""
+Please run a SQL query to get all users from the users table 
+who signed up in the last 30 days
+""")
 ```
 
 ## Toolkit Params
