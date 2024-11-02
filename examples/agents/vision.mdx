@@ -4,40 +4,46 @@ title: Vision Agent
 
 ```python
 from phi.agent import Agent
-from phi.llm.openai import OpenAIChat
+from phi.model.openai import OpenAIChat
 
 agent = Agent(
     model=OpenAIChat(id="gpt-4o"),
     markdown=True,
 )
 
-# Single Image
 agent.print_response(
-    [
-        {"type": "text", "text": "What's in this image, describe in 1 sentence"},
-        {
-            "type": "image_url",
-            "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Gfp-wisconsin-madison-the-nature-boardwalk.jpg/2560px-Gfp-wisconsin-madison-the-nature-boardwalk.jpg",
-        },
-    ]
+    "What are in these images? Is there any difference between them?",
+    images=[
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Gfp-wisconsin-madison-the-nature-boardwalk.jpg/2560px-Gfp-wisconsin-madison-the-nature-boardwalk.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Gfp-wisconsin-madison-the-nature-boardwalk.jpg/2560px-Gfp-wisconsin-madison-the-nature-boardwalk.jpg",
+    ],
 )
 
-# Multiple Images
-agent.print_response(
-    [
-        {
-            "type": "text",
-            "text": "Is there any difference between these. Describe them in 1 sentence.",
-        },
-        {
-            "type": "image_url",
-            "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Gfp-wisconsin-madison-the-nature-boardwalk.jpg/2560px-Gfp-wisconsin-madison-the-nature-boardwalk.jpg",
-        },
-        {
-            "type": "image_url",
-            "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Gfp-wisconsin-madison-the-nature-boardwalk.jpg/2560px-Gfp-wisconsin-madison-the-nature-boardwalk.jpg",
-        },
-    ],
-    markdown=True,
-)
 ```
+
+## Usage
+
+<Steps>
+  <Snippet file="create-venv-step.mdx" />
+
+  <Step title="Run the agent">
+
+    <CodeGroup>
+
+    ```bash Mac
+    python cookbook/agents/13_image_agent.py
+    ```
+
+    ```bash Windows
+    python cookbook/agents/13_image_agent.py
+    ```
+
+    </CodeGroup>
+
+  </Step>
+
+</Steps>
+
+## Information
+
+- View on [Github](https://github.com/phidatahq/phidata/tree/main/cookbook/agents/13_image_agent.py)
