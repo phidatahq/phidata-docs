@@ -12,21 +12,18 @@ The LLM decides **if** it needs to search the knowledge base and what search par
 
 ```python
 from phi.agent import Agent
+from phi.storage.agent.postgres import PgAgentStorage
 from phi.knowledge.pdf import PDFUrlKnowledgeBase
-from phi.vectordb.pgvector import PgVector
+from phi.vectordb.pgvector import PgVector2
 
-knowledge_base = PDFUrlKnowledgeBase(
-    urls=["https://phi-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"],
-    vector_db=PgVector(
-        table_name="recipes",
-        db_url="postgresql+psycopg://ai:ai@localhost:5532/ai",
-    ),
-)
-# Comment out as the knowledge base is already loaded.
-# knowledge_base.load(recreate=False)
+db_url = "postgresql+psycopg://ai:ai@localhost:5532/ai"
 
 agent = Agent(
-    knowledge=knowledge_base,
+    storage=PgAgentStorage(table_name="recipe_agent", db_url=db_url),
+    knowledge_base=PDFUrlKnowledgeBase(
+        urls=["https://phi-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"],
+        vector_db=PgVector2(collection="recipe_documents", db_url=db_url),
+    ),
     # Show tool calls in the response
     show_tool_calls=True,
     # Enable the agent to search the knowledge base
@@ -34,8 +31,11 @@ agent = Agent(
     # Enable the agent to read the chat history
     read_chat_history=True,
 )
+# Comment out after first run
+agent.knowledge_base.load(recreate=False)  # type: ignore
+
 agent.print_response("How do I make pad thai?", markdown=True)
-agent.print_response("What was my last question?", markdown=True)
+
 ```
 
 ## Usage
@@ -58,11 +58,11 @@ agent.print_response("What was my last question?", markdown=True)
     <CodeGroup>
 
     ```bash Mac
-    python cookbook/agents/auto_agent.py
+    python cookbook/integrations/pgvector/agent.py
     ```
 
     ```bash Windows
-    python cookbook/agents/auto_agent.py
+    python cookbook/integrations/pgvector/agent.py
     ```
 
     </CodeGroup>
@@ -73,4 +73,4 @@ agent.print_response("What was my last question?", markdown=True)
 
 ## Information
 
-- View on [Github](https://github.com/phidatahq/phidata/tree/main/cookbook/agents/auto_agent.py)
+- View on [Github](https://github.com/phidatahq/phidata/tree/main/cookbook/integrations/pgvector/agent.py)

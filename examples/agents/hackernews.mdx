@@ -36,8 +36,9 @@ def get_top_hackernews_stories(num_stories: int = 10) -> str:
     return json.dumps(stories)
 
 
-agent = Agent(tools=[get_top_hackernews_stories], show_tool_calls=True)
-agent.print_response("Summarize the top stories on hackernews?", markdown=True)
+agent = Agent(tools=[get_top_hackernews_stories], show_tool_calls=True, markdown=True)
+agent.print_response("Summarize the top 5 stories on hackernews?", stream=True)
+
 ```
 
 ## Usage
@@ -58,11 +59,11 @@ agent.print_response("Summarize the top stories on hackernews?", markdown=True)
     <CodeGroup>
 
     ```bash Mac
-    python cookbook/agents/hackernews.py
+    python cookbook/agents/12_python_function_as_tool.py
     ```
 
     ```bash Windows
-    python cookbook/agents/hackernews.py
+    python cookbook/agents/12_python_function_as_tool.py
     ```
 
     </CodeGroup>
@@ -73,5 +74,5 @@ agent.print_response("Summarize the top stories on hackernews?", markdown=True)
 
 ## Information
 
-- View on [Github](https://github.com/phidatahq/phidata/blob/main/cookbook/agents/hackernews.py)
+- View on [Github](https://github.com/phidatahq/phidata/blob/main/cookbook/agents/12_python_function_as_tool.py)
 - Read about [Tools](/agents/tools)

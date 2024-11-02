@@ -6,29 +6,59 @@ A Retrieval Augmented Generation (RAG) agent that uses a PDF Knowledge Base and 
 
 ```python
 
-from phi.agent import Agent
-from phi.model.openai import OpenAIChat
-from phi.knowledge.pdf import PDFUrlKnowledgeBase
-from phi.vectordb.lancedb import LanceDb, SearchType
+import typer
+from typing import Optional
+from rich.prompt import Prompt
 
-db_uri = "tmp/lancedb"
+from phi.agent import Agent
+from phi.knowledge.pdf import PDFUrlKnowledgeBase
+from phi.vectordb.lancedb import LanceDb
+from phi.vectordb.search import SearchType
+
+# LanceDB Vector DB
+vector_db = LanceDb(
+    table_name="recipes",
+    uri="/tmp/lancedb",
+    search_type=SearchType.keyword,
+)
+
+# Knowledge Base
 knowledge_base = PDFUrlKnowledgeBase(
     urls=["https://phi-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"],
-    vector_db=LanceDb(table_name="recipes", uri=db_uri, search_type=SearchType.vector),
+    vector_db=vector_db,
 )
-# Load the knowledge base: Comment out after first run
-knowledge_base.load(upsert=True)
 
-agent = Agent(
-    model=OpenAIChat(id="gpt-4o"),
-    knowledge=knowledge_base,
-    # Add a tool to read chat history.
-    read_chat_history=True,
-    show_tool_calls=True,
-    markdown=True,
-    # debug_mode=True,
-)
-agent.print_response("How do I make chicken and galangal in coconut milk soup", stream=True)
+# Comment out after first run
+knowledge_base.load(recreate=True)
+
+
+def lancedb_agent(user: str = "user"):
+    run_id: Optional[str] = None
+
+    agent = Agent(
+        run_id=run_id,
+        user_id=user,
+        knowledge=knowledge_base,
+        show_tool_calls=True,
+        debug_mode=True,
+    )
+
+    if run_id is None:
+        run_id = agent.run_id
+        print(f"Started Run: {run_id}\n")
+    else:
+        print(f"Continuing Run: {run_id}\n")
+
+    while True:
+        message = Prompt.ask(f"[bold] :sunglasses: {user} [/bold]")
+        if message in ("exit", "bye"):
+            break
+        agent.print_response(message)
+
+
+if __name__ == "__main__":
+    typer.run(lancedb_agent)
+
 
 ```
 
@@ -37,12 +67,10 @@ agent.print_response("How do I make chicken and galangal in coconut milk soup", 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Snippet file="run-pgvector-step.mdx" />
-
   <Step title="Install libraries">
 
     ```bash
-    pip install -U lancedb tantivy openai phidata
+    pip install -U lancedb openai phidata
     ```
 
   </Step>
@@ -52,11 +80,11 @@ agent.print_response("How do I make chicken and galangal in coconut milk soup", 
     <CodeGroup>
 
     ```bash Mac
-    python cookbook/agents/agentic_rag_lancedb.py
+    python cookbook/examples/hybrid_search/lancedb/agent.py
     ```
 
     ```bash Windows
-    python cookbook/agents/agentic_rag_lancedb.py
+    python cookbook/examples/hybrid_search/lancedb/agent.py
     ```
 
     </CodeGroup>
@@ -67,4 +95,4 @@ agent.print_response("How do I make chicken and galangal in coconut milk soup", 
 
 ## Information
 
-- View on [Github](https://github.com/phidatahq/phidata/tree/main/cookbook/agents/agentic_rag_lancedb.py)
+- View on [Github](https://github.com/phidatahq/phidata/tree/main/cookbook/examples/hybrid_search/lancedb/agent.py)
