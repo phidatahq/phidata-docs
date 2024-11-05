@@ -67,6 +67,37 @@ if __name__ == "__main__":
 
 ```
 
+## Usage
+
+<Steps>
+  <Snippet file="create-venv-step.mdx" />
+
+  <Step title="Install libraries">
+
+    ```bash
+    pip install -U pinecone pypdf openai phidata
+    ```
+
+  </Step>
+
+  <Step title="Run Pinecone Agent">
+
+    <CodeGroup>
+
+    ```bash Mac
+    python cookbook/integrations/pinecone/agent.py
+    ```
+
+    ```bash Windows
+    python cookbook/integrations/pinecone/agent.py
+    ```
+
+    </CodeGroup>
+
+  </Step>
+
+</Steps>
+
 ## PineconeDB Params
 
 | Parameter | Type | Default | Description |

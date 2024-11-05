@@ -61,6 +61,37 @@ if __name__ == "__main__":
 
 ```
 
+## Usage
+
+<Steps>
+  <Snippet file="create-venv-step.mdx" />
+
+  <Step title="Install libraries">
+
+    ```bash
+    pip install -U lancedb pypdf pandas openai phidata
+    ```
+
+  </Step>
+
+  <Step title="Run LanceDB Agent">
+
+    <CodeGroup>
+
+    ```bash Mac
+    python cookbook/integrations/lancedb/agent.py
+    ```
+
+    ```bash Windows
+    python cookbook/integrations/lancedb/agent.py
+    ```
+
+    </CodeGroup>
+
+  </Step>
+
+</Steps>
+
 ## LanceDb Params
 
 | Parameter | Type | Default | Description |
@@ -76,3 +107,8 @@ if __name__ == "__main__":
 | `nprobes` | `int` | - | The number of probes to use. |
 | `reranker` | `Reranker` | - | The reranker to use. |
 | `use_tantivy` | `bool` | - | Whether to use tantivy. |
+
+
+## Information
+
+- View on [Github](https://github.com/phidatahq/phidata/tree/main/cookbook/integrations/lancedb/agent.py)
