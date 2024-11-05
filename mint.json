@@ -68,13 +68,7 @@
   "navigation": [
     {
       "group": "Introduction",
-      "pages": [
-        "agents",
-        "agent-ui",
-        "monitoring",
-        "templates",
-        "videos"
-      ]
+      "pages": ["agents", "agent-ui", "monitoring", "templates", "videos"]
     },
     {
       "group": "Documentation",
@@ -110,6 +104,7 @@
             "models/fireworks",
             "models/mistral",
             "models/google_ai_studio",
+            "models/xai",
             "models/azure"
           ]
         },
@@ -473,10 +468,10 @@
     }
   ],
   "footerSocials": {
-      "x": "https://x.com/phidatahq",
-      "github": "https://github.com/phidatahq/phidata",
-      "discord": "https://phidata.link/discord",
-      "youtube": "https://phidata.link/youtube",
-      "website": "https://phidata.com"
+    "x": "https://x.com/phidatahq",
+    "github": "https://github.com/phidatahq/phidata",
+    "discord": "https://phidata.link/discord",
+    "youtube": "https://phidata.link/youtube",
+    "website": "https://phidata.com"
   }
 }
