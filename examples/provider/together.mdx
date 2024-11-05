@@ -4,18 +4,30 @@ title: Together
 
 ## Example
 
-```python
-from phi.agent import Agent
-from phi.llm.together import Together
+<CodeGroup>
+
+```python agent.py
+from phi.agent import Agent, RunResponse
+from phi.model.together import Together
 
 agent = Agent(
-    llm=Together(model="mistralai/Mixtral-8x7B-Instruct-v0.1"),
-    description="You help people with their health and fitness goals.",
+    model=Together(id="meta-llama/Meta-Llama-3.1-8B-Instruct-Turbo"),
 )
-agent.print_response("Share a 2 sentence quick and healthy breakfast recipe.", markdown=True)
+
+# Get the response in a variable
+# run: RunResponse = agent.run("Share a 2 sentence horror story.")
+# print(run.content)
+
+# Print the response in the terminal
+agent.print_response("Share a 2 sentence horror story.")
+
 ```
 
+</CodeGroup>
+
 ## Usage
+
+Get your key [from Together here](https://api.together.xyz/settings/api-keys).
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
@@ -23,7 +35,7 @@ agent.print_response("Share a 2 sentence quick and healthy breakfast recipe.", m
   <Step title="Install libraries">
 
     ```bash
-    pip install -U openai phidata
+    pip install -U together openai phidata
     ```
 
   </Step>
@@ -39,7 +51,7 @@ agent.print_response("Share a 2 sentence quick and healthy breakfast recipe.", m
   <Step title="Run Together Agent">
 
     ```bash
-    python cookbook/llms/together/agent.py
+    python cookbook/providers/together/basic.py
     ```
 
   </Step>
@@ -48,4 +60,4 @@ agent.print_response("Share a 2 sentence quick and healthy breakfast recipe.", m
 
 ## Information
 
-- View on [Github](https://github.com/phidatahq/phidata/tree/main/cookbook/llms/together/agent.py)
+- View on [Github](https://github.com/phidatahq/phidata/tree/main/cookbook/providers/together/basic.py)

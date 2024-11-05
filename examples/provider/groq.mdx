@@ -4,20 +4,30 @@ title: Groq
 
 ## Example
 
-```python
-from phi.agent import Agent
-from phi.tools.duckduckgo import DuckDuckGo
-from phi.llm.groq import Groq
+<CodeGroup>
+
+```python agent.py
+from phi.agent import Agent, RunResponse
+from phi.model.groq import Groq
 
 agent = Agent(
-    llm=Groq(model="mixtral-8x7b-32768"),
-    tools=[DuckDuckGo()],
-    show_tool_calls=True,
+    model=Groq(id="llama3-groq-70b-8192-tool-use-preview"),
 )
-agent.print_response("Whats happening in France?", markdown=True, stream=False)
+
+# Get the response in a variable
+# run: RunResponse = agent.run("Share a 2 sentence horror story.")
+# print(run.content)
+
+# Print the response in the terminal
+agent.print_response("Share a 2 sentence horror story.")
+
 ```
 
+</CodeGroup>
+
 ## Usage
+
+Get your key from [here](https://console.groq.com/keys).
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
@@ -25,7 +35,7 @@ agent.print_response("Whats happening in France?", markdown=True, stream=False)
   <Step title="Install libraries">
 
     ```bash
-    pip install -U groq duckduckgo-search phidata
+    pip install -U groq phidata
     ```
 
   </Step>
@@ -41,7 +51,7 @@ agent.print_response("Whats happening in France?", markdown=True, stream=False)
   <Step title="Run Groq Agent">
 
     ```bash
-    python cookbook/llms/groq/agent.py
+    python cookbook/providers/groq/basic.py
     ```
 
   </Step>
@@ -50,4 +60,4 @@ agent.print_response("Whats happening in France?", markdown=True, stream=False)
 
 ## Information
 
-- View on [Github](https://github.com/phidatahq/phidata/tree/main/cookbook/llms/groq/agent.py)
+- View on [Github](https://github.com/phidatahq/phidata/tree/main/cookbook/providers/groq/basic.py)

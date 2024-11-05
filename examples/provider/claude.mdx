@@ -4,20 +4,31 @@ title: Claude
 
 ## Example
 
-```python
-from phi.agent import Agent
-from phi.llm.anthropic import Claude
-from phi.tools.duckduckgo import DuckDuckGo
+Use `Claude` with your `Agent`:
+
+<CodeGroup>
+
+```python agent.py
+from phi.agent import Agent, RunResponse
+from phi.model.anthropic import Claude
 
 agent = Agent(
-    llm=Claude(model="claude-3-opus-20240229"),
-    tools=[DuckDuckGo()],
-    show_tool_calls=True,
+    model=Claude(id="claude-3-5-sonnet-20240620"),
 )
-agent.print_response("Whats happening in France?", markdown=True)
+
+# Get the response in a variable
+# run: RunResponse = agent.run("Share a 2 sentence horror story.")
+# print(run.content)
+
+# Print the response on the terminal
+agent.print_response("Share a 2 sentence horror story.")
 ```
 
+</CodeGroup>
+
 ## Usage
+
+You can get your API key [from Anthropic here](https://anthropic.com/).
 
 <Steps>
   <Snippet file="create-venv-step.mdx" />
@@ -25,7 +36,7 @@ agent.print_response("Whats happening in France?", markdown=True)
   <Step title="Install libraries">
 
     ```bash
-    pip install -U anthropic duckduckgo-search phidata
+    pip install -U anthropic phidata
     ```
 
   </Step>
@@ -41,7 +52,7 @@ agent.print_response("Whats happening in France?", markdown=True)
   <Step title="Run Claude Agent">
 
     ```bash
-    python cookbook/llms/claude/agent.py
+    python cookbook/providers/claude/basic.py
     ```
 
   </Step>
@@ -50,4 +61,4 @@ agent.print_response("Whats happening in France?", markdown=True)
 
 ## Information
 
-- View on [Github](https://github.com/phidatahq/phidata/tree/main/cookbook/llms/claude/agent.py)
+- View on [Github](https://github.com/phidatahq/phidata/tree/main/cookbook/providers/claude/basic.py)

@@ -4,55 +4,48 @@ title: Gemini
 
 ## Example
 
-```python
-from os import getenv
+<CodeGroup>
 
-import vertexai
-from phi.agent import Agent
-from phi.llm.gemini import Gemini
+```python agent.py
 
-# *********** Initialize VertexAI ***********
-vertexai.init(project=getenv("PROJECT_ID"), location=getenv("LOCATION"))
+from phi.agent import Agent, RunResponse
+from phi.model.google import Gemini
 
 agent = Agent(
-    llm=Gemini(model="gemini-1.0-pro-vision"),
-    description="You help people with their health and fitness goals.",
+    model=Gemini(id="gemini-1.5-flash"),
+    show_tool_calls=True,
+    markdown=True,
 )
-agent.print_response("Share a 2 sentence quick and healthy breakfast recipe.", markdown=True)
+
+# Get the response in a variable
+# run: RunResponse = agent.run("Share a 2 sentence horror story.")
+# print(run.content)
+
+# Print the response in the terminal
+agent.print_response("Share a 2 sentence horror story.")
 ```
+
+</CodeGroup>
 
 ## Usage
 
+Get your key [from Google here](https://ai.google.dev/aistudio).
+
 <Steps>
-
-  <Step title="Prerequisites">
-
-1. [Install](https://cloud.google.com/sdk/docs/install) the Google Cloud SDK
-2. [Create a Google Cloud project](https://cloud.google.com/resource-manager/docs/creating-managing-projects)
-3. [Enable the AI Platform API](https://console.cloud.google.com/flows/enableapi?apiid=aiplatform.googleapis.com)
-4. [Authenticate](https://cloud.google.com/sdk/docs/initializing) with Google Cloud
-
-```shell
-gcloud auth application-default login
-```
-
-  </Step>
-
-<Snippet file="create-venv-step.mdx" />
+  <Snippet file="create-venv-step.mdx" />
 
   <Step title="Install libraries">
 
     ```bash
-    pip install -U google-cloud-aiplatform phidata
+    pip install -U google-generativeai phidata
     ```
 
   </Step>
 
-  <Step title="Export the following environment variables">
+  <Step title="Export `GOOGLE_API_KEY`">
 
     ```bash
-    export PROJECT_ID=your-project-id
-    export LOCATION=us-central1
+    export GOOGLE_API_KEY=***
     ```
 
   </Step>
@@ -60,7 +53,7 @@ gcloud auth application-default login
   <Step title="Run Gemini Agent">
 
     ```bash
-    python cookbook/llms/gemini/agent.py
+    python cookbook/providers/google/basic.py
     ```
 
   </Step>
@@ -69,4 +62,4 @@ gcloud auth application-default login
 
 ## Information
 
-- View on [Github](https://github.com/phidatahq/phidata/tree/main/cookbook/llms/gemini/agent.py)
+- View on [Github](https://github.com/phidatahq/phidata/tree/main/cookbook/providers/google/basic.py)
