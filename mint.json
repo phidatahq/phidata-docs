@@ -237,7 +237,6 @@
             "examples/provider/fireworks",
             "examples/provider/gemini",
             "examples/provider/groq",
-            "examples/provider/hermes2",
             "examples/provider/mistral",
             "examples/provider/ollama",
             "examples/provider/together"
