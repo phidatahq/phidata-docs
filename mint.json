@@ -181,6 +181,7 @@
             "vectordb/qdrant",
             "vectordb/pinecone",
             "vectordb/lancedb",
+            "vectordb/chroma",
             "vectordb/singlestore"
           ]
         },
