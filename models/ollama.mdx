@@ -29,7 +29,8 @@ from phi.agent import Agent, RunResponse
 from phi.model.ollama import Ollama
 
 agent = Agent(
-    model=Ollama(id="llama3.1")
+    model=Ollama(id="llama3.1"),
+    markdown=True
 )
 
 # Get the response in a variable

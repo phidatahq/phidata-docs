@@ -35,7 +35,8 @@ from phi.agent import Agent, RunResponse
 from phi.model.aws.claude import Claude
 
 agent = Agent(
-    model=Claude(id="anthropic.claude-3-5-sonnet-20240620-v1:0")
+    model=Claude(id="anthropic.claude-3-5-sonnet-20240620-v1:0"),
+    markdown=True
 )
 
 # Get the response in a variable
