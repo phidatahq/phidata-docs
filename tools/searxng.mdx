@@ -6,7 +6,7 @@ title: Searxng
 
 **Searxng** enables an Agent to search the web for a query, scrape a website, or crawl a website.
 
-```python cookbook/tools/searxng.py
+```python cookbook/tools/searxng_tools.py
 from phi.agent import Agent
 from phi.tools.searxng import Searxng
 
@@ -24,38 +24,38 @@ agent = Agent(tools=[searxng])
 
 # Example: Ask the agent to search using Searxng
 agent.print_response("""
-Please search for information about artificial intelligence 
+Please search for information about artificial intelligence
 and summarize the key points from the top results
 """)
 ```
 
 ## Toolkit Params
 
-| Parameter | Type | Default | Description |
-|-----------|------|---------|-------------|
-| `host` | `str` | - | The host for the connection. |
-| `engines` | `List[str]` | `[]` | A list of search engines to use. |
-| `fixed_max_results` | `int` | `None` | Optional parameter to specify the fixed maximum number of results. |
-| `images` | `bool` | `False` | Enables searching for images. |
-| `it` | `bool` | `False` | Enables searching for IT-related content. |
-| `map` | `bool` | `False` | Enables searching for maps. |
-| `music` | `bool` | `False` | Enables searching for music. |
-| `news` | `bool` | `False` | Enables searching for news. |
-| `science` | `bool` | `False` | Enables searching for science-related content. |
-| `videos` | `bool` | `False` | Enables searching for videos. |
+| Parameter           | Type        | Default | Description                                                        |
+| ------------------- | ----------- | ------- | ------------------------------------------------------------------ |
+| `host`              | `str`       | -       | The host for the connection.                                       |
+| `engines`           | `List[str]` | `[]`    | A list of search engines to use.                                   |
+| `fixed_max_results` | `int`       | `None`  | Optional parameter to specify the fixed maximum number of results. |
+| `images`            | `bool`      | `False` | Enables searching for images.                                      |
+| `it`                | `bool`      | `False` | Enables searching for IT-related content.                          |
+| `map`               | `bool`      | `False` | Enables searching for maps.                                        |
+| `music`             | `bool`      | `False` | Enables searching for music.                                       |
+| `news`              | `bool`      | `False` | Enables searching for news.                                        |
+| `science`           | `bool`      | `False` | Enables searching for science-related content.                     |
+| `videos`            | `bool`      | `False` | Enables searching for videos.                                      |
 
 ## Toolkit Functions
 
-| Function | Description |
-|----------|-------------|
-| `search` | Performs a general web search using the specified query. Parameters include `query` for the search term and `max_results` for the maximum number of results (default is 5). Returns the search results. |
-| `image_search` | Performs an image search using the specified query. Parameters include `query` for the search term and `max_results` for the maximum number of results (default is 5). Returns the image search results. |
-| `it_search` | Performs a search for IT-related information using the specified query. Parameters include `query` for the search term and `max_results` for the maximum number of results (default is 5). Returns the IT-related search results. |
-| `map_search` | Performs a search for maps using the specified query. Parameters include `query` for the search term and `max_results` for the maximum number of results (default is 5). Returns the map search results. |
-| `music_search` | Performs a search for music-related information using the specified query. Parameters include `query` for the search term and `max_results` for the maximum number of results (default is 5). Returns the music search results. |
-| `news_search` | Performs a search for news using the specified query. Parameters include `query` for the search term and `max_results` for the maximum number of results (default is 5). Returns the news search results. |
+| Function         | Description                                                                                                                                                                                                                         |
+| ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `search`         | Performs a general web search using the specified query. Parameters include `query` for the search term and `max_results` for the maximum number of results (default is 5). Returns the search results.                             |
+| `image_search`   | Performs an image search using the specified query. Parameters include `query` for the search term and `max_results` for the maximum number of results (default is 5). Returns the image search results.                            |
+| `it_search`      | Performs a search for IT-related information using the specified query. Parameters include `query` for the search term and `max_results` for the maximum number of results (default is 5). Returns the IT-related search results.   |
+| `map_search`     | Performs a search for maps using the specified query. Parameters include `query` for the search term and `max_results` for the maximum number of results (default is 5). Returns the map search results.                            |
+| `music_search`   | Performs a search for music-related information using the specified query. Parameters include `query` for the search term and `max_results` for the maximum number of results (default is 5). Returns the music search results.     |
+| `news_search`    | Performs a search for news using the specified query. Parameters include `query` for the search term and `max_results` for the maximum number of results (default is 5). Returns the news search results.                           |
 | `science_search` | Performs a search for science-related information using the specified query. Parameters include `query` for the search term and `max_results` for the maximum number of results (default is 5). Returns the science search results. |
-| `video_search` | Performs a search for videos using the specified query. Parameters include `query` for the search term and `max_results` for the maximum number of results (default is 5). Returns the video search results. |
+| `video_search`   | Performs a search for videos using the specified query. Parameters include `query` for the search term and `max_results` for the maximum number of results (default is 5). Returns the video search results.                        |
 
 ## Information
 

@@ -4,7 +4,7 @@ title: Pandas
 
 **PandasTools** enable an Agent to perform data manipulation tasks using the Pandas library.
 
-```python cookbook/tools/pandas.py
+```python cookbook/tools/pandas_tool.py
 from phi.agent import Agent
 from phi.tools.pandas import PandasTools
 
@@ -25,18 +25,18 @@ Please perform these tasks:
 
 ## Toolkit Params
 
-| Parameter | Type | Default | Description |
-|-----------|------|---------|-------------|
-| `dataframes` | `Dict[str, pd.DataFrame]` | `{}` | A dictionary to store Pandas DataFrames, keyed by their names. |
-| `create_pandas_dataframe` | `function` | - | Registers a function to create a Pandas DataFrame. |
-| `run_dataframe_operation` | `function` | - | Registers a function to run operations on a Pandas DataFrame. |
+| Parameter                 | Type                      | Default | Description                                                    |
+| ------------------------- | ------------------------- | ------- | -------------------------------------------------------------- |
+| `dataframes`              | `Dict[str, pd.DataFrame]` | `{}`    | A dictionary to store Pandas DataFrames, keyed by their names. |
+| `create_pandas_dataframe` | `function`                | -       | Registers a function to create a Pandas DataFrame.             |
+| `run_dataframe_operation` | `function`                | -       | Registers a function to run operations on a Pandas DataFrame.  |
 
 ## Toolkit Functions
 
-| Function | Description |
-|----------|-------------|
+| Function                  | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| ------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `create_pandas_dataframe` | Creates a Pandas DataFrame named `dataframe_name` by using the specified function `create_using_function` with parameters `function_parameters`. Parameters include 'dataframe_name' for the name of the DataFrame, 'create_using_function' for the function to create it (e.g., 'read_csv'), and 'function_parameters' for the arguments required by the function. Returns the name of the created DataFrame if successful, otherwise returns an error message. |
-| `run_dataframe_operation` | Runs a specified operation `operation` on a DataFrame `dataframe_name` with the parameters `operation_parameters`. Parameters include 'dataframe_name' for the DataFrame to operate on, 'operation' for the operation to perform (e.g., 'head', 'tail'), and 'operation_parameters' for the arguments required by the operation. Returns the result of the operation if successful, otherwise returns an error message. |
+| `run_dataframe_operation` | Runs a specified operation `operation` on a DataFrame `dataframe_name` with the parameters `operation_parameters`. Parameters include 'dataframe_name' for the DataFrame to operate on, 'operation' for the operation to perform (e.g., 'head', 'tail'), and 'operation_parameters' for the arguments required by the operation. Returns the result of the operation if successful, otherwise returns an error message.                                          |
 
 ## Information
 
