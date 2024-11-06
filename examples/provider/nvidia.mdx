@@ -1,0 +1,61 @@
+---
+title: Nvidia
+---
+
+## Example
+
+<CodeGroup>
+
+```python agent.py
+from phi.agent import Agent, RunResponse
+from phi.model.nvidia import Nvidia
+
+agent = Agent(model=Nvidia(), markdown=True)
+
+# Get the response in a variable
+# run: RunResponse = agent.run("Share a 2 sentence horror story")
+# print(run.content)
+
+# Print the response in the terminal
+agent.print_response("Share a 2 sentence horror story")
+
+```
+
+</CodeGroup>
+
+## Usage
+
+Get your key [from Nvidia here](https://build.nvidia.com/explore/discover).
+
+<Steps>
+  <Snippet file="create-venv-step.mdx" />
+
+  <Step title="Install libraries">
+
+    ```bash
+    pip install -U openai phidata
+    ```
+
+  </Step>
+
+  <Step title="Export `NVIDIA_API_KEY`">
+
+    ```bash
+    export NVIDIA_API_KEY=xxx
+    ```
+
+  </Step>
+
+  <Step title="Run Nvidia Agent">
+
+    ```bash
+    python cookbook/providers/nvidia/basic.py
+    ```
+
+  </Step>
+
+  </Steps>
+
+## Information
+
+- View on [Github](https://github.com/phidatahq/phidata/tree/main/cookbook/providers/nvidia/basic.py)

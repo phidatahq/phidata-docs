@@ -1,0 +1,64 @@
+---
+title: AWS Bedrock
+---
+
+## Example
+
+<CodeGroup>
+
+```python agent.py
+from phi.agent import Agent, RunResponse
+from phi.model.aws.claude import Claude
+
+agent = Agent(
+    model=Claude(id="anthropic.claude-3-5-sonnet-20240620-v1:0")
+)
+
+# Get the response in a variable
+# run: RunResponse = agent.run("Share a 2 sentence horror story.")
+# print(run.content)
+
+# Print the response on the terminal
+agent.print_response("Share a 2 sentence horror story.")
+```
+
+</CodeGroup>
+
+## Usage
+
+Get your keys from [here](https://us-west-2.console.aws.amazon.com/bedrock/home?region=us-west-2#/models).
+
+<Steps>
+  <Snippet file="create-venv-step.mdx" />
+
+  <Step title="Install libraries">
+
+    ```bash
+    pip install -U boto3 phidata
+    ```
+
+  </Step>
+
+  <Step title="Export Environment Variables">
+
+    ```bash
+      export AWS_ACCESS_KEY_ID=***
+      export AWS_SECRET_ACCESS_KEY=***
+      export AWS_DEFAULT_REGION=***
+    ```
+
+  </Step>
+
+  <Step title="Run AWS Bedrock Agent">
+
+    ```bash
+    python cookbook/providers/bedrock/basic.py
+    ```
+
+  </Step>
+
+  </Steps>
+
+## Information
+
+- View on [Github](https://github.com/phidatahq/phidata/tree/main/cookbook/providers/bedrock/basic.py)

@@ -105,7 +105,10 @@
             "models/mistral",
             "models/google_ai_studio",
             "models/xai",
-            "models/azure"
+            "models/azure",
+            "models/huggingface",
+            "models/openrouter",
+            "models/nvidia"
           ]
         },
         {
@@ -178,7 +181,8 @@
             "vectordb/qdrant",
             "vectordb/pinecone",
             "vectordb/lancedb",
-            "vectordb/chroma"
+            "vectordb/chroma",
+            "vectordb/singlestore"
           ]
         },
         {
@@ -235,7 +239,14 @@
             "examples/provider/groq",
             "examples/provider/mistral",
             "examples/provider/ollama",
-            "examples/provider/together"
+            "examples/provider/together",
+            "examples/provider/aws_bedrock",
+            "examples/provider/deepseek",
+            "examples/provider/huggingface",
+            "examples/provider/nvidia",
+            "examples/provider/openrouter",
+            "examples/provider/sambanova",
+            "examples/provider/xai"
           ]
         },
         {
@@ -246,6 +257,8 @@
             "examples/integrations/singlestore",
             "examples/integrations/lancedb",
             "examples/integrations/pinecone",
+            "examples/integrations/qdrant",
+            "examples/integrations/chroma",
             "examples/integrations/portkey"
           ]
         },

@@ -52,6 +52,7 @@ azure_model = AzureOpenAIChat(
 
 agent = Agent(
     model=azure_model,
+    markdown=True
 )
 
 # Get the response in a variable
