@@ -1,0 +1,66 @@
+---
+title: HuggingFace
+---
+
+## Example
+
+<CodeGroup>
+
+```python agent.py
+from phi.agent import Agent, RunResponse
+from phi.model.huggingface import HuggingFaceChat
+
+agent = Agent(
+    model=HuggingFaceChat(
+        id="meta-llama/Meta-Llama-3-8B-Instruct",
+        max_tokens=4096,
+    ),
+    markdown=True
+)
+
+# Get the response in a variable
+# run: RunResponse = agent.run("Share a 2 sentence horror story.")
+# print(run.content)
+
+# Print the response on the terminal
+agent.print_response("Share a 2 sentence horror story.")
+```
+
+</CodeGroup>
+
+## Usage
+
+Get your API key [from HuggingFace here](https://huggingface.co/settings/tokens).
+
+<Steps>
+  <Snippet file="create-venv-step.mdx" />
+
+  <Step title="Install libraries">
+
+    ```bash
+    pip install -U huggingface_hub phidata
+    ```
+
+  </Step>
+
+  <Step title="Export Environment Variables">
+
+    ```bash
+    export HF_TOKEN=***
+    ```
+
+  </Step>
+
+  <Step title="Run HuggingFace Agent">
+
+    ```bash
+    python cookbook/providers/huggingface/basic.py
+    ```
+
+  </Step>
+
+  </Steps>
+
+## Information
+
+- View on [Github](https://github.com/phidatahq/phidata/tree/main/cookbook/providers/huggingface/basic.py)

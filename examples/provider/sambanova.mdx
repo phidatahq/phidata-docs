@@ -1,0 +1,60 @@
+---
+title: Sambanova
+---
+
+## Example
+
+<CodeGroup>
+
+```python agent.py
+from phi.agent import Agent, RunResponse
+from phi.model.sambanova import Sambanova
+
+agent = Agent(model=Sambanova(), markdown=True)
+
+# Get the response in a variable
+# run: RunResponse = agent.run("Share a 2 sentence horror story")
+# print(run.content)
+
+# Print the response in the terminal
+agent.print_response("Share a 2 sentence horror story")
+```
+
+</CodeGroup>
+
+## Usage
+
+Get your key from [here](https://cloud.sambanova.ai/apis).
+
+<Steps>
+  <Snippet file="create-venv-step.mdx" />
+
+  <Step title="Install libraries">
+
+    ```bash
+    pip install -U openai phidata
+    ```
+
+  </Step>
+
+  <Step title="Export `SAMBANOVA_API_KEY`">
+
+    ```bash
+    export SAMBANOVA_API_KEY=***
+    ```
+
+  </Step>
+
+  <Step title="Run Sambanova Agent">
+
+    ```bash
+    python cookbook/providers/sambanova/basic.py
+    ```
+
+  </Step>
+
+  </Steps>
+
+## Information
+
+- View on [Github](https://github.com/phidatahq/phidata/tree/main/cookbook/providers/sambanova/basic.py)
