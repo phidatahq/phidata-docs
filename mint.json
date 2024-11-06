@@ -177,7 +177,8 @@
             "vectordb/pgvector",
             "vectordb/qdrant",
             "vectordb/pinecone",
-            "vectordb/lancedb"
+            "vectordb/lancedb",
+            "vectordb/singlestore"
           ]
         },
         {
