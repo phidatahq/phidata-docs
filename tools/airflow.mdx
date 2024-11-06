@@ -1,0 +1,32 @@
+---
+title: Airflow
+---
+
+## Example
+
+The following agent will use Airflow to save and read a DAG file.
+
+```python cookbook/tools/airflow_tools.py
+
+```
+
+## Toolkit Params
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `dags_dir` | `Path` or `str` | `Path.cwd()` | Directory for DAG files |
+| `save_dag` | `bool` | `True` | Whether to register the save_dag_file function |
+| `read_dag` | `bool` | `True` | Whether to register the read_dag_file function |
+| `name` | `str` | `"AirflowTools"` | The name of the tool |
+
+## Toolkit Functions
+
+| Function | Description |
+|----------|-------------|
+| `save_dag_file` | Saves python code for an Airflow DAG to a file |
+| `read_dag_file` | Reads an Airflow DAG file and returns the contents |
+
+
+## Information
+
+- View on [Github](https://github.com/phidatahq/phidata/blob/main/phi/tools/airflow.py)

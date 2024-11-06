@@ -150,7 +150,17 @@
             "tools/wikipedia",
             "tools/yfinance",
             "tools/youtube",
-            "tools/zendesk"
+            "tools/zendesk",
+            "tools/airflow",
+            "tools/aws_lambda",
+            "tools/dalle",
+            "tools/mlx_transcribe",
+            "tools/models_labs",
+            "tools/phi",
+            "tools/slack",
+            "tools/sleep",
+            "tools/twitter",
+            "tools/zoom"
           ]
         },
         {

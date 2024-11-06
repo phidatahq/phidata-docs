@@ -1,0 +1,47 @@
+---
+title: Dalle
+---
+
+## Prerequisites
+
+You need to install the `openai` library.
+
+```bash
+pip install openai
+```
+
+Set the `OPENAI_API_KEY` environment variable.
+
+```bash
+export OPENAI_API_KEY=****
+```
+
+## Example
+
+The following agent will use DALL-E to generate an image based on a text prompt.
+
+```python cookbook/tools/dalle_tools.py
+
+```
+
+## Toolkit Params
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `model` | `str` | `"dall-e-3"` | The DALL-E model to use |
+| `n` | `int` | `1` | Number of images to generate |
+| `size` | `str` | `"1024x1024"` | Image size (256x256, 512x512, 1024x1024, 1792x1024, or 1024x1792) |
+| `quality` | `str` | `"standard"` | Image quality (standard or hd) |
+| `style` | `str` | `"vivid"` | Image style (vivid or natural) |
+| `api_key` | `str` | `None` | The OpenAI API key for authentication |
+
+## Toolkit Functions
+
+| Function | Description |
+|----------|-------------|
+| `generate_image` | Generates an image based on a text prompt |
+
+
+## Information
+
+- View on [Github](https://github.com/phidatahq/phidata/blob/main/phi/tools/dalle.py)

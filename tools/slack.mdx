@@ -1,0 +1,68 @@
+---
+title: Slack
+---
+
+## Prerequisites
+
+The following example requires the `slack-sdk` library.
+
+```shell
+pip install openai slack-sdk
+```
+
+Get a Slack token from [here](https://api.slack.com/tutorials/tracks/getting-a-token).
+
+```shell
+export SLACK_TOKEN=***
+```
+
+## Example
+
+The following agent will use Slack to send a message to a channel, list all channels, and get the message history of a specific channel.
+
+```python cookbook/tools/slack_tools.py
+import os
+
+from phi.agent import Agent
+from phi.tools.slack import SlackTools
+
+
+slack_token = os.getenv("SLACK_TOKEN")
+if not slack_token:
+    raise ValueError("SLACK_TOKEN not set")
+slack_tools = SlackTools(token=slack_token)
+
+agent = Agent(tools=[slack_tools], show_tool_calls=True)
+
+# Example 1: Send a message to a Slack channel
+agent.print_response("Send a message 'Hello from Phi!' to the channel #general", markdown=True)
+
+# Example 2: List all channels in the Slack workspace
+agent.print_response("List all channels in our Slack workspace", markdown=True)
+
+# Example 3: Get the message history of a specific channel
+agent.print_response("Get the last 10 messages from the channel #random_junk", markdown=True)
+
+```
+
+## Toolkit Params
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `token` | `str` | - | Slack API token for authentication |
+| `send_message` | `bool` | `True` | Enables the functionality to send messages to Slack channels |
+| `list_channels` | `bool` | `True` | Enables the functionality to list available Slack channels |
+| `get_channel_history` | `bool` | `True` | Enables the functionality to retrieve message history from channels |
+
+## Toolkit Functions
+
+| Function | Description |
+|----------|-------------|
+| `send_message` | Sends a message to a specified Slack channel |
+| `list_channels` | Lists all available channels in the Slack workspace |
+| `get_channel_history` | Retrieves message history from a specified channel |
+
+
+## Information
+
+- View on [Github](https://github.com/phidatahq/phidata/blob/main/phi/tools/slack.py)
