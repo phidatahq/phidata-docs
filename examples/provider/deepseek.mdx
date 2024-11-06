@@ -1,0 +1,60 @@
+---
+title: DeepSeek
+---
+
+## Example
+
+<CodeGroup>
+
+```python agent.py
+from phi.agent import Agent, RunResponse
+from phi.model.deepseek import DeepSeekChat
+
+agent = Agent(model=DeepSeekChat(), markdown=True)
+
+# Get the response in a variable
+# run: RunResponse = agent.run("Share a 2 sentence horror story.")
+# print(run.content)
+
+# Print the response in the terminal
+agent.print_response("Share a 2 sentence horror story.")
+```
+
+</CodeGroup>
+
+## Usage
+
+Get your key from [here](https://platform.deepseek.com/api_keys).
+
+<Steps>
+  <Snippet file="create-venv-step.mdx" />
+
+  <Step title="Install libraries">
+
+    ```bash
+    pip install -U openai phidata
+    ```
+
+  </Step>
+
+  <Step title="Export Environment Variables">
+
+    ```bash
+      export DEEPSEEK_API_KEY=***
+    ```
+
+  </Step>
+
+  <Step title="Run DeepSeek Agent">
+
+    ```bash
+    python cookbook/providers/deepseek/basic.py
+    ```
+
+  </Step>
+
+  </Steps>
+
+## Information
+
+- View on [Github](https://github.com/phidatahq/phidata/tree/main/cookbook/providers/deepseek/basic.py)

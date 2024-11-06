@@ -237,7 +237,14 @@
             "examples/provider/groq",
             "examples/provider/mistral",
             "examples/provider/ollama",
-            "examples/provider/together"
+            "examples/provider/together",
+            "examples/provider/aws_bedrock",
+            "examples/provider/deepseek",
+            "examples/provider/huggingface",
+            "examples/provider/nvidia",
+            "examples/provider/openrouter",
+            "examples/provider/sambanova",
+            "examples/provider/xai"
           ]
         },
         {
