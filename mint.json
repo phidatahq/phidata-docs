@@ -121,6 +121,7 @@
             "tools/composio",
             "tools/crawl4ai",
             "tools/csv",
+            "tools/dalle",
             "tools/duckdb",
             "tools/duckduckgo",
             "tools/email",

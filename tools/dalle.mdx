@@ -1,0 +1,38 @@
+---
+title: Dalle
+---
+
+**Dalle** enables an Agent to generate images from text.
+
+```python
+from phi.agent import Agent
+from phi.tools.dalle import Dalle
+
+agent = Agent(
+    tools=[Dalle()],
+    show_tool_calls=True
+)
+
+agent.print_response("Generate an image of a white siamese cat")
+```
+
+## Toolkit Params
+
+| Parameter | Type  | Default       | Description                                                                      |
+| --------- | ----- | ------------- | -------------------------------------------------------------------------------- |
+| `model`   | `str` | `"dall-e-3"`  | The DALL-E model to use                                                          |
+| `n`       | `int` | `1`           | Number of images to generate                                                     |
+| `size`    | `str` | `"1024x1024"` | Image size. Options: "256x256", "512x512", "1024x1024", "1792x1024", "1024x1792" |
+| `quality` | `str` | `"standard"`  | Image quality. Options: "standard", "hd"                                         |
+| `style`   | `str` | `"vivid"`     | Image style. Options: "vivid", "natural"                                         |
+| `api_key` | `str` | `None`        | OpenAI API key                                                                   |
+
+## Toolkit Functions
+
+| Function         | Description                                   |
+| ---------------- | --------------------------------------------- |
+| `generate_image` | Function to generate an image given a prompt. |
+
+## Information
+
+- View on [Github](https://github.com/phidatahq/phidata/blob/main/phi/tools/dalle.py)
