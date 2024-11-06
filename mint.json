@@ -245,6 +245,8 @@
             "examples/integrations/singlestore",
             "examples/integrations/lancedb",
             "examples/integrations/pinecone",
+            "examples/integrations/qdrant",
+            "examples/integrations/chroma",
             "examples/integrations/portkey"
           ]
         },
