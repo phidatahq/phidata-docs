@@ -1,0 +1,53 @@
+---
+title: Nvidia
+---
+
+## Authentication
+
+Set your `NVIDIA_API_KEY` environment variable. Get your key [from Nvidia here](https://build.nvidia.com/explore/discover).
+
+<CodeGroup>
+
+```bash Mac
+export NVIDIA_API_KEY=***
+```
+
+```bash Windows
+setx NVIDIA_API_KEY ***
+```
+
+</CodeGroup>
+
+## Example
+
+Use `Nvidia` with your `Agent`:
+
+<CodeGroup>
+
+```python agent.py
+from phi.agent import Agent, RunResponse
+from phi.model.nvidia import Nvidia
+
+agent = Agent(model=Nvidia(), markdown=True)
+
+# Get the response in a variable
+# run: RunResponse = agent.run("Share a 2 sentence horror story")
+# print(run.content)
+
+# Print the response in the terminal
+agent.print_response("Share a 2 sentence horror story")
+
+```
+
+</CodeGroup>
+
+## Params
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `id` | `str` | `"nvidia/llama-3.1-nemotron-70b-instruct"` | The specific model ID used for generating responses. |
+| `name` | `str` | `"Nvidia"` | The name identifier for the Nvidia agent. |
+| `provider` | `str` | - | The provider of the model, combining "Nvidia" with the model ID. |
+| `api_key` | `Optional[str]` | - | The API key for authenticating requests to the Nvidia service. Retrieved from the environment variable `NVIDIA_API_KEY`. |
+| `base_url` | `str` | `"https://integrate.api.nvidia.com/v1"` | The base URL for making API requests to the Nvidia service. |
+
+Nvidia also supports all the params of [OpenAI](/models/openai).

@@ -105,7 +105,10 @@
             "models/mistral",
             "models/google_ai_studio",
             "models/xai",
-            "models/azure"
+            "models/azure",
+            "models/huggingface",
+            "models/openrouter",
+            "models/nvidia"
           ]
         },
         {

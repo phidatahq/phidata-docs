@@ -30,7 +30,7 @@ Use `Sambanova` with your `Agent`:
 from phi.agent import Agent, RunResponse
 from phi.model.sambanova import Sambanova
 
-agent = Agent(model=Sambanova())
+agent = Agent(model=Sambanova(), markdown=True)
 
 # Get the response in a variable
 # run: RunResponse = agent.run("Share a 2 sentence horror story.")
