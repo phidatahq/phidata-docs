@@ -4,21 +4,25 @@ sidebarTitle: LangChain
 ---
 
 The **LangchainKnowledgeBase** allows us to use a LangChain retriever or vector store as a knowledge base.
-
+Using ChromaDB as the vectorDB in this example.
 ## Usage
 
 ```shell
 pip install langchain
 ```
 
+```shell
+pip install -qU "langchain-chroma>=0.1.2"
+```
+
 ```python langchain_kb.py
 from phi.agent import Agent
 from phi.knowledge.langchain import LangChainKnowledgeBase
 
-from langchain.embeddings import OpenAIEmbeddings
+from langchain_openai import OpenAIEmbeddings
 from langchain.document_loaders import TextLoader
 from langchain.text_splitter import CharacterTextSplitter
-from langchain.vectorstores import Chroma
+from langchain_chroma import Chroma
 
 chroma_db_dir = "./chroma_db"
 
@@ -35,7 +39,13 @@ def load_vector_store():
 
 
 # -*- Get the vectordb
-db = Chroma(embedding_function=OpenAIEmbeddings(), persist_directory=str(chroma_db_dir))
+db = Chroma(
+    collection_name="your_collection_name",  
+    persist_directory=chroma_db_dir,   
+    embedding_function=OpenAIEmbeddings(), 
+
+)
+
 # -*- Create a retriever from the vector store
 retriever = db.as_retriever()
 
@@ -53,3 +63,5 @@ conv.print_response("What did the president say about technology?")
 | `retriever` | `Any` | `None` | LangChain retriever. |
 | `vectorstore` | `Any` | `None` | LangChain vector store used to create a retriever. |
 | `search_kwargs` | `dict` | `None` | Search kwargs when creating a retriever using the langchain vector store. |
+
+You can also find more information about langchain here [LangChain Chroma Vector Store Documentation](https://python.langchain.com/docs/integrations/vectorstores/chroma/)
