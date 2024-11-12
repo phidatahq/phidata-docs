@@ -1,0 +1,92 @@
+---
+title: Twitter
+---
+
+## Prerequisites
+
+The following example requires the `tweepy` library.
+
+```shell
+pip install tweepy
+```
+
+Get a Twitter API key and secret from [here](https://developer.x.com/en/docs/authentication/oauth-1-0a/api-key-and-secret).
+
+```shell
+export TWITTER_CONSUMER_KEY=***
+export TWITTER_CONSUMER_SECRET=***
+export TWITTER_ACCESS_TOKEN=***
+export TWITTER_ACCESS_TOKEN_SECRET=***
+export TWITTER_BEARER_TOKEN=***
+```
+
+## Example
+
+The following agent will use Twitter to get information about a user, send a message to a user, and create a new tweet.
+
+```python cookbook/tools/twitter_tools.py
+from phi.agent import Agent
+from phi.tools.twitter import TwitterTools
+
+# Initialize the Twitter toolkit
+twitter_tools = TwitterTools()
+
+# Create an agent with the twitter toolkit
+agent = Agent(
+    instructions=[
+        "Use your tools to interact with Twitter as the authorized user @phidatahq",
+        "When asked to create a tweet, generate appropriate content based on the request",
+        "Do not actually post tweets unless explicitly instructed to do so",
+        "Provide informative responses about the user's timeline and tweets",
+        "Respect Twitter's usage policies and rate limits",
+    ],
+    tools=[twitter_tools],
+    show_tool_calls=True,
+)
+agent.print_response("Can you retrieve information about this user https://x.com/phidatahq ", markdown=True)
+
+# Example usage: Reply To a Tweet
+agent.print_response(
+    "Can you reply to this post as a general message as to how great this project is:https://x.com/phidatahq/status/1836101177500479547",
+    markdown=True,
+)
+# Example usage: Get your details
+agent.print_response("Can you return my twitter profile?", markdown=True)
+
+# Example usage: Send a direct message
+agent.print_response(
+    "Can a send direct message to the user: https://x.com/phidatahq assking you want learn more about them and a link to their community?",
+    markdown=True,
+)
+# Example usage: Create a new tweet
+agent.print_response("Create & post a tweet about the importance of AI ethics", markdown=True)
+
+# Example usage: Get home timeline
+agent.print_response("Get my timeline", markdown=True)
+
+```
+
+## Toolkit Params
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `bearer_token` | `str` | `None` | The bearer token for Twitter API authentication |
+| `consumer_key` | `str` | `None` | The consumer key for Twitter API authentication |
+| `consumer_secret` | `str` | `None` | The consumer secret for Twitter API authentication |
+| `access_token` | `str` | `None` | The access token for Twitter API authentication |
+| `access_token_secret` | `str` | `None` | The access token secret for Twitter API authentication |
+
+## Toolkit Functions
+
+| Function | Description |
+|----------|-------------|
+| `create_tweet` | Creates and posts a new tweet |
+| `reply_to_tweet` | Replies to an existing tweet |
+| `send_dm` | Sends a direct message to a Twitter user |
+| `get_user_info` | Retrieves information about a Twitter user |
+| `get_home_timeline` | Gets the authenticated user's home timeline |
+
+
+## Information
+
+- View on [Github](https://github.com/phidatahq/phidata/blob/main/phi/tools/twitter.py)

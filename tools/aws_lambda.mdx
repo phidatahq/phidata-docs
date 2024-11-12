@@ -1,0 +1,53 @@
+---
+title: AWS Lambda
+---
+
+## Prerequisites
+
+The following example requires the `boto3` library.
+
+```shell
+pip install openai boto3
+```
+
+## Example
+
+The following agent will use AWS Lambda to list all Lambda functions in our AWS account and invoke a specific Lambda function.
+
+```python cookbook/tools/aws_lambda_tools.py
+
+from phi.agent import Agent
+from phi.tools.aws_lambda import AWSLambdaTool
+
+
+# Create an Agent with the AWSLambdaTool
+agent = Agent(
+    tools=[AWSLambdaTool(region_name="us-east-1")],
+    name="AWS Lambda Agent",
+    show_tool_calls=True,
+)
+
+# Example 1: List all Lambda functions
+agent.print_response("List all Lambda functions in our AWS account", markdown=True)
+
+# Example 2: Invoke a specific Lambda function
+agent.print_response("Invoke the 'hello-world' Lambda function with an empty payload", markdown=True)
+```
+
+## Toolkit Params
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `region_name` | `str` | `"us-east-1"` | AWS region name where Lambda functions are located. |
+
+## Toolkit Functions
+
+| Function | Description |
+|----------|-------------|
+| `list_functions` | Lists all Lambda functions available in the AWS account. |
+| `invoke_function` | Invokes a specific Lambda function with an optional payload. Takes `function_name` and optional `payload` parameters. |
+
+
+## Information
+
+- View on [Github](https://github.com/phidatahq/phidata/blob/main/phi/tools/aws_lambda.py)

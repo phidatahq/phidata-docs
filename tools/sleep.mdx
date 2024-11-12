@@ -1,0 +1,38 @@
+---
+title: Sleep
+---
+
+## Example
+
+The following agent will use the `sleep` tool to pause execution for a given number of seconds.
+
+```python cookbook/tools/sleep_tools.py
+from phi.agent import Agent
+from phi.tools.sleep import Sleep
+
+# Create an Agent with the Sleep tool
+agent = Agent(tools=[Sleep()], name="Sleep Agent")
+
+# Example 1: Sleep for 2 seconds
+agent.print_response("Sleep for 2 seconds")
+
+# Example 2: Sleep for a longer duration
+agent.print_response("Sleep for 5 seconds")
+```
+
+## Toolkit Params
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `name` | `str` | `"sleep"` | The name of the tool |
+
+## Toolkit Functions
+
+| Function | Description |
+|----------|-------------|
+| `sleep` | Pauses execution for a specified number of seconds |
+
+
+## Information
+
+- View on [Github](https://github.com/phidatahq/phidata/blob/main/phi/tools/sleep.py)
