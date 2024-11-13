@@ -208,6 +208,10 @@ A team of agents can work together to solve complex problems, create a file `age
   </Step>
 </Steps>
 
+<Tip>
+Agent teams are non-deterministic and are not recommended for production systems, we recommend using [workflows](/workflows) instead.
+</Tip>
+
 
 ## Reasoning Agent
 
@@ -244,10 +248,6 @@ Reasoning is an experimental feature that helps agents work through a problem st
 <Warning>
 Reasoning is an experimental feature and will break ~20% of the time. **It is not a replacement for o1.** It is an experiment that combines COT and tool use. Set your expectations very low for this initial release. For example: It will not be able to count ‘r’s in ‘strawberry’.
 </Warning>
-
-<Tip>
-If using tools with `reasoning=True`, set `structured_outputs=False` because gpt-4o doesnt support tools with structured outputs.
-</Tip>
 
 ## RAG Agent
 
