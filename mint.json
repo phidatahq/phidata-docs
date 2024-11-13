@@ -68,7 +68,7 @@
   "navigation": [
     {
       "group": "Introduction",
-      "pages": ["agents", "agent-ui", "monitoring", "templates", "videos"]
+      "pages": ["agents", "agent-ui", "monitoring", "workflows", "templates", "videos"]
     },
     {
       "group": "Documentation",
