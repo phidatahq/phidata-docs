@@ -53,6 +53,10 @@
   },
   "tabs": [
     {
+      "name": "Examples",
+      "url": "examples"
+    },
+    {
       "name": "Templates",
       "url": "templates"
     },
@@ -230,11 +234,13 @@
     {
       "group": "Examples",
       "pages": [
-        "examples/cookbook",
+        "examples/introduction",
         {
           "group": "Agents",
           "pages": [
-            "examples/agents/basic",
+            "examples/agents/web-search",
+            "examples/agents/finance-agent",
+            "examples/agents/agent-team",
             "examples/agents/rag",
             "examples/agents/auto",
             "examples/agents/pdf",
@@ -296,6 +302,12 @@
             "examples/use-case/arxiv-research"
           ]
         }
+      ]
+    },
+    {
+      "group": "How To",
+      "pages": [
+        "examples/how-to/use-cookbook"
       ]
     },
     {
