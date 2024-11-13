@@ -241,7 +241,7 @@
             "examples/agents/web-search",
             "examples/agents/finance-agent",
             "examples/agents/agent-team",
-            "examples/agents/rag",
+            "examples/agents/reasoning-agent",
             "examples/agents/auto",
             "examples/agents/pdf",
             "examples/agents/hackernews",
