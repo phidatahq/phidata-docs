@@ -210,6 +210,7 @@
           "pages": [
             "embedder/introduction",
             "embedder/openai",
+            "embedder/gemini",
             "embedder/ollama",
             "embedder/voyageai",
             "embedder/azure_openai",
@@ -220,10 +221,7 @@
         },
         {
           "group": "Workflows",
-          "pages": [
-            "workflows/introduction",
-            "workflows/session-state"
-          ]
+          "pages": ["workflows/introduction", "workflows/session-state"]
         }
       ]
     },
