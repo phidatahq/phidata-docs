@@ -45,6 +45,14 @@ hn_team = Agent(
 hn_team.print_response("Write an article about the top 2 stories on hackernews", stream=True)
 ```
 
+Run the script to see the output.
+
+```bash
+pip install -U openai duckduckgo-search newspaper4k lxml_html_clean phidata
+
+python hn_team.py
+```
+
 ## How to build Agent Teams
 
 1. Add a `name` and `role` parameter to the member Agents.
