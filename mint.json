@@ -226,7 +226,9 @@
           "group": "Workflows",
           "pages": [
             "workflows/introduction",
-            "workflows/session-state"
+            "workflows/session-state",
+            "workflows/streaming",
+            "workflows/news-report-generator"
           ]
         }
       ]
