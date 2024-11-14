@@ -217,7 +217,9 @@
             "embedder/mistral",
             "embedder/fireworks",
             "embedder/together",
-            "embedder/huggingface"
+            "embedder/huggingface",
+            "embedder/qdrant_fastembed",
+            "embedder/sentencetransformers"
           ]
         },
         {
