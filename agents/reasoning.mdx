@@ -21,7 +21,11 @@ reasoning_agent.print_response(task, stream=True, show_full_reasoning=True)
 
 Run the Reasoning Agent:
 
-```shell
+```bash
+pip install -U phidata openai
+
+export OPENAI_API_KEY=***
+
 python reasoning_agent.py
 ```
 
@@ -72,6 +76,16 @@ reasoning_agent = Agent(
 reasoning_agent.print_response("Write a report comparing NVDA to TSLA", stream=True, show_full_reasoning=True)
 ```
 
+Run the script to see the output.
+
+```bash
+pip install -U phidata openai yfinance
+
+export OPENAI_API_KEY=***
+
+python finance_reasoning.py
+```
+
 ## More reasoning examples
 
 ### Logical puzzles
@@ -92,6 +106,16 @@ reasoning_agent = Agent(
 reasoning_agent.print_response(task, stream=True, show_full_reasoning=True)
 ```
 
+Run the script to see the output.
+
+```bash
+pip install -U phidata openai
+
+export OPENAI_API_KEY=***
+
+python logical_puzzle.py
+```
+
 ### Mathematical proofs
 
 ```python mathematical_proof.py
@@ -103,6 +127,16 @@ reasoning_agent = Agent(
     model=OpenAIChat(id="gpt-4o-2024-08-06"), reasoning=True, markdown=True, structured_outputs=True
 )
 reasoning_agent.print_response(task, stream=True, show_full_reasoning=True)
+```
+
+Run the script to see the output.
+
+```bash
+pip install -U phidata openai
+
+export OPENAI_API_KEY=***
+
+python mathematical_proof.py
 ```
 
 ### Scientific research
@@ -125,6 +159,16 @@ reasoning_agent = Agent(
 reasoning_agent.print_response(task, stream=True, show_full_reasoning=True)
 ```
 
+Run the script to see the output.
+
+```bash
+pip install -U phidata openai
+
+export OPENAI_API_KEY=***
+
+python scientific_research.py
+```
+
 ### Ethical dilemma
 
 ```python ethical_dilemma.py
@@ -144,6 +188,16 @@ reasoning_agent = Agent(
 reasoning_agent.print_response(task, stream=True, show_full_reasoning=True)
 ```
 
+Run the script to see the output.
+
+```bash
+pip install -U phidata openai
+
+export OPENAI_API_KEY=***
+
+python ethical_dilemma.py
+```
+
 ### Planning an itinerary
 
 
@@ -156,6 +210,16 @@ reasoning_agent = Agent(
     model=OpenAIChat(id="gpt-4o-2024-08-06"), reasoning=True, markdown=True, structured_outputs=True
 )
 reasoning_agent.print_response(task, stream=True, show_full_reasoning=True)
+```
+
+Run the script to see the output.
+
+```bash
+pip install -U phidata openai
+
+export OPENAI_API_KEY=***
+
+python planning_itinerary.py
 ```
 
 ### Creative writing
@@ -171,3 +235,12 @@ reasoning_agent = Agent(
 reasoning_agent.print_response(task, stream=True, show_full_reasoning=True)
 ```
 
+Run the script to see the output.
+
+```bash
+pip install -U phidata openai
+
+export OPENAI_API_KEY=***
+
+python creative_writing.py
+```
