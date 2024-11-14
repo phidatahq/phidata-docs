@@ -1,0 +1,48 @@
+---
+title: HuggingFace Embedder
+sidebarTitle: HuggingFace
+---
+
+The `HuggingfaceCustomEmbedder` class is used to embed text data into vectors using the Hugging Face API. You can get one from [here](https://huggingface.co/settings/tokens).
+
+## Usage
+
+```python cookbook/embedders/huggingface_embedder.py
+import os
+
+from phi.agent import Agent, AgentKnowledge
+from phi.vectordb.pgvector import PgVector
+from phi.embedder.huggingface import HuggingfaceCustomEmbedder
+
+# Create knowledge base
+knowledge_base = AgentKnowledge(
+    vector_db=PgVector(
+        db_url="postgresql+psycopg://ai:ai@localhost:5532/ai",
+        table_name="huggingface_embeddings",
+        embedder=HuggingfaceCustomEmbedder(
+            api_key=os.getenv("HUGGINGFACE_API_KEY"),
+            dimensions=768,
+        ),
+    ),
+    num_documents=2,
+)
+
+# Add information to the knowledge base
+knowledge_base.load_text(
+    "This classic spaghetti carbonara combines perfectly cooked al dente pasta "
+    "with crispy pancetta and creamy eggs that create a luscious sauce."
+)
+
+# Add the knowledge base to the Agent
+agent = Agent(knowledge_base=knowledge_base)
+```
+
+## Params
+
+| Parameter          | Type                       | Default            | Description                                                  |
+| ------------------ | -------------------------- | ------------------ | ------------------------------------------------------------ |
+| dimensions         | `int`                      | `-`                | The dimensionality of the generated embeddings               |
+| model              | `str`                      | `all-MiniLM-L6-v2` | The name of the HuggingFace model to use                     |
+| api_key            | `str`                      | `-`                | The API key used for authenticating requests                 |
+| client_params      | `Optional[Dict[str, Any]]` | `-`                | Optional dictionary of parameters for the HuggingFace client |
+| huggingface_client | `Any`                      | `-`                | Optional pre-configured HuggingFace client instance          |

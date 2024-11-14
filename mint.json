@@ -216,7 +216,8 @@
             "embedder/azure_openai",
             "embedder/mistral",
             "embedder/fireworks",
-            "embedder/together"
+            "embedder/together",
+            "embedder/huggingface"
           ]
         },
         {
