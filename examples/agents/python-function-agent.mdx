@@ -1,10 +1,10 @@
 ---
-title: Hackernews Agent
+title: Python Function Agent
 ---
 
-An agent showcasing how to use function calling with LLMs. This agent has access to a function `get_top_hackernews_stories` that it can call to get top stories from Hacker News.
+Create a file `python_function_agent.py` with the following code:
 
-```python
+```python python_function_agent.py
 import json
 import httpx
 
@@ -38,7 +38,6 @@ def get_top_hackernews_stories(num_stories: int = 10) -> str:
 
 agent = Agent(tools=[get_top_hackernews_stories], show_tool_calls=True, markdown=True)
 agent.print_response("Summarize the top 5 stories on hackernews?", stream=True)
-
 ```
 
 ## Usage
@@ -47,32 +46,15 @@ agent.print_response("Summarize the top 5 stories on hackernews?", stream=True)
   <Snippet file="create-venv-step.mdx" />
 
   <Step title="Install libraries">
-
     ```bash
     pip install openai phidata
     ```
-
   </Step>
 
   <Step title="Run the agent">
-
-    <CodeGroup>
-
-    ```bash Mac
-    python cookbook/agents/12_python_function_as_tool.py
+    ```bash
+    python python_function_agent.py
     ```
-
-    ```bash Windows
-    python cookbook/agents/12_python_function_as_tool.py
-    ```
-
-    </CodeGroup>
-
   </Step>
 
 </Steps>
-
-## Information
-
-- View on [Github](https://github.com/phidatahq/phidata/blob/main/cookbook/agents/12_python_function_as_tool.py)
-- Read about [Tools](/agents/tools)

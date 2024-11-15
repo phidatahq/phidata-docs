@@ -244,12 +244,11 @@
             "examples/agents/finance-agent",
             "examples/agents/agent-team",
             "examples/agents/reasoning-agent",
-            "examples/agents/auto",
-            "examples/agents/pdf",
-            "examples/agents/hackernews",
-            "examples/agents/structured-output",
+            "examples/agents/python-agent",
             "examples/agents/data-analyst",
-            "examples/agents/vision"
+            "examples/agents/structured-output",
+            "examples/agents/python-function-agent",
+            "examples/agents/vision-agent"
           ]
         },
         {
