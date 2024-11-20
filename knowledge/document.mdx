@@ -1,9 +1,9 @@
 ---
-title: Docx Knowledge Base
-sidebarTitle: Docx
+title: Document Knowledge Base
+sidebarTitle: Document
 ---
 
-The **DocxKnowledgeBase** reads **local docx** files, converts them into vector embeddings and loads them to a vector databse.
+The **DocumentKnowledgeBase** reads **local docs** files, converts them into vector embeddings and loads them to a vector databse.
 
 ## Usage
 
@@ -18,14 +18,14 @@ pip install textract
 ```
 
 ```python
-from phi.knowledge.docx import DocxKnowledgeBase
+from phi.knowledge.document import DocumentKnowledgeBase
 from phi.vectordb.pgvector import PgVector
 
-knowledge_base = DocxKnowledgeBase(
+knowledge_base = DocumentKnowledgeBase(
     path="data/docs",
-    # Table name: ai.docx_documents
+    # Table name: ai.documents
     vector_db=PgVector(
-        table_name="docx_documents",
+        table_name="documents",
         db_url="postgresql+psycopg://ai:ai@localhost:5532/ai",
     ),
 )

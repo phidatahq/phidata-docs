@@ -24,13 +24,16 @@ While any type of storage can act as a knowledge base, vector databases offer th
 
 <Steps>
   <Step title="Chunk the information">
-    Break down the knowledge into smaller chunks to ensure our search query returns only relevant results.
+    Break down the knowledge into smaller chunks to ensure our search query
+    returns only relevant results.
   </Step>
   <Step title="Load the knowledge base">
-    Convert the chunks into embedding vectors and store them in a vector database.
+    Convert the chunks into embedding vectors and store them in a vector
+    database.
   </Step>
   <Step title="Search the knowledge base">
-    When the user sends a message, we convert the input message into an embedding and "search" for nearest neighbors in the vector database.
+    When the user sends a message, we convert the input message into an
+    embedding and "search" for nearest neighbors in the vector database.
   </Step>
 </Steps>
 
@@ -47,4 +50,7 @@ Before you can use a knowledge base, it needs to be loaded with embeddings that 
 - [ArXiv knowledge base](/knowledge/arxiv): Load ArXiv papers to a knowledge base
 - [Combined knowledge base](/knowledge/combined): Combine multiple knowledge bases into 1
 - [LangChain knowledge base](/knowledge/langchain): Use a Langchain retriever as a knowledge base
-- [Load knowledge base manually](/knowledge/manual)
+- [Document knowledge base](/knowledge/document): Load local docx files to a knowledge base
+- [S3 PDF knowledge base](/knowledge/s3_pdf): Load PDF files from S3 to a knowledge base
+- [S3 Text knowledge base](/knowledge/s3_text): Load text files from S3 to a knowledge base
+- [CSV knowledge base](/knowledge/csv): Load CSV files to a knowledge base

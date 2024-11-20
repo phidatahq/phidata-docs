@@ -72,7 +72,15 @@
   "navigation": [
     {
       "group": "Introduction",
-      "pages": ["agents", "agent-ui", "monitoring", "workflows", "templates", "videos", "getting-help"]
+      "pages": [
+        "agents",
+        "agent-ui",
+        "monitoring",
+        "workflows",
+        "templates",
+        "videos",
+        "getting-help"
+      ]
     },
     {
       "group": "Documentation",
@@ -174,17 +182,21 @@
           "group": "Knowledge",
           "pages": [
             "knowledge/introduction",
-            "knowledge/pdf",
-            "knowledge/pdf-url",
-            "knowledge/text",
-            "knowledge/docx",
-            "knowledge/json",
-            "knowledge/website",
-            "knowledge/wikipedia",
             "knowledge/arxiv",
             "knowledge/combined",
+            "knowledge/csv",
+            "knowledge/docx",
+            "knowledge/document",
+            "knowledge/json",
             "knowledge/langchain",
-            "knowledge/llamaindex"
+            "knowledge/llamaindex",
+            "knowledge/pdf",
+            "knowledge/pdf-url",
+            "knowledge/s3_pdf",
+            "knowledge/s3_text",
+            "knowledge/text",
+            "knowledge/website",
+            "knowledge/wikipedia"
           ]
         },
         {
@@ -307,9 +319,7 @@
     },
     {
       "group": "How To",
-      "pages": [
-        "examples/how-to/use-cookbook"
-      ]
+      "pages": ["examples/how-to/use-cookbook"]
     },
     {
       "group": "How To",
