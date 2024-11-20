@@ -120,7 +120,7 @@
             "tools/custom-toolkits",
             "tools/airflow",
             "tools/apify",
-            "tools/arxiv", 
+            "tools/arxiv",
             "tools/aws_lambda",
             "tools/calculator",
             "tools/composio",
@@ -139,7 +139,7 @@
             "tools/jina_reader",
             "tools/jira",
             "tools/mlx_transcribe",
-            "tools/models_labs", 
+            "tools/models_labs",
             "tools/newspaper",
             "tools/newspaper4k",
             "tools/openbb",
@@ -487,7 +487,8 @@
       "pages": [
         "faq/could-not-connect-to-docker",
         "faq/environment_variables",
-        "faq/phi-auth"
+        "faq/phi-auth",
+        "faq/connecting-to-tableplus"
       ]
     }
   ],
