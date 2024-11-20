@@ -53,6 +53,10 @@
   },
   "tabs": [
     {
+      "name": "Examples",
+      "url": "examples"
+    },
+    {
       "name": "Templates",
       "url": "templates"
     },
@@ -68,7 +72,7 @@
   "navigation": [
     {
       "group": "Introduction",
-      "pages": ["agents", "agent-ui", "monitoring", "templates", "videos"]
+      "pages": ["agents", "agent-ui", "monitoring", "workflows", "templates", "videos", "getting-help"]
     },
     {
       "group": "Documentation",
@@ -224,25 +228,31 @@
         },
         {
           "group": "Workflows",
-          "pages": ["workflows/introduction", "workflows/session-state"]
+          "pages": [
+            "workflows/introduction",
+            "workflows/session-state",
+            "workflows/streaming",
+            "workflows/news-report-generator"
+          ]
         }
       ]
     },
     {
       "group": "Examples",
       "pages": [
-        "examples/cookbook",
+        "examples/introduction",
         {
           "group": "Agents",
           "pages": [
-            "examples/agents/basic",
-            "examples/agents/rag",
-            "examples/agents/auto",
-            "examples/agents/pdf",
-            "examples/agents/hackernews",
-            "examples/agents/structured-output",
+            "examples/agents/web-search",
+            "examples/agents/finance-agent",
+            "examples/agents/agent-team",
+            "examples/agents/reasoning-agent",
+            "examples/agents/python-agent",
             "examples/agents/data-analyst",
-            "examples/agents/vision"
+            "examples/agents/structured-output",
+            "examples/agents/python-function-agent",
+            "examples/agents/vision-agent"
           ]
         },
         {
@@ -297,6 +307,12 @@
             "examples/use-case/arxiv-research"
           ]
         }
+      ]
+    },
+    {
+      "group": "How To",
+      "pages": [
+        "examples/how-to/use-cookbook"
       ]
     },
     {

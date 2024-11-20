@@ -1,0 +1,88 @@
+---
+title: Clone Cookbook
+---
+
+The [phidata cookbook](https://github.com/phidatahq/phidata/tree/main/cookbook) contains in-depth examples and code. From basic **agents, function calling, structured output** to advanced **fine-tuning and evaluations**.
+
+## Clone the cookbook
+
+<Steps>
+  <Step title="Fork & clone the phidata repo">
+
+    <Tip>
+
+    We recommend forking the [phidata](https://github.com/phidatahq/phidata) repo first so you can customize the cookbooks, and contribute your own recipes back to the repo.
+
+    </Tip>
+
+    Fork & clone the [phidata](https://github.com/phidatahq/phidata) repo
+
+    ```bash
+    git clone https://github.com/phidatahq/phidata
+    ```
+
+    `cd` into the `phidata` directory
+
+    ```bash
+    cd phidata
+    ```
+
+  </Step>
+  <Step title="Create a virtual environment">
+    Create a virtual environment with the required libraries and install the project in editable mode. You can use a helper script or run these steps manually.
+
+    <CodeGroup>
+
+    ```bash Mac
+    ./scripts/create_venv.sh
+    source phienv/bin/activate
+    ```
+
+    ```bash Manual (Mac)
+    python3 -m venv phienv
+    source phienv/bin/activate
+
+    pip install -r requirements.txt
+    pip install --editable .
+    ```
+
+    ```bash Windows
+    python3 -m venv phienv
+    phienv/scripts/activate
+
+    pip install -r requirements.txt
+    pip install --editable .
+    ```
+    </CodeGroup>
+
+  </Step>
+  <Step title="Run any recipe">
+
+    Set your `OPENAI_API_KEY`
+
+    <CodeGroup>
+
+    ```bash Mac
+    export OPENAI_API_KEY=sk-***
+    ```
+
+    ```bash Windows
+    setx OPENAI_API_KEY sk-***
+    ```
+
+    </CodeGroup>
+
+    Install `openai` and `duckduckgo-search`
+
+    ```bash
+    pip install openai duckduckgo-search
+    ```
+
+    Run the `agents/web_search.py` recipe
+
+    ```bash
+    python cookbook/agents/01_web_search.py
+    ```
+
+  </Step>
+</Steps>

@@ -1,0 +1,40 @@
+---
+title: Web Search Agent
+---
+
+Create a file `web_search.py` with the following code:
+
+```python web_search.py
+from phi.agent import Agent
+from phi.model.openai import OpenAIChat
+from phi.tools.duckduckgo import DuckDuckGo
+
+web_agent = Agent(
+    name="Web Agent",
+    model=OpenAIChat(id="gpt-4o"),
+    tools=[DuckDuckGo()],
+    instructions=["Always include sources"],
+    show_tool_calls=True,
+    markdown=True,
+)
+web_agent.print_response("Whats happening in France?", stream=True)
+```
+
+## Usage
+
+<Steps>
+  <Snippet file="create-venv-step.mdx" />
+
+  <Step title="Install libraries">
+    ```bash
+    pip install openai duckduckgo-search phidata
+    ```
+  </Step>
+
+  <Step title="Run the agent">
+    ```bash
+    python web_search.py
+    ```
+  </Step>
+
+</Steps>

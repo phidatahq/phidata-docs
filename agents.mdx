@@ -1,19 +1,17 @@
 ---
 title: Agents
-description: Agents are intelligent programs that can interact with external systems.
+description: "**Agents are autonomous programs that complete tasks using language models.**"
 ---
-
-For example, an agent can search the web, write and run code, analyze financial data, query a database or interact with any application using an API.
 
 ## What is phidata?
 
-**Phidata is a framework for building agentic systems**, use phidata to:
+**Phidata is a framework for building agentic systems**, engineers use phidata to:
 
 - **Build Agents with memory, knowledge, tools and reasoning.**
 - **Build teams of Agents that can work together.**
-- **Chat with your Agents using a beautiful Agent UI.**
-- **Monitor, evaluate and optimize your Agents.**
-- **Build agentic systems i.e. software applications with an API, database and vectordb.**
+- **Chat with Agents using a beautiful Agent UI.**
+- **Monitor, evaluate and optimize Agents.**
+- **Build agentic systems i.e. applications with an API, database and vectordb.**
 
 ## Let's build some agents
 
@@ -203,50 +201,13 @@ A team of agents can work together to solve complex problems, create a file `age
   </Step>
 </Steps>
 
-
-## Reasoning Agent
-
-Reasoning is an experimental feature that helps agents work through a problem step-by-step, backtracking and correcting as needed. Create a file `reasoning_agent.py`.
-
-<Steps>
-  <Step title="Create a reasoning agent">
-
-    ```python reasoning_agent.py
-    from phi.agent import Agent
-    from phi.model.openai import OpenAIChat
-
-    task = (
-        "Three missionaries and three cannibals need to cross a river. "
-        "They have a boat that can carry up to two people at a time. "
-        "If, at any time, the cannibals outnumber the missionaries on either side of the river, the cannibals will eat the missionaries. "
-        "How can all six people get across the river safely? Provide a step-by-step solution and show the solutions as an ascii diagram"
-    )
-
-    reasoning_agent = Agent(model=OpenAIChat(id="gpt-4o"), reasoning=True, markdown=True, structured_outputs=True)
-    reasoning_agent.print_response(task, stream=True, show_full_reasoning=True)
-    ```
-
-  </Step>
-  <Step title="Run the reasoning agent">
-
-    ```shell
-    python reasoning_agent.py
-    ```
-
-  </Step>
-</Steps>
-
-<Warning>
-Reasoning is an experimental feature and will break ~20% of the time. **It is not a replacement for o1.** It is an experiment that combines COT and tool use. Set your expectations very low for this initial release. For example: It will not be able to count ‘r’s in ‘strawberry’.
-</Warning>
-
 <Tip>
-If using tools with `reasoning=True`, set `structured_outputs=False` because gpt-4o doesnt support tools with structured outputs.
+Agent teams are non-deterministic and are not recommended for production systems, we recommend using [workflows](/workflows) instead.
 </Tip>
 
-## RAG Agent
+## Agentic RAG
 
-Instead of always inserting the "context" into the prompt, the RAG Agent can search its knowledge base (vector db) for the specific information it needs to achieve its task.
+Instead of always inserting the "context" into the prompt, we give our Agent a tool to search its knowledge base (vector db) for the information it needs.
 
 This saves tokens and improves response quality. Create a file `rag_agent.py`
 
@@ -304,7 +265,9 @@ This saves tokens and improves response quality. Create a file `rag_agent.py`
 
 ## Structured Outputs
 
-Use structured outputs to enforce the structure of the output from an agent and make the agent return a pydantic object. Create a file `structured_output.py`
+Agents can return their output in a structured format as a Pydantic model.
+
+Create a file `structured_output.py`
 
 <Steps>
   <Step title="Create a structured output agent">
@@ -352,29 +315,8 @@ Use structured outputs to enforce the structure of the output from an agent and 
   </Step>
 </Steps>
 
-## Ready to build?
+## Next Steps
 
-Start building your own agents or use a template to build a full-stack agentic system.
-
-<CardGroup cols={1}>
-  <Card title="Agents" icon="user-astronaut" iconType="duotone" href="/agents/introduction">
-    Build your own agents and customize them to your use case.
-  </Card>
-  <Card title="Templates" icon="rocket-launch" iconType="duotone" href="/templates/introduction">
-    Build full-stack agentic systems using pre-configured codebases, including infrastructure setup.
-  </Card>
-</CardGroup>
-
-## Getting help
-
-Come chat with us on [discord](https://discord.gg/phidata) or post your questions on the [community forum](https://community.phidata.com).
-
-## Looking for dedicated support?
-
-We've helped many companies build AI products, the general workflow is:
-
-1. **Build agents** to perform tasks specific to your product.
-2. **Serve your agents** via an API and connect them to your product.
-3. **Monitor, evaluate and improve** your AI product.
-
-We provide dedicated support and development, [book a call](https://cal.com/phidata/intro) to get started.
+- Chat with your Agents using a beautiful [Agent UI](/agent-ui).
+- Learn how to [monitor and debug](/monitoring) your Agents.
+- For more advanced cases, build deterministic, stateful, multi-agent [workflows](/workflows).

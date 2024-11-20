@@ -2,16 +2,16 @@
 title: Data Analyst
 ---
 
-```python data-analyst.py
 
+Create a file `data_analyst.py` with the following code:
+
+```python data_analyst.py
 import json
-
 from phi.model.openai import OpenAIChat
 from phi.agent.duckdb import DuckDbAgent
 
 data_analyst = DuckDbAgent(
     model=OpenAIChat(model="gpt-4o"),
-    markdown=True,
     semantic_model=json.dumps(
         {
             "tables": [
@@ -21,9 +21,9 @@ data_analyst = DuckDbAgent(
                     "path": "https://phidata-public.s3.amazonaws.com/demo_data/IMDB-Movie-Data.csv",
                 }
             ]
-        },
-        indent=2,
+        }
     ),
+    markdown=True,
 )
 data_analyst.print_response(
     "Show me a histogram of ratings. "
@@ -31,7 +31,6 @@ data_analyst.print_response(
     "Show me the result as a pretty ascii diagram",
     stream=True,
 )
-
 ```
 
 ## Usage
@@ -40,31 +39,15 @@ data_analyst.print_response(
   <Snippet file="create-venv-step.mdx" />
 
   <Step title="Install libraries">
-
     ```bash
-    pip install duckdb phidata
+    pip install openai duckdb phidata
     ```
-
   </Step>
 
   <Step title="Run the agent">
-
-    <CodeGroup>
-
-    ```bash Mac
-    python cookbook/agents/10_data_analyst.py
+    ```bash
+    python data_analyst.py
     ```
-
-    ```bash Windows
-    python cookbook/agents/10_data_analyst.py
-    ```
-
-    </CodeGroup>
-
   </Step>
 
 </Steps>
-
-## Information
-
-- View on [Github](https://github.com/phidatahq/phidata/tree/main/cookbook/agents/10_data_analyst.py)
