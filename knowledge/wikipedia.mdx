@@ -48,10 +48,11 @@ agent.print_response("Ask me about something from the knowledge base")
 
 ## Params
 
-| Parameter       | Type              | Default | Description                                                                                           |
-| --------------- | ----------------- | ------- | ----------------------------------------------------------------------------------------------------- |
-| `topics`        | `List[str]`       | -       | Topics to read                                                                                        |
-| `vector_db`     | `VectorDb`        | -       | Vector Database for the Knowledge Base.                                                               |
-| `reader`        | `WikipediaReader` | -       | A `WikipediaReader` that reads the topics and converts them into `Documents` for the vector database. |
-| `num_documents` | `int`             | `5`     | Number of documents to return on search.                                                              |
-| `optimize_on`   | `int`             | -       | Number of documents to optimize the vector db on.                                                     |
+| Parameter           | Type               | Default           | Description                                                                                  |
+| ------------------- | ------------------ | ----------------- | -------------------------------------------------------------------------------------------- |
+| `topics`            | `List[str]`        | -                 | Topics to read                                                                               |
+| `vector_db`         | `VectorDb`         | -                 | Vector Database for the Knowledge Base.                                                      |
+| `reader`            | `Reader`           | -                 | A `Reader` that reads the topics and converts them into `Documents` for the vector database. |
+| `num_documents`     | `int`              | `5`               | Number of documents to return on search.                                                     |
+| `optimize_on`       | `int`              | -                 | Number of documents to optimize the vector db on.                                            |
+| `chunking_strategy` | `ChunkingStrategy` | `CharacterChunks` | The chunking strategy to use.                                                                |
