@@ -517,7 +517,8 @@
       "pages": [
         "faq/could-not-connect-to-docker",
         "faq/environment_variables",
-        "faq/phi-auth"
+        "faq/phi-auth",
+        "faq/connecting-to-tableplus"
       ]
     }
   ],
