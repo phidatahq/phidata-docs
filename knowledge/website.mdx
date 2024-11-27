@@ -40,22 +40,23 @@ from phi.agent import Agent
 from knowledge_base import knowledge_base
 
 agent = Agent(
-    knowledge_base=knowledge_base,
-    add_references_to_prompt=True,
+    knowledge=knowledge_base,
+    search_knowledge=True,
 )
-agent.knowledge_base.load(recreate=False)
+agent.knowledge.load(recreate=False)
 
 agent.print_response("Ask me about something from the knowledge base")
 ```
 
 ## Params
 
-| Parameter | Type | Default | Description |
-|-----------|------|---------|-------------|
-| `urls` | `List[str]` | - | URLs to read |
-| `max_depth` | `int` | `3` | Maximum depth to crawl. |
-| `max_links` | `int` | `10` | Number of links to crawl. |
-| `vector_db` | `VectorDb` | - | Vector Database for the Knowledge Base. |
-| `reader` | `WebsiteReader` | - | A `WebsiteReader` that reads the urls and converts them into `Documents` for the vector database. |
-| `num_documents` | `int` | `5` | Number of documents to return on search.|
-| `optimize_on` | `int` | - | Number of documents to optimize the vector db on. |
+| Parameter           | Type               | Default           | Description                                                                                       |
+| ------------------- | ------------------ | ----------------- | ------------------------------------------------------------------------------------------------- |
+| `urls`              | `List[str]`        | -                 | URLs to read                                                                                      |
+| `reader`            | `WebsiteReader`    | -                 | A `WebsiteReader` that reads the urls and converts them into `Documents` for the vector database. |
+| `max_depth`         | `int`              | `3`               | Maximum depth to crawl.                                                                           |
+| `max_links`         | `int`              | `10`              | Number of links to crawl.                                                                         |
+| `vector_db`         | `VectorDb`         | -                 | Vector Database for the Knowledge Base.                                                           |
+| `num_documents`     | `int`              | `5`               | Number of documents to return on search.                                                          |
+| `optimize_on`       | `int`              | -                 | Number of documents to optimize the vector db on.                                                 |
+| `chunking_strategy` | `ChunkingStrategy` | `CharacterChunks` | The chunking strategy to use.                                                                     |
