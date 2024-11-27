@@ -1,0 +1,38 @@
+---
+title: SentenceTransformers Embedder
+sidebarTitle: SentenceTransformers
+---
+
+The `SentenceTransformerEmbedder` class is used to embed text data into vectors using the [SentenceTransformers](https://www.sbert.net/) library.
+
+## Usage
+
+```python cookbook/embedders/sentence_transformer_embedder.py
+from phi.agent import AgentKnowledge
+from phi.vectordb.pgvector import PgVector
+from phi.embedder.sentence_transformer import SentenceTransformerEmbedder
+
+embeddings = SentenceTransformerEmbedder().get_embedding("The quick brown fox jumps over the lazy dog.")
+
+# Print the embeddings and their dimensions
+print(f"Embeddings: {embeddings[:5]}")
+print(f"Dimensions: {len(embeddings)}")
+
+# Example usage:
+knowledge_base = AgentKnowledge(
+    vector_db=PgVector(
+        db_url="postgresql+psycopg://ai:ai@localhost:5532/ai",
+        table_name="sentence_transformer_embeddings",
+        embedder=SentenceTransformerEmbedder(),
+    ),
+    num_documents=2,
+)
+```
+
+## Params
+
+| Parameter                     | Type               | Default             | Description                                                  |
+| ----------------------------- | ------------------ | ------------------- | ------------------------------------------------------------ |
+| `dimensions`                  | `int`              | -                   | The dimensionality of the generated embeddings               |
+| `model`                       | `str`              | `all-mpnet-base-v2` | The name of the SentenceTransformers model to use            |
+| `sentence_transformer_client` | `Optional[Client]` | -                   | Optional pre-configured SentenceTransformers client instance |

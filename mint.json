@@ -226,12 +226,16 @@
           "pages": [
             "embedder/introduction",
             "embedder/openai",
+            "embedder/gemini",
             "embedder/ollama",
             "embedder/voyageai",
             "embedder/azure_openai",
             "embedder/mistral",
             "embedder/fireworks",
-            "embedder/together"
+            "embedder/together",
+            "embedder/huggingface",
+            "embedder/qdrant_fastembed",
+            "embedder/sentencetransformers"
           ]
         },
         {
