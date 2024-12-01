@@ -22,7 +22,7 @@ setx SAMBANOVA_API_KEY ***
 
 ## Example
 
-Use `Sambanova` with your `Agent`: 
+Use `Sambanova` with your `Agent`:
 
 <CodeGroup>
 
@@ -45,12 +45,6 @@ agent.print_response("Share a 2 sentence horror story.")
 
 ## Params
 
-| Parameter | Type | Default | Description |
-|-----------|------|---------|-------------|
-| `id` | `str` | `"Meta-Llama-3.1-8B-Instruct"` | The specific model ID used for generating responses. |
-| `name` | `str` | `"Sambanova"` | The name identifier for the Sambanova model. |
-| `provider` | `str` | `"Sambanova"` | The provider of the model. |
-| `api_key` | `Optional[str]` | - | The API key used for authenticating requests to the Sambanova service. Retrieved from the environment variable `SAMBANOVA_API_KEY`. |
-| `base_url` | `str` | `"https://api.sambanova.ai/v1"` | The base URL for making API requests to the Sambanova service. |
+<Snippet file="model-sambanova-params.mdx" />
 
-Sambanova also supports all the params of [OpenAI](/models/openai).
+Sambanova also supports the params of [OpenAI](/models/openai).
