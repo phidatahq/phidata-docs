@@ -7,7 +7,6 @@ title: Fireworks
 <CodeGroup>
 
 ```python agent.py
-"""Run `pip install yfinance` to install dependencies."""
 
 from phi.agent import Agent
 from phi.model.fireworks import Fireworks
@@ -20,24 +19,14 @@ agent = Agent(
     markdown=True,
 )
 
-# Print the response in the terminal
 agent.print_response("What is the stock price of NVDA and TSLA")
 
 ```
+
 </CodeGroup>
 
 ## Fireworks Params
 
-| Parameter | Type | Default | Description |
-| --------- | ---- | ------- | ----------- |
-| `id` | `str` | `"accounts/fireworks/models/firefunction-v2"` | The model ID to use |
-| `name` | `str` | `"Fireworks: " + id` | The name of the Fireworks LLM instance |
-| `provider` | `str` | `"Fireworks"` | The provider of the model |
-| `api_key` | `Optional[str]` | `None` | Your Fireworks API key (defaults to FIREWORKS_API_KEY environment variable) |
-| `base_url` | `str` | `"https://api.fireworks.ai/inference/v1"` | The base URL for Fireworks API |
+<Snippet file="model-fireworks-params.mdx" />
 
-## Model Params
-
-`Fireworks` is a subclass of the `Model` class and has access to the same params
-
-<Snippet file="model-base-reference.mdx" />
+`Fireworks` is a subclass of the [OpenAILike](/reference/model/openai-like) class and has access to the same params.

@@ -1,0 +1,8 @@
+| Parameter      | Type            | Default                                  | Description                                                                                       |
+| -------------- | --------------- | ---------------------------------------- | ------------------------------------------------------------------------------------------------- |
+| `id`           | `str`           | `"mistralai/Mixtral-8x7B-Instruct-v0.1"` | The id of the Together model to use.                                                              |
+| `name`         | `str`           | `"Together"`                             | The name of this chat model instance.                                                             |
+| `provider`     | `str`           | `"Together " + id`                       | The provider of the model.                                                                        |
+| `api_key`      | `Optional[str]` | `None`                                   | The API key to authorize requests to Together. Defaults to environment variable TOGETHER_API_KEY. |
+| `base_url`     | `str`           | `"https://api.together.xyz/v1"`          | The base URL for API requests.                                                                    |
+| `monkey_patch` | `bool`          | `False`                                  | Whether to apply monkey patching.                                                                 |
