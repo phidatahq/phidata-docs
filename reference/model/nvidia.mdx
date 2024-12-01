@@ -1,0 +1,24 @@
+---
+title: Nvidia
+---
+
+## Example
+
+<CodeGroup>
+
+```python agent.py
+from phi.agent import Agent
+from phi.model.nvidia import Nvidia
+
+agent = Agent(model=Nvidia(id="nvidia/llama-3.1-nemotron-70b-instruct"), markdown=True)
+
+agent.print_response("Share a 2 sentence horror story")
+```
+
+</CodeGroup>
+
+## Nvidia Params
+
+<Snippet file="model-nvda-params.mdx" />
+
+`Nvidia` is a subclass of the [OpenAILike](/reference/model/openai-like) class and has access to the same params.
