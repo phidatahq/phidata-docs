@@ -61,6 +61,14 @@
       "url": "templates"
     },
     {
+      "name": "Changelog",
+      "url": "changelog"
+    },
+    {
+      "name": "Product Updates",
+      "url": "changelog/overview"
+    },
+    {
       "name": "Reference",
       "url": "reference"
     },
@@ -515,6 +523,10 @@
           ]
         }
       ]
+    },
+    {
+      "group": "Changelog",
+      "pages": ["changelog/overview"]
     },
     {
       "group": "FAQs",
