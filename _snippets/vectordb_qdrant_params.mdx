@@ -1,0 +1,16 @@
+| Name          | Type              | Default            | Description                                  |
+| ------------- | ----------------- | ------------------ | -------------------------------------------- |
+| `collection`  | `str`             | -                  | Name of the Qdrant collection                |
+| `embedder`    | `Embedder`        | `OpenAIEmbedder()` | Embedder for embedding the document contents |
+| `distance`    | `Distance`        | `Distance.cosine`  | Distance metric for similarity search        |
+| `location`    | `Optional[str]`   | `None`             | Location of the Qdrant database              |
+| `url`         | `Optional[str]`   | `None`             | URL of the Qdrant server                     |
+| `port`        | `Optional[int]`   | `6333`             | Port number for the Qdrant server            |
+| `grpc_port`   | `int`             | `6334`             | gRPC port number for the Qdrant server       |
+| `prefer_grpc` | `bool`            | `False`            | Whether to prefer gRPC over HTTP             |
+| `https`       | `Optional[bool]`  | `None`             | Whether to use HTTPS                         |
+| `api_key`     | `Optional[str]`   | `None`             | API key for authentication                   |
+| `prefix`      | `Optional[str]`   | `None`             | Prefix for the Qdrant API                    |
+| `timeout`     | `Optional[float]` | `None`             | Timeout for Qdrant operations                |
+| `host`        | `Optional[str]`   | `None`             | Host address for the Qdrant server           |
+| `path`        | `Optional[str]`   | `None`             | Path to the Qdrant database                  |

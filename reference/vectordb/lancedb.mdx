@@ -3,6 +3,7 @@ title: LanceDb
 ---
 
 <CodeGroup>
+
 ```python agent.py
 import typer
 from rich.prompt import Prompt
@@ -13,19 +14,19 @@ from phi.knowledge.pdf import PDFUrlKnowledgeBase
 from phi.vectordb.lancedb import LanceDb
 
 # type: ignore
+
 db_url = "/tmp/lancedb"
 
 knowledge_base = PDFUrlKnowledgeBase(
-    urls=["https://phi-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"],
-    vector_db=LanceDb(table_name="recipes", uri=db_url),
+urls=["https://phi-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"],
+vector_db=LanceDb(table_name="recipes", uri=db_url),
 )
 
 # Comment out after first run
+
 knowledge_base.load(recreate=False)
-
-
 def pdf_agent(user: str = "user"):
-    run_id: Optional[str] = None
+run_id: Optional[str] = None
 
     agent = Agent(
         run_id=run_id,
@@ -48,25 +49,12 @@ def pdf_agent(user: str = "user"):
             break
         agent.print_response(message)
 
-
 if __name__ == "__main__":
     typer.run(pdf_agent)
-
 ```
+
 </CodeGroup>
 
 ## LanceDb Params
 
-| Parameter | Type | Default | Description |
-| --- | --- | --- | --- |
-| `uri` | `lancedb.URI` | `/tmp/lancedb` | URI for LanceDB connection |
-| `table` | `Optional[lancedb.db.LanceTable]` | `None` | LanceDB table instance |
-| `table_name` | `Optional[str]` | `None` | Name of the LanceDB table |
-| `connection` | `Optional[lancedb.DBConnection]` | `None` | LanceDB connection instance |
-| `api_key` | `Optional[str]` | `None` | API key for LanceDB connection |
-| `embedder` | `Optional[Embedder]` | `OpenAIEmbedder()` | Embedder for embedding document contents |
-| `search_type` | `SearchType` | `SearchType.vector` | Type of search to perform |
-| `distance` | `Distance` | `Distance.cosine` | Distance metric for similarity search |
-| `nprobes` | `Optional[int]` | `None` | Number of probes for approximate search |
-| `reranker` | `Optional[Reranker]` | `None` | Reranker for search results |
-| `use_tantivy` | `bool` | `True` | Whether to use Tantivy for full-text search |
+<Snippet file="vectordb_lancedb_params.mdx" />

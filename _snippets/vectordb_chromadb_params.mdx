@@ -1,0 +1,7 @@
+| Parameter           | Type       | Default          | Description                                          |
+| ------------------- | ---------- | ---------------- | ---------------------------------------------------- |
+| `collection`        | `str`      | -                | The name of the collection to use.                   |
+| `embedder`          | `Embedder` | OpenAIEmbedder() | The embedder to use for embedding document contents. |
+| `distance`          | `Distance` | cosine           | The distance metric to use.                          |
+| `path`              | `str`      | "tmp/chromadb"   | The path where ChromaDB data will be stored.         |
+| `persistent_client` | `bool`     | False            | Whether to use a persistent ChromaDB client.         |
