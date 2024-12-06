@@ -1,23 +1,35 @@
 ---
-title: "Product Updates"
+title: "Playground and SDK updates"
 mode: "wide"
 ---
 
-<Update label="2024-12-05" description="v2.6.0">
+<Update label="2024-12-06" description="v2.6.0">
 ## Enhanced Agent Visibility, RAG Improvements, and Workflow Tools
 This update introduces exciting new features, performance enhancements, and crucial fixes to ensure better usability and functionality.
 
+### Highlights
+
+- **Multimodal Agents**: Agents now natively support image and audio with video coming soon.
+- **Agentic Workflows are now generally available**: Build deterministic multi-agent pipelines using Workflows.
+- **Agent can share state between tool calls**: New session_state variable allows Agents to maintain and share state across function calls.
+- **Agents in teams can respond directly to the user**: now responses of team members do not need to go through the team leader.
+- **Context Injection**: Agents can be provided context that is resolved in real-time during execution.
+- **Human-in-the-loop**: Tool calls can now be confirmed (or approved) before being executed.
+- **Advanced chunking**: Support for Semantic and Agentic chunking (and more).
+
 ### New Features
 
-- **Playground Reasoning**: Provides users with insights into the agent's thought process and decision-making, offering a behind-the-scenes look at how the agent operates within the Playground.
-- **Tool Call Details**: Display tool call results and metrics on hover within the Playground.
+- **Show Reasoning in the Playground**: Provides users with insights into the agent's thought process and decision-making, offering a behind-the-scenes look at how the agent operates within the Playground.
+- **Show Tool Call in the Playground**: Display tool call results and metrics on hover within the Playground.
 - **Sessions Page Enhancements**: Added context, reasoning, and tools integration to the Sessions page.
-- **Delete Endpoint for Playground**: Introduced the ability to delete endpoints directly within the Playground.
-- **Playground Context Component**: Added a context component in the Playground so the user sees the source of the information.
+- **Delete Custom Endpoint for Playground**: Introduced the ability to delete endpoints directly within the Playground.
+- **Show References in the Playground**: You can now view the sources used for RAG.
 - **Chunking Strategies in RAG**: Introduced five levels of chunking strategies in RAG: Semantic Chunking, Fixed Chunking, Agentic Chunking, Document Chunking, and Recursive Chunking.
 - **Unified Reranker for Vector Databases**: Implemented a unified reranking feature across various vector databases, including LanceDB, with support for CohereReranker.
 - **Milvus Vector Database Integration**: Added support for Milvus as a vector database option.
-- **Agent Workflow Playground**: Introduced a playground environment for developing and testing agent workflows.
+- **Support for Multi-Modalities**: Added support for processing audio, video, and image data to enhance agent capabilities.
+- **Context Injection**: Improved context handling to enhance agent responses and usability.
+- **Pre-hook and post-hook for function calls**: enabling users to validate arguments, add human-in-the-loop flows and validate results of tool calls.
 
 ### Improvements
 
@@ -27,11 +39,16 @@ This update introduces exciting new features, performance enhancements, and cruc
 - **Logging Updates for Gemini**: Enhanced logging functionality for Gemini models.
 - **Ollama LLM Class Updates**: Resolved issues in tool calling to improve usage reliability.
 - **Product Manager Agent Workflow Example**: Added a new example to demonstrate the practical use and capabilities of workflow.
+- **Dynamic Prompt**: System prompt, user prompt and instructions can now be passed as functions resolved during run-time.
 
 ### Bug Fixes
 
 - **Session Read-All Fix**: Fixed an issue where titles were not created when users provided a list of messages instead of a single message.
 - **Ollama Tool Response Issue**: Addressed inconsistencies where Ollama tools always returned empty responses.
+
+### Breaking Changes
+
+- **`Agent.add_context` is now `Agent.add_references`** as the context terminology is now used for context injection. Similarly, `context_format` is now `references_format`.
 
 </Update>
 
