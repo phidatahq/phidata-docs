@@ -3,6 +3,38 @@ title: "Product Updates"
 mode: "wide"
 ---
 
+<Update label="2024-12-05" description="v2.6.0">
+## Enhanced Agent Visibility, RAG Improvements, and Workflow Tools
+This update introduces exciting new features, performance enhancements, and crucial fixes to ensure better usability and functionality.
+
+### New Features
+
+- **Playground Reasoning**: Provides users with insights into the agent's thought process and decision-making, offering a behind-the-scenes look at how the agent operates within the Playground.
+- **Tool Call Details**: Display tool call results and metrics on hover within the Playground.
+- **Sessions Page Enhancements**: Added context, reasoning, and tools integration to the Sessions page.
+- **Delete Endpoint for Playground**: Introduced the ability to delete endpoints directly within the Playground.
+- **Playground Context Component**: Added a context component in the Playground so the user sees the source of the information.
+- **Chunking Strategies in RAG**: Introduced five levels of chunking strategies in RAG: Semantic Chunking, Fixed Chunking, Agentic Chunking, Document Chunking, and Recursive Chunking.
+- **Unified Reranker for Vector Databases**: Implemented a unified reranking feature across various vector databases, including LanceDB, with support for CohereReranker.
+- **Milvus Vector Database Integration**: Added support for Milvus as a vector database option.
+- **Agent Workflow Playground**: Introduced a playground environment for developing and testing agent workflows.
+
+### Improvements
+
+- **Duplicate Endpoint Prevention**: Enhanced endpoint creation logic to prevent duplicates.
+- **Workflow Session Logging**: Improved logging mechanisms for workflow sessions.
+- **Ollama Tool Call Streaming**: Updated the Ollama tool to improve call streaming capabilities.
+- **Logging Updates for Gemini**: Enhanced logging functionality for Gemini models.
+- **Ollama LLM Class Updates**: Resolved issues in tool calling to improve usage reliability.
+- **Product Manager Agent Workflow Example**: Added a new example to demonstrate the practical use and capabilities of workflow.
+
+### Bug Fixes
+
+- **Session Read-All Fix**: Fixed an issue where titles were not created when users provided a list of messages instead of a single message.
+- **Ollama Tool Response Issue**: Addressed inconsistencies where Ollama tools always returned empty responses.
+
+</Update>
+
 <Update label="2024-12-03" description="v2.5.34">
 
 ## New Integrations
