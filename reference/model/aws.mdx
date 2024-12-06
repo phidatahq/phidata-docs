@@ -6,7 +6,6 @@ sidebarTitle: AWS Bedrock
 <CodeGroup>
 
 ```python agent.py
-"""Run `pip install yfinance` to install dependencies."""
 
 from phi.agent import Agent
 from phi.model.aws.claude import Claude
@@ -20,24 +19,13 @@ agent = Agent(
     debug_mode=True,
 )
 
-# Print the response in the terminal
 agent.print_response("What is the stock price of NVDA and TSLA")
 ```
+
 </CodeGroup>
 
 ## AWS Bedrock Params
 
-| Parameter | Type | Default | Description |
-|-----------|------|---------|-------------|
-| `name` | `str` | `"AwsBedrock"` | Name of the AWS Bedrock model |
-| `model` | `str` | `"anthropic.claude-v2"` | The specific model to use from AWS Bedrock |
-| `aws_region` | `Optional[str]` | `None` | The AWS region to use |
-| `aws_profile` | `Optional[str]` | `None` | The AWS profile to use |
-| `aws_client` | `Optional[AwsApiClient]` | `None` | The AWS client to use |
-| `request_params` | `Optional[Dict[str, Any]]` | `None` | The request parameters to use |
+<Snippet file="model-aws-params.mdx" />
 
-## Model Params
-
-`AwsBedrock` is a subclass of the `Model` class and has access to the same params
-
-<Snippet file="model-base-reference.mdx" />
+`AwsBedrock` is a subclass of the [Model](/reference/model/base) class and has access to the same params.

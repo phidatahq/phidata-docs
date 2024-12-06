@@ -1,0 +1,7 @@
+| Parameter  | Type            | Default                                    | Description                                                                                                              |
+| ---------- | --------------- | ------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ |
+| `id`       | `str`           | `"nvidia/llama-3.1-nemotron-70b-instruct"` | The specific model ID used for generating responses.                                                                     |
+| `name`     | `str`           | `"Nvidia"`                                 | The name identifier for the Nvidia agent.                                                                                |
+| `provider` | `str`           | -                                          | The provider of the model, combining "Nvidia" with the model ID.                                                         |
+| `api_key`  | `Optional[str]` | -                                          | The API key for authenticating requests to the Nvidia service. Retrieved from the environment variable `NVIDIA_API_KEY`. |
+| `base_url` | `str`           | `"https://integrate.api.nvidia.com/v1"`    | The base URL for making API requests to the Nvidia service.                                                              |

@@ -1,38 +1,39 @@
 ---
-title: Cohere
+title: Gemini - AI Studio
 ---
 
-Leverage Cohere's powerful command models and more.
+Use Google's AI Studio to access the Gemini and Gemma models.
 
 ## Authentication
 
-Set your `CO_API_KEY` environment variable. Get your key from [here](https://dashboard.cohere.com/api-keys).
+Set your `GOOGLE_API_KEY` environment variable. You can get one [from Google here](https://ai.google.dev/aistudio).
 
 <CodeGroup>
 
 ```bash Mac
-export CO_API_KEY=***
+export GOOGLE_API_KEY=***
 ```
 
 ```bash Windows
-setx CO_API_KEY ***
+setx GOOGLE_API_KEY ***
 ```
 
 </CodeGroup>
 
 ## Example
 
-Use `CohereChat` with your `Agent`:
+Use `Gemini` with your `Agent`:
 
 <CodeGroup>
 
 ```python agent.py
+
 from phi.agent import Agent, RunResponse
-from phi.model.cohere import CohereChat
+from phi.model.google import Gemini
 
 agent = Agent(
-    model=CohereChat(id="command-r-08-2024"),
-    markdown=True
+    model=Gemini(id="gemini-1.5-flash"),
+    markdown=True,
 )
 
 # Get the response in a variable
@@ -41,11 +42,10 @@ agent = Agent(
 
 # Print the response in the terminal
 agent.print_response("Share a 2 sentence horror story.")
-
 ```
 
 </CodeGroup>
 
 ## Params
 
-<Snippet file="model-cohere-params.mdx" />
+<Snippet file="model-google-params.mdx" />

@@ -1,0 +1,10 @@
+| Parameter                 | Type                                  | Default              | Description                                                                                            |
+| ------------------------- | ------------------------------------- | -------------------- | ------------------------------------------------------------------------------------------------------ |
+| `id`                      | `str`                                 | `"gemini-1.5-flash"` | The specific model ID used for generating responses.                                                   |
+| `name`                    | `str`                                 | `"Gemini"`           | The name identifier for the agent.                                                                     |
+| `provider`                | `str`                                 | `"VertexAI"`         | The provider of the model.                                                                             |
+| `function_declarations`   | `Optional[List[FunctionDeclaration]]` | -                    | A list of function declarations that the model can utilize during the response generation process.     |
+| `generation_config`       | `Optional[Any]`                       | -                    | Configuration settings for the generation process, such as parameters for controlling output behavior. |
+| `safety_settings`         | `Optional[Any]`                       | -                    | Settings related to safety measures, ensuring the generation of appropriate and safe content.          |
+| `generative_model_kwargs` | `Optional[Dict[str, Any]]`            | -                    | Additional keyword arguments for the generative model.                                                 |
+| `client`                  | `Optional[GenerativeModel]`           | -                    | A pre-configured instance of the Gemini client.                                                        |

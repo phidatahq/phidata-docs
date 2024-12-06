@@ -1,5 +1,5 @@
 ---
-title: Together
+title: Gemini - VertexAI
 ---
 
 ## Example
@@ -8,11 +8,11 @@ title: Together
 
 ```python agent.py
 from phi.agent import Agent
-from phi.model.together import Together
+from phi.model.vertexai import Gemini
 from phi.tools.yfinance import YFinanceTools
 
 agent = Agent(
-    model=Together(id="meta-llama/Meta-Llama-3.1-8B-Instruct-Turbo"),
+    model=Gemini(id="gemini-1.5-flash"),
     tools=[YFinanceTools(stock_price=True)],
     show_tool_calls=True,
     markdown=True,
@@ -23,8 +23,8 @@ agent.print_response("What is the stock price of NVDA and TSLA")
 
 </CodeGroup>
 
-## Together Params
+## Gemini Params
 
-<Snippet file="model-together-params.mdx" />
+<Snippet file="model-vertexai-params.mdx" />
 
-`Together` is a subclass of the [OpenAILike](/reference/model/openai-like) class and has access to the same params.
+`VertexAI` is a subclass of the [Model](/reference/model/base) class and has access to the same params.

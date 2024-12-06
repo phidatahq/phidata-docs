@@ -48,13 +48,6 @@ agent.print_response("Share a 2 sentence horror story.")
 
 ## Params
 
-| Parameter | Type | Default | Description |
-|-----------|------|---------|-------------|
-| `id` | `str` | `"gpt-4o"` | The specific model ID used for generating responses. |
-| `name` | `str` | `"OpenRouter"` | The name identifier for the OpenRouter agent. |
-| `provider` | `str` | - | The provider of the model, combining "OpenRouter" with the model ID. |
-| `api_key` | `Optional[str]` | - | The API key for authenticating requests to the OpenRouter service. Retrieved from the environment variable `OPENROUTER_API_KEY`. |
-| `base_url` | `str` | `"https://openrouter.ai/api/v1"` | The base URL for making API requests to the OpenRouter service. |
-| `max_tokens` | `int` | `1024` | The maximum number of tokens to generate in the response. |
+<Snippet file="model-openrouter-params.mdx" />
 
-OpenRouter also supports all the params of [OpenAI](/models/openai).
+OpenRouter also supports the params of [OpenAI](/models/openai).

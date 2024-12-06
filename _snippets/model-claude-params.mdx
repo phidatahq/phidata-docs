@@ -1,0 +1,14 @@
+| Parameter        | Type                        | Default                        | Description                                                     |
+| ---------------- | --------------------------- | ------------------------------ | --------------------------------------------------------------- |
+| `id`             | `str`                       | `"claude-3-5-sonnet-20240620"` | The id of the Anthropic Claude model to use                     |
+| `name`           | `str`                       | `"Claude"`                     | The name of the model                                           |
+| `provider`       | `str`                       | `"Anthropic"`                  | The provider of the model                                       |
+| `max_tokens`     | `Optional[int]`             | `1024`                         | Maximum number of tokens to generate in the chat completion     |
+| `temperature`    | `Optional[float]`           | `None`                         | Controls randomness in the model's output                       |
+| `stop_sequences` | `Optional[List[str]]`       | `None`                         | A list of strings that the model should stop generating text at |
+| `top_p`          | `Optional[float]`           | `None`                         | Controls diversity via nucleus sampling                         |
+| `top_k`          | `Optional[int]`             | `None`                         | Controls diversity via top-k sampling                           |
+| `request_params` | `Optional[Dict[str, Any]]`  | `None`                         | Additional parameters to include in the request                 |
+| `api_key`        | `Optional[str]`             | `None`                         | The API key for authenticating with Anthropic                   |
+| `client_params`  | `Optional[Dict[str, Any]]`  | `None`                         | Additional parameters for client configuration                  |
+| `client`         | `Optional[AnthropicClient]` | `None`                         | A pre-configured instance of the Anthropic client               |

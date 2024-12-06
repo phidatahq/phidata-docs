@@ -1,0 +1,31 @@
+---
+title: xAI
+---
+
+## Example
+
+<CodeGroup>
+
+```python agent.py
+from phi.agent import Agent
+from phi.model.xai import xAI
+from phi.tools.yfinance import YFinanceTools
+
+agent = Agent(
+    model=xAI(id="grok-beta"),
+    tools=[YFinanceTools(stock_price=True, analyst_recommendations=True, stock_fundamentals=True)],
+    instructions=["Use tables to display data."],
+    show_tool_calls=True,
+    markdown=True,
+)
+
+agent.print_response("What is the stock price of NVDA and TSLA")
+```
+
+</CodeGroup>
+
+## xAI Params
+
+<Snippet file="model-xai-params.mdx" />
+
+`xAI` is a subclass of the [OpenAILike](/reference/model/openai-like) class and has access to the same params.

@@ -1,0 +1,7 @@
+| Parameter  | Type            | Default                    | Description                                                                                                        |
+| ---------- | --------------- | -------------------------- | ------------------------------------------------------------------------------------------------------------------ |
+| `id`       | `str`           | `"grok-beta"`              | The specific model ID used for generating responses.                                                               |
+| `name`     | `str`           | `"xAI"`                    | The name identifier for the xAI agent.                                                                             |
+| `provider` | `str`           | `"xAI"`                    | The provider of the model, combining "xAI" with the model ID.                                                      |
+| `api_key`  | `Optional[str]` | -                          | The API key for authenticating requests to the xAI service. Retrieved from the environment variable `XAI_API_KEY`. |
+| `base_url` | `str`           | `"https://api.xai.xyz/v1"` | The base URL for making API requests to the xAI service.                                                           |

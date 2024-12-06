@@ -1,0 +1,14 @@
+| Parameter        | Type                          | Default             | Description                                                  |
+| ---------------- | ----------------------------- | ------------------- | ------------------------------------------------------------ |
+| `id`             | `str`                         | `"llama3.2"`        | The ID of the model to use.                                  |
+| `name`           | `str`                         | `"Ollama"`          | The name of the model.                                       |
+| `provider`       | `str`                         | `"Ollama llama3.2"` | The provider of the model.                                   |
+| `format`         | `Optional[str]`               | `None`              | The format of the response.                                  |
+| `options`        | `Optional[Any]`               | `None`              | Additional options to pass to the model.                     |
+| `keep_alive`     | `Optional[Union[float, str]]` | `None`              | The keep alive time for the model.                           |
+| `request_params` | `Optional[Dict[str, Any]]`    | `None`              | Additional parameters to pass to the request.                |
+| `host`           | `Optional[str]`               | `None`              | The host to connect to.                                      |
+| `timeout`        | `Optional[Any]`               | `None`              | The timeout for the connection.                              |
+| `client_params`  | `Optional[Dict[str, Any]]`    | `None`              | Additional parameters to pass to the client.                 |
+| `client`         | `Optional[OllamaClient]`      | `None`              | A pre-configured instance of the Ollama client.              |
+| `async_client`   | `Optional[AsyncOllamaClient]` | `None`              | A pre-configured instance of the asynchronous Ollama client. |
