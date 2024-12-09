@@ -272,7 +272,8 @@
             "examples/agents/data-analyst",
             "examples/agents/structured-output",
             "examples/agents/python-function-agent",
-            "examples/agents/vision-agent"
+            "examples/agents/image-agent",
+            "examples/agents/generate-image-agent"
           ]
         },
         {
