@@ -141,6 +141,7 @@
             "tools/airflow",
             "tools/apify",
             "tools/arxiv",
+            "tools/baidu",
             "tools/aws_lambda",
             "tools/calculator",
             "tools/composio",
