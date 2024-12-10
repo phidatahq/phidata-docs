@@ -183,7 +183,8 @@
             "tools/yfinance",
             "tools/youtube",
             "tools/zendesk",
-            "tools/zoom"
+            "tools/zoom",
+            "tools/discord-tool"
           ]
         },
         {
