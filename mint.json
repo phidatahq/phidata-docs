@@ -79,14 +79,13 @@
   ],
   "navigation": [
     {
-      "group": "Introduction",
+      "group": "Getting Started",
       "pages": [
-        "agents",
+        "introduction",
         "agent-ui",
+        "more-examples",
         "monitoring",
         "workflows",
-        "templates",
-        "videos",
         "getting-help"
       ]
     },

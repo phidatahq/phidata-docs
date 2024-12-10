@@ -1,31 +1,35 @@
 ---
-title: Agents
-description: "**Agents are autonomous programs that complete tasks using language models.**"
+title: Introduction
+description: "**Phidata is a framework for building multi-modal agents.**"
 ---
-
-# What is phidata?
-
-**Phidata is a framework for building multi-modal agents**, use phidata to:
 
 - **Build multi-modal agents with memory, knowledge, tools and reasoning.**
 - **Build teams of agents that can work together to solve problems.**
 - **Chat with your agents using a beautiful Agent UI.**
-- **Monitor, evaluate and optimize your agents.**
-- **Build agentic systems i.e. applications with an API, database and vectordb.**
 
-# Key Features
+## Key Features
 
 - [Simple & Elegant](#simple-and-elegant)
 - [Powerful & Flexible](#powerful-and-flexible)
 - [Multi-Modal by default](#multi-modal-by-default)
 - [Multi-Agent orchestration](#multi-agent-orchestration)
-- [Agentic RAG built-in](#agentic-rag)
 - [A beautiful Agent UI to chat with your agents](/agent-ui)
-- [Structured Outputs](#structured-outputs)
+- [Agentic RAG built-in](/more-examples#agentic-rag)
+- [Structured outputs](/more-examples#structured-outputs)
+- [Reasoning built-in](/more-examples#reasoning-agent)
+- [Monitoring & Debugging built-in](/monitoring)
+
+## Install
+
+```shell
+pip install -U phidata
+```
 
 ## Simple & Elegant
 
-Phidata Agents are simple and elegant, resulting in minimal, beautiful code. For example, you can create a web search agent using 10 lines of code.
+Phidata Agents are simple and elegant, resulting in minimal, beautiful code.
+
+For example, you can create a web search agent in 10 lines of code.
 
 ```python web_search.py
 from phi.agent import Agent
@@ -40,10 +44,10 @@ web_agent = Agent(
     show_tool_calls=True,
     markdown=True,
 )
-web_agent.print_response("Whats happening in France?", stream=True)
+web_agent.print_response("Tell me about OpenAI Sora?", stream=True)
 ```
 
-### Setup & Install
+### Setup
 
 <Steps>
   <Step title="Setup your virtual environment">
@@ -103,7 +107,9 @@ web_agent.print_response("Whats happening in France?", stream=True)
 
 ## Powerful & Flexible
 
-Phidata agents can use multiple tools and follow instructions to achieve complex tasks. For example, you can create a finance agent that can query financial data.
+Phidata agents can use multiple tools and follow instructions to achieve complex tasks.
+
+For example, you can create a finance agent with tools to query financial data.
 
 <Steps>
   <Step title="Create a finance agent">
@@ -144,7 +150,9 @@ Phidata agents can use multiple tools and follow instructions to achieve complex
 
 ## Multi-Modal by default
 
-Phidata agents support text, images, audio and video. For example, you can create an image agent that can understand images and make tool calls as needed
+Phidata agents support text, images, audio and video.
+
+For example, you can create an image agent that can understand images and make tool calls as needed
 
 <Steps>
   <Step title="Create an image agent">
@@ -233,122 +241,8 @@ Phidata agents can work together as a team to achieve complex tasks.
   </Step>
 </Steps>
 
-<Tip>
-Agent teams are non-deterministic and are tricky to get right, we recommend using deterministic [workflows](/workflows) instead.
-</Tip>
-
-## Agentic RAG
-
-We were the first to pioneer Agentic RAG using our Auto-RAG paradigm. With Agentic RAG (or auto-rag), the Agent can search its knowledge base (vector db) for the specific information it needs to achieve its task, instead of always inserting the "context" into the prompt.
-
-This saves tokens and improves response quality.
-
-<Steps>
-  <Step title="Create a RAG agent">
-
-    ```python rag_agent.py
-    from phi.agent import Agent
-    from phi.model.openai import OpenAIChat
-    from phi.embedder.openai import OpenAIEmbedder
-    from phi.knowledge.pdf import PDFUrlKnowledgeBase
-    from phi.vectordb.lancedb import LanceDb, SearchType
-
-    # Create a knowledge base from a PDF
-    knowledge_base = PDFUrlKnowledgeBase(
-        urls=["https://phi-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"],
-        # Use LanceDB as the vector database
-        vector_db=LanceDb(
-            table_name="recipes",
-            uri="tmp/lancedb",
-            search_type=SearchType.vector,
-            embedder=OpenAIEmbedder(model="text-embedding-3-small"),
-        ),
-    )
-    # Comment out after first run as the knowledge base is loaded
-    knowledge_base.load()
-
-    agent = Agent(
-        model=OpenAIChat(id="gpt-4o"),
-        # Add the knowledge base to the agent
-        knowledge=knowledge_base,
-        show_tool_calls=True,
-        markdown=True,
-    )
-    agent.print_response("How do I make chicken and galangal in coconut milk soup", stream=True)
-    ```
-
-  </Step>
-  <Step title="Run the agent">
-
-    Install libraries
-
-    ```shell
-    pip install lancedb tantivy pypdf sqlalchemy
-    ```
-
-    Run the agent
-
-    ```shell
-    python rag_agent.py
-    ```
-
-  </Step>
-</Steps>
-
-## Structured Outputs
-
-Agents can return their output in a structured format as a Pydantic model.
-
-Create a file `structured_output.py`
-
-<Steps>
-  <Step title="Create a structured output agent">
-
-    ```python structured_output.py
-    from typing import List
-    from pydantic import BaseModel, Field
-    from phi.agent import Agent
-    from phi.model.openai import OpenAIChat
-
-    # Define a Pydantic model to enforce the structure of the output
-    class MovieScript(BaseModel):
-        setting: str = Field(..., description="Provide a nice setting for a blockbuster movie.")
-        ending: str = Field(..., description="Ending of the movie. If not available, provide a happy ending.")
-        genre: str = Field(..., description="Genre of the movie. If not available, select action, thriller or romantic comedy.")
-        name: str = Field(..., description="Give a name to this movie")
-        characters: List[str] = Field(..., description="Name of characters for this movie.")
-        storyline: str = Field(..., description="3 sentence storyline for the movie. Make it exciting!")
-
-    # Agent that uses JSON mode
-    json_mode_agent = Agent(
-        model=OpenAIChat(id="gpt-4o"),
-        description="You write movie scripts.",
-        response_model=MovieScript,
-    )
-    # Agent that uses structured outputs
-    structured_output_agent = Agent(
-        model=OpenAIChat(id="gpt-4o"),
-        description="You write movie scripts.",
-        response_model=MovieScript,
-        structured_outputs=True,
-    )
-
-    json_mode_agent.print_response("New York")
-    structured_output_agent.print_response("New York")
-    ```
-
-  </Step>
-  <Step title="Run the agent">
-
-    ```shell
-    python structured_output.py
-    ```
-
-  </Step>
-</Steps>
-
-## Next Steps
+## Continue reading
 
 - Chat with your Agents using a beautiful [Agent UI](/agent-ui).
-- Learn how to [monitor and debug](/monitoring) your Agents.
-- For more advanced cases, build deterministic, stateful, multi-agent [workflows](/workflows).
+- [More examples](/more-examples)
+- [Monitoring & Debugging](/monitoring)
