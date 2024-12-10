@@ -1,0 +1,66 @@
+```mdx
+---
+title: ModelsLabs Toolkit
+---
+
+**ModelsLabs** enables an Agent to interact with the ModelsLabs API to generate videos from text descriptions. This toolkit supports video generation, fetching, and checking for video availability.
+
+## Prerequisites
+
+The following example requires the `requests` library. Install it using:
+
+```shell
+pip install requests
+```
+
+## Example
+
+The following agent will generate a video from a text prompt and wait for its completion:
+
+```python cookbook/tools/models_labs_tools.py
+from phi.agent import Agent
+from phi.tools import ModelsLabs
+
+agent = Agent(tools=[ModelsLabs(api_key="your_api_key", wait_for_completion=True)], show_tool_calls=True, markdown=True)
+agent.print_response("Generate a video for a scenic sunset over the ocean.")
+```
+
+## Toolkit Params
+
+| Parameter               | Type      | Default          | Description                                                                 |
+|-------------------------|-----------|------------------|-----------------------------------------------------------------------------|
+| `api_key`               | `str`     | `None`           | API key for authentication with ModelsLabs.                                 |
+| `url`                   | `str`     | `"https://modelslab.com/api/v6/video/text2video"` | URL for the ModelsLabs video generation endpoint. |
+| `fetch_url`             | `str`     | `"https://modelslab.com/api/v6/video/fetch"` | URL to fetch the generated video. |
+| `wait_for_completion`   | `bool`    | `False`          | Flag to wait for the video to be ready before proceeding.                    |
+| `add_to_eta`            | `int`     | `15`             | Time to add to the estimated ETA for fetching the video.                     |
+| `max_wait_time`         | `int`     | `60`             | Maximum time to wait for the video to be ready.                              |
+
+## Toolkit Functions
+
+| Function                | Description                                                                 |
+|-------------------------|-----------------------------------------------------------------------------|
+| `generate_video`         | Generates a video from a given prompt and waits for its completion if specified. |
+
+### `generate_video` Function
+
+Generates a video based on a text prompt, optionally waiting for the video to be ready.
+
+#### Parameters
+
+| Parameter   | Type   | Description                                                  |
+|-------------|--------|--------------------------------------------------------------|
+| `prompt`    | `str`  | A text description of the desired video.                      |
+
+#### Example Usage
+
+```python
+models_labs_tool = ModelsLabs(api_key="your_api_key")
+response = models_labs_tool.generate_video(agent, prompt="A sunset over the ocean with waves crashing")
+print(response)
+```
+
+## Information
+
+- **View on GitHub**: [ModelsLabs Toolkit](https://github.com/phidatahq/phidata/blob/main/phi/tools/models_labs.py)
+```

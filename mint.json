@@ -145,6 +145,7 @@
             "tools/calculator",
             "tools/composio",
             "tools/crawl4ai",
+            "tools/modallabs",
             "tools/csv",
             "tools/dalle",
             "tools/duckdb",
