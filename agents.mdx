@@ -3,17 +3,39 @@ title: Agents
 description: "**Agents are autonomous programs that complete tasks using language models.**"
 ---
 
-## What is phidata?
+# What is phidata?
 
-**Phidata is a framework for building agentic systems**, engineers use phidata to:
+**Phidata is a framework for building multi-modal agents**, use phidata to:
 
-- **Build Agents with memory, knowledge, tools and reasoning.**
-- **Build teams of Agents that can work together.**
-- **Chat with Agents using a beautiful Agent UI.**
-- **Monitor, evaluate and optimize Agents.**
+- **Build multi-modal agents with memory, knowledge, tools and reasoning.**
+- **Build teams of agents that can work together to solve problems.**
+- **Chat with your agents using a beautiful Agent UI.**
+- **Monitor, evaluate and optimize your agents.**
 - **Build agentic systems i.e. applications with an API, database and vectordb.**
 
-## Let's build some agents
+# Examples & Key Features
+
+## Simple & Elegant
+
+Phidata Agents are simple and elegant, resulting in minimal, beautiful code. For example, you can create a web search agent using 10 lines of code.
+
+```python web_search.py
+from phi.agent import Agent
+from phi.model.openai import OpenAIChat
+from phi.tools.duckduckgo import DuckDuckGo
+
+web_agent = Agent(
+    name="Web Agent",
+    model=OpenAIChat(id="gpt-4o"),
+    tools=[DuckDuckGo()],
+    instructions=["Always include sources"],
+    show_tool_calls=True,
+    markdown=True,
+)
+web_agent.print_response("Whats happening in France?", stream=True)
+```
+
+### Lets run the agent
 
 <Steps>
   <Step title="Setup your virtual environment">
@@ -35,18 +57,18 @@ description: "**Agents are autonomous programs that complete tasks using languag
 
     <CodeGroup>
     ```bash Mac
-    pip install -U phidata openai
+    pip install -U phidata openai duckduckgo-search
     ```
 
     ```bash Windows
-    pip install -U phidata
+    pip install -U phidata openai duckduckgo-search
     ```
     </CodeGroup>
 
   </Step>
   <Step title="Export your OpenAI key">
 
-    Phidata works with every LLM but for these examples let's use OpenAI.
+    Phidata works with most model providers but for these examples let's use OpenAI.
 
     <CodeGroup>
     ```bash Mac
@@ -62,41 +84,7 @@ description: "**Agents are autonomous programs that complete tasks using languag
     You can get an API key from [here](https://platform.openai.com/account/api-keys).
     </Tip>
   </Step>
-</Steps>
-
-## Web Search Agent
-
-Let's build a simple agent that can search the web, create a file `web_search.py`
-
-<Steps>
-  <Step title="Create a web search agent">
-
-    ```python web_search.py
-    from phi.agent import Agent
-    from phi.model.openai import OpenAIChat
-    from phi.tools.duckduckgo import DuckDuckGo
-
-    web_agent = Agent(
-        name="Web Agent",
-        model=OpenAIChat(id="gpt-4o"),
-        tools=[DuckDuckGo()],
-        instructions=["Always include sources"],
-        show_tool_calls=True,
-        markdown=True,
-    )
-    web_agent.print_response("Whats happening in France?", stream=True)
-    ```
-
-  </Step>
   <Step title="Run the agent">
-
-    Install libraries
-
-    ```shell
-    pip install duckduckgo-search
-    ```
-
-    Run the agent
 
     ```shell
     python web_search.py
@@ -105,9 +93,9 @@ Let's build a simple agent that can search the web, create a file `web_search.py
   </Step>
 </Steps>
 
-## Financial Agent
+## Powerful & Flexible
 
-Lets create another agent that can query financial data, create a file `finance_agent.py`
+Phidata agents can use multiple tools and follow instructions to achieve complex tasks. For example, you can create a finance agent that can query financial data.
 
 <Steps>
   <Step title="Create a finance agent">
@@ -146,9 +134,47 @@ Lets create another agent that can query financial data, create a file `finance_
   </Step>
 </Steps>
 
-## Team of Agents
+## Multi-Modal by default
 
-A team of agents can work together to solve complex problems, create a file `agent_team.py`
+Phidata agents support text, images, audio, video and more. For example, you can create an image agent that can understand images and make tool calls as needed
+
+<Steps>
+  <Step title="Create an image agent">
+
+    ```python image_agent.py
+    from phi.agent import Agent
+    from phi.model.openai import OpenAIChat
+    from phi.tools.duckduckgo import DuckDuckGo
+
+    agent = Agent(
+        model=OpenAIChat(id="gpt-4o"),
+        tools=[DuckDuckGo()],
+        markdown=True,
+    )
+
+    agent.print_response(
+        "Tell me about this image and give me the latest news about it.",
+        images=[
+            "https://upload.wikimedia.org/wikipedia/commons/b/bf/Krakow_-_Kosciol_Mariacki.jpg",
+        ],
+        stream=True,
+    )
+    ```
+
+  </Step>
+  <Step title="Run the agent">
+
+    ```shell
+    python image_agent.py
+    ```
+
+  </Step>
+</Steps>
+
+
+## Multi-Agent orchestration
+
+Phidata agents can work together as a team to achieve complex tasks.
 
 <Steps>
   <Step title="Create an agent team">
@@ -207,9 +233,9 @@ Agent teams are non-deterministic and are not recommended for production systems
 
 ## Agentic RAG
 
-Instead of always inserting the "context" into the prompt, we give our Agent a tool to search its knowledge base (vector db) for the information it needs.
+We were the first to pioneer Agentic RAG using our Auto-RAG paradigm. With Agentic RAG (or auto-rag), the Agent can search its knowledge base (vector db) for the specific information it needs to achieve its task, instead of always inserting the "context" into the prompt.
 
-This saves tokens and improves response quality. Create a file `rag_agent.py`
+This saves tokens and improves response quality.
 
 <Steps>
   <Step title="Create a RAG agent">
@@ -295,7 +321,7 @@ Create a file `structured_output.py`
     )
     # Agent that uses structured outputs
     structured_output_agent = Agent(
-        model=OpenAIChat(id="gpt-4o-2024-08-06"),
+        model=OpenAIChat(id="gpt-4o"),
         description="You write movie scripts.",
         response_model=MovieScript,
         structured_outputs=True,
