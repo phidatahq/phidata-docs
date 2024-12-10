@@ -274,6 +274,7 @@
             "examples/agents/python-function-agent",
             "examples/agents/image-agent",
             "examples/agents/generate-image-agent",
+            "examples/agents/image-to-text",
             "examples/agents/research-agent"
           ]
         },
