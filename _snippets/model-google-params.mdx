@@ -1,0 +1,12 @@
+| Parameter                 | Type                                  | Default              | Description                                            |
+| ------------------------- | ------------------------------------- | -------------------- | ------------------------------------------------------ |
+| `id`                      | `str`                                 | `"gemini-1.5-flash"` | The specific Gemini model ID to use.                   |
+| `name`                    | `str`                                 | `"Gemini"`           | The name of this Gemini model instance.                |
+| `provider`                | `str`                                 | `"Google"`           | The provider of the model.                             |
+| `function_declarations`   | `Optional[List[FunctionDeclaration]]` | `None`               | List of function declarations for the model.           |
+| `generation_config`       | `Optional[Any]`                       | `None`               | Configuration for text generation.                     |
+| `safety_settings`         | `Optional[Any]`                       | `None`               | Safety settings for the model.                         |
+| `generative_model_kwargs` | `Optional[Dict[str, Any]]`            | `None`               | Additional keyword arguments for the generative model. |
+| `api_key`                 | `Optional[str]`                       | `None`               | API key for authentication.                            |
+| `client_params`           | `Optional[Dict[str, Any]]`            | `None`               | Additional parameters for the client.                  |
+| `client`                  | `Optional[GenerativeModel]`           | `None`               | The underlying generative model client.                |
