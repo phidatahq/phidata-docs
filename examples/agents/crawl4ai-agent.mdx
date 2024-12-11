@@ -1,0 +1,32 @@
+---
+title: Crawl4ai Agent
+---
+
+Create a file `crawl4ai_agent.py` with the following code:
+
+```python firecrawl_agent.py
+from phi.agent import Agent
+from phi.tools.crawl4ai_tools import Crawl4aiTools
+
+agent = Agent(tools=[Crawl4aiTools(max_length=None)], show_tool_calls=True)
+agent.print_response("Tell me about https://github.com/phidatahq/phidata.")
+```
+
+## Usage
+
+<Steps>
+  <Snippet file="create-venv-step.mdx" />
+
+  <Step title="Install libraries">
+    ```bash
+    pip install -U openai crawl4ai phidata
+    ```
+  </Step>
+
+  <Step title="Run the agent">
+    ```bash
+    python firecrawl_agent.py
+    ```
+  </Step>
+
+</Steps>
