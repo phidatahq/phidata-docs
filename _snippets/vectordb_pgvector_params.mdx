@@ -1,0 +1,15 @@
+| Parameter             | Type                   | Default | Description                                                             |
+| --------------------- | ---------------------- | ------- | ----------------------------------------------------------------------- |
+| `table_name`          | `str`                  | -       | The name of the table to use.                                           |
+| `schema`              | `str`                  | -       | The schema to use.                                                      |
+| `db_url`              | `str`                  | -       | The database URL to connect to.                                         |
+| `db_engine`           | `Engine`               | -       | The database engine to use.                                             |
+| `embedder`            | `Embedder`             | -       | The embedder to use.                                                    |
+| `search_type`         | `SearchType`           | vector  | The search type to use.                                                 |
+| `vector_index`        | `Union[Ivfflat, HNSW]` | -       | The vector index to use.                                                |
+| `distance`            | `Distance`             | cosine  | The distance to use.                                                    |
+| `prefix_match`        | `bool`                 | -       | Whether to use prefix matching.                                         |
+| `vector_score_weight` | `float`                | 0.5     | Weight for vector similarity in hybrid search. Must be between 0 and 1. |
+| `content_language`    | `str`                  | -       | The content language to use.                                            |
+| `schema_version`      | `int`                  | -       | The schema version to use.                                              |
+| `auto_upgrade_schema` | `bool`                 | -       | Whether to auto upgrade the schema.                                     |

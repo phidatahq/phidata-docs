@@ -3,6 +3,7 @@ title: Single Store
 ---
 
 <CodeGroup>
+
 ```python agent.py
 import typer
 from typing import Optional
@@ -23,25 +24,25 @@ SSL_CERT = getenv("SINGLESTORE_SSL_CERT", None)
 
 db_url = f"mysql+pymysql://{USERNAME}:{PASSWORD}@{HOST}:{PORT}/{DATABASE}?charset=utf8mb4"
 if SSL_CERT:
-    db_url += f"&ssl_ca={SSL_CERT}&ssl_verify_cert=true"
+db_url += f"&ssl_ca={SSL_CERT}&ssl_verify_cert=true"
 
 db_engine = create_engine(db_url)
 
 knowledge_base = PDFUrlKnowledgeBase(
-    urls=["https://phi-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"],
-    vector_db=S2VectorDb(
-        collection="recipes",
-        db_engine=db_engine,
-        schema=DATABASE,
-    ),
+urls=["https://phi-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"],
+vector_db=S2VectorDb(
+collection="recipes",
+db_engine=db_engine,
+schema=DATABASE,
+),
 )
 
 # Comment out after first run
+
 knowledge_base.load(recreate=False)
 
-
 def pdf_assistant(user: str = "user"):
-    run_id: Optional[str] = None
+run_id: Optional[str] = None
 
     assistant = Assistant(
         run_id=run_id,
@@ -61,20 +62,13 @@ def pdf_assistant(user: str = "user"):
     while True:
         assistant.cli_app(markdown=True)
 
-
-if __name__ == "__main__":
-    typer.run(pdf_assistant)
+if **name** == "**main**":
+typer.run(pdf_assistant)
 
 ```
+
 </CodeGroup>
 
 ## Single Store Params
 
-| Parameter | Type | Default | Description |
-| --- | --- | --- | --- |
-| `collection` | `str` | - | Name of the collection to store vector data |
-| `schema` | `Optional[str]` | `"ai"` | Database schema name |
-| `db_url` | `Optional[str]` | `None` | Database connection URL |
-| `db_engine` | `Optional[Engine]` | `None` | SQLAlchemy database engine |
-| `embedder` | `Embedder` | `OpenAIEmbedder()` | Embedder instance for creating embeddings |
-| `distance` | `Distance` | `Distance.cosine` | Distance metric for vector comparisons |
+<Snippet file="vectordb_singlestore_params.mdx" />
