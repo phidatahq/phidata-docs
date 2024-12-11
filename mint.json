@@ -276,7 +276,7 @@
             "examples/agents/generate-image-agent",
             "examples/agents/image-to-text",
             "examples/agents/research-agent",
-             "examples/agents/rag-agent"
+            "examples/agents/rag-agent"
           ]
         },
         {
