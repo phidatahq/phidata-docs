@@ -1,0 +1,150 @@
+```mdx
+---
+title: CalCom
+---
+
+**CalCom** enables an Agent to interact with the Cal.com API to manage event bookings, including retrieving available slots, creating bookings, rescheduling, and cancellations.
+
+## Prerequisites
+
+The following example requires the `requests` and `pytz` libraries. Install them using:
+
+```shell
+pip install requests pytz
+```
+
+## Example
+
+The following agent will fetch available time slots for a specific date range and return them:
+
+```python cookbook/tools/calcom_tools.py
+from phi.agent import Agent
+from phi.tools import CalCom
+
+agent = Agent(tools=[CalCom(api_key="your_api_key", user_timezone="America/New_York")], show_tool_calls=True, markdown=True)
+agent.print_response("Get available slots from 2024-12-01 to 2024-12-10")
+```
+
+## Toolkit Params
+
+| Parameter             | Type      | Default | Description                                                                 |
+|-----------------------|-----------|---------|-----------------------------------------------------------------------------|
+| `api_key`             | `str`     | `None`  | API key for authentication with Cal.com.                                    |
+| `event_type_id`       | `int`     | `0`     | Default event type ID for bookings.                                          |
+| `user_timezone`       | `str`     | `"America/New_York"` | User's timezone in IANA format (e.g., 'Asia/Kolkata'). |
+| `get_available_slots` | `bool`    | `True`  | Enables the method to fetch available slots.                                |
+| `create_booking`      | `bool`    | `True`  | Enables the method to create a new booking.                                 |
+| `get_upcoming_bookings` | `bool`  | `True`  | Enables the method to fetch upcoming bookings for a user.                   |
+| `reschedule_booking`  | `bool`    | `True`  | Enables the method to reschedule an existing booking.                       |
+| `cancel_booking`      | `bool`    | `True`  | Enables the method to cancel an existing booking.                           |
+
+## Toolkit Functions
+
+| Function             | Description                                                                 |
+|----------------------|-----------------------------------------------------------------------------|
+| `get_available_slots` | Fetches available time slots for booking between a specified date range.    |
+| `create_booking`      | Creates a new booking with specified details such as time, name, and email. |
+| `get_upcoming_bookings` | Retrieves all upcoming bookings for a specific attendee.                   |
+| `reschedule_booking`  | Reschedules an existing booking to a new time.                              |
+| `cancel_booking`      | Cancels an existing booking.                                                |
+
+### `get_available_slots` Function
+
+Fetches available time slots for booking between a specified date range.
+
+#### Parameters
+
+| Parameter  | Type   | Description                                      |
+|------------|--------|--------------------------------------------------|
+| `start_date` | `str`  | Start date in `YYYY-MM-DD` format.               |
+| `end_date`   | `str`  | End date in `YYYY-MM-DD` format.                 |
+
+#### Example Usage
+
+```python
+calcom_tool = CalCom(api_key="your_api_key")
+slots = calcom_tool.get_available_slots(start_date="2024-12-01", end_date="2024-12-10")
+print(slots)
+```
+
+### `create_booking` Function
+
+Creates a new booking with specified details.
+
+#### Parameters
+
+| Parameter     | Type   | Description                                           |
+|---------------|--------|-------------------------------------------------------|
+| `start_time`  | `str`  | Start time in `YYYY-MM-DDTHH:MM:SSZ` format.          |
+| `name`        | `str`  | Name of the attendee.                                 |
+| `email`       | `str`  | Email of the attendee.                                |
+
+#### Example Usage
+
+```python
+calcom_tool = CalCom(api_key="your_api_key")
+booking = calcom_tool.create_booking(start_time="2024-12-01T09:00:00Z", name="John Doe", email="john@example.com")
+print(booking)
+```
+
+### `get_upcoming_bookings` Function
+
+Retrieves all upcoming bookings for a specific attendee.
+
+#### Parameters
+
+| Parameter   | Type   | Description                        |
+|-------------|--------|------------------------------------|
+| `email`     | `str`  | Email of the attendee.             |
+
+#### Example Usage
+
+```python
+calcom_tool = CalCom(api_key="your_api_key")
+upcoming_bookings = calcom_tool.get_upcoming_bookings(email="john@example.com")
+print(upcoming_bookings)
+```
+
+### `reschedule_booking` Function
+
+Reschedules an existing booking.
+
+#### Parameters
+
+| Parameter        | Type   | Description                                           |
+|------------------|--------|-------------------------------------------------------|
+| `booking_uid`    | `str`  | UID of the booking to reschedule.                     |
+| `new_start_time` | `str`  | New start time in `YYYY-MM-DDTHH:MM:SSZ` format.      |
+| `reason`         | `str`  | Reason for rescheduling the booking.                  |
+
+#### Example Usage
+
+```python
+calcom_tool = CalCom(api_key="your_api_key")
+reschedule = calcom_tool.reschedule_booking(booking_uid="12345", new_start_time="2024-12-02T10:00:00Z", reason="Changed schedule")
+print(reschedule)
+```
+
+### `cancel_booking` Function
+
+Cancels an existing booking.
+
+#### Parameters
+
+| Parameter        | Type   | Description                                           |
+|------------------|--------|-------------------------------------------------------|
+| `booking_uid`    | `str`  | UID of the booking to cancel.                         |
+| `reason`         | `str`  | Reason for canceling the booking.                     |
+
+#### Example Usage
+
+```python
+calcom_tool = CalCom(api_key="your_api_key")
+cancel = calcom_tool.cancel_booking(booking_uid="12345", reason="No longer needed")
+print(cancel)
+```
+
+## Information
+
+- **View on GitHub**: [CalCom Toolkit](https://github.com/phidatahq/phidata/blob/main/phi/tools/calcom.py)
+```

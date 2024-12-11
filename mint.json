@@ -142,6 +142,7 @@
             "tools/arxiv",
             "tools/aws_lambda",
             "tools/calculator",
+            "tools/calcom",
             "tools/composio",
             "tools/crawl4ai",
             "tools/csv",
