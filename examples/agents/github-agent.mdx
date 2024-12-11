@@ -1,7 +1,7 @@
 ---
 title: Github Agent
 ---
-
+**GithubTools** enables an Agent to access Github repositories and perform tasks such as listing open pull requests, issues and more.
 Create a file `github_agent.py` with the following code:
 
 ```python github_agent.py
@@ -37,6 +37,7 @@ agent.print_response("List open pull requests of the repo", markdown=True)
   <Step title="Install libraries">
     ```bash
     pip install openai PyGithub phidata
+    export GITHUB_ACCESS_TOKEN=***
     ```
   </Step>
 
