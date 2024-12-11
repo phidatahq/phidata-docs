@@ -276,7 +276,8 @@
             "examples/agents/generate-image-agent",
             "examples/agents/image-to-text",
             "examples/agents/research-agent",
-            "examples/agents/movie-recommendation-agent"
+            "examples/agents/movie-recommendation-agent",
+            "examples/agents/itinerary-planner-agent"
           ]
         },
         {
