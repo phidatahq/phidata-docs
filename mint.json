@@ -194,6 +194,7 @@
             "knowledge/arxiv",
             "knowledge/combined",
             "knowledge/csv",
+            "knowledge/csv-url",
             "knowledge/docx",
             "knowledge/document",
             "knowledge/json",

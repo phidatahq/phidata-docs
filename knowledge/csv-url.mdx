@@ -1,9 +1,9 @@
 ---
-title: PDF URL Knowledge Base
-sidebarTitle: PDF URLs
+title: CSV URL Knowledge Base
+sidebarTitle: CSV URLs
 ---
 
-The **PDFUrlKnowledgeBase** reads **PDFs from urls**, converts them into vector embeddings and loads them to a vector database.
+The **CSVUrlKnowledgeBase** reads **CSVs from urls**, converts them into vector embeddings and loads them to a vector database.
 
 ## Usage
 
@@ -13,19 +13,15 @@ We are using a local PgVector database for this example. [Make sure it's running
 
 </Note>
 
-```shell
-pip install pypdf
-```
-
 ```python knowledge_base.py
 from phi.knowledge.pdf import PDFUrlKnowledgeBase
 from phi.vectordb.pgvector import PgVector
 
-knowledge_base = PDFUrlKnowledgeBase(
-    urls=["pdf_url"],
-    # Table name: ai.pdf_documents
+knowledge_base = CSVUrlKnowledgeBase(
+    urls=["csv_url"],
+    # Table name: ai.csv_documents
     vector_db=PgVector(
-        table_name="pdf_documents",
+        table_name="csv_documents",
         db_url="postgresql+psycopg://ai:ai@localhost:5532/ai",
     ),
 )
@@ -51,8 +47,8 @@ agent.print_response("Ask me about something from the knowledge base")
 | Parameter           | Type                                     | Default           | Description                                                                         |
 | ------------------- | ---------------------------------------- | ----------------- | ----------------------------------------------------------------------------------- |
 | `urls`              | `List[str]`                              | -                 | URLs for `PDF` files.                                                               |
-| `reader`            | `Union[PDFUrlReader, PDFUrlImageReader]` | `PDFUrlReader()`  | A `PDFUrlReader` that converts the `PDFs` into `Documents` for the vector database. |
+| `reader`            | `CSVUrlReader`                           | `CSVUrlReader()`  | A `CSVUrlReader` that converts the `CSVs` into `Documents` for the vector database. |
 | `vector_db`         | `VectorDb`                               | -                 | Vector Database for the Knowledge Base.                                             |
 | `num_documents`     | `int`                                    | `5`               | Number of documents to return on search.                                            |
 | `optimize_on`       | `int`                                    | -                 | Number of documents to optimize the vector db on.                                   |
-| `chunking_strategy` | `ChunkingStrategy`                       | `CharacterChunks` | The chunking strategy to use.                                                       |
+| `chunking_strategy` | `ChunkingStrategy`                       | `FixedSizeChunking` | The chunking strategy to use.                                                       |
