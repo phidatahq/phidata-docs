@@ -1,6 +1,6 @@
 ---
 title: CSV URL Knowledge Base
-sidebarTitle: CSV Urls
+sidebarTitle: CSV URLs
 ---
 
 The **CSVUrlKnowledgeBase** reads **CSVs from urls**, converts them into vector embeddings and loads them to a vector database.
@@ -18,7 +18,7 @@ from phi.knowledge.pdf import PDFUrlKnowledgeBase
 from phi.vectordb.pgvector import PgVector
 
 knowledge_base = CSVUrlKnowledgeBase(
-    urls=["pdf_url"],
+    urls=["csv_url"],
     # Table name: ai.csv_documents
     vector_db=PgVector(
         table_name="csv_documents",
