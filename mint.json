@@ -143,6 +143,7 @@
             "tools/arxiv",
             "tools/aws_lambda",
             "tools/calculator",
+            "tools/calcom",
             "tools/composio",
             "tools/crawl4ai",
             "tools/csv",
@@ -275,6 +276,7 @@
             "examples/agents/python-function-agent",
             "examples/agents/image-agent",
             "examples/agents/generate-image-agent",
+            "examples/agents/calcom-agent",
             "examples/agents/image-to-text",
             "examples/agents/research-agent"
           ]
