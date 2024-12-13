@@ -279,7 +279,8 @@
             "examples/agents/calcom-agent",
             "examples/agents/image-to-text",
             "examples/agents/research-agent",
-            "examples/agents/models-labs-agent"
+            "examples/agents/models-labs-agent",
+            "examples/agents/slack-agent"
           ]
         },
         {
