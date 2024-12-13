@@ -4,7 +4,7 @@ title: Semantic Chunking
 
 Semantic chunking is a method of splitting documents into smaller chunks by analyzing semantic similarity between text segments using embeddings. It uses the chonkie library to identify natural breakpoints where the semantic meaning changes significantly, based on a configurable similarity threshold. This helps preserve context and meaning better than fixed-size chunking by ensuring semantically related content stays together in the same chunk, while splitting occurs at meaningful topic transitions.
 
-```python cookbook/chunking/semantic_chunking.py
+```python
 from phi.agent import Agent
 from phi.document.chunking.semantic import SemanticChunking
 from phi.knowledge.pdf import PDFUrlKnowledgeBase
