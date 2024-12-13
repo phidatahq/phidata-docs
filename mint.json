@@ -280,7 +280,16 @@
             "examples/agents/image-to-text",
             "examples/agents/research-agent",
             "examples/agents/models-labs-agent",
-            "examples/agents/slack-agent"
+            "examples/agents/slack-agent",
+            "examples/agents/discord-agent",
+            "examples/agents/firecrawl-agent",
+            "examples/agents/github-agent",
+            "examples/agents/rag-agent",
+            "examples/agents/popcorn-pal-agent",
+            "examples/agents/globe-hopper-agent",
+            "examples/agents/baidu-search-agent",
+            "examples/agents/youtube-timestamp-agent",
+            "examples/agents/study-scout-agent"
           ]
         },
         {
