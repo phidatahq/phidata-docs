@@ -1,0 +1,52 @@
+---
+title: Giphy
+---
+
+**GiphyTools** enables an Agent to search for GIFs on GIPHY.
+
+## Prerequisites
+
+```shell
+export GIPHY_API_KEY=***
+```
+
+## Example
+
+The following agent will search GIPHY for a GIF appropriate for a birthday message.
+
+```python
+from phi.agent import Agent
+from phi.model.openai import OpenAIChat
+from phi.tools.giphy import GiphyTools
+
+
+gif_agent = Agent(
+    name="Gif Generator Agent",
+    model=OpenAIChat(id="gpt-4o"),
+    tools=[GiphyTools()],
+    description="You are an AI agent that can generate gifs using Giphy.",
+    instructions=[
+        "When the user asks you to create a gif, come up with the appropriate Giphy query and use the `search_gifs` tool to find the appropriate gif.",
+    ],
+    show_tool_calls=True,
+)
+
+gif_agent.print_response("I want a gif to send to a friend for their birthday.")
+```
+
+## Toolkit Params
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `api_key` | `str` | `None` | If you want to manually supply the GIPHY API key. |
+| `limit` | `int` | `1` | The number of GIFs to return in a search. |
+
+## Toolkit Functions
+
+| Function | Description |
+|----------|-------------|
+| `search_gifs` | Searches GIPHY for a GIF based on the query string. |
+
+## Information
+
+- View on [Github](https://github.com/phidatahq/phidata/blob/main/phi/tools/giphy.py)
