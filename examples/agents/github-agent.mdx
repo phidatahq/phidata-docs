@@ -1,0 +1,46 @@
+---
+title: Github Agent
+---
+
+Github is a popular code hosting platform that allows you to collaborate with your team.
+
+Create a file `github_agent.py` with the following code:
+
+```python github_agent.py
+from phi.agent import Agent
+from phi.tools.github import GithubTools
+
+agent = Agent(
+    instructions=[
+        "Use your tools to answer questions about the repo: phidatahq/phidata",
+        "Do not create any issues or pull requests unless explicitly asked to do so",
+    ],
+    tools=[GithubTools(base_url="enter_base_url_here")],
+)
+
+agent.print_response("List open pull requests", markdown=True)
+```
+
+## Usage
+
+<Steps>
+  <Snippet file="create-venv-step.mdx" />
+
+  <Step title="Install libraries">
+    ```bash
+    pip install PyGithub
+    ```
+  </Step>
+
+  <Step title="Set environment variables">
+    ```bash
+    export GITHUB_ACCESS_TOKEN=****
+    ```
+  </Step>
+
+  <Step title="Run the agent">
+    ```bash
+    python github_agent.py
+    ```
+  </Step>
+</Steps>
