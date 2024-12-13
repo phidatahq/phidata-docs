@@ -274,7 +274,8 @@
             "examples/agents/structured-output",
             "examples/agents/python-function-agent",
             "examples/agents/image-agent",
-            "examples/agents/generate-image-agent"
+            "examples/agents/generate-image-agent",
+            "examples/agents/calcom-agent"
           ]
         },
         {
