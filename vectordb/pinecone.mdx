@@ -73,20 +73,4 @@ if __name__ == "__main__":
 
 ## PineconeDB Params
 
-| Parameter | Type | Default | Description |
-|-----------|------|---------|-------------|
-| `name` | `str` | - | The name of the table to use. |
-| `dimension` | `int` | - | The dimension of the embeddings. |
-| `spec` | `Union[Dict, ServerlessSpec, PodSpec]` | - | The spec of the table to use. [More Info](https://docs.pinecone.io/guides/indexes/understanding-indexes) |
-| `embedder` | `Optional[Embedder]` | `None` | The embedder to use for encoding vectors. If not provided, a default embedder will be used. |
-| `metric` | `Optional[str]` | `"cosine"` | The metric used for similarity search. |
-| `additional_headers` | `Optional[Dict[str, str]]` | `None` | Additional headers to include in API requests. |
-| `pool_threads` | `Optional[int]` | `1` | The number of threads to use for the connection pool. |
-| `namespace` | `Optional[str]` | `None` | The namespace to use for the index. |
-| `timeout` | `Optional[int]` | `None` | The timeout for API requests in seconds. |
-| `index_api` | `Optional[Any]` | `None` | A custom index API implementation to use instead of the default. |
-| `api_key` | `Optional[str]` | `None` | The API key for authentication with Pinecone. |
-| `host` | `Optional[str]` | `None` | The host URL for the Pinecone service. |
-| `config` | `Optional[Config]` | `None` | Additional configuration options for the Pinecone client. |
-| `use_hybrid_search` | `bool` | `False` | Whether to use hybrid search (combining vector and keyword search). |
-| `hybrid_alpha` | `float` | `0.5` | The alpha parameter for hybrid search, balancing between vector and keyword search. |
+<Snippet file="vectordb_pineconedb_params.mdx" />

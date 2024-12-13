@@ -1,0 +1,17 @@
+| Parameter            | Type                                   | Default    | Description                                                                            |
+| -------------------- | -------------------------------------- | ---------- | -------------------------------------------------------------------------------------- |
+| `name`               | `str`                                  | -          | The name of the Pinecone index                                                         |
+| `dimension`          | `int`                                  | -          | The dimension of the embeddings                                                        |
+| `spec`               | `Union[Dict, ServerlessSpec, PodSpec]` | -          | The index spec                                                                         |
+| `embedder`           | `Optional[Embedder]`                   | `None`     | Embedder instance for creating embeddings (defaults to OpenAIEmbedder if not provided) |
+| `metric`             | `Optional[str]`                        | `"cosine"` | The metric used for similarity search                                                  |
+| `additional_headers` | `Optional[Dict[str, str]]`             | `None`     | Additional headers to pass to the Pinecone client                                      |
+| `pool_threads`       | `Optional[int]`                        | `1`        | The number of threads to use for the Pinecone client                                   |
+| `namespace`          | `Optional[str]`                        | `None`     | The namespace for the Pinecone index                                                   |
+| `timeout`            | `Optional[int]`                        | `None`     | The timeout for Pinecone operations                                                    |
+| `index_api`          | `Optional[Any]`                        | `None`     | The Index API object                                                                   |
+| `api_key`            | `Optional[str]`                        | `None`     | The Pinecone API key                                                                   |
+| `host`               | `Optional[str]`                        | `None`     | The Pinecone host                                                                      |
+| `config`             | `Optional[Config]`                     | `None`     | The Pinecone config                                                                    |
+| `use_hybrid_search`  | `bool`                                 | `False`    | Whether to use hybrid search                                                           |
+| `hybrid_alpha`       | `float`                                | `0.5`      | The alpha value for hybrid search                                                      |

@@ -1,5 +1,5 @@
 ---
-title: Gemini
+title: Gemini - Google AI Studio
 ---
 
 ## Example
@@ -7,8 +7,6 @@ title: Gemini
 <CodeGroup>
 
 ```python agent.py
-"""Run `pip install yfinance` to install dependencies."""
-
 from phi.agent import Agent
 from phi.model.google import Gemini
 from phi.tools.yfinance import YFinanceTools
@@ -20,30 +18,13 @@ agent = Agent(
     markdown=True,
 )
 
-# Print the response in the terminal
 agent.print_response("What is the stock price of NVDA and TSLA")
-
 ```
 
 </CodeGroup>
 
 ## Gemini Params
 
-| Parameter | Type | Default | Description |
-| --- | --- | --- | --- |
-| `id` | `str` | `"gemini-1.5-flash"` | The specific Gemini model ID to use. |
-| `name` | `str` | `"Gemini"` | The name of this Gemini model instance. |
-| `provider` | `str` | `"Google"` | The provider of the model. |
-| `function_declarations` | `Optional[List[FunctionDeclaration]]` | `None` | List of function declarations for the model. |
-| `generation_config` | `Optional[Any]` | `None` | Configuration for text generation. |
-| `safety_settings` | `Optional[Any]` | `None` | Safety settings for the model. |
-| `generative_model_kwargs` | `Optional[Dict[str, Any]]` | `None` | Additional keyword arguments for the generative model. |
-| `api_key` | `Optional[str]` | `None` | API key for authentication. |
-| `client_params` | `Optional[Dict[str, Any]]` | `None` | Additional parameters for the client. |
-| `client` | `Optional[GenerativeModel]` | `None` | The underlying generative model client. |
+<Snippet file="model-google-params.mdx" />
 
-## Model Params
-
-`Gemini` is a subclass of the `Model` class and has access to the same params
-
-<Snippet file="model-base-reference.mdx" />
+`Gemini` is a subclass of the [Model](/reference/model/base) class and has access to the same params.

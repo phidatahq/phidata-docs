@@ -7,8 +7,6 @@ title: Ollama
 <CodeGroup>
 
 ```python agent.py
-"""Run `pip install yfinance` to install dependencies."""
-
 from phi.agent import Agent
 from phi.model.ollama import Ollama
 from phi.tools.yfinance import YFinanceTools
@@ -20,32 +18,13 @@ agent = Agent(
     markdown=True,
 )
 
-# Print the response in the terminal
 agent.print_response("What is the stock price of NVDA and TSLA")
-
 ```
 
 </CodeGroup>
 
 ## Ollama Params
 
-| Parameter | Type | Default | Description |
-| --- | --- | --- | --- |
-| `id` | `str` | `"llama3.2"` | The ID of the model to use. |
-| `name` | `str` | `"Ollama"` | The name of the model. |
-| `provider` | `str` | `"Ollama llama3.2"` | The provider of the model. |
-| `format` | `Optional[str]` | `None` | The format of the response. |
-| `options` | `Optional[Any]` | `None` | Additional options to pass to the model. |
-| `keep_alive` | `Optional[Union[float, str]]` | `None` | The keep alive time for the model. |
-| `request_params` | `Optional[Dict[str, Any]]` | `None` | Additional parameters to pass to the request. |
-| `host` | `Optional[str]` | `None` | The host to connect to. |
-| `timeout` | `Optional[Any]` | `None` | The timeout for the connection. |
-| `client_params` | `Optional[Dict[str, Any]]` | `None` | Additional parameters to pass to the client. |
-| `client` | `Optional[OllamaClient]` | `None` | A pre-configured instance of the Ollama client. |
-| `async_client` | `Optional[AsyncOllamaClient]` | `None` | A pre-configured instance of the asynchronous Ollama client. |
+<Snippet file="model-ollama-params.mdx" />
 
-## Model Params
-
-`Ollama` is a subclass of the `Model` class and has access to the same params
-
-<Snippet file="model-base-reference.mdx" />
+`Ollama` is a subclass of the [Model](/reference/model/base) class and has access to the same params.

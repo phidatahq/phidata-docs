@@ -71,19 +71,4 @@ if __name__ == "__main__":
 
 ## Qdrant Params
 
-| Parameter | Type | Default | Description |
-|-----------|------|---------|-------------|
-| `collection` | `str` | - | The name of the collection to use. |
-| `embedder` | `Embedder` | OpenAIEmbedder | The embedder to use. |
-| `distance` | `Distance` | cosine | The distance to use. |
-| `location` | `Optional[str]` | `None` | The location of the Qdrant database. |
-| `url` | `Optional[str]` | `None` | The URL of the Qdrant server. |
-| `port` | `Optional[int]` | `6333` | The port number for the Qdrant server. |
-| `grpc_port` | `int` | `6334` | The gRPC port number. |
-| `prefer_grpc` | `bool` | `False` | Whether to prefer gRPC over HTTP. |
-| `https` | `Optional[bool]` | `None` | Whether to use HTTPS for connection. |
-| `api_key` | `Optional[str]` | `None` | The API key for authentication. |
-| `prefix` | `Optional[str]` | `None` | The prefix to use for the Qdrant client. |
-| `timeout` | `Optional[float]` | `None` | The timeout for requests in seconds. |
-| `host` | `Optional[str]` | `None` | The host address of the Qdrant server. |
-| `path` | `Optional[str]` | `None` | The path to the Qdrant database. |
+<Snippet file="vectordb_qdrant_params.mdx" />

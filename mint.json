@@ -79,14 +79,13 @@
   ],
   "navigation": [
     {
-      "group": "Introduction",
+      "group": "Getting Started",
       "pages": [
-        "agents",
+        "introduction",
         "agent-ui",
+        "more-examples",
         "monitoring",
         "workflows",
-        "templates",
-        "videos",
         "getting-help"
       ]
     },
@@ -112,23 +111,24 @@
           "pages": [
             "models/introduction",
             "models/openai",
-            "models/anthropic",
-            "models/cohere",
-            "models/ollama",
-            "models/groq",
             "models/openai-like",
-            "models/deepseek",
-            "models/sambanova",
+            "models/anthropic",
             "models/aws-bedrock",
-            "models/together",
-            "models/fireworks",
-            "models/mistral",
-            "models/google_ai_studio",
-            "models/xai",
             "models/azure",
+            "models/cohere",
+            "models/deepseek",
+            "models/fireworks",
+            "models/google",
+            "models/vertexai",
+            "models/groq",
             "models/huggingface",
+            "models/mistral",
+            "models/nvidia",
+            "models/ollama",
             "models/openrouter",
-            "models/nvidia"
+            "models/sambanova",
+            "models/together",
+            "models/xai"
           ]
         },
         {
@@ -194,6 +194,7 @@
             "knowledge/arxiv",
             "knowledge/combined",
             "knowledge/csv",
+            "knowledge/csv-url",
             "knowledge/docx",
             "knowledge/document",
             "knowledge/json",
@@ -275,7 +276,9 @@
             "examples/agents/python-function-agent",
             "examples/agents/image-agent",
             "examples/agents/generate-image-agent",
-            "examples/agents/calcom-agent"
+            "examples/agents/calcom-agent",
+            "examples/agents/image-to-text",
+            "examples/agents/research-agent"
           ]
         },
         {
@@ -438,19 +441,24 @@
           "pages": [
             "reference/model/base",
             "reference/model/openai",
+            "reference/model/openai-like",
             "reference/model/aws",
-            "reference/model/together",
-            "reference/model/ollama",
-            "reference/model/fireworks",
-            "reference/model/mistral",
-            "reference/model/groq",
-            "reference/model/gemini",
             "reference/model/azure",
             "reference/model/claude",
             "reference/model/cohere",
             "reference/model/deepseek",
+            "reference/model/fireworks",
+            "reference/model/gemini",
+            "reference/model/vertexai",
+            "reference/model/groq",
+            "reference/model/huggingface",
+            "reference/model/mistral",
+            "reference/model/nvidia",
+            "reference/model/ollama",
             "reference/model/openrouter",
-            "reference/model/sambanova"
+            "reference/model/sambanova",
+            "reference/model/together",
+            "reference/model/xai"
           ]
         },
         {
