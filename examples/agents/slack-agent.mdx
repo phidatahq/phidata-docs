@@ -1,0 +1,40 @@
+---
+title: Slack Agent
+---
+
+Create a file `slack_agent.py` with the following code:
+
+```python slack_agent.py
+from phi.agent import Agent
+from phi.tools.slack import SlackTools
+from phi.model.openai import OpenAIChat
+
+agent = Agent(model=OpenAIChat(id="gpt-4o"), tools=[SlackTools()], show_tool_calls=True)
+
+agent.print_response("Send a warm message to the #general channel", markdown=True)
+```
+
+## Usage
+
+<Steps>
+  <Snippet file="create-venv-step.mdx" />
+
+  <Step title="Install libraries">
+    ```bash
+    pip install openai slack-sdk phidata
+    ```
+  </Step>
+
+  <Step title="Set environment variables">
+    ```bash
+    export SLACK_TOKEN=****
+    ```
+  </Step>
+
+  <Step title="Run the agent">
+    ```bash
+    python slack-agent.py
+    ```
+  </Step>
+
+</Steps>
