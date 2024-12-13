@@ -210,6 +210,16 @@
           ]
         },
         {
+          "group": "Chunking",
+          "pages": [
+            "chunking/fixed-size-chunking",
+            "chunking/agentic-chunking",
+            "chunking/semantic-chunking",
+            "chunking/recursive-chunking",
+            "chunking/document-chunking"
+          ]
+        },
+        {
           "group": "VectorDbs",
           "pages": [
             "vectordb/introduction",
