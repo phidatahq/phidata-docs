@@ -1,9 +1,9 @@
 ---
 title: PDF URL Knowledge Base
-sidebarTitle: PDF Urls
+sidebarTitle: PDF URLs
 ---
 
-The **PDFUrlKnowledgeBase** reads **PDFs from urls**, converts them into vector embeddings and loads them to a vector databse.
+The **PDFUrlKnowledgeBase** reads **PDFs from urls**, converts them into vector embeddings and loads them to a vector database.
 
 ## Usage
 
@@ -55,4 +55,4 @@ agent.print_response("Ask me about something from the knowledge base")
 | `vector_db`         | `VectorDb`                               | -                 | Vector Database for the Knowledge Base.                                             |
 | `num_documents`     | `int`                                    | `5`               | Number of documents to return on search.                                            |
 | `optimize_on`       | `int`                                    | -                 | Number of documents to optimize the vector db on.                                   |
-| `chunking_strategy` | `ChunkingStrategy`                       | `CharacterChunks` | The chunking strategy to use.                                                       |
+| `chunking_strategy` | `ChunkingStrategy`                       | `FixedSizeChunking` | The chunking strategy to use.                                                       |

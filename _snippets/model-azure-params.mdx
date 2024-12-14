@@ -1,0 +1,14 @@
+| Parameter                 | Type                          | Default             | Description                                                                  |
+| ------------------------- | ----------------------------- | ------------------- | ---------------------------------------------------------------------------- |
+| `id`                      | `str`                         | -                   | The specific model ID used for generating responses. This field is required. |
+| `name`                    | `str`                         | `"AzureOpenAIChat"` | The name identifier for the agent.                                           |
+| `provider`                | `str`                         | `"Azure"`           | The provider of the model.                                                   |
+| `api_key`                 | `Optional[str]`               | -                   | The API key for authenticating requests to the Azure OpenAI service.         |
+| `api_version`             | `str`                         | `"2024-02-01"`      | The version of the Azure OpenAI API to use.                                  |
+| `azure_endpoint`          | `Optional[str]`               | -                   | The endpoint URL for the Azure OpenAI service.                               |
+| `azure_deployment`        | `Optional[str]`               | -                   | The deployment name or ID in Azure.                                          |
+| `base_url`                | `Optional[str]`               | -                   | The base URL for making API requests to the Azure OpenAI service.            |
+| `azure_ad_token`          | `Optional[str]`               | -                   | The Azure Active Directory token for authenticating requests.                |
+| `azure_ad_token_provider` | `Optional[Any]`               | -                   | The provider for obtaining Azure Active Directory tokens.                    |
+| `organization`            | `Optional[str]`               | -                   | The organization associated with the API requests.                           |
+| `openai_client`           | `Optional[AzureOpenAIClient]` | -                   | An instance of AzureOpenAIClient provided for making API requests.           |

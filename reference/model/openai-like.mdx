@@ -1,0 +1,32 @@
+---
+title: OpenAILike
+---
+
+## Example
+
+<CodeGroup>
+
+```python agent.py
+from phi.agent import Agent
+from phi.model.openai import OpenAIChat
+from phi.tools.yfinance import YFinanceTools
+
+agent = Agent(
+    model=OpenAIChat(id="gpt-4o"),
+    tools=[YFinanceTools(stock_price=True)],
+    show_tool_calls=True,
+    markdown=True,
+)
+
+agent.print_response("What is the stock price of NVDA and TSLA")
+```
+
+</CodeGroup>
+
+## OpenAI Params
+
+<Snippet file="model-openai-like-params.mdx" />
+
+For more information, please refer to the [OpenAI docs](https://platform.openai.com/docs/api-reference/chat/create) as well.
+
+`OpenAILike` is a subclass of the [OpenAI](/reference/model/openai) class and has access to the same params.

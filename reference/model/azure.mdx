@@ -7,33 +7,18 @@ title: Azure
 <CodeGroup>
 
 ```python agent.py
-"""Run `pip install yfinance` to install dependencies."""
-
-import os
-
-from dotenv import load_dotenv
 
 from phi.agent import Agent
 from phi.model.azure import AzureOpenAIChat
 from phi.tools.yfinance import YFinanceTools
 
-load_dotenv()
-
-azure_model = AzureOpenAIChat(
-    id=os.getenv("AZURE_OPENAI_MODEL_NAME"),
-    api_key=os.getenv("AZURE_OPENAI_API_KEY"),
-    azure_endpoint=os.getenv("AZURE_OPENAI_ENDPOINT"),
-    azure_deployment=os.getenv("AZURE_OPENAI_DEPLOYMENT"),
-)
-
 agent = Agent(
-    model=azure_model,
+    model=AzureOpenAIChat(),
     tools=[YFinanceTools(stock_price=True)],
     show_tool_calls=True,
     markdown=True,
 )
 
-# Print the response on the terminal
 agent.print_response("What is the stock price of NVDA and TSLA")
 
 ```
@@ -42,23 +27,6 @@ agent.print_response("What is the stock price of NVDA and TSLA")
 
 ## Azure Params
 
-| Parameter | Type | Default | Description |
-| --- | --- | --- | --- |
-| `id` | `str` | - | The model name to use. |
-| `name` | `str` | `"AzureOpenAIChat"` | The name of the Azure OpenAI Chat model. |
-| `provider` | `str` | `"Azure"` | The provider to use. |
-| `api_key` | `Optional[str]` | `getenv("AZURE_OPENAI_API_KEY")` | The API key for Azure OpenAI. |
-| `api_version` | `str` | `getenv("AZURE_OPENAI_API_VERSION", "2024-02-01")` | The API version to use for Azure OpenAI. |
-| `azure_endpoint` | `Optional[str]` | `getenv("AZURE_OPENAI_ENDPOINT")` | The Azure endpoint to use. |
-| `azure_deployment` | `Optional[str]` | `getenv("AZURE_DEPLOYMENT")` | The Azure deployment name for the model. |
-| `base_url` | `Optional[str]` | `None` | The base URL for the Azure OpenAI API. |
-| `azure_ad_token` | `Optional[str]` | `None` | The Azure AD token for authentication. |
-| `azure_ad_token_provider` | `Optional[Any]` | `None` | The Azure AD token provider to use. |
-| `organization` | `Optional[str]` | `None` | The organization to use. |
-| `openai_client` | `Optional[AzureOpenAIClient]` | `None` | An instance of AzureOpenAIClient, if already created. |
+<Snippet file="model-azure-params.mdx" />
 
-## Model Params
-
-`Azure` is a subclass of the `Model` class and has access to the same params
-
-<Snippet file="model-base-reference.mdx" />
+`Azure` is a subclass of the [OpenAILike](/reference/model/openai-like) class and has access to the same params.

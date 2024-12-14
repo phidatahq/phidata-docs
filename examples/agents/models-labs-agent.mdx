@@ -1,0 +1,42 @@
+---
+title: ModelsLabs Agent
+---
+
+ModelsLabs is a video generation tool that allows you to generate videos based on a text prompt.
+
+Create a file `models_labs_agent.py` with the following code:
+
+```python models_labs_agent.py
+from phi.agent import Agent
+from phi.tools.models_labs import ModelsLabs
+
+# Create an Agent with the ModelsLabs tool
+agent = Agent(tools=[ModelsLabs()], name="ModelsLabs Agent")
+
+agent.print_response("Generate a video of a beautiful sunset over the ocean", markdown=True)
+```
+
+## Usage
+
+<Steps>
+  <Snippet file="create-venv-step.mdx" />
+
+  <Step title="Install libraries">
+    ```bash
+    pip install requests
+    ```
+  </Step>
+
+  <Step title="Set environment variables">
+    ```bash
+    export MODELS_LAB_API_KEY=****
+    ```
+  </Step>
+
+  <Step title="Run the agent">
+    ```bash
+    python models_labs_agent.py
+    ```
+  </Step>
+
+</Steps>

@@ -1,0 +1,9 @@
+| Parameter    | Type                             | Default           | Description                                                                            |
+| ------------ | -------------------------------- | ----------------- | -------------------------------------------------------------------------------------- |
+| `collection` | `str`                            | -                 | Name of the collection to store vector data                                            |
+| `schema`     | `Optional[str]`                  | `"ai"`            | Database schema name                                                                   |
+| `db_url`     | `Optional[str]`                  | `None`            | Database connection URL                                                                |
+| `db_engine`  | `Optional[Engine]`               | `None`            | SQLAlchemy database engine                                                             |
+| `embedder`   | `Optional[Embedder]`             | `None`            | Embedder instance for creating embeddings (defaults to OpenAIEmbedder if not provided) |
+| `distance`   | `Distance`                       | `Distance.cosine` | Distance metric for vector comparisons                                                 |
+| `index`      | `Optional[Union[Ivfflat, HNSW]]` | `HNSW()`          | Vector index configuration                                                             |
