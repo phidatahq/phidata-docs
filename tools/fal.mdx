@@ -1,19 +1,19 @@
 ---
-title: FAL
+title: Fal
 ---
 
-**FalTools** enables an Agent to generate media using the [FAL platform](https://docs.fal.ai/).
+**FalTools** enable an Agent to perform media generation tasks.
 
 ## Prerequisites
 
+The following example requires the `fal_client` library and an API key which can be obtained from [Fal](https://fal.ai/).
+
 ```shell
-export FAL_KEY=***
+pip install -U fal_client
 ```
 
-The following example requires the `fal_client` library. To install the Fal client, run the following command:
-
 ```shell
-pip install -U fal-client
+export FAL_KEY=***
 ```
 
 ## Example
@@ -41,15 +41,15 @@ fal_agent = Agent(
 )
 
 fal_agent.print_response("Generate video of balloon in the ocean")
-
 ```
 
 ## Toolkit Params
 
 | Parameter | Type | Default | Description |
 |-----------|------|---------|-------------|
-| `api_key` | `str` | `None` | If you want to manually supply the FAL API key. |
-| `model` | `str` | `fal-ai/hunyuan-video` | The specific FAL model name to use. |
+| `api_key` | `str` | `None` | API key for authentication purposes. |
+| `model` | `str` | `None` | The model to use for the media generation. |
+
 
 ## Toolkit Functions
 
