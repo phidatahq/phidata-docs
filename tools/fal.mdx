@@ -18,13 +18,12 @@ export FAL_KEY=***
 
 ## Example
 
-The following agent will generate video :
+The following agent will use FAL to generate any video requested by the user.
 
 ```python cookbook/tools/fal_tools.py
 from phi.agent import Agent
-from phi.tools.fal_tools import FalTools
 from phi.model.openai import OpenAIChat
-
+from phi.tools.fal_tools import FalTools
 
 fal_agent = Agent(
     name="Fal Video Generator Agent",
@@ -51,11 +50,13 @@ fal_agent.print_response("Generate video of balloon in the ocean")
 | `api_key` | `str` | `None` | API key for authentication purposes. |
 | `model` | `str` | `None` | The model to use for the media generation. |
 
+
 ## Toolkit Functions
 
 | Function | Description |
 |----------|-------------|
-| `generate_media` | Generates a media using Fal. Parameters include `prompt` to specify the prompt to use for the media generation. |
+
+| `generate_media` | Generate either images or videos depending on the user prompt. |
 
 ## Information
 
