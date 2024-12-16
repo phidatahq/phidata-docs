@@ -154,6 +154,7 @@
             "tools/exa",
             "tools/file",
             "tools/firecrawl",
+            "tools/giphy",
             "tools/github",
             "tools/googlesearch",
             "tools/hackernews",
