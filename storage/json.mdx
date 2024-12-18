@@ -1,0 +1,28 @@
+---
+title: JSON Agent Storage
+sidebarTitle: JSON
+---
+
+Phidata supports using JSON as a storage backend for Agents using the `JsonFileAgentStorage` class.
+
+## Usage
+
+
+```python storage.py
+from phi.agent import Agent
+from phi.tools.duckduckgo import DuckDuckGo
+from phi.storage.agent.json import JsonFileAgentStorage
+
+agent = Agent(
+    storage=JsonFileAgentStorage(path="tmp/agent_sessions_json"),
+    tools=[DuckDuckGo()],
+    add_history_to_messages=True,
+)
+
+agent.print_response("How many people live in Canada?")
+agent.print_response("What is their national anthem called?")
+```
+
+## Params
+
+<Snippet file="storage-json-params.mdx" />
