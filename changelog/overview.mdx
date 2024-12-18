@@ -3,6 +3,29 @@ title: "Product updates"
 mode: "wide"
 ---
 
+<Update label="2024-12-18" description="v2.7.4">
+## Audio Support and Enhancements 
+This release enhances multimodal capabilities with audio support, improves session page performance, and fixes various bugs for better stability and usability.
+
+### New Features
+
+- **Audio Response Support**: Added support for audio responses, enhancing multimodal interaction capabilities.
+- **Audio Generation Tools**: Integrated Eleven Labs for Audio Generation.
+- **Cohere Embedder**: Introduced a new Cohere Embedder class with a corresponding cookbook example to demonstrate its usage.
+
+### Improvements
+
+- **Version Checker for OpenAI**: Added a warning for users with OpenAI versions below 1.52.0 to ensure compatibility with features like `audio` in `ChatCompletionMessage`.
+
+### Bug Fixes
+
+- **AWS Bedrock Tool Descriptions**: Fixed an issue where the transfer tool description was missing, causing incompatibility with AWS Bedrock Claude.
+- **Response Content Handling**: Resolved crashes on the session page caused by non-string response content.
+- **Deep Copy Agent Memory**: Addressed deep copy errors when using agent memory on the playground.
+- **Session Page Enhancements**: Fixed the refresh button
+
+</Update>
+
 <Update label="2024-12-16" description="v2.7.3">
 ## Multi-Modal Tools
 This update introduces new multimodal tools, enhances the multimodal capabilities of existing models, and includes several quality-of-life improvements.
