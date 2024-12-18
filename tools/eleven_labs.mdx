@@ -2,9 +2,11 @@
 title: Eleven Labs
 ---
 
+**ElevenLabsTools** enable an Agent to perform audio generation tasks.
+
 ## Prerequisites
 
-You need to install the `elevenlabs` library.
+You need to install the `elevenlabs` library and an API key which can be obtained from [Eleven Labs](https://elevenlabs.io/)
 
 ```bash
 pip install elevenlabs
@@ -38,7 +40,7 @@ agent.print_response("Generate a audio summary of the big bang theory", markdown
 
 | Parameter | Type | Default | Description |
 |-----------|------|---------|-------------|
-| `api_key` | `str` | `None` | The Eleven Labs API key for authentication |
+| `api_key` | `str` | `None` | The Eleven Labs API key for authentication | 
 | `voice_id` | `str` | `JBFqnCBsd6RMkjVDRZzb` | The voice ID to use for the audio generation |
 | `target_directory` | `str` | `None` | The directory to save the audio file |
 | `model_id` | `str` | `eleven_multilingual_v2` | The model's id to use for the audio generation |
