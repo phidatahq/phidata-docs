@@ -12,17 +12,23 @@ This release enhances multimodal capabilities with audio support, improves sessi
 - **Audio Response Support**: Added support for audio responses, enhancing multimodal interaction capabilities.
 - **Audio Generation Tools**: Integrated Eleven Labs for Audio Generation.
 - **Cohere Embedder**: Introduced a new Cohere Embedder class with a corresponding cookbook example to demonstrate its usage.
+- **File Agent Storage Support**: Added JSON and YAML as storage options for agent session data.
 
 ### Improvements
 
 - **Version Checker for OpenAI**: Added a warning for users with OpenAI versions below 1.52.0 to ensure compatibility with features like `audio` in `ChatCompletionMessage`.
+- **Agent Response Handling**: Enhanced processing of agent responses to support lists, improving handling of multi-item outputs.
 
 ### Bug Fixes
 
 - **AWS Bedrock Tool Descriptions**: Fixed an issue where the transfer tool description was missing, causing incompatibility with AWS Bedrock Claude.
 - **Response Content Handling**: Resolved crashes on the session page caused by non-string response content.
 - **Deep Copy Agent Memory**: Addressed deep copy errors when using agent memory on the playground.
-- **Session Page Enhancements**: Fixed the refresh button
+- **Session Page Enhancements**: Fixed the refresh button.
+- **Fix Tool Parsing for Ollama**: Fixed JSON schema tool parsing by transforming `['string', 'null']` parameters to `'string'` for compatibility.
+- **Response Parsing for Gemini Tool**: Improved response parsing to handle unserializable objects in tool_calls for Gemini on the playground.
+- **Memory Handling for Google Provider**: Fixed an issue in `monitoring_data` where memory was removed for all providers, causing blank titles on Phidata.app; now only modifies memory for Google provider.
+- **RecursiveChunking ID Conflict**: Resolved an issue in RecursiveChunking where processing large files with multiple chunks caused duplicate chunk record IDs, leading to `psycopg.errors.UniqueViolation`.
 
 </Update>
 
