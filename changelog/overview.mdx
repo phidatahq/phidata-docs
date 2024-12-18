@@ -26,7 +26,7 @@ This release enhances multimodal capabilities with audio support, improves sessi
 - **Deep Copy Agent Memory**: Addressed deep copy errors when using agent memory on the playground.
 - **Session Page Enhancements**: Fixed the refresh button.
 - **Fix Tool Parsing for Ollama**: Fixed JSON schema tool parsing by transforming `['string', 'null']` parameters to `'string'` for compatibility.
-- **Response Parsing for Gemini Tool**: Improved response parsing to handle unserializable objects in tool_calls for Gemini on the playground.
+- **Response Parsing for Gemini Tool**: Improved response parsing to handle unserializable objects in `tool_calls` for Gemini on the playground.
 - **Memory Handling for Google Provider**: Fixed an issue in `monitoring_data` where memory was removed for all providers, causing blank titles on Phidata.app; now only modifies memory for Google provider.
 - **RecursiveChunking ID Conflict**: Resolved an issue in RecursiveChunking where processing large files with multiple chunks caused duplicate chunk record IDs, leading to `psycopg.errors.UniqueViolation`.
 
