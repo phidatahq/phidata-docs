@@ -71,6 +71,31 @@ class BlogPostGenerator(Workflow):
         markdown=True,
     )
 
+    def run(self, topic: str, use_cache: bool = True) -> Iterator[RunResponse]:
+        """This is where the main logic of the workflow is implemented."""
+
+        logger.info(f"Generating a blog post on: {topic}")
+
+        # Step 1: Use the cached blog post if use_cache is True
+        if use_cache:
+            cached_blog_post = self.get_cached_blog_post(topic)
+            if cached_blog_post:
+                yield RunResponse(content=cached_blog_post, event=RunEvent.workflow_completed)
+                return
+
+        # Step 2: Search the web for articles on the topic
+        search_results: Optional[SearchResults] = self.get_search_results(topic)
+        # If no search_results are found for the topic, end the workflow
+        if search_results is None or len(search_results.articles) == 0:
+            yield RunResponse(
+                event=RunEvent.workflow_completed,
+                content=f"Sorry, could not find any articles on the topic: {topic}",
+            )
+            return
+
+        # Step 3: Write a blog post
+        yield from self.write_blog_post(topic, search_results)
+
     def get_cached_blog_post(self, topic: str) -> Optional[str]:
         """Get the cached blog post for a topic."""
 
@@ -122,29 +147,6 @@ class BlogPostGenerator(Workflow):
         yield from self.writer.run(json.dumps(writer_input, indent=4), stream=True)
         # Save the blog post in the cache
         self.add_blog_post_to_cache(topic, self.writer.run_response.content)
-
-    def run(self, topic: str, use_cache: bool = True) -> Iterator[RunResponse]:
-        logger.info(f"Generating a blog post on: {topic}")
-
-        # Use the cached blog post if use_cache is True
-        if use_cache:
-            cached_blog_post = self.get_cached_blog_post(topic)
-            if cached_blog_post:
-                yield RunResponse(content=cached_blog_post, event=RunEvent.workflow_completed)
-                return
-
-        # Search the web for articles on the topic
-        search_results: Optional[SearchResults] = self.get_search_results(topic)
-        # If no search_results are found for the topic, end the workflow
-        if search_results is None or len(search_results.articles) == 0:
-            yield RunResponse(
-                event=RunEvent.workflow_completed,
-                content=f"Sorry, could not find any articles on the topic: {topic}",
-            )
-            return
-
-        # Write a blog post
-        yield from self.write_blog_post(topic, search_results)
 
 
 # Run the workflow if the script is executed directly
