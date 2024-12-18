@@ -244,7 +244,9 @@
             "storage/postgres",
             "storage/sqlite",
             "storage/singlestore",
-            "storage/dynamodb"
+            "storage/dynamodb",
+            "storage/json",
+            "storage/yaml"
           ]
         },
         {
