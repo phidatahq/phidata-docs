@@ -1,0 +1,58 @@
+---
+title: Eleven Labs
+---
+
+## Prerequisites
+
+You need to install the `elevenlabs` library.
+
+```bash
+pip install elevenlabs
+```
+
+Set the `ELEVEN_LABS_API_KEY` environment variable.
+
+```bash
+export ELEVEN_LABS_API_KEY=****
+```
+
+## Example
+
+The following agent will use Eleven Labs to generate a audio based on a user prompt.
+
+```python cookbook/tools/eleven_labs_tools.py
+from phi.agent import Agent
+from phi.tools.eleven_labs import ElevenLabs
+
+# Create an Agent with the ElevenLabs tool
+agent = Agent(tools=[
+    ElevenLabsTools(
+        voice_id="JBFqnCBsd6RMkjVDRZzb", model_id="eleven_multilingual_v2", target_directory="audio_generations"
+    )
+], name="ElevenLabs Agent")
+
+agent.print_response("Generate a audio summary of the big bang theory", markdown=True)
+```
+
+## Toolkit Params
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `api_key` | `str` | `None` | The Eleven Labs API key for authentication |
+| `voice_id` | `str` | `JBFqnCBsd6RMkjVDRZzb` | The voice ID to use for the audio generation |
+| `target_directory` | `str` | `None` | The directory to save the audio file |
+| `model_id` | `str` | `eleven_multilingual_v2` | The model's id to use for the audio generation |
+| `output_format` | `str` | `mp3_44100_64` | The output format to use for the audio generation |
+
+## Toolkit Functions
+
+| Function | Description |
+|----------|-------------|
+| `text_to_speech` | Convert text to speech |
+| `generate_sound_effect` | Generate sound effect audio from a text prompt. |
+| `_process_audio` | Convert the audio to base64 to send to Frontend and optionally save to target directory |
+
+
+## Information
+
+- View on [Github](https://github.com/phidatahq/phidata/blob/main/phi/tools/eleven_labs_tools.py)
