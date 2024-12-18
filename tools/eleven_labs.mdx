@@ -2,7 +2,7 @@
 title: Eleven Labs
 ---
 
-**ElevenLabsTools** enable an Agent to perform audio generation tasks.
+[**ElevenLabsTools**](https://elevenlabs.io/docs/product/introduction) enable an Agent to perform audio generation tasks.
 
 ## Prerequisites
 
@@ -42,7 +42,7 @@ agent.print_response("Generate a audio summary of the big bang theory", markdown
 |-----------|------|---------|-------------|
 | `api_key` | `str` | `None` | The Eleven Labs API key for authentication | 
 | `voice_id` | `str` | `JBFqnCBsd6RMkjVDRZzb` | The voice ID to use for the audio generation |
-| `target_directory` | `str` | `None` | The directory to save the audio file |
+| `target_directory` | `Optional[str]` | `None` | The directory to save the audio file |
 | `model_id` | `str` | `eleven_multilingual_v2` | The model's id to use for the audio generation |
 | `output_format` | `str` | `mp3_44100_64` | The output format to use for the audio generation |
 
@@ -52,7 +52,7 @@ agent.print_response("Generate a audio summary of the big bang theory", markdown
 |----------|-------------|
 | `text_to_speech` | Convert text to speech |
 | `generate_sound_effect` | Generate sound effect audio from a text prompt. |
-| `_process_audio` | Convert the audio to base64 to send to Frontend and optionally save to target directory |
+| `get_voices` | Get the list of voices available |
 
 
 ## Information
