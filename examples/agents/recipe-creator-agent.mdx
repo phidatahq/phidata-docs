@@ -4,7 +4,7 @@ title: AI Recipe Creator Agent
 
 ## Overview
 
-The Recipe agent generates personalized recipe recommendations based on user inputs like ingredients, time, and dietary preferences. It uses a recipe knowledge base for initial suggestions, ExaTools for additional web searches, and PgVector for efficient data storage and retrieval.
+The Recipe Agent generates personalized recipe recommendations based on user inputs like ingredients, time, and dietary preferences. It relies on two recipe PDFs stored in a PgVector-powered knowledge database for fast and efficient searches, then enhances suggestions with web searches using ExaTools.
 
 ## Implementation
 
@@ -54,7 +54,7 @@ recipe_agent.print_response(
 
     <Step title="Install required libraries">
         ```bash
-        pip install phidata openai duckdb exa_py pypdf
+        pip install phidata openai duckdb exa_py pypdf packaging
         pip install sqlalchemy pgvector
         pip install -U "psycopg[binary]"
         ```
@@ -64,17 +64,10 @@ recipe_agent.print_response(
         ```bash
         export OPENAI_API_KEY=****
         export EXA_API_KEY=****
-
-        # Alternatively, you use a .env file to set API keys in the code
-        from dotenv import load_dotenv
-        import os
-        load_dotenv()
-        OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
-        EXA_API_KEY = os.getenv("EXA_API_KEY")
         ```
     </Step>
 
-    <Step title="Run PostgreSQL with pgvector using Docker">
+    <Step title="Run PgVector using Docker">
         ```bash
         docker run -d \
   -e POSTGRES_DB=ai \
