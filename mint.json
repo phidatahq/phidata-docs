@@ -285,6 +285,7 @@
           "group": "Agents",
           "pages": [
             "examples/agents/web-search",
+            "examples/agents/recipe-creator-agent",
             "examples/agents/finance-agent",
             "examples/agents/agent-team",
             "examples/agents/reasoning-agent",
