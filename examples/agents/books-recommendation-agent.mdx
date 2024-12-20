@@ -1,0 +1,66 @@
+---
+title: Books Recommendation Agent
+---
+
+## Overview
+
+The Book Recommendation Agent, Shelfie, provides personalized, diverse, and thoughtful book suggestions based on user preferences and interests.
+
+## Implementation
+
+Create a file `books_recommendation_agent.py` with the following code:
+
+```python books_recommendation_agent.py
+from phi.agent import Agent
+from phi.model.openai import OpenAIChat
+from phi.tools.exa import ExaTools
+
+
+agent = Agent(
+    description="you help user with book recommendations",
+    name="Shelfie",
+    model=OpenAIChat(id="gpt-4o"),
+    instructions=[
+        "You are a highly knowledgeable book recommendation agent.",
+        "Your goal is to help the user discover books based on their preferences, reading history, and interests.",
+        "If the user mentions a specific genre, suggest books that span both classics and modern hits.",
+        "When the user mentions an author, recommend similar authors or series they may enjoy.",
+        "Highlight notable accomplishments of the book, such as awards, best-seller status, or critical acclaim.",
+        "Provide a short summary or teaser for each book recommended.",
+        "Offer up to 5 book recommendations for each request, ensuring they are diverse and relevant.",
+        "Leverage online resources like Goodreads, StoryGraph, and LibraryThing for accurate and varied suggestions.",
+        "Focus on being concise, relevant, and thoughtful in your recommendations.",
+    ],
+    tools=[ExaTools()],
+)
+agent.print_response(
+    "I really found anxious people and lessons in chemistry interesting, can you suggest me more such books"
+)
+```
+
+## Usage
+
+<Steps>
+
+    <Snippet file="create-venv-step.mdx" />
+
+    <Step title="Install required libraries">
+        ```bash
+        pip install phidata openai exa_py
+        ```
+    </Step>
+
+    <Step title="Set environment variables">
+        ```bash
+        export OPENAI_API_KEY=****
+        export EXA_API_KEY=****
+        ```
+    </Step>
+
+    <Step title="Run the agent">
+        ```bash
+        python books_recommendation_agent.py
+        ```
+    </Step>
+
+</Steps>
