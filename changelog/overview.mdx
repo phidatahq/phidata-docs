@@ -4,15 +4,15 @@ mode: "wide"
 ---
 <Update label="2024-12-30" description="v2.7.6">
 ## Extending Vector database support
-This update enhances vector database capabilities, improves error handling, and adds new functionality for search modifiers.
+This update adds new vector database integrations, improvements to DuckDuckGo tool and Gemini model and new cookbooks.
 
 
 ### New Features: 
 - **Cassandra Integration as a Vector Database**: Introduced support for Apache Cassandra as a Vector Database, leveraging CassIO for vector storage and retrieval.
-- **DuckDuckGo Modifier**: Added a `modifier` parameter to the DuckDuckGo tool, allowing users to refine searches with site-specific queries, file type filters, and safe search toggles.
-- **ClickHouse as a Vector Database**: Added support for ClickHouse as a Vector Database
+- **ClickHouse as a Vector Database**: Added support for ClickHouse as a Vector Database.
 
 ### Improvements
+- **DuckDuckGo Modifier**: Added a `modifier` parameter to the DuckDuckGo tool, allowing users to refine searches with site-specific queries, file type filters, and safe search toggles.
 - **Enhanced Error Handling for python-docx**: Improved error messaging for scenarios where the `python-docx` library is not installed, providing clearer guidance and smoother debugging.
 
 ### Bug Fixes
