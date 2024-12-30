@@ -2,6 +2,24 @@
 title: "Product updates"
 mode: "wide"
 ---
+<Update label="2024-12-30" description="v2.7.6">
+## Extending Vector database support
+This update adds new vector database integrations, improvements to DuckDuckGo tool and Gemini model and new cookbooks.
+
+
+### New Features: 
+- **Cassandra Integration as a Vector Database**: Introduced support for Apache Cassandra as a Vector Database, leveraging CassIO for vector storage and retrieval.
+- **ClickHouse as a Vector Database**: Added support for ClickHouse as a Vector Database.
+
+### Improvements
+- **DuckDuckGo Modifier**: Added a `modifier` parameter to the DuckDuckGo tool, allowing users to refine searches with site-specific queries, file type filters, and safe search toggles.
+- **Enhanced Error Handling for python-docx**: Improved error messaging for scenarios where the `python-docx` library is not installed, providing clearer guidance and smoother debugging.
+
+### Bug Fixes
+- **Qdrant Default Embedder**: Removed OpenAI as the default embedder for Qdrant, enabling user-configurable embeddings.
+- **Gemini Import Fix**: Fixed an issue where missing OpenAI library dependencies caused errors when using Gemini.
+</Update>
+
 <Update label="2024-12-20" description="v2.7.5">
 ## Confluence Tool & Fixes
 This update introduces the Confluence tool for collaboration, improves tool compatibility, and resolves deep copy issues for Ollama chat agents.
