@@ -30,10 +30,6 @@ from phi.model.nvidia import Nvidia
 
 agent = Agent(model=Nvidia(), markdown=True)
 
-# Get the response in a variable
-# run: RunResponse = agent.run("Share a 2 sentence horror story")
-# print(run.content)
-
 # Print the response in the terminal
 agent.print_response("Share a 2 sentence horror story")
 
@@ -44,4 +40,5 @@ agent.print_response("Share a 2 sentence horror story")
 ## Params
 
 <Snippet file="model-nvda-params.mdx" />
-Nvidia also supports the params of [OpenAI](/models/openai).
+
+`Nvidia` also supports the params of [OpenAI](/models/openai).

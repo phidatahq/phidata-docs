@@ -63,18 +63,6 @@
     {
       "name": "Changelog",
       "url": "changelog"
-    },
-    {
-      "name": "Product Updates",
-      "url": "changelog/overview"
-    },
-    {
-      "name": "Reference",
-      "url": "reference"
-    },
-    {
-      "name": "FAQs",
-      "url": "faq"
     }
   ],
   "navigation": [
@@ -82,26 +70,27 @@
       "group": "Getting Started",
       "pages": [
         "introduction",
+        "first-agent",
+        "local-dev",
         "agent-ui",
-        "more-examples",
-        "monitoring",
-        "workflows",
         "getting-help"
       ]
     },
     {
-      "group": "Documentation",
+      "group": "Concepts",
       "pages": [
         {
           "group": "Agents",
           "pages": [
             "agents/introduction",
+            "agents/responses",
+            "agents/structured-output",
+            "agents/multimodal-inputs",
             "agents/prompts",
             "agents/tools",
             "agents/knowledge",
             "agents/memory",
             "agents/storage",
-            "agents/structured-output",
             "agents/reasoning",
             "agents/teams"
           ]
@@ -135,62 +124,67 @@
           "group": "Tools",
           "pages": [
             "tools/introduction",
-            "tools/functions",
-            "tools/toolkits",
+            {
+              "group": "Toolkits",
+              "pages": [
+                "tools/toolkits/toolkits",
+                "tools/toolkits/airflow",
+                "tools/toolkits/apify",
+                "tools/toolkits/arxiv",
+                "tools/toolkits/aws_lambda",
+                "tools/toolkits/baidusearch",
+                "tools/toolkits/calculator",
+                "tools/toolkits/calcom",
+                "tools/toolkits/composio",
+                "tools/toolkits/crawl4ai",
+                "tools/toolkits/csv",
+                "tools/toolkits/dalle",
+                "tools/toolkits/duckdb",
+                "tools/toolkits/duckduckgo",
+                "tools/toolkits/email",
+                "tools/toolkits/exa",
+                "tools/toolkits/fal",
+                "tools/toolkits/file",
+                "tools/toolkits/firecrawl",
+                "tools/toolkits/giphy",
+                "tools/toolkits/github",
+                "tools/toolkits/googlesearch",
+                "tools/toolkits/hackernews",
+                "tools/toolkits/jina_reader",
+                "tools/toolkits/jira",
+                "tools/toolkits/linear",
+                "tools/toolkits/lumalabs",
+                "tools/toolkits/mlx_transcribe",
+                "tools/toolkits/models_labs",
+                "tools/toolkits/newspaper",
+                "tools/toolkits/newspaper4k",
+                "tools/toolkits/openbb",
+                "tools/toolkits/pandas",
+                "tools/toolkits/phi",
+                "tools/toolkits/postgres",
+                "tools/toolkits/pubmed",
+                "tools/toolkits/python",
+                "tools/toolkits/replicate",
+                "tools/toolkits/resend",
+                "tools/toolkits/searxng",
+                "tools/toolkits/serpapi",
+                "tools/toolkits/shell",
+                "tools/toolkits/slack",
+                "tools/toolkits/sleep",
+                "tools/toolkits/spider",
+                "tools/toolkits/sql",
+                "tools/toolkits/tavily",
+                "tools/toolkits/twitter",
+                "tools/toolkits/website",
+                "tools/toolkits/wikipedia",
+                "tools/toolkits/yfinance",
+                "tools/toolkits/youtube",
+                "tools/toolkits/zendesk",
+                "tools/toolkits/zoom"
+              ]
+            },
             "tools/custom-toolkits",
-            "tools/airflow",
-            "tools/apify",
-            "tools/arxiv",
-            "tools/aws_lambda",
-            "tools/baidusearch",
-            "tools/calculator",
-            "tools/calcom",
-            "tools/composio",
-            "tools/crawl4ai",
-            "tools/csv",
-            "tools/dalle",
-            "tools/duckdb",
-            "tools/duckduckgo",
-            "tools/email",
-            "tools/exa",
-            "tools/fal",
-            "tools/file",
-            "tools/firecrawl",
-            "tools/giphy",
-            "tools/github",
-            "tools/googlesearch",
-            "tools/hackernews",
-            "tools/jina_reader",
-            "tools/jira",
-            "tools/linear",
-            "tools/lumalabs",
-            "tools/mlx_transcribe",
-            "tools/models_labs",
-            "tools/newspaper",
-            "tools/newspaper4k",
-            "tools/openbb",
-            "tools/pandas",
-            "tools/phi",
-            "tools/postgres",
-            "tools/pubmed",
-            "tools/python",
-            "tools/replicate",
-            "tools/resend",
-            "tools/searxng",
-            "tools/serpapi",
-            "tools/shell",
-            "tools/slack",
-            "tools/sleep",
-            "tools/spider",
-            "tools/sql",
-            "tools/tavily",
-            "tools/twitter",
-            "tools/website",
-            "tools/wikipedia",
-            "tools/yfinance",
-            "tools/youtube",
-            "tools/zendesk",
-            "tools/zoom"
+            "tools/functions"
           ]
         },
         {
@@ -369,14 +363,6 @@
       ]
     },
     {
-      "group": "How To",
-      "pages": ["examples/how-to/use-cookbook"]
-    },
-    {
-      "group": "How To",
-      "pages": ["how-to/install", "migration/2-5-0"]
-    },
-    {
       "group": "Templates",
       "pages": [
         "templates/introduction",
@@ -462,78 +448,18 @@
       ]
     },
     {
-      "group": "Building Blocks",
+      "group": "Reference",
       "pages": [
-        "reference/agent",
         {
-          "group": "Custom Agents",
-          "pages": ["reference/agents/python", "reference/agents/duckdb"]
-        },
-        {
-          "group": "Models",
+          "group": "Agent",
           "pages": [
-            "reference/model/base",
-            "reference/model/openai",
-            "reference/model/openai-like",
-            "reference/model/aws",
-            "reference/model/azure",
-            "reference/model/claude",
-            "reference/model/cohere",
-            "reference/model/deepseek",
-            "reference/model/fireworks",
-            "reference/model/gemini",
-            "reference/model/vertexai",
-            "reference/model/groq",
-            "reference/model/huggingface",
-            "reference/model/mistral",
-            "reference/model/nvidia",
-            "reference/model/ollama",
-            "reference/model/openrouter",
-            "reference/model/sambanova",
-            "reference/model/together",
-            "reference/model/xai"
+            "reference/base",
+            "reference/agents/python",
+            "reference/agents/duckdb"
           ]
         },
-        {
-          "group": "Storage",
-          "pages": [
-            "reference/storage/postgres",
-            "reference/storage/sqlite",
-            "reference/storage/singlestore",
-            "reference/storage/dynamodb"
-          ]
-        },
-        {
-          "group": "Knowledge Base",
-          "pages": [
-            "reference/kb/base",
-            "reference/kb/arxiv",
-            "reference/kb/combined",
-            "reference/kb/csv",
-            "reference/kb/docx",
-            "reference/kb/document",
-            "reference/kb/json",
-            "reference/kb/langchain",
-            "reference/kb/llamaindex",
-            "reference/kb/pdf",
-            "reference/kb/pdf-url",
-            "reference/kb/text",
-            "reference/kb/website",
-            "reference/kb/wikipedia"
-          ]
-        },
-        {
-          "group": "VectorDbs",
-          "pages": [
-            "reference/vectordb/pgvector",
-            "reference/vectordb/pgvector2",
-            "reference/vectordb/singlestore",
-            "reference/vectordb/qdrant",
-            "reference/vectordb/lancedb",
-            "reference/vectordb/chromadb",
-            "reference/vectordb/pineconedb"
-          ]
-        }
+        "reference/model",
+        "reference/knowledge_base"
       ]
     },
     {
@@ -569,8 +495,10 @@
       ]
     },
     {
-      "group": "Changelog",
-      "pages": ["changelog/overview"]
+      "group": "Migration Guides",
+      "pages": [
+        "migration/2-5-0"
+      ]
     },
     {
       "group": "FAQs",
@@ -579,6 +507,12 @@
         "faq/environment_variables",
         "faq/phi-auth",
         "faq/connecting-to-tableplus"
+      ]
+    },
+    {
+      "group": "Changelog",
+      "pages": [
+        "changelog/overview"
       ]
     }
   ],

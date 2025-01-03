@@ -45,8 +45,8 @@ agent.print_response("How to make Thai curry?")
 
 | Parameter           | Type               | Default           | Description                                                                        |
 | ------------------- | ------------------ | ----------------- | ---------------------------------------------------------------------------------- |
+| `bucket_name`            | `str`      | `None`   | The name of the S3 Bucket where the PDFs are. |
+| `key`            | `str`      | `None`   | The key of the PDF file in the bucket. |
 | `reader`            | `S3PDFReader`      | `S3PDFReader()`   | A `S3PDFReader` that converts the `PDFs` into `Documents` for the vector database. |
-| `vector_db`         | `VectorDb`         | -                 | Vector Database for the Knowledge Base.                                            |
-| `num_documents`     | `int`              | `5`               | Number of documents to return on search.                                           |
-| `optimize_on`       | `int`              | -                 | Number of documents to optimize the vector db on.                                  |
-| `chunking_strategy` | `ChunkingStrategy` | `FixedSizeChunking` | The chunking strategy to use.                                                      |
+
+`S3PDFKnowledgeBase` is a subclass of the [AgentKnowledge](/reference/knowledge_base) class and has access to the same params.

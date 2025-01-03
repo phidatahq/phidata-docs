@@ -49,9 +49,9 @@ agent.print_response("How to make Hummus?")
 
 | Parameter           | Type               | Default             | Description                                                                               |
 | ------------------- | ------------------ | ------------------- | ----------------------------------------------------------------------------------------- |
+| `bucket_name`            | `str`      | `None`   | The name of the S3 Bucket where the files are. |
+| `key`            | `str`      | `None`   | The key of the file in the bucket. |
 | `formats`           | `List[str]`        | `[".doc", ".docx"]` | Formats accepted by this knowledge base.                                                  |
 | `reader`            | `S3TextReader`     | `S3TextReader()`    | A `S3TextReader` that converts the `Text` files into `Documents` for the vector database. |
-| `vector_db`         | `VectorDb`         | -                   | Vector Database for the Knowledge Base.                                                   |
-| `num_documents`     | `int`              | `5`                 | Number of documents to return on search.                                                  |
-| `optimize_on`       | `int`              | -                   | Number of documents to optimize the vector db on.                                         |
-| `chunking_strategy` | `ChunkingStrategy` | `FixedSizeChunking`   | The chunking strategy to use.                                                             |
+
+`S3TextKnowledgeBase` is a subclass of the [AgentKnowledge](/reference/knowledge_base) class and has access to the same params.

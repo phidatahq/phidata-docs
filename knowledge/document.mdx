@@ -48,11 +48,8 @@ agent.print_response("Ask me about something from the knowledge base")
 
 ## Params
 
-| Parameter           | Type               | Default           | Description                                                                                     |
-| ------------------- | ------------------ | ----------------- | ----------------------------------------------------------------------------------------------- |
-| `documents`         | `List[Document]`   | -                 | List of documents to load into the vector database.                                             |
-| `vector_db`         | `VectorDb`         | -                 | Vector Database for the Knowledge Base.                                                         |
-| `reader`            | `Reader`           | -                 | A `Reader` that converts the content of the documents into `Documents` for the vector database. |
-| `num_documents`     | `int`              | `5`               | Number of documents to return on search.                                                        |
-| `optimize_on`       | `int`              | -                 | Number of documents to optimize the vector db on.                                               |
-| `chunking_strategy` | `ChunkingStrategy` | `FixedSizeChunking` | The chunking strategy to use.                                                                   |
+| Parameter | Type | Default | Description |
+| --- | --- | --- | --- |
+| `documents` | `List[Document]` | - | List of Document objects to be used as the knowledge base |
+
+`DocumentKnowledgeBase` is a subclass of the [AgentKnowledge](/reference/knowledge_base) class and has access to the same params.

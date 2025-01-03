@@ -1,0 +1,24 @@
+---
+title: Local Development
+---
+
+TODO
+
+## Debugging
+
+Phidata includes a built-in debugger that will show debug logs in the terminal. You can set `debug_mode=True` on any agent to view debug logs or set `PHI_DEBUG=true` in your environment.
+
+```python debugging.py
+from phi.agent import Agent
+
+agent = Agent(markdown=True, debug_mode=True)
+agent.print_response("Share a 2 sentence horror story")
+```
+
+Run the agent to view debug logs in the terminal:
+
+```shell
+python debugging.py
+```
+
+<img height="200" src="/images/debugging.png" style={{ borderRadius: "8px" }} />

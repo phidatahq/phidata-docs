@@ -1,8 +1,9 @@
 ---
 title: Agent
+sidebarTitle: Base
 ---
 
-The `Agent` class provides an easy to use interface to language models.
+The `Agent` class provides an easy-to-use interface to language models.
 
 ## Example
 
@@ -22,6 +23,9 @@ response = ""
 for delta in agent.run('Share a quick healthy breakfast recipe.'):
     response += delta
 ```
+<Note>
+  When no `model` is specified, the default of `OpenAIChat('gpt-4o')` is used.
+</Note>
 
 ## Agent Params
 

@@ -1,0 +1,77 @@
+---
+title: Responses
+---
+The most basic way to run a Phidata agent is to print the agent's response.
+
+For example in the following code we print the response
+
+```python web_search.py
+from phi.agent import Agent
+from phi.model.openai import OpenAIChat
+
+agent = Agent(
+    name="Web Agent",
+    model=OpenAIChat(id="gpt-4o"),
+    markdown=True,
+)
+agent.print_response("Write me a short story")
+```
+
+
+## Capturing the Agent's response in a variable
+
+While `Agent.print_response()` is useful for quick experiments, we typically want to capture the agent's response in a variable to either pass to the frontend, another agent or use in our application. The `Agent.run()` function returns the response as a `RunResponse` object.
+
+```python
+from phi.agent import Agent, RunResponse
+from phi.utils.pprint import pprint_run_response
+
+agent = Agent(...)
+
+# Run agent and return the response as a variable
+response: RunResponse = agent.run("Simulation theory")
+
+# Print the response in markdown format
+pprint_run_response(response, markdown=True)
+```
+
+By default `stream=False`, set `stream=True` to return a stream of `RunResponse` objects.
+
+```python
+from typing import Iterator
+from phi.agent import Agent, RunResponse
+from phi.utils.pprint import pprint_run_response
+
+agent = Agent(...)
+
+# Run agent and return the response as a stream
+response_stream: Iterator[RunResponse] = agent.run("Simulation theory", stream=True)
+# Print the response stream in markdown format
+pprint_run_response(response_stream, markdown=True, show_time=True)
+```
+
+## RunResponse
+
+The `Agent.run()` function returns either a `RunResponse` object or an `Iterator[RunResponse]` when `stream=True`.
+
+### RunResponse Attributes
+
+| Attribute | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `content` | `Any` | `None` | Content of the response. |
+| `content_type` | `str` | `"str"` | Specifies the data type of the content. |
+| `context` | `List[MessageContext]` | `None` | The context added to the response for RAG. |
+| `event` | `str` | `RunEvent.run_response.value` | Event type of the response. |
+| `event_data` | `Dict[str, Any]` | `None` | Data associated with the event. |
+| `messages` | `List[Message]` | `None` | A list of messages included in the response. |
+| `metrics` | `Dict[str, Any]` | `None` | Usage metrics of the run. |
+| `model` | `str` | `None` | The model used in the run. |
+| `run_id` | `str` | `None` | Run Id. |
+| `agent_id` | `str` | `None` | Agent Id for the run. |
+| `session_id` | `str` | `None` | Session Id for the run. |
+| `tools` | `List[Dict[str, Any]]` | `None` | List of tools provided to the model. |
+| `images` | `List[Image]` | `None` | List of images the model produced. |
+| `videos` | `List[Video]` | `None` | List of videos the model produced. |
+| `audio` | `List[Audio]` | `None` | List of audio snippets the model produced. |
+| `response_audio` | `ModelResponseAudio` | `None` | The model's raw response in audio. |
+| `created_at` | `int` | - | Unix timestamp of the response creation. |

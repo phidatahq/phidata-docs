@@ -1,0 +1,84 @@
+---
+title: Create your first agent
+---
+
+Phidata Agents are simple and elegant, resulting in minimal, beautiful code.
+
+For example, you can create a web search agent in 10 lines of code.
+
+```python web_search.py
+from phi.agent import Agent
+from phi.model.openai import OpenAIChat
+from phi.tools.duckduckgo import DuckDuckGo
+
+web_agent = Agent(
+    name="Web Agent",
+    model=OpenAIChat(id="gpt-4o"),
+    tools=[DuckDuckGo()],
+    instructions=["Always include sources"],
+    show_tool_calls=True,
+    markdown=True,
+)
+web_agent.print_response("Tell me about OpenAI Sora?", stream=True)
+```
+
+## Run it locally
+
+We recommend installing `phidata` using `pip` in a python virtual environment
+
+<Steps>
+  <Step title="Setup your virtual environment">
+
+    <CodeGroup>
+    ```bash Mac
+    python3 -m venv ~/.venvs/aienv
+    source ~/.venvs/aienv/bin/activate
+    ```
+
+    ```bash Windows
+    python3 -m venv aienv
+    aienv/scripts/activate
+    ```
+    </CodeGroup>
+
+  </Step>
+  <Step title="Install libraries">
+
+    <CodeGroup>
+    ```bash Mac
+    pip install -U phidata openai duckduckgo-search
+    ```
+
+    ```bash Windows
+    pip install -U phidata openai duckduckgo-search
+    ```
+    </CodeGroup>
+
+  </Step>
+  <Step title="Export your OpenAI key">
+
+    Phidata works with most model providers but for these examples let's use OpenAI.
+
+    <CodeGroup>
+    ```bash Mac
+    export OPENAI_API_KEY=sk-***
+    ```
+
+    ```bash Windows
+    setx OPENAI_API_KEY sk-***
+    ```
+    </CodeGroup>
+
+    <Tip>
+    You can get an API key from [here](https://platform.openai.com/account/api-keys).
+    </Tip>
+  </Step>
+  <Step title="Run the agent">
+
+    ```shell
+    python web_search.py
+    ```
+
+  </Step>
+</Steps>
+

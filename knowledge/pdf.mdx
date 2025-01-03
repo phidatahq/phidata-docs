@@ -49,11 +49,9 @@ agent.print_response("Ask me about something from the knowledge base")
 
 ## Params
 
-| Parameter           | Type                               | Default           | Description                                                                                    |
-| ------------------- | ---------------------------------- | ----------------- | ---------------------------------------------------------------------------------------------- |
-| `path`              | `Union[str, Path]`                 | -                 | Path to `PDF` files. Can point to a single PDF file or a directory of PDF files.               |
-| `vector_db`         | `VectorDb`                         | -                 | Vector Database for the Knowledge Base. Example: `PgVector`                                    |
-| `reader`            | `Union[PDFReader, PDFImageReader]` | `PDFReader()`     | A `PDFReader` that converts the `PDFs` into `Documents` for the vector database.               |
-| `num_documents`     | `int`                              | `5`               | Number of documents to return on search.                                                       |
-| `optimize_on`       | `int`                              | -                 | Number of documents to optimize the vector db on. For Example: Create an index for `PgVector`. |
-| `chunking_strategy` | `ChunkingStrategy`                 | `FixedSizeChunking` | The chunking strategy to use.                                                                  |
+| Parameter | Type | Default | Description |
+| --- | --- | --- | --- |
+| `path` | `Union[str, Path]` | - | Path to `PDF` files. Can point to a single PDF file or a directory of PDF files. |
+| `reader` | `Union[PDFReader, PDFImageReader]` | `PDFReader()` | A `PDFReader` or `PDFImageReader` that converts the `PDFs` into `Documents` for the vector database. |
+
+`PDFKnowledgeBase` is a subclass of the [AgentKnowledge](/reference/knowledge_base) class and has access to the same params.
