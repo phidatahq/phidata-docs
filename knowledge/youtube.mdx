@@ -1,0 +1,56 @@
+---
+title: Wikipedia KnowledgeBase
+sidebarTitle: Wikipedia
+---
+
+The **YouTubeKnowledgeBase** iterates over a list of Youtube URLs, extracts the video transcripts, converts them into vector embeddings and loads them to a vector database.
+
+## Usage
+
+<Note>
+
+We are using a local PgVector database for this example. [Make sure it's running](http://localhost:3333/vectordb/pgvector)
+
+</Note>
+
+```shell
+pip install bs4
+```
+
+```python knowledge_base.py
+from phi.knowledge.youtube import YouTubeKnowledgeBase
+from phi.vectordb.pgvector import PgVector
+
+knowledge_base = YouTubeKnowledgeBase(
+    urls=["https://www.youtube.com/watch?v=CDC3GOuJyZ0"],
+    # Table name: ai.website_documents
+    vector_db=PgVector(
+        table_name="youtube_documents",
+        db_url="postgresql+psycopg://ai:ai@localhost:5532/ai",
+    ),
+)
+```
+
+Then use the `knowledge_base` with an `Agent`:
+
+```python agent.py
+from phi.agent import Agent
+from knowledge_base import knowledge_base
+
+agent = Agent(
+    knowledge=knowledge_base,
+    search_knowledge=True,
+)
+agent.knowledge.load(recreate=False)
+
+agent.print_response("Ask me about something from the knowledge base")
+```
+
+## Params
+
+| Parameter | Type | Default | Description |
+| --- | --- | --- | --- |
+| `urls` | `List[str]` | `[]` | URLs of the videos to read |
+| `reader` | `Optional[YouTubeReader]` | `None` | A `YouTubeReader` that reads transcripts of the videos at the urls and converts them into `Documents` for the vector database. |
+
+`YouTubeKnowledgeBase` is a subclass of the [AgentKnowledge](/reference/knowledge_base) class and has access to the same params.

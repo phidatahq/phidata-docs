@@ -111,6 +111,7 @@
             "models/vertexai",
             "models/groq",
             "models/huggingface",
+            "models/internlm",
             "models/mistral",
             "models/nvidia",
             "models/ollama",
@@ -136,9 +137,11 @@
                 "tools/toolkits/calculator",
                 "tools/toolkits/calcom",
                 "tools/toolkits/composio",
+                "tools/toolkits/confluence",
                 "tools/toolkits/crawl4ai",
                 "tools/toolkits/csv",
                 "tools/toolkits/dalle",
+                "tools/toolkits/discord",
                 "tools/toolkits/duckdb",
                 "tools/toolkits/duckduckgo",
                 "tools/toolkits/email",
@@ -174,6 +177,7 @@
                 "tools/toolkits/spider",
                 "tools/toolkits/sql",
                 "tools/toolkits/tavily",
+                "tools/toolkits/twilio",
                 "tools/toolkits/twitter",
                 "tools/toolkits/website",
                 "tools/toolkits/wikipedia",
@@ -206,7 +210,8 @@
             "knowledge/s3_text",
             "knowledge/text",
             "knowledge/website",
-            "knowledge/wikipedia"
+            "knowledge/wikipedia",
+            "knowledge/youtube"
           ]
         },
         {
@@ -223,11 +228,14 @@
           "group": "VectorDbs",
           "pages": [
             "vectordb/introduction",
-            "vectordb/pgvector",
-            "vectordb/qdrant",
-            "vectordb/pinecone",
-            "vectordb/lancedb",
+            "vectordb/casandra",
             "vectordb/chroma",
+            "vectordb/clickhouse",
+            "vectordb/lancedb",
+            "vectordb/milvus",
+            "vectordb/pgvector",
+            "vectordb/pinecone",
+            "vectordb/qdrant",
             "vectordb/singlestore"
           ]
         },
@@ -250,21 +258,30 @@
             "embedder/openai",
             "embedder/gemini",
             "embedder/ollama",
-            "embedder/voyageai",
             "embedder/azure_openai",
-            "embedder/mistral",
+            "embedder/cohere",
+            "embedder/fastembed",
             "embedder/fireworks",
-            "embedder/together",
             "embedder/huggingface",
+            "embedder/mistral",
             "embedder/qdrant_fastembed",
-            "embedder/sentencetransformers"
+            "embedder/sentencetransformers",
+            "embedder/together",
+            "embedder/voyageai"
           ]
         },
         {
           "group": "Workflows",
           "pages": [
             "workflows/introduction",
-            "workflows/session-state",
+            {
+              "group": "Storage",
+              "pages": [
+                "workflows/storage/session_state",
+                "workflows/storage/postgres",
+                "workflows/storage/sqlite"
+              ]
+            },
             "workflows/streaming",
             "workflows/news-report-generator"
           ]
@@ -453,7 +470,7 @@
         {
           "group": "Agent",
           "pages": [
-            "reference/base",
+            "reference/agents/base",
             "reference/agents/python",
             "reference/agents/duckdb"
           ]
