@@ -36,10 +36,6 @@ agent = Agent(
     markdown=True
 )
 
-# Get the response in a variable
-# run: RunResponse = agent.run("Share a 2 sentence horror story.")
-# print(run.content)
-
 # Print the response in the terminal
 agent.print_response("Share a 2 sentence horror story.")
 
@@ -52,3 +48,6 @@ agent.print_response("Share a 2 sentence horror story.")
 For more information, please refer to the [OpenAI docs](https://platform.openai.com/docs/api-reference/chat/create) as well.
 
 <Snippet file="model-openai-params.mdx" />
+
+`OpenAIChat` is a subclass of the [Model](/reference/model) class and has access to the same params.
+

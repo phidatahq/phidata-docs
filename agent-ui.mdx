@@ -57,7 +57,7 @@ if __name__ == "__main__":
 
 ### Run the playground
 
-Install dependencies and run the Agent Playground:
+Install dependencies and run your playground application:
 
 ```shell
 pip install 'fastapi[standard]' sqlalchemy
@@ -86,4 +86,25 @@ The Agent Playground includes a few demo agents that you can test with. If you h
   height="200"
   src="/images/demo_agents.png"
   style={{ borderRadius: '8px' }}
+/>
+
+## Monitoring
+
+You can set `monitoring=True` on any agent to log that agent's sessions or set `PHI_MONITORING=true` in your environment to log all agent sessions.
+
+Create a file `monitoring.py` with the following code:
+
+```python monitoring.py
+from phi.agent import Agent
+
+agent = Agent(markdown=True, monitoring=True)
+agent.print_response("Share a 2 sentence horror story")
+```
+
+Run the agent locally and view the session on [phidata.app/sessions](https://www.phidata.app/sessions)
+
+<img
+  height="200"
+  src="/images/monitoring.png"
+  style={{ borderRadius: "8px" }}
 />

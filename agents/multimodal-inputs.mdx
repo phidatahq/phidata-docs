@@ -1,0 +1,46 @@
+---
+title: Multimodal Agents
+---
+
+Phidata agents support text, images, audio and video for agent inputs and responses.
+
+For example, you can create an image agent that can understand images and make tool calls as needed
+
+<Steps>
+  <Step title="Create an image agent">
+
+    ```python image_agent.py
+    from phi.agent import Agent
+    from phi.model.openai import OpenAIChat
+    from phi.tools.duckduckgo import DuckDuckGo
+
+    agent = Agent(
+        model=OpenAIChat(id="gpt-4o"),
+        tools=[DuckDuckGo()],
+        markdown=True,
+    )
+
+    agent.print_response(
+        "Tell me about this image and give me the latest news about it.",
+        images=["https://upload.wikimedia.org/wikipedia/commons/b/bf/Krakow_-_Kosciol_Mariacki.jpg"],
+        stream=True,
+    )
+    ```
+
+  </Step>
+  <Step title="Run the agent">
+
+    ```shell
+    python image_agent.py
+    ```
+
+  </Step>
+</Steps>
+
+## Multimodal Inputs
+
+TODO
+
+## Multimodal Responses
+
+TODO
