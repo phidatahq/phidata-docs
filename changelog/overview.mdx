@@ -2,6 +2,32 @@
 title: "Product updates"
 mode: "wide"
 ---
+<Update label="2025-01-08" description="v2.7.7">
+## Improvements and Fixes
+This release introduces new capabilities, such as image-to-image generation, MongoDB vector support, and enhanced chunking methods, alongside significant bug fixes and usability enhancements.
+
+### New Features:
+- **Image-to-Image Generation Support**: Extended FalTools to support image-to-image generation.
+- **MongoDB Vector Integrations**: Added MongoDB as a vector database for agent storage, memory, and workflow storage.
+- **Enhanced File Management**: Added support for uploading and managing files directly on the Phidata playground.
+- **Download Image Utility**: Introduced a utility to download agent-generated images directly for enhanced workflows.
+- **Audio Transcript Handling**: Refined the handling of audio transcripts to ensure accurate message output when processing audio files.
+
+### Improvements:
+- **Optimized Chunking**: Enhanced fixed and recursive chunking methods to improve document processing performance.
+- **HuggingFace Embedder**: Resolved compatibility issues with HuggingFace embedder for better reliability.
+- **Ollama Embedder**: Upgraded the Ollama embedder for more robust and efficient embedding capabilities.
+- **OpenAI o1 Model Specification Support**: Added support for OpenAI o1 model specifications, enabling compatibility with the latest OpenAI features.
+- **Spider Tool Improvements**: Addressed performance issues with the Spider tool to enhance reliability.
+
+### Bug Fixes:
+- **Google Embedder Compatibility**: Fixed an issue with Pydantic 2.10.x that caused the rejection of the Google embedder, restoring full functionality.
+- **ChromaDB Upsert Issue**: Resolved bugs that caused errors during upsert operations in ChromaDB.
+- **LanceDB Enhancements**: Added support for accessing existing database tables in LanceDB.
+- **Async Error Messaging**: Improved error messages for unsupported async operations in models.
+- **Gemini Tool Parameters**: Fixed an issue with parameter handling in Gemini tools.
+</Update>
+
 <Update label="2024-12-30" description="v2.7.6">
 ## Extending Vector database support
 This update adds new vector database integrations, improvements to DuckDuckGo tool and Gemini model and new cookbooks.
