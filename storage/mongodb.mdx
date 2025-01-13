@@ -1,0 +1,30 @@
+---
+title: Mongo Agent Storage
+sidebarTitle: Mongo
+---
+
+Phidata supports using Mongo as a storage backend for Agents using the `MongoAgentStorage` class.
+
+## Usage
+
+You need to provide either `db_url` or `client`. The following example uses `db_url`.
+
+```python storage.py
+from phi.storage.agent.mongodb import MongoAgentStorage
+
+db_url = "mongodb://ai:ai@localhost:27017/phi"
+
+# Create a storage backend using the Mongo database
+storage = MongoAgentStorage(
+    # store sessions in the agent_sessions collection
+    collection_name="agent_sessions",
+    db_url=db_url,
+)
+
+# Add storage to the Agent
+agent = Agent(storage=storage)
+```
+
+## Params
+
+<Snippet file="storage-mongodb-params.mdx" />
