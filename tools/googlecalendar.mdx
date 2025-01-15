@@ -63,6 +63,10 @@ Reference: https://developers.google.com/calendar/api/quickstart/python
 The following agent will use GoogleCalendarTools to find today's events.
 
 ```python cookbook/tools/googlecalendar_tools.py
+from phi.agent import Agent
+from phi.tools.googlecalendar import GoogleCalendarTools
+import datetime
+import os
 from tzlocal import get_localzone_name
 
 agent = Agent(
