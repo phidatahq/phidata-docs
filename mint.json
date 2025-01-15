@@ -158,6 +158,7 @@
             "tools/firecrawl",
             "tools/giphy",
             "tools/github",
+            "tools/googlecalendar",
             "tools/googlesearch",
             "tools/hackernews",
             "tools/jina_reader",
