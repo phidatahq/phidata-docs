@@ -2,6 +2,26 @@
 title: "Product updates"
 mode: "wide"
 ---
+<Update label="2025-01-20" description="v2.7.9">
+## Tools and Fixes
+
+
+## New Features
+- **RedditTools**: Added RedditTools with cookbook examples.
+- **TelegramTools**: Introduced TelegramTools with a cookbook example.
+
+## Improvements
+- **GeminiEmbedder Defaults**: Updated the defaults on the GeminiEmbedder to use a more up-to-date model and incorporate recommendations from their [docs](https://docs.phidata.com/embedder/gemini#params)
+
+## Bug Fixes:
+- **Playground Imports**: Fixed imports of `docx` being required for using the playground.
+- **AzureOpenAI Compatibility**: Resolved compatibility issues with AzureOpenAIEmbedder and AzureOpenAIChat.
+- **SlackTool Exceptions**: Fixed cases where SlackTool threw an exception when the "user" field was blank or not available.
+- **Response Models**: Fixed cases where Response Models didn’t work with `show_tool_calls`, ensuring the response model is used if one is available.
+- **Claude Memory Blocks**: Fixed an issue where memory blocks in raw Claude fromat with TextBlock, etc.
+- **Model Switching**: Fixed cases where switching models from ChatGPT to Gemini with the same history caused issues.
+</Update>
+
 <Update label="2025-01-15" description="v2.7.8">
 ## Support for OpenAI o1
 
