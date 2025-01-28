@@ -28,7 +28,7 @@ To use ECR, **create the image repo and authenticate with ECR** before pushing i
 
 **1. Create the image repository in ECR**
 
-The repo name should match the `ws_name`. Meaning if you're using the default workspace name, the repo name would be `ai`.
+The repo name should match the `image_name` in `workspace/settings.py`.
 
 <img src="/images/create-ecr-image.png" alt="create-ecr-image" />
 
@@ -76,7 +76,7 @@ ws_settings = WorkspaceSettings(
 The `image_repo` defines the repo for your image.
 
 - If using dockerhub it would be something like `phidata`.
-- If using ECR it would be something like `[ACCOUNT_ID].dkr.ecr.us-east-1.amazonaws.com`
+- If using ECR it would be something like `[ACCOUNT_ID].dkr.ecr.[AWS REGION].amazonaws.com`
 
 </Note>
 
