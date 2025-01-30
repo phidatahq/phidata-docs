@@ -26,7 +26,7 @@ from phi.tools.github import GithubTools
 
 agent = Agent(
     instructions=[
-        "Use your tools to answer questions about the repo: phidatahq/phidata",
+        "Use your tools to answer questions about the repo: AgnoAgi/phidata",
         "Do not create any issues or pull requests unless explicitly asked to do so",
     ],
     tools=[GithubTools()],
@@ -63,4 +63,4 @@ agent.print_response("List open pull requests", markdown=True)
 
 ## Information
 
-- View on [Github](https://github.com/phidatahq/phidata/blob/main/phi/tools/github.py)
+- View on [Github](https://github.com/AgnoAgi/phidata/blob/main/phi/tools/github.py)

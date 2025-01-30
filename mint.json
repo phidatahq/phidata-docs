@@ -49,7 +49,7 @@
   ],
   "topbarCtaButton": {
     "type": "github",
-    "url": "https://github.com/phidatahq/phidata"
+    "url": "https://github.com/AgnoAgi/phidata"
   },
   "tabs": [
     {
@@ -585,7 +585,7 @@
   ],
   "footerSocials": {
     "x": "https://x.com/phidatahq",
-    "github": "https://github.com/phidatahq/phidata",
+    "github": "https://github.com/AgnoAgi/phidata",
     "discord": "https://phidata.link/discord",
     "youtube": "https://phidata.link/youtube",
     "website": "https://phidata.com"
