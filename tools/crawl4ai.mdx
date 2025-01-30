@@ -14,14 +14,14 @@ pip install -U crawl4ai
 
 ## Example
 
-The following agent will scrape the content from the https://github.com/AgnoAgi/phidata webpage:
+The following agent will scrape the content from the https://github.com/agno-agi/phidata webpage:
 
 ```python cookbook/tools/crawl4ai_tools.py
 from phi.agent import Agent
 from phi.tools.crawl4ai_tools import Crawl4aiTools
 
 agent = Agent(tools=[Crawl4aiTools(max_length=None)], show_tool_calls=True)
-agent.print_response("Tell me about https://github.com/AgnoAgi/phidata.")
+agent.print_response("Tell me about https://github.com/agno-agi/phidata.")
 ```
 
 ## Toolkit Params
@@ -38,4 +38,4 @@ agent.print_response("Tell me about https://github.com/AgnoAgi/phidata.")
 
 ## Information
 
-- View on [Github](https://github.com/AgnoAgi/phidata/blob/main/phi/tools/crawl4ai_tools.py)
+- View on [Github](https://github.com/agno-agi/phidata/blob/main/phi/tools/crawl4ai_tools.py)
